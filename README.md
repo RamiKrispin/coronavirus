@@ -94,6 +94,10 @@ summary_df %>% head(20)
 
 ## Data Sources
 
+The raw data pulled and arranged by the Johns Hopkins University Center
+for Systems Science and Engineering (JHU CCSE) from the following
+resources:
+
   - World Health Organization (WHO): <https://www.who.int/> <br>
   - DXY.cn. Pneumonia. 2020. <http://3g.dxy.cn/newh5/view/pneumonia>.
     <br>
