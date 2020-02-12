@@ -19,6 +19,13 @@ CCSE) Coronavirus
 
 <img src="man/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"/></a>
 
+<figcaption>
+
+Source: Centers for Disease Control and Prevention’s Public Health Image
+Library
+
+</figcaption>
+
 ## Installation
 
 Currently, the package available only on Github version:
