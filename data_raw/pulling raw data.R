@@ -140,9 +140,9 @@ df_rec2 <- df_rec1 %>%
 head(df_rec2)
 tail(df_rec2)
 
-coronvirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
+coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
   dplyr::arrange(date)
-head(coronvirus)
-tail(coronvirus)
+head(coronavirus)
+tail(coronavirus)
 
-usethis::use_data(coronvirus, overwrite = TRUE)
+usethis::use_data(coronavirus, overwrite = TRUE)
