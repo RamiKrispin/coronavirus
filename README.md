@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 The coronavirus package provides a formated irregular time series
@@ -17,49 +21,33 @@ Science and Engineering (JHU CCSE) Coronavirus
 
 ## Installation
 
-You can install the released version of coronavirus from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("coronavirus")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+Currently, the package available only on Github version:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("RamiKrispin/coronavirus")
 ```
 
-## Example
+## Usage
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(coronavirus)
-## basic example code
+
+data("coronvirus")
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+head(coronvirus)
+#>   Province.State Country.Region     Lat     Long       date cases      type
+#> 1                       Belgium 50.5039   4.4699 2020-01-21     0 confirmed
+#> 2                      Cambodia 12.5657 104.9910 2020-01-21     0 confirmed
+#> 3                       Finland 61.9241  25.7482 2020-01-21     0 confirmed
+#> 4                        France 46.2276   2.2137 2020-01-21     0 confirmed
+#> 5                       Germany 51.1657  10.4515 2020-01-21     0 confirmed
+#> 6                         India 20.5937  78.9629 2020-01-21     0 confirmed
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
