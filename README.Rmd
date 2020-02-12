@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
-  message=TRUE, 
+  message=FALSE, 
   warning=FALSE
 )
 ```
@@ -44,28 +44,35 @@ devtools::install_github("RamiKrispin/coronavirus")
 ```
 ## Usage
 
-This is a basic example which shows you how to solve a common problem:
+The package contains a single dataset - `coronavirus`:
 
-```{r example}
+```{r }
 library(coronavirus)
 
-data("coronvirus")
+data("coronavirus")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+This `coronavirus` dataset has the following fields:
 
-```{r cars, message=TRUE, warning=FALSE}
-head(coronvirus)
+```{r}
+head(coronavirus)
+tail(coronavirus)
 
+```
+
+
+Here is an example of a summary total cases by region and type (top 20):
+
+```{r}
 library(dplyr)
 
-summary_df <- coronvirus %>% group_by(Country.Region, type) %>%
+summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
 summary_df %>% head(20)
-
 ```
+
 
 ## Data Sources
 

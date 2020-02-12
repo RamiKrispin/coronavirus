@@ -37,19 +37,18 @@ devtools::install_github("RamiKrispin/coronavirus")
 
 ## Usage
 
-This is a basic example which shows you how to solve a common problem:
+The package contains a single dataset - `coronavirus`:
 
 ``` r
 library(coronavirus)
 
-data("coronvirus")
+data("coronavirus")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+This `coronavirus` dataset has the following fields:
 
 ``` r
-head(coronvirus)
+head(coronavirus)
 #>   Province.State Country.Region     Lat     Long       date cases      type
 #> 1                       Belgium 50.5039   4.4699 2020-01-21     0 confirmed
 #> 2                      Cambodia 12.5657 104.9910 2020-01-21     0 confirmed
@@ -57,18 +56,22 @@ head(coronvirus)
 #> 4                        France 46.2276   2.2137 2020-01-21     0 confirmed
 #> 5                       Germany 51.1657  10.4515 2020-01-21     0 confirmed
 #> 6                         India 20.5937  78.9629 2020-01-21     0 confirmed
+tail(coronavirus)
+#>      Province.State Country.Region       Lat      Long       date cases      type
+#> 5032          Tibet Mainland China  30.15340  88.78790 2020-02-12     1 recovered
+#> 5033    Toronto, ON         Canada  43.65320 -79.38320 2020-02-12     0 recovered
+#> 5034       Victoria      Australia -37.81360 144.96310 2020-02-12     0 recovered
+#> 5035       Xinjiang Mainland China  41.11981  85.17822 2020-02-12     0 recovered
+#> 5036         Yunnan Mainland China  24.97411 101.48680 2020-02-12     6 recovered
+#> 5037       Zhejiang Mainland China  29.18251 120.09850 2020-02-12    42 recovered
+```
 
+Here is an example of a summary total cases by region and type (top 20):
+
+``` r
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 
-summary_df <- coronvirus %>% group_by(Country.Region, type) %>%
+summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
@@ -77,15 +80,15 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [15]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <dbl>
-#>  1 Mainland China confirmed       44641
-#>  2 Mainland China recovered        4730
-#>  3 Mainland China death            1113
-#>  4 Others         confirmed         135
-#>  5 Hong Kong      confirmed          49
+#>  1 Mainland China confirmed       44687
+#>  2 Mainland China recovered        5062
+#>  3 Mainland China death            1115
+#>  4 Others         confirmed         175
+#>  5 Hong Kong      confirmed          50
 #>  6 Singapore      confirmed          47
 #>  7 Thailand       confirmed          33
-#>  8 South Korea    confirmed          28
-#>  9 Japan          confirmed          26
+#>  8 Japan          confirmed          28
+#>  9 South Korea    confirmed          28
 #> 10 Malaysia       confirmed          18
 #> 11 Taiwan         confirmed          18
 #> 12 Germany        confirmed          16
