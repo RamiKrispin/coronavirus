@@ -11,10 +11,10 @@
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-The coronavirus package provides a formated irregular time series
-dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic. The
-raw data pulled from the Johns Hopkins University Center for Systems
-Science and Engineering (JHU CCSE) Coronavirus
+The coronavirus package provides a tidy format dataset of the 2019 Novel
+Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the
+Johns Hopkins University Center for Systems Science and Engineering (JHU
+CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
 
 <img src="man/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"/></a>
