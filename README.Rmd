@@ -9,7 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  message=TRUE, 
+  warning=FALSE
 )
 ```
 # coronavirus
@@ -48,7 +50,19 @@ data("coronvirus")
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
+```{r cars, message=TRUE, warning=FALSE}
 head(coronvirus)
+
+library(dplyr)
+
+summary_df <- coronvirus %>% group_by(Country.Region, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  arrange(-total_cases)
+
+summary_df %>% head(20)
+
 ```
+
+
+
 

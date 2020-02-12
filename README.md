@@ -50,4 +50,44 @@ head(coronvirus)
 #> 4                        France 46.2276   2.2137 2020-01-21     0 confirmed
 #> 5                       Germany 51.1657  10.4515 2020-01-21     0 confirmed
 #> 6                         India 20.5937  78.9629 2020-01-21     0 confirmed
+
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+summary_df <- coronvirus %>% group_by(Country.Region, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  arrange(-total_cases)
+
+summary_df %>% head(20)
+#> # A tibble: 20 x 3
+#> # Groups:   Country.Region [15]
+#>    Country.Region type      total_cases
+#>    <chr>          <chr>           <dbl>
+#>  1 Mainland China confirmed       44641
+#>  2 Mainland China recovered        4730
+#>  3 Mainland China death            1113
+#>  4 Others         confirmed         135
+#>  5 Hong Kong      confirmed          49
+#>  6 Singapore      confirmed          47
+#>  7 Thailand       confirmed          33
+#>  8 South Korea    confirmed          28
+#>  9 Japan          confirmed          26
+#> 10 Malaysia       confirmed          18
+#> 11 Taiwan         confirmed          18
+#> 12 Germany        confirmed          16
+#> 13 Australia      confirmed          15
+#> 14 Vietnam        confirmed          15
+#> 15 US             confirmed          13
+#> 16 France         confirmed          11
+#> 17 Macau          confirmed          10
+#> 18 Thailand       recovered          10
+#> 19 Japan          recovered           9
+#> 20 Singapore      recovered           9
 ```
