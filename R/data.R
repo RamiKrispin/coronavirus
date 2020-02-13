@@ -11,6 +11,8 @@
 #'
 #' data(coronavirus)
 #'
+#' require(dplyr)
+#'
 #' # Get top confirmed cases by state
 #'
 #' coronavirus %>%
