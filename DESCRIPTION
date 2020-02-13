@@ -1,13 +1,21 @@
 Package: coronavirus
-Title: What the Package Does (One Line, Title Case)
+Title: The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset
 Version: 0.0.0.9000
 Authors@R: person("Rami", "Krispin", email = "rami.krispin@gmail.com",
   role = c("aut", "cre"))
 Maintainer: Rami Krispin <rami.krispin@gmail.com>
-Description: What the package does (one paragraph).
+Description: Provides a daily summary of the Coronavirus (COVID-19) cases by state/province. Data source: Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <https://systems.jhu.edu/research/public-health/ncov/>
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+  R (>= 3.0.2)
+Suggests:
+    knitr,
+    rmarkdown,
+    devtools,
+    remotes,
+    testthat
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 6.1.1
