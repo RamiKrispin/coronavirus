@@ -3,7 +3,7 @@
 
 # coronavirus
 
-<!-- badges: start -->
+<!-- badges: start --->
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -49,21 +49,21 @@ This `coronavirus` dataset has the following fields:
 
 ``` r
 head(coronavirus)
-#>   Province.State Country.Region     Lat     Long       date cases      type
-#> 1                       Belgium 50.5039   4.4699 2020-01-21     0 confirmed
-#> 2                      Cambodia 12.5657 104.9910 2020-01-21     0 confirmed
-#> 3                       Finland 61.9241  25.7482 2020-01-21     0 confirmed
-#> 4                        France 46.2276   2.2137 2020-01-21     0 confirmed
-#> 5                       Germany 51.1657  10.4515 2020-01-21     0 confirmed
-#> 6                         India 20.5937  78.9629 2020-01-21     0 confirmed
+#>   Province.State Country.Region      Lat     Long       date cases      type
+#> 1                         Japan 35.67620 139.6503 2020-01-21     1 confirmed
+#> 2                      Thailand 13.75630 100.5018 2020-01-21     2 confirmed
+#> 3        Beijing Mainland China 40.18238 116.4142 2020-01-21    10 confirmed
+#> 4      Chongqing Mainland China 30.05718 107.8740 2020-01-21     5 confirmed
+#> 5      Guangdong Mainland China 23.33841 113.4220 2020-01-21    17 confirmed
+#> 6          Hubei Mainland China 30.97564 112.2707 2020-01-21   270 confirmed
 tail(coronavirus)
-#>      Province.State Country.Region       Lat      Long       date cases      type
-#> 5032          Tibet Mainland China  30.15340  88.78790 2020-02-12     1 recovered
-#> 5033    Toronto, ON         Canada  43.65320 -79.38320 2020-02-12     0 recovered
-#> 5034       Victoria      Australia -37.81360 144.96310 2020-02-12     0 recovered
-#> 5035       Xinjiang Mainland China  41.11981  85.17822 2020-02-12     0 recovered
-#> 5036         Yunnan Mainland China  24.97411 101.48680 2020-02-12     3 recovered
-#> 5037       Zhejiang Mainland China  29.18251 120.09850 2020-02-12    48 recovered
+#>      Province.State Country.Region      Lat     Long       date cases      type
+#> 1162         Shanxi Mainland China 37.57769 112.2922 2020-02-12     3 recovered
+#> 1163        Sichuan Mainland China 30.61714 102.7103 2020-02-12     8 recovered
+#> 1164        Tianjin Mainland China 39.29362 117.3330 2020-02-12     1 recovered
+#> 1165          Tibet Mainland China 30.15340  88.7879 2020-02-12     1 recovered
+#> 1166         Yunnan Mainland China 24.97411 101.4868 2020-02-12     3 recovered
+#> 1167       Zhejiang Mainland China 29.18251 120.0985 2020-02-12    48 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
