@@ -62,8 +62,8 @@ tail(coronavirus)
 #> 5033    Toronto, ON         Canada  43.65320 -79.38320 2020-02-12     0 recovered
 #> 5034       Victoria      Australia -37.81360 144.96310 2020-02-12     0 recovered
 #> 5035       Xinjiang Mainland China  41.11981  85.17822 2020-02-12     0 recovered
-#> 5036         Yunnan Mainland China  24.97411 101.48680 2020-02-12     6 recovered
-#> 5037       Zhejiang Mainland China  29.18251 120.09850 2020-02-12    42 recovered
+#> 5036         Yunnan Mainland China  24.97411 101.48680 2020-02-12     3 recovered
+#> 5037       Zhejiang Mainland China  29.18251 120.09850 2020-02-12    48 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -80,12 +80,12 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [15]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <dbl>
-#>  1 Mainland China confirmed       44687
-#>  2 Mainland China recovered        5062
-#>  3 Mainland China death            1115
+#>  1 Mainland China confirmed       59805
+#>  2 Mainland China recovered        5915
+#>  3 Mainland China death            1366
 #>  4 Others         confirmed         175
 #>  5 Hong Kong      confirmed          50
-#>  6 Singapore      confirmed          47
+#>  6 Singapore      confirmed          50
 #>  7 Thailand       confirmed          33
 #>  8 Japan          confirmed          28
 #>  9 South Korea    confirmed          28
@@ -93,13 +93,13 @@ summary_df %>% head(20)
 #> 11 Taiwan         confirmed          18
 #> 12 Germany        confirmed          16
 #> 13 Australia      confirmed          15
-#> 14 Vietnam        confirmed          15
-#> 15 US             confirmed          13
-#> 16 France         confirmed          11
-#> 17 Macau          confirmed          10
-#> 18 Thailand       recovered          10
-#> 19 Japan          recovered           9
-#> 20 Singapore      recovered           9
+#> 14 Singapore      recovered          15
+#> 15 Vietnam        confirmed          15
+#> 16 US             confirmed          13
+#> 17 France         confirmed          11
+#> 18 Macau          confirmed          10
+#> 19 Thailand       recovered          10
+#> 20 Japan          recovered           9
 ```
 
 ## Data Sources
