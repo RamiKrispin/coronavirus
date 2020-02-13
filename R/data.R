@@ -22,7 +22,7 @@
 #'  arrange(-total) %>%
 #'  head(20)
 #'
-#' Get the number of recovered cases in Mainland China by province
+#' # Get the number of recovered cases in Mainland China by province
 #'  coronavirus %>%
 #'     filter(type == "recovered", Country.Region == "Mainland China") %>%
 #'     group_by(Province.State) %>%
