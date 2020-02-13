@@ -141,8 +141,15 @@ head(df_rec2)
 tail(df_rec2)
 
 coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
-  dplyr::arrange(date) %>% dplyr::ungroup()
+  dplyr::arrange(date) %>% dplyr::ungroup() %>%
+  dplyr::filter(cases != 0)
 head(coronavirus)
 tail(coronavirus)
 
+
+
 usethis::use_data(coronavirus, overwrite = TRUE)
+
+write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
+
+
