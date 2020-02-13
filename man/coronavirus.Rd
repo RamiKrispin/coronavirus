@@ -21,7 +21,7 @@ The dataset contains the daily summary of Coronavirus cases (confirmed, death, a
 
 data(coronavirus)
 
-library(dplyr)
+require(dplyr)
 
 # Get top confirmed cases by state
 
