@@ -141,7 +141,7 @@ head(df_rec2)
 tail(df_rec2)
 
 coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
-  dplyr::arrange(date)
+  dplyr::arrange(date) %>% dplyr::ungroup()
 head(coronavirus)
 tail(coronavirus)
 
