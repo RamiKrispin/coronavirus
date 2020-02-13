@@ -26,3 +26,5 @@
 #'     group_by(Province.State) %>%
 #'     summarise(total = sum(cases)) %>%
 #'     arrange(-total)
+#'
+"coronavirus"
