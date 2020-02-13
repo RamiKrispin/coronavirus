@@ -127,30 +127,64 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-data(coronavirus)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>coronavirus</span>)
 
-require(dplyr)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
+<span class='co'># Get top confirmed cases by state</span>
 
-# Get top confirmed cases by state
-
-coronavirus %>%
- filter(type == "confirmed") %>%
- group_by(Country.Region) %>%
- summarise(total = sum(cases)) %>%
- arrange(-total) %>%
- head(20)
-
-Get the number of recovered cases in Mainland China by province
- coronavirus %>%
-    filter(type == "recovered", Country.Region == "Mainland China") %>%
-    group_by(Province.State) %>%
-    summarise(total = sum(cases)) %>%
-    arrange(-total)
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:15:5: unexpected symbol</span>
-#&gt; <span class='error'>14: </span>
-#&gt; <span class='error'>15: Get the</span>
-#&gt; <span class='error'>        ^</span></div></pre>
+<span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"confirmed"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Country.Region</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
+#&gt;    Country.Region       total
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Mainland China       </span><span style='text-decoration: underline;'>59</span><span>805
+#&gt; </span><span style='color: #555555;'> 2</span><span> Others                 175
+#&gt; </span><span style='color: #555555;'> 3</span><span> Hong Kong               50
+#&gt; </span><span style='color: #555555;'> 4</span><span> Singapore               50
+#&gt; </span><span style='color: #555555;'> 5</span><span> Thailand                33
+#&gt; </span><span style='color: #555555;'> 6</span><span> Japan                   28
+#&gt; </span><span style='color: #555555;'> 7</span><span> South Korea             28
+#&gt; </span><span style='color: #555555;'> 8</span><span> Malaysia                18
+#&gt; </span><span style='color: #555555;'> 9</span><span> Taiwan                  18
+#&gt; </span><span style='color: #555555;'>10</span><span> Germany                 16
+#&gt; </span><span style='color: #555555;'>11</span><span> Australia               15
+#&gt; </span><span style='color: #555555;'>12</span><span> Vietnam                 15
+#&gt; </span><span style='color: #555555;'>13</span><span> US                      13
+#&gt; </span><span style='color: #555555;'>14</span><span> France                  11
+#&gt; </span><span style='color: #555555;'>15</span><span> Macau                   10
+#&gt; </span><span style='color: #555555;'>16</span><span> UK                       9
+#&gt; </span><span style='color: #555555;'>17</span><span> United Arab Emirates     8
+#&gt; </span><span style='color: #555555;'>18</span><span> Canada                   7
+#&gt; </span><span style='color: #555555;'>19</span><span> India                    3
+#&gt; </span><span style='color: #555555;'>20</span><span> Italy                    3</div><div class='input'>
+<span class='co'># Get the number of recovered cases in Mainland China by province</span>
+ <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Province.State</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 31 x 2</span><span>
+#&gt;    Province.State total
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Hubei           </span><span style='text-decoration: underline;'>3</span><span>441
+#&gt; </span><span style='color: #555555;'> 2</span><span> Zhejiang         327
+#&gt; </span><span style='color: #555555;'> 3</span><span> Hunan            312
+#&gt; </span><span style='color: #555555;'> 4</span><span> Guangdong        284
+#&gt; </span><span style='color: #555555;'> 5</span><span> Henan            258
+#&gt; </span><span style='color: #555555;'> 6</span><span> Jiangxi          170
+#&gt; </span><span style='color: #555555;'> 7</span><span> Jiangsu          131
+#&gt; </span><span style='color: #555555;'> 8</span><span> Anhui            128
+#&gt; </span><span style='color: #555555;'> 9</span><span> Chongqing        102
+#&gt; </span><span style='color: #555555;'>10</span><span> Shandong          98
+#&gt; </span><span style='color: #555555;'># … with 21 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
