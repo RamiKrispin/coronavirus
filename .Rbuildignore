@@ -5,3 +5,4 @@
 ^data_raw$
 ^docs$
 ^.github$
+^CRAN-RELEASE$
