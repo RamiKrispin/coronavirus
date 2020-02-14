@@ -18,6 +18,11 @@ Johns Hopkins University Center for Systems Science and Engineering (JHU
 CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
 
+More details available
+[here](https://ramikrispin.github.io/coronavirus/), and a `csv` format
+of the package dataset available
+[here](https://github.com/RamiKrispin/coronavirus-csv)
+
 <img src="man/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"/></a>
 
 <figcaption>
