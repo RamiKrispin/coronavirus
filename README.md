@@ -34,7 +34,13 @@ Library
 
 ## Installation
 
-Currently, the package available only on Github version:
+Install the CRAN version:
+
+``` r
+install.packages("coronavirus")
+```
+
+Install the Github version (refreshed on a daily bases):
 
 ``` r
 # install.packages("devtools")
