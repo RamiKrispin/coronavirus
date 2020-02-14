@@ -5,6 +5,7 @@
 
 <!-- badges: start --->
 
+![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License:

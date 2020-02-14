@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 # coronavirus
  
 <!-- badges: start --->
-
+![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -46,7 +46,7 @@ devtools::install_github("RamiKrispin/coronavirus")
 
 The package contains a single dataset - `coronavirus`:
 
-```{r }
+```{r}
 library(coronavirus)
 
 data("coronavirus")
