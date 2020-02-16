@@ -1,6 +1,6 @@
 test_that(desc = "Test the dates", {
   expect_equal(base::class(coronavirus$date) == "Date", TRUE)
-  expect_equal(base::min(coronavirus$date) == as.Date("2020-01-21"), TRUE)
+  expect_equal(base::min(coronavirus$date) == as.Date("2020-01-22"), TRUE)
 })
 
 
