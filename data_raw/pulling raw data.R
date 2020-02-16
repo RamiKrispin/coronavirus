@@ -52,7 +52,7 @@ tail(df_conf2)
 #----------------------------------------------------
 # Pulling death cases
 
-raw_death <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/time_series/time_series_2019-ncov-Deaths.csv",
+raw_death <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
                       stringsAsFactors = FALSE)
 # Transforming the data from wide to long
 # Creating new data frame
@@ -97,7 +97,7 @@ tail(df_death2)
 #----------------------------------------------------
 # Pulling recovered cases
 
-raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/time_series/time_series_2019-ncov-Recovered.csv",
+raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
                     stringsAsFactors = FALSE)
 # Transforming the data from wide to long
 # Creating new data frame
