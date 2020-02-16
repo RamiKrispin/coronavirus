@@ -62,20 +62,20 @@ This `coronavirus` dataset has the following fields:
 ``` r
 head(coronavirus)
 #>   Province.State Country.Region      Lat     Long       date cases      type
-#> 1                         Japan 35.67620 139.6503 2020-01-21     1 confirmed
-#> 2                      Thailand 13.75630 100.5018 2020-01-21     2 confirmed
-#> 3        Beijing Mainland China 40.18238 116.4142 2020-01-21    10 confirmed
-#> 4      Chongqing Mainland China 30.05718 107.8740 2020-01-21     5 confirmed
-#> 5      Guangdong Mainland China 23.33841 113.4220 2020-01-21    17 confirmed
-#> 6          Hubei Mainland China 30.97564 112.2707 2020-01-21   270 confirmed
+#> 1                         Japan 35.67620 139.6503 2020-01-22     2 confirmed
+#> 2                   South Korea 37.56650 126.9780 2020-01-22     1 confirmed
+#> 3                      Thailand 13.75630 100.5018 2020-01-22     2 confirmed
+#> 4          Anhui Mainland China 31.82571 117.2264 2020-01-22     1 confirmed
+#> 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed
+#> 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed
 tail(coronavirus)
 #>      Province.State Country.Region      Lat      Long       date cases      type
-#> 1202       Shanghai Mainland China 31.20327 121.45540 2020-02-13     5 recovered
-#> 1203        Sichuan Mainland China 30.61714 102.71030 2020-02-13    11 recovered
-#> 1204        Tianjin Mainland China 39.29362 117.33300 2020-02-13    10 recovered
-#> 1205       Xinjiang Mainland China 41.11981  85.17822 2020-02-13     3 recovered
-#> 1206         Yunnan Mainland China 24.97411 101.48680 2020-02-13     4 recovered
-#> 1207       Zhejiang Mainland China 29.18251 120.09850 2020-02-13    33 recovered
+#> 1431         Shanxi Mainland China 37.57769 112.29220 2020-02-15     8 recovered
+#> 1432        Sichuan Mainland China 30.61714 102.71030 2020-02-15     5 recovered
+#> 1433        Tianjin Mainland China 39.29362 117.33300 2020-02-15     6 recovered
+#> 1434       Xinjiang Mainland China 41.11981  85.17822 2020-02-15     4 recovered
+#> 1435         Yunnan Mainland China 24.97411 101.48680 2020-02-15     6 recovered
+#> 1436       Zhejiang Mainland China 29.18251 120.09850 2020-02-15    25 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -91,27 +91,27 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 3
 #> # Groups:   Country.Region [15]
 #>    Country.Region type      total_cases
-#>    <chr>          <chr>           <dbl>
-#>  1 Mainland China confirmed       59823
-#>  2 Mainland China recovered        6205
-#>  3 Mainland China death            1367
-#>  4 Others         confirmed         175
-#>  5 Singapore      confirmed          58
-#>  6 Hong Kong      confirmed          53
-#>  7 Thailand       confirmed          33
-#>  8 Japan          confirmed          28
+#>    <chr>          <chr>           <int>
+#>  1 Mainland China confirmed       68347
+#>  2 Mainland China recovered        9294
+#>  3 Mainland China death            1662
+#>  4 Others         confirmed         285
+#>  5 Singapore      confirmed          72
+#>  6 Hong Kong      confirmed          56
+#>  7 Japan          confirmed          43
+#>  8 Thailand       confirmed          33
 #>  9 South Korea    confirmed          28
-#> 10 Malaysia       confirmed          19
-#> 11 Taiwan         confirmed          18
-#> 12 Germany        confirmed          16
-#> 13 Vietnam        confirmed          16
-#> 14 Australia      confirmed          15
-#> 15 Singapore      recovered          15
-#> 16 US             confirmed          14
-#> 17 France         confirmed          11
-#> 18 Macau          confirmed          10
-#> 19 Thailand       recovered          10
-#> 20 Japan          recovered           9
+#> 10 Malaysia       confirmed          22
+#> 11 Singapore      recovered          18
+#> 12 Taiwan         confirmed          18
+#> 13 Germany        confirmed          16
+#> 14 Vietnam        confirmed          16
+#> 15 Australia      confirmed          15
+#> 16 US             confirmed          15
+#> 17 France         confirmed          12
+#> 18 Japan          recovered          12
+#> 19 Thailand       recovered          12
+#> 20 Macau          confirmed          10
 ```
 
 ## Data Sources
