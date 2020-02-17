@@ -127,9 +127,9 @@ resources:
     <https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/>
     <br>
   - National Health Commission of the People’s Republic of China (NHC):
-    ht<span>tp://</span>www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml
+    http:://www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml
   - China CDC (CCDC):
-    <http://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm> <br>
+    http:://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm <br>
   - Hong Kong Department of Health:
     <https://www.chp.gov.hk/en/features/102465.html> <br>
   - Macau Government: <https://www.ssm.gov.mo/portal/> <br>
