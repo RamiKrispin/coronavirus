@@ -61,7 +61,7 @@ This `coronavirus` dataset has the following fields:
 
 ```{r}
 head(coronavirus)
-tail(coronavirus)
+tail(coronavirus) 
 
 ```
 

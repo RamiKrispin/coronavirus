@@ -108,20 +108,20 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(coronavirus)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;      Province.State Country.Region      Lat      Long       date cases</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1502       Shanghai Mainland China 31.20327 121.45540 2020-02-16    16</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 1503         Shanxi Mainland China 37.57769 112.29220 2020-02-16     4</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1504        Sichuan Mainland China 30.61714 102.71030 2020-02-16    12</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 1505        Tianjin Mainland China 39.29362 117.33300 2020-02-16     8</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1506       Xinjiang Mainland China 41.11981  85.17822 2020-02-16     2</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 1507       Zhejiang Mainland China 29.18251 120.09850 2020-02-16    28</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;       Province.State Country.Region       Lat     Long       date cases</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1570          Shanxi Mainland China  37.57769 112.2922 2020-02-17     3</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 1571         Sichuan Mainland China  30.61714 102.7103 2020-02-17    25</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1572 South Australia      Australia -34.92850 138.6007 2020-02-17     2</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 1573         Tianjin Mainland China  39.29362 117.3330 2020-02-17     1</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1574          Yunnan Mainland China  24.97411 101.4868 2020-02-17     5</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 1575        Zhejiang Mainland China  29.18251 120.0985 2020-02-17    51</span></a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;           type</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1502 recovered</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1503 recovered</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 1504 recovered</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1505 recovered</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 1506 recovered</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 1507 recovered</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1570 recovered</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1571 recovered</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 1572 recovered</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1573 recovered</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 1574 recovered</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 1575 recovered</span></a></code></pre></div>
 <p>Here is an example of a summary total cases by region and type (top 20):</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
@@ -131,29 +131,29 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <a class="sourceLine" id="cb5-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>)</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Groups:   Country.Region [15]</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Groups:   Country.Region [14]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;    Country.Region type      total_cases</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  1 Mainland China confirmed       70446</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  2 Mainland China recovered       10748</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  3 Mainland China death            1765</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  4 Others         confirmed         355</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  5 Singapore      confirmed          75</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  6 Japan          confirmed          59</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  7 Hong Kong      confirmed          57</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  8 Thailand       confirmed          34</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  9 South Korea    confirmed          29</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 10 Malaysia       confirmed          22</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 11 Taiwan         confirmed          20</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 12 Singapore      recovered          18</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  1 Mainland China confirmed       72364</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  2 Mainland China recovered       12455</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  3 Mainland China death            1863</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  4 Others         confirmed         454</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  5 Singapore      confirmed          77</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  6 Japan          confirmed          66</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  7 Hong Kong      confirmed          60</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  8 Thailand       confirmed          35</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  9 South Korea    confirmed          30</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 10 Singapore      recovered          24</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 11 Malaysia       confirmed          22</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 12 Taiwan         confirmed          22</span></a>
 <a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 13 Germany        confirmed          16</span></a>
 <a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; 14 Vietnam        confirmed          16</span></a>
 <a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 15 Australia      confirmed          15</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 16 US             confirmed          15</span></a>
-<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 17 Thailand       recovered          14</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 16 Thailand       recovered          15</span></a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 17 US             confirmed          15</span></a>
 <a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; 18 France         confirmed          12</span></a>
 <a class="sourceLine" id="cb5-30" data-line-number="30"><span class="co">#&gt; 19 Japan          recovered          12</span></a>
-<a class="sourceLine" id="cb5-31" data-line-number="31"><span class="co">#&gt; 20 Macau          confirmed          10</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-31" data-line-number="31"><span class="co">#&gt; 20 Australia      recovered          10</span></a></code></pre></div>
 </div>
 <div id="data-sources" class="section level2">
 <h2 class="hasAnchor">
