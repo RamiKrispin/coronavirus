@@ -69,13 +69,13 @@ head(coronavirus)
 #> 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed
 #> 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed
 tail(coronavirus) 
-#>       Province.State Country.Region       Lat     Long       date cases      type
-#> 1570          Shanxi Mainland China  37.57769 112.2922 2020-02-17     3 recovered
-#> 1571         Sichuan Mainland China  30.61714 102.7103 2020-02-17    25 recovered
-#> 1572 South Australia      Australia -34.92850 138.6007 2020-02-17     2 recovered
-#> 1573         Tianjin Mainland China  39.29362 117.3330 2020-02-17     1 recovered
-#> 1574          Yunnan Mainland China  24.97411 101.4868 2020-02-17     5 recovered
-#> 1575        Zhejiang Mainland China  29.18251 120.0985 2020-02-17    51 recovered
+#>      Province.State Country.Region      Lat     Long       date cases      type
+#> 1636       Shanghai Mainland China 31.20327 121.4554 2020-02-18    16 recovered
+#> 1637         Shanxi Mainland China 37.57769 112.2922 2020-02-18     8 recovered
+#> 1638        Sichuan Mainland China 30.61714 102.7103 2020-02-18    13 recovered
+#> 1639        Tianjin Mainland China 39.29362 117.3330 2020-02-18     2 recovered
+#> 1640         Yunnan Mainland China 24.97411 101.4868 2020-02-18    10 recovered
+#> 1641       Zhejiang Mainland China 29.18251 120.0985 2020-02-18    28 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -92,26 +92,26 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       72364
-#>  2 Mainland China recovered       12455
-#>  3 Mainland China death            1863
-#>  4 Others         confirmed         454
-#>  5 Singapore      confirmed          77
-#>  6 Japan          confirmed          66
-#>  7 Hong Kong      confirmed          60
+#>  1 Mainland China confirmed       74139
+#>  2 Mainland China recovered       14199
+#>  3 Mainland China death            2002
+#>  4 Others         confirmed         542
+#>  5 Singapore      confirmed          81
+#>  6 Japan          confirmed          74
+#>  7 Hong Kong      confirmed          62
 #>  8 Thailand       confirmed          35
-#>  9 South Korea    confirmed          30
-#> 10 Singapore      recovered          24
-#> 11 Malaysia       confirmed          22
-#> 12 Taiwan         confirmed          22
-#> 13 Germany        confirmed          16
-#> 14 Vietnam        confirmed          16
-#> 15 Australia      confirmed          15
-#> 16 Thailand       recovered          15
-#> 17 US             confirmed          15
-#> 18 France         confirmed          12
-#> 19 Japan          recovered          12
-#> 20 Australia      recovered          10
+#>  9 South Korea    confirmed          31
+#> 10 Singapore      recovered          29
+#> 11 US             confirmed          29
+#> 12 Malaysia       confirmed          22
+#> 13 Taiwan         confirmed          22
+#> 14 Germany        confirmed          16
+#> 15 Vietnam        confirmed          16
+#> 16 Australia      confirmed          15
+#> 17 Thailand       recovered          15
+#> 18 Japan          recovered          13
+#> 19 Malaysia       recovered          13
+#> 20 France         confirmed          12
 ```
 
 ## Data Sources
