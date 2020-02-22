@@ -20,3 +20,4 @@ Suggests:
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
