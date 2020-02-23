@@ -68,14 +68,14 @@ head(coronavirus)
 #> 4          Anhui Mainland China 31.82571 117.2264 2020-01-22     1 confirmed
 #> 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed
 #> 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed
-tail(coronavirus) 
+tail(coronavirus)
 #>      Province.State Country.Region      Lat      Long       date cases      type
-#> 1842        Sichuan Mainland China 30.61714 102.71030 2020-02-21    14 recovered
-#> 1843        Tianjin Mainland China 39.29362 117.33300 2020-02-21     3 recovered
-#> 1844    Toronto, ON         Canada 43.65320 -79.38320 2020-02-21     2 recovered
-#> 1845       Xinjiang Mainland China 41.11981  85.17822 2020-02-21     2 recovered
-#> 1846         Yunnan Mainland China 24.97411 101.48680 2020-02-21    17 recovered
-#> 1847       Zhejiang Mainland China 29.18251 120.09850 2020-02-21    46 recovered
+#> 1898         Shanxi Mainland China 37.57769 112.29220 2020-02-22     3 recovered
+#> 1899        Sichuan Mainland China 30.61714 102.71030 2020-02-22    19 recovered
+#> 1900        Tianjin Mainland China 39.29362 117.33300 2020-02-22     3 recovered
+#> 1901       Xinjiang Mainland China 41.11981  85.17822 2020-02-22     1 recovered
+#> 1902         Yunnan Mainland China 24.97411 101.48680 2020-02-22    11 recovered
+#> 1903       Zhejiang Mainland China 29.18251 120.09850 2020-02-22    40 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -92,23 +92,23 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       75472
-#>  2 Mainland China recovered       18693
-#>  3 Mainland China death            2236
+#>  1 Mainland China confirmed       76922
+#>  2 Mainland China recovered       22687
+#>  3 Mainland China death            2441
 #>  4 Others         confirmed         634
-#>  5 South Korea    confirmed         204
-#>  6 Japan          confirmed         105
+#>  5 South Korea    confirmed         433
+#>  6 Japan          confirmed         122
 #>  7 Singapore      confirmed          85
-#>  8 Hong Kong      confirmed          68
-#>  9 Singapore      recovered          37
-#> 10 Thailand       confirmed          35
-#> 11 US             confirmed          35
-#> 12 Taiwan         confirmed          26
-#> 13 Japan          recovered          22
-#> 14 Malaysia       confirmed          22
-#> 15 Italy          confirmed          20
-#> 16 Australia      confirmed          19
-#> 17 Iran           confirmed          18
+#>  8 Hong Kong      confirmed          69
+#>  9 Italy          confirmed          62
+#> 10 Singapore      recovered          37
+#> 11 Thailand       confirmed          35
+#> 12 US             confirmed          35
+#> 13 Iran           confirmed          28
+#> 14 Taiwan         confirmed          26
+#> 15 Australia      confirmed          22
+#> 16 Japan          recovered          22
+#> 17 Malaysia       confirmed          22
 #> 18 Thailand       recovered          17
 #> 19 Germany        confirmed          16
 #> 20 South Korea    recovered          16
