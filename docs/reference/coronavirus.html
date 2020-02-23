@@ -150,26 +150,26 @@
  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
 #&gt;    Country.Region       total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Mainland China       </span><span style='text-decoration: underline;'>75</span><span>472
+#&gt; </span><span style='color: #555555;'> 1</span><span> Mainland China       </span><span style='text-decoration: underline;'>76</span><span>922
 #&gt; </span><span style='color: #555555;'> 2</span><span> Others                 634
-#&gt; </span><span style='color: #555555;'> 3</span><span> South Korea            204
-#&gt; </span><span style='color: #555555;'> 4</span><span> Japan                  105
+#&gt; </span><span style='color: #555555;'> 3</span><span> South Korea            433
+#&gt; </span><span style='color: #555555;'> 4</span><span> Japan                  122
 #&gt; </span><span style='color: #555555;'> 5</span><span> Singapore               85
-#&gt; </span><span style='color: #555555;'> 6</span><span> Hong Kong               68
-#&gt; </span><span style='color: #555555;'> 7</span><span> Thailand                35
-#&gt; </span><span style='color: #555555;'> 8</span><span> US                      35
-#&gt; </span><span style='color: #555555;'> 9</span><span> Taiwan                  26
-#&gt; </span><span style='color: #555555;'>10</span><span> Malaysia                22
-#&gt; </span><span style='color: #555555;'>11</span><span> Italy                   20
-#&gt; </span><span style='color: #555555;'>12</span><span> Australia               19
-#&gt; </span><span style='color: #555555;'>13</span><span> Iran                    18
+#&gt; </span><span style='color: #555555;'> 6</span><span> Hong Kong               69
+#&gt; </span><span style='color: #555555;'> 7</span><span> Italy                   62
+#&gt; </span><span style='color: #555555;'> 8</span><span> Thailand                35
+#&gt; </span><span style='color: #555555;'> 9</span><span> US                      35
+#&gt; </span><span style='color: #555555;'>10</span><span> Iran                    28
+#&gt; </span><span style='color: #555555;'>11</span><span> Taiwan                  26
+#&gt; </span><span style='color: #555555;'>12</span><span> Australia               22
+#&gt; </span><span style='color: #555555;'>13</span><span> Malaysia                22
 #&gt; </span><span style='color: #555555;'>14</span><span> Germany                 16
 #&gt; </span><span style='color: #555555;'>15</span><span> Vietnam                 16
-#&gt; </span><span style='color: #555555;'>16</span><span> France                  12
-#&gt; </span><span style='color: #555555;'>17</span><span> Macau                   10
-#&gt; </span><span style='color: #555555;'>18</span><span> Canada                   9
-#&gt; </span><span style='color: #555555;'>19</span><span> UK                       9
-#&gt; </span><span style='color: #555555;'>20</span><span> United Arab Emirates     9</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>16</span><span> United Arab Emirates    13
+#&gt; </span><span style='color: #555555;'>17</span><span> France                  12
+#&gt; </span><span style='color: #555555;'>18</span><span> Macau                   10
+#&gt; </span><span style='color: #555555;'>19</span><span> Canada                   9
+#&gt; </span><span style='color: #555555;'>20</span><span> UK                       9</div><div class='input'>
 <span class='co'># Get the number of recovered cases in Mainland China by province</span>
  <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>
@@ -178,16 +178,16 @@
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 31 x 2</span><span>
 #&gt;    Province.State total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Hubei          </span><span style='text-decoration: underline;'>11</span><span>881
-#&gt; </span><span style='color: #555555;'> 2</span><span> Henan            736
-#&gt; </span><span style='color: #555555;'> 3</span><span> Guangdong        690
-#&gt; </span><span style='color: #555555;'> 4</span><span> Zhejiang         679
-#&gt; </span><span style='color: #555555;'> 5</span><span> Hunan            661
-#&gt; </span><span style='color: #555555;'> 6</span><span> Anhui            539
-#&gt; </span><span style='color: #555555;'> 7</span><span> Jiangxi          489
-#&gt; </span><span style='color: #555555;'> 8</span><span> Jiangsu          373
-#&gt; </span><span style='color: #555555;'> 9</span><span> Chongqing        316
-#&gt; </span><span style='color: #555555;'>10</span><span> Shandong         281
+#&gt; </span><span style='color: #555555;'> 1</span><span> Hubei          </span><span style='text-decoration: underline;'>15</span><span>299
+#&gt; </span><span style='color: #555555;'> 2</span><span> Henan            830
+#&gt; </span><span style='color: #555555;'> 3</span><span> Guangdong        728
+#&gt; </span><span style='color: #555555;'> 4</span><span> Zhejiang         719
+#&gt; </span><span style='color: #555555;'> 5</span><span> Hunan            692
+#&gt; </span><span style='color: #555555;'> 6</span><span> Anhui            597
+#&gt; </span><span style='color: #555555;'> 7</span><span> Jiangxi          555
+#&gt; </span><span style='color: #555555;'> 8</span><span> Jiangsu          401
+#&gt; </span><span style='color: #555555;'> 9</span><span> Chongqing        328
+#&gt; </span><span style='color: #555555;'>10</span><span> Shandong         302
 #&gt; </span><span style='color: #555555;'># … with 21 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
