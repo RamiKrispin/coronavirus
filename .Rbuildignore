@@ -5,4 +5,5 @@
 ^data_raw$
 ^docs$
 ^.github$
+^vignettes/*.*$
 ^CRAN-RELEASE$

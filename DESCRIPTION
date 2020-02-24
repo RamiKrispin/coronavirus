@@ -11,12 +11,15 @@ LazyData: true
 Depends:
   R (>= 3.0.2)
 Suggests:
-    dplyr,
-    knitr,
-    rmarkdown,
     devtools,
+    dplyr,
+    DT,
+    knitr,
+    plotly,
+    rmarkdown,
     remotes,
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    tidyr
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 6.1.1
