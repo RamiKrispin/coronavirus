@@ -19,3 +19,30 @@ knitr::opts_chunk$set(echo = TRUE,
 ```
 
 ### The coronavirus dataset
+
+The `coronavirus` dataset provides a snapshot of the daily confirmed, recovered, and death cases of the Coronavirus (the 2019 Novel Coronavirus COVID-19) by geographic location (i.e., country/province). Let's load the dataset from the **coronavirus** package:
+
+```{r }
+library(coronavirus)
+
+data(coronavirus)
+```
+
+
+
+The dataset has the following fields:
+
+* `date` - The date of the summary
+* `Province.State` - The province or state, when applicable
+* `Country.Region` - The country or region name
+* `Lat` - Latitude point
+* `Long`- Longitude point
+* `cases` number of daily cases (i.e., confirmed, death, and recovered)
+
+We can use the `head` and `str` functions to see the structure of the dataset:
+
+```{r }
+head(coronavirus)
+
+str(coronavirus)
+```
