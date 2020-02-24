@@ -153,31 +153,32 @@ coronavirus %>%
  
 ```
 
-Based on the results, it seems that the recovery rate on Thailand, Singapore, and South Korea are close to 40%, China and Japan are around 20%, and Hong Kong is far behind with 8%. Yet, it is important to cavitate that it is hard to conclude the recovery rate based on the country as:
+Based on the results,  we can observe that Thailand and Singapore have the highest recovery rate (around 60%). On the other hand, China, the country with the highest number of cases, has a recovery rate of 30% and a death rate of 3%. Yet, it hard to come to a solid conclusion based on those results as:
 
-* There is missing information about the patients, such as their age, or stage of the virus, that could affect the outcome.
-* There is no information about the recovery time of each case
-* China here is an outlier due to the scale of the virus spread 
+* There is no sufficient information about the demographics of the patients such as age, gender, or the stage of the virus
+* In addition, there is no information about the recovery time of each case
+* China here is an outlier due to the scale of the virus spread, and in this stage, it would not be apples to apples comparison with the rest of the countries here
 
 #### Diving into China
 
+The following plot describes the overall distribution of the total confirmed cases in China by province:
 
 ```{r}
 coronavirus %>% 
-  filter(Country.Region == "Mainland China") %>%
+  filter(Country.Region == "Mainland China",
+         type == "confirmed") %>%
   group_by(Province.State, type) %>%
-  summarise(total_cases = sum(cases)) %>%
+  summarise(total_cases = sum(cases)) %>%  
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(- confirmed) %>%
-  mutate(recover_rate = recovered / confirmed,
-         death_rate = death / confirmed) %>%
-  plotly::plot_ly(labels = ~ Province.State, 
+  plot_ly(labels = ~ Province.State, 
                   values = ~confirmed, 
                   type = 'pie',
                   textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#FFFFFF'),
-        hoverinfo = 'text',
-        text = ~ paste(Province.State, "<br />",
-                     "Number of confirmed cases: ", confirmed, sep = ""))
+                  textinfo = 'label+percent',
+                  insidetextfont = list(color = '#FFFFFF'),
+                  hoverinfo = 'text',
+                  text = ~ paste(Province.State, "<br />",
+                                 "Number of confirmed cases: ", confirmed, sep = "")) %>%
+  layout(title = "Total China Confirmed Cases Dist. by Province")
 ```
