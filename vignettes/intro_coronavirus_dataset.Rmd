@@ -84,3 +84,50 @@ plot_ly(data = total_cases,
          xaxis = list(title = "Case Type"),
          hovermode = "compare")
 ```
+
+
+We can learn from this table that, so far worldwide, the recovery rate is `r paste(round(100 *total_cases$cases[3] / total_cases$cases[1], 2), "%", sep = "")` and the death rate is `r paste(round(100 *total_cases$cases[2] / total_cases$cases[1], 2), "%", sep = "")`.
+
+#### Top effected countries
+
+The next table provides an overview of the ten countries with the highest confirmed cases. We will use the `datatable` function from the **DT** package to view the table:
+
+
+```{r}
+confirmed_country <- coronavirus %>% 
+  filter(type == "confirmed") %>%
+  group_by(Country.Region) %>%
+  summarise(total_cases = sum(cases)) %>%
+  mutate(perc = total_cases / sum(total_cases)) %>%
+  arrange(-total_cases)
+
+confirmed_country %>%
+  head(10) %>%
+  datatable(rownames = FALSE,
+            colnames = c("Country", "Cases", "Perc of Total")) %>%
+  formatPercentage("perc", 2)
+```
+
+
+As `r paste(round(100 * confirmed_country$perc[which(confirmed_country$Country.Region == "Mainland China")],1), "%", sep = "")` of the confirmed cases are in China, to get a better overview of the worldwide dist of the virus, let's exclude China and plot the rest of the world dist:
+
+```{r}
+coronavirus %>% 
+  filter(type == "confirmed", 
+         Country.Region != "Mainland China") %>%
+  group_by(Country.Region) %>%
+  summarise(total_cases = sum(cases)) %>%
+  arrange(-total_cases) %>%
+  mutate(country = factor(Country.Region, levels = Country.Region)) %>%
+  ungroup() %>%
+  plot_ly(labels = ~ country, 
+          values = ~ total_cases,
+          type = "pie",
+          textposition = 'inside',
+        textinfo = 'label+percent',
+        insidetextfont = list(color = '#FFFFFF'),
+        hoverinfo = 'text',
+        text = ~ paste(country, "<br />",
+                     "Number of confirmed cases: ", total_cases, sep = "")) %>%
+  layout(title = "Coronavirus - Confirmed Cases (Excluding China)")
+```
