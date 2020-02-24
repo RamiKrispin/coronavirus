@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -98,74 +98,74 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the CRAN version:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"coronavirus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"coronavirus"</span>)</span></code></pre></div>
 <p>Install the Github version (refreshed on a daily bases):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>The package contains a single dataset - <code>coronavirus</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(coronavirus)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"coronavirus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(coronavirus)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"coronavirus"</span>)</span></code></pre></div>
 <p>This <code>coronavirus</code> dataset has the following fields:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;   Province.State Country.Region      Lat     Long       date cases      type</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; 1                         Japan 35.67620 139.6503 2020-01-22     2 confirmed</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 2                   South Korea 37.56650 126.9780 2020-01-22     1 confirmed</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3                      Thailand 13.75630 100.5018 2020-01-22     2 confirmed</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4          Anhui Mainland China 31.82571 117.2264 2020-01-22     1 confirmed</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(coronavirus) </a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;      Province.State Country.Region      Lat      Long       date cases</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1954         Shanxi Mainland China 37.57769 112.29220 2020-02-23     7</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 1955        Sichuan Mainland China 30.61714 102.71030 2020-02-23    11</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1956        Tianjin Mainland China 39.29362 117.33300 2020-02-23    16</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 1957       Xinjiang Mainland China 41.11981  85.17822 2020-02-23     3</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1958         Yunnan Mainland China 24.97411 101.48680 2020-02-23     8</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 1959       Zhejiang Mainland China 29.18251 120.09850 2020-02-23    41</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;           type</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1954 recovered</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1955 recovered</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 1956 recovered</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1957 recovered</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 1958 recovered</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 1959 recovered</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;   Province.State Country.Region      Lat     Long       date cases      type</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; 1                         Japan 35.67620 139.6503 2020-01-22     2 confirmed</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; 2                   South Korea 37.56650 126.9780 2020-01-22     1 confirmed</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 3                      Thailand 13.75630 100.5018 2020-01-22     2 confirmed</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 4          Anhui Mainland China 31.82571 117.2264 2020-01-22     1 confirmed</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(coronavirus) </span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;      Province.State Country.Region      Lat      Long       date cases</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 1954         Shanxi Mainland China 37.57769 112.29220 2020-02-23     7</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 1955        Sichuan Mainland China 30.61714 102.71030 2020-02-23    11</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 1956        Tianjin Mainland China 39.29362 117.33300 2020-02-23    16</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 1957       Xinjiang Mainland China 41.11981  85.17822 2020-02-23     3</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 1958         Yunnan Mainland China 24.97411 101.48680 2020-02-23     8</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 1959       Zhejiang Mainland China 29.18251 120.09850 2020-02-23    41</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;           type</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 1954 recovered</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 1955 recovered</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 1956 recovered</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 1957 recovered</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 1958 recovered</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 1959 recovered</span></span></code></pre></div>
 <p>Here is an example of a summary total cases by region and type (top 20):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region, type) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Groups:   Country.Region [14]</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;    Country.Region type      total_cases</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  1 Mainland China confirmed       76938</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  2 Mainland China recovered       23170</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  3 Mainland China death            2443</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  4 Others         confirmed         691</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  5 South Korea    confirmed         602</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  6 Italy          confirmed         155</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  7 Japan          confirmed         147</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  8 Singapore      confirmed          89</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  9 Hong Kong      confirmed          74</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 10 Singapore      recovered          51</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 11 Iran           confirmed          43</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 12 Thailand       confirmed          35</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 13 US             confirmed          35</span></a>
-<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; 14 Taiwan         confirmed          28</span></a>
-<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 15 Australia      confirmed          22</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 16 Japan          recovered          22</span></a>
-<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 17 Malaysia       confirmed          22</span></a>
-<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; 18 Thailand       recovered          21</span></a>
-<a class="sourceLine" id="cb5-30" data-line-number="30"><span class="co">#&gt; 19 South Korea    recovered          18</span></a>
-<a class="sourceLine" id="cb5-31" data-line-number="31"><span class="co">#&gt; 20 Germany        confirmed          16</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region, type) <span class="op">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; # A tibble: 20 x 3</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # Groups:   Country.Region [14]</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;    Country.Region type      total_cases</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 Mainland China confirmed       76938</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 Mainland China recovered       23170</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 Mainland China death            2443</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 Others         confirmed         691</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  5 South Korea    confirmed         602</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 Italy          confirmed         155</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 Japan          confirmed         147</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 Singapore      confirmed          89</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 Hong Kong      confirmed          74</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 Singapore      recovered          51</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 Iran           confirmed          43</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 Thailand       confirmed          35</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 US             confirmed          35</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 Taiwan         confirmed          28</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 Australia      confirmed          22</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 Japan          recovered          22</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 17 Malaysia       confirmed          22</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 18 Thailand       recovered          21</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 19 South Korea    recovered          18</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 20 Germany        confirmed          16</span></span></code></pre></div>
 </div>
 <div id="data-sources" class="section level2">
 <h2 class="hasAnchor">
