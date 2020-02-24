@@ -7,13 +7,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message=FALSE, 
+                      warning=FALSE, 
+                      fig.height=5, 
+                      fig.width=8,
+                      collapse = TRUE,
+                      comment = "#>")
 ```
 
-```{r setup}
-library(coronavirus)
-```
+### The coronavirus dataset
