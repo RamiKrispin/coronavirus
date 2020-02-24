@@ -146,7 +146,8 @@ coronavirus %>%
   filter(confirmed >= 25) %>%
   mutate(recover_rate = recovered / confirmed,
          death_rate = death / confirmed)  %>%
-  datatable() %>%
+  datatable(rownames = FALSE,
+            colnames = c("Country", "Confirmed", "Recovered", "Death", "Recovery Rate", "Death Rate")) %>%
    formatPercentage("recover_rate", 2) %>%
    formatPercentage("death_rate", 2) 
 ```
