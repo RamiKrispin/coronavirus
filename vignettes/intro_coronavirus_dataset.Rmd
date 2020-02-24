@@ -46,3 +46,41 @@ head(coronavirus)
 
 str(coronavirus)
 ```
+
+### Querying and analyzing the coronavirus dataset
+
+We will use the **dplyr** and **tidyr** packages to query, transform, reshape, and keep the data tidy, the **plotly** package to plot the data and the **DT** package to view it:
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(plotly)
+library(DT)
+```
+
+#### Cases summary
+
+Let's start with summarizing the total number of cases by type as of `r max(coronavirus$date)` and then plot it: 
+
+```{r}
+total_cases <- coronavirus %>% 
+  group_by(type) %>%
+  summarise(cases = sum(cases)) %>%
+  mutate(type = factor(type, levels = c("confirmed", "recovered", "death")))
+
+total_cases
+```
+
+
+```{r}
+plot_ly(data = total_cases, 
+        x = ~ type, 
+        y = ~cases, 
+        type = 'bar',
+        text = ~ paste(type, cases, sep = ": "),
+    hoverinfo = 'text') %>%
+  layout(title = "Coronavirus - Cases Distribution",
+         yaxis = list(title = "Number of Cases"),
+         xaxis = list(title = "Case Type"),
+         hovermode = "compare")
+```
