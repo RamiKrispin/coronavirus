@@ -131,3 +131,34 @@ coronavirus %>%
                      "Number of confirmed cases: ", total_cases, sep = "")) %>%
   layout(title = "Coronavirus - Confirmed Cases (Excluding China)")
 ```
+
+#### Recovery and death rates
+
+Similarly, we can use the `pivot_wider` function from the **tidyr** package (in addition to the **dplyr** functions we used above) to get an overview of the three types of cases (confirmed, recovered, and death). We then will use it to derive the recovery and death rate by country. As for most of the countries, there is not enough information about the results of the confirmed cases, we will filter the data for countries with at least 25 confirmed cases and above:
+
+```{r}
+coronavirus %>% 
+  filter(Country.Region != "Others") %>%
+  group_by(Country.Region, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(- confirmed) %>%
+  filter(confirmed >= 25) %>%
+  mutate(recover_rate = recovered / confirmed,
+         death_rate = death / confirmed)  %>%
+  datatable() %>%
+   formatPercentage("recover_rate", 2) %>%
+   formatPercentage("death_rate", 2) 
+     
+ 
+```
+
+Based on the results, it seems that the recovery rate on Thailand, Singapore, and South Korea are close to 40%, China and Japan are around 20%, and Hong Kong is far behind with 8%. Yet, it is important to cavitate that it is hard to conclude the recovery rate based on the country as:
+
+* There is missing information about the patients, such as their age, or stage of the virus, that could affect the outcome.
+* There is no information about the recovery time of each case
+* China here is an outlier due to the scale of the virus spread 
+
+#### Diving into China
+
+
