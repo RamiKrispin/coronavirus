@@ -162,3 +162,22 @@ Based on the results, it seems that the recovery rate on Thailand, Singapore, an
 #### Diving into China
 
 
+```{r}
+coronavirus %>% 
+  filter(Country.Region == "Mainland China") %>%
+  group_by(Province.State, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(- confirmed) %>%
+  mutate(recover_rate = recovered / confirmed,
+         death_rate = death / confirmed) %>%
+  plotly::plot_ly(labels = ~ Province.State, 
+                  values = ~confirmed, 
+                  type = 'pie',
+                  textposition = 'inside',
+        textinfo = 'label+percent',
+        insidetextfont = list(color = '#FFFFFF'),
+        hoverinfo = 'text',
+        text = ~ paste(Province.State, "<br />",
+                     "Number of confirmed cases: ", confirmed, sep = ""))
+```
