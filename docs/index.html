@@ -98,7 +98,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the CRAN version:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"coronavirus"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"coronavirus"</span>) </span></code></pre></div>
 <p>Install the Github version (refreshed on a daily bases):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("devtools")</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</span></code></pre></div>
@@ -121,19 +121,19 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(coronavirus)</span>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;      Province.State Country.Region      Lat      Long       date cases</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 2016        Sichuan Mainland China 30.61714 102.71030 2020-02-24    15</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 2017         Taiwan         Taiwan 23.69780 120.96050 2020-02-24     3</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 2018        Tianjin Mainland China 39.29362 117.33300 2020-02-24     6</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 2019       Xinjiang Mainland China 41.11981  85.17822 2020-02-24     2</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 2020         Yunnan Mainland China 24.97411 101.48680 2020-02-24     9</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 2021       Zhejiang Mainland China 29.18251 120.09850 2020-02-24    22</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 2082         Shanxi Mainland China 37.57769  112.2922 2020-02-25     4</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 2083        Sichuan Mainland China 30.61714  102.7103 2020-02-25    13</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 2084      Tempe, AZ             US 34.04890 -111.0940 2020-02-25     1</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 2085        Tianjin Mainland China 39.29362  117.3330 2020-02-25     4</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 2086         Yunnan Mainland China 24.97411  101.4868 2020-02-25     5</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 2087       Zhejiang Mainland China 29.18251  120.0985 2020-02-25    26</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;           type</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 2016 recovered</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 2017 recovered</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 2018 recovered</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 2019 recovered</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 2020 recovered</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 2021 recovered</span></span></code></pre></div>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 2082 recovered</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 2083 recovered</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 2084 recovered</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 2085 recovered</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 2086 recovered</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 2087 recovered</span></span></code></pre></div>
 <p>Here is an example of a summary total cases by region and type (top 20):</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
@@ -143,29 +143,55 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb5-6"><a href="#cb5-6"></a></span>
 <span id="cb5-7"><a href="#cb5-7"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; # A tibble: 20 x 3</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # Groups:   Country.Region [13]</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # Groups:   Country.Region [14]</span></span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;    Country.Region type      total_cases</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 Mainland China confirmed       77152</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 Mainland China recovered       24990</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 Mainland China death            2593</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 South Korea    confirmed         833</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 Mainland China confirmed       77660</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 Mainland China recovered       27650</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 Mainland China death            2663</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 South Korea    confirmed         977</span></span>
 <span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  5 Others         confirmed         691</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 Italy          confirmed         229</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 Japan          confirmed         159</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 Singapore      confirmed          89</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 Hong Kong      confirmed          79</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 Iran           confirmed          61</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 US             confirmed          53</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 Singapore      recovered          51</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 Thailand       confirmed          35</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 Taiwan         confirmed          30</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 Australia      confirmed          22</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 Japan          recovered          22</span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 17 Malaysia       confirmed          22</span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 18 Thailand       recovered          21</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 19 Hong Kong      recovered          19</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 20 Malaysia       recovered          18</span></span></code></pre></div>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 Italy          confirmed         322</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 Japan          confirmed         170</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 Iran           confirmed          95</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 Singapore      confirmed          91</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 Hong Kong      confirmed          84</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 Singapore      recovered          53</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 US             confirmed          53</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 Thailand       confirmed          37</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 Taiwan         confirmed          31</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 Bahrain        confirmed          23</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 Australia      confirmed          22</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 17 Japan          recovered          22</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 18 Malaysia       confirmed          22</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 19 South Korea    recovered          22</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 20 Thailand       recovered          22</span></span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2020-02-25):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(date)) <span class="op">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">country =</span> Country.Region, type, cases) <span class="op">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; # A tibble: 22 x 4</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; # Groups:   country [22]</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;    country        confirmed recovered death</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt;     &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  1 Mainland China       508      2660    70</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  2 South Korea          144         4     2</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  3 Italy                 93        NA     3</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  4 Iran                  34        NA     4</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  5 Bahrain               22        NA    NA</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  6 Japan                 11        NA    NA</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  7 Kuwait                10        NA    NA</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;  8 Hong Kong              5        NA    NA</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;  9 Spain                  4        NA    NA</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 10 Austria                2        NA    NA</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; # … with 12 more rows</span></span></code></pre></div>
 </div>
 <div id="data-sources" class="section level2">
 <h2 class="hasAnchor">
