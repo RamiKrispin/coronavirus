@@ -37,7 +37,7 @@ Library
 Install the CRAN version:
 
 ``` r
-install.packages("coronavirus")
+install.packages("coronavirus") 
 ```
 
 Install the Github version (refreshed on a daily bases):
@@ -70,12 +70,12 @@ head(coronavirus)
 #> 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed
 tail(coronavirus)
 #>      Province.State Country.Region      Lat      Long       date cases      type
-#> 2016        Sichuan Mainland China 30.61714 102.71030 2020-02-24    15 recovered
-#> 2017         Taiwan         Taiwan 23.69780 120.96050 2020-02-24     3 recovered
-#> 2018        Tianjin Mainland China 39.29362 117.33300 2020-02-24     6 recovered
-#> 2019       Xinjiang Mainland China 41.11981  85.17822 2020-02-24     2 recovered
-#> 2020         Yunnan Mainland China 24.97411 101.48680 2020-02-24     9 recovered
-#> 2021       Zhejiang Mainland China 29.18251 120.09850 2020-02-24    22 recovered
+#> 2082         Shanxi Mainland China 37.57769  112.2922 2020-02-25     4 recovered
+#> 2083        Sichuan Mainland China 30.61714  102.7103 2020-02-25    13 recovered
+#> 2084      Tempe, AZ             US 34.04890 -111.0940 2020-02-25     1 recovered
+#> 2085        Tianjin Mainland China 39.29362  117.3330 2020-02-25     4 recovered
+#> 2086         Yunnan Mainland China 24.97411  101.4868 2020-02-25     5 recovered
+#> 2087       Zhejiang Mainland China 29.18251  120.0985 2020-02-25    26 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -89,29 +89,29 @@ summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
 
 summary_df %>% head(20) 
 #> # A tibble: 20 x 3
-#> # Groups:   Country.Region [13]
+#> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       77152
-#>  2 Mainland China recovered       24990
-#>  3 Mainland China death            2593
-#>  4 South Korea    confirmed         833
+#>  1 Mainland China confirmed       77660
+#>  2 Mainland China recovered       27650
+#>  3 Mainland China death            2663
+#>  4 South Korea    confirmed         977
 #>  5 Others         confirmed         691
-#>  6 Italy          confirmed         229
-#>  7 Japan          confirmed         159
-#>  8 Singapore      confirmed          89
-#>  9 Hong Kong      confirmed          79
-#> 10 Iran           confirmed          61
-#> 11 US             confirmed          53
-#> 12 Singapore      recovered          51
-#> 13 Thailand       confirmed          35
-#> 14 Taiwan         confirmed          30
-#> 15 Australia      confirmed          22
-#> 16 Japan          recovered          22
-#> 17 Malaysia       confirmed          22
-#> 18 Thailand       recovered          21
-#> 19 Hong Kong      recovered          19
-#> 20 Malaysia       recovered          18
+#>  6 Italy          confirmed         322
+#>  7 Japan          confirmed         170
+#>  8 Iran           confirmed          95
+#>  9 Singapore      confirmed          91
+#> 10 Hong Kong      confirmed          84
+#> 11 Singapore      recovered          53
+#> 12 US             confirmed          53
+#> 13 Thailand       confirmed          37
+#> 14 Taiwan         confirmed          31
+#> 15 Bahrain        confirmed          23
+#> 16 Australia      confirmed          22
+#> 17 Japan          recovered          22
+#> 18 Malaysia       confirmed          22
+#> 19 South Korea    recovered          22
+#> 20 Thailand       recovered          22
 ```
 
 ## Data Sources

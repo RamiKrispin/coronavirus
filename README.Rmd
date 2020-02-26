@@ -38,7 +38,7 @@ More details available [here](https://ramikrispin.github.io/coronavirus/), and a
 Install the CRAN version:
 
 ```r
-install.packages("coronavirus")
+install.packages("coronavirus") 
 ```
 
 Install the Github version (refreshed on a daily bases):
