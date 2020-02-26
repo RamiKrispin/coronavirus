@@ -114,6 +114,48 @@ summary_df %>% head(20)
 #> 20 Thailand       recovered          22
 ```
 
+Summary of new cases during the past 24 hours by country and type (as of
+2020-02-25):
+
+``` r
+library(tidyr)
+
+coronavirus %>% 
+  filter(date == max(date)) %>%
+  select(country = Country.Region, type, cases) %>%
+  group_by(country, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type,
+              values_from = total_cases) %>%
+  arrange(-confirmed)
+#> # A tibble: 22 x 4
+#> # Groups:   country [22]
+#>    country        confirmed recovered death
+#>    <chr>              <int>     <int> <int>
+#>  1 Mainland China       508      2660    70
+#>  2 South Korea          144         4     2
+#>  3 Italy                 93        NA     3
+#>  4 Iran                  34        NA     4
+#>  5 Bahrain               22        NA    NA
+#>  6 Japan                 11        NA    NA
+#>  7 Kuwait                10        NA    NA
+#>  8 Hong Kong              5        NA    NA
+#>  9 Spain                  4        NA    NA
+#> 10 Austria                2        NA    NA
+#> 11 France                 2         7    NA
+#> 12 Singapore              2         2    NA
+#> 13 Thailand               2         1    NA
+#> 14 Algeria                1        NA    NA
+#> 15 Canada                 1        NA    NA
+#> 16 Croatia                1        NA    NA
+#> 17 Germany                1        NA    NA
+#> 18 Switzerland            1        NA    NA
+#> 19 Taiwan                 1        NA    NA
+#> 20 Macau                 NA         1    NA
+#> 21 US                    NA         1    NA
+#> 22 Vietnam               NA         2    NA
+```
+
 ## Data Sources
 
 The raw data pulled and arranged by the Johns Hopkins University Center

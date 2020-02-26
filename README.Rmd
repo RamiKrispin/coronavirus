@@ -78,6 +78,23 @@ summary_df %>% head(20)
 ```
 
 
+Summary of new cases during the past 24 hours by country and type (as of `r max(coronavirus$date)`):
+
+```{r}
+library(tidyr)
+
+coronavirus %>% 
+  filter(date == max(date)) %>%
+  select(country = Country.Region, type, cases) %>%
+  group_by(country, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type,
+              values_from = total_cases) %>%
+  arrange(-confirmed)
+  
+```
+
+
 ## Data Sources
 
 The raw data pulled and arranged by the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) from the following resources:
