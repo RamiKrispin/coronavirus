@@ -74,7 +74,7 @@ summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
-summary_df %>% head(20) 
+summary_df %>% head(20)
 ```
 
 
