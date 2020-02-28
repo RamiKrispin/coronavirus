@@ -61,21 +61,21 @@ This `coronavirus` dataset has the following fields:
 
 ``` r
 head(coronavirus)
-#>   Province.State Country.Region      Lat     Long       date cases      type
-#> 1                         Japan 35.67620 139.6503 2020-01-22     2 confirmed
-#> 2                   South Korea 37.56650 126.9780 2020-01-22     1 confirmed
-#> 3                      Thailand 13.75630 100.5018 2020-01-22     2 confirmed
-#> 4          Anhui Mainland China 31.82571 117.2264 2020-01-22     1 confirmed
-#> 5        Beijing Mainland China 40.18238 116.4142 2020-01-22    14 confirmed
-#> 6      Chongqing Mainland China 30.05718 107.8740 2020-01-22     6 confirmed
+#>   Province.State Country.Region     Lat     Long       date cases      type
+#> 1                         Japan 36.0000 138.0000 2020-01-22     2 confirmed
+#> 2                   South Korea 36.0000 128.0000 2020-01-22     1 confirmed
+#> 3                      Thailand 15.0000 101.0000 2020-01-22     2 confirmed
+#> 4          Anhui Mainland China 31.8257 117.2264 2020-01-22     1 confirmed
+#> 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed
+#> 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed
 tail(coronavirus)
-#>      Province.State Country.Region      Lat      Long       date cases      type
-#> 2156         Shanxi Mainland China 37.57769 112.29220 2020-02-26     6 recovered
-#> 2157        Sichuan Mainland China 30.61714 102.71030 2020-02-26    18 recovered
-#> 2158        Tianjin Mainland China 39.29362 117.33300 2020-02-26     5 recovered
-#> 2159       Xinjiang Mainland China 41.11981  85.17822 2020-02-26     4 recovered
-#> 2160         Yunnan Mainland China 24.97411 101.48680 2020-02-26    15 recovered
-#> 2161       Zhejiang Mainland China 29.18251 120.09850 2020-02-26    59 recovered
+#>      Province.State Country.Region     Lat     Long       date cases      type
+#> 2230         Shanxi Mainland China 37.5777 112.2922 2020-02-27     3 recovered
+#> 2231        Sichuan Mainland China 30.6171 102.7103 2020-02-27    14 recovered
+#> 2232        Tianjin Mainland China 39.3054 117.3230 2020-02-27     6 recovered
+#> 2233       Xinjiang Mainland China 41.1129  85.2401 2020-02-27     9 recovered
+#> 2234         Yunnan Mainland China 24.9740 101.4870 2020-02-27     6 recovered
+#> 2235       Zhejiang Mainland China 29.1832 120.0934 2020-02-27    65 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -87,35 +87,35 @@ summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
-summary_df %>% head(20)
+summary_df %>% head(20) 
 #> # A tibble: 20 x 3
 #> # Groups:   Country.Region [15]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       78065
-#>  2 Mainland China recovered       30053
-#>  3 Mainland China death            2715
-#>  4 South Korea    confirmed        1261
+#>  1 Mainland China confirmed       78498
+#>  2 Mainland China recovered       32898
+#>  3 Mainland China death            2744
+#>  4 South Korea    confirmed        1766
 #>  5 Others         confirmed         705
-#>  6 Italy          confirmed         453
-#>  7 Japan          confirmed         189
-#>  8 Iran           confirmed         139
+#>  6 Italy          confirmed         655
+#>  7 Iran           confirmed         245
+#>  8 Japan          confirmed         214
 #>  9 Singapore      confirmed          93
-#> 10 Hong Kong      confirmed          91
+#> 10 Hong Kong      confirmed          92
 #> 11 Singapore      recovered          62
-#> 12 US             confirmed          59
+#> 12 US             confirmed          60
 #> 13 Iran           recovered          49
-#> 14 Thailand       confirmed          40
-#> 15 Bahrain        confirmed          33
-#> 16 Taiwan         confirmed          32
-#> 17 Germany        confirmed          27
-#> 18 Kuwait         confirmed          26
-#> 19 Hong Kong      recovered          24
-#> 20 Australia      confirmed          22
+#> 14 Germany        confirmed          46
+#> 15 Italy          recovered          45
+#> 16 Kuwait         confirmed          43
+#> 17 Thailand       confirmed          40
+#> 18 France         confirmed          38
+#> 19 Bahrain        confirmed          33
+#> 20 Taiwan         confirmed          32
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-02-26):
+2020-02-27):
 
 ``` r
 library(tidyr)
@@ -128,40 +128,36 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 30 x 4
-#> # Groups:   country [30]
-#>    country         confirmed death recovered
-#>    <chr>               <int> <int>     <int>
-#>  1 Mainland China        405    52      2403
-#>  2 South Korea           284     2        NA
-#>  3 Italy                 131     2         2
-#>  4 Iran                   44     3        49
-#>  5 Japan                  19     1        NA
-#>  6 Kuwait                 15    NA        NA
-#>  7 Others                 14     1        10
-#>  8 Bahrain                10    NA        NA
-#>  9 Germany                10    NA         1
-#> 10 Hong Kong               7    NA         5
-#> 11 Spain                   7    NA        NA
-#> 12 US                      6    NA        NA
-#> 13 France                  4     1        NA
-#> 14 Iraq                    4    NA        NA
-#> 15 Thailand                3    NA        NA
-#> 16 Croatia                 2    NA        NA
-#> 17 Oman                    2    NA        NA
-#> 18 Pakistan                2    NA        NA
-#> 19 Singapore               2    NA         9
-#> 20 Brazil                  1    NA        NA
-#> 21 Finland                 1    NA        NA
-#> 22 Georgia                 1    NA        NA
-#> 23 Greece                  1    NA        NA
-#> 24 Israel                  1    NA        NA
-#> 25 Lebanon                 1    NA        NA
-#> 26 North Macedonia         1    NA        NA
-#> 27 Norway                  1    NA        NA
-#> 28 Romania                 1    NA        NA
-#> 29 Sweden                  1    NA        NA
-#> 30 Taiwan                  1    NA        NA
+#> # A tibble: 26 x 4
+#> # Groups:   country [26]
+#>    country        confirmed recovered death
+#>    <chr>              <int>     <int> <int>
+#>  1 South Korea          505        NA     1
+#>  2 Mainland China       433      2845    29
+#>  3 Italy                202        42     5
+#>  4 Iran                 106        NA     7
+#>  5 Japan                 25        NA     2
+#>  6 France                20        NA    NA
+#>  7 Germany               19         1    NA
+#>  8 Kuwait                17        NA    NA
+#>  9 Switzerland            7        NA    NA
+#> 10 Sweden                 5        NA    NA
+#> 11 Canada                 2         3    NA
+#> 12 Greece                 2        NA    NA
+#> 13 Iraq                   2        NA    NA
+#> 14 Spain                  2        NA    NA
+#> 15 UK                     2        NA    NA
+#> 16 Australia              1        NA    NA
+#> 17 Austria                1        NA    NA
+#> 18 Denmark                1        NA    NA
+#> 19 Estonia                1        NA    NA
+#> 20 Hong Kong              1        NA    NA
+#> 21 Israel                 1         1    NA
+#> 22 Malaysia               1        NA    NA
+#> 23 Netherlands            1        NA    NA
+#> 24 San Marino             1        NA    NA
+#> 25 US                     1        NA    NA
+#> 26 Macau                 NA         1    NA
 ```
 
 ## Data Sources
