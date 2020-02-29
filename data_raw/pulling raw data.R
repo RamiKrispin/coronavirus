@@ -45,7 +45,10 @@ df_conf1$date <- as.Date(paste("2020", df_conf1$month, df_conf1$day, sep = "-"))
 df_conf2 <- df_conf1 %>%
   dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
   dplyr::summarise(cases = sum(cases_temp)) %>%
-  dplyr::mutate(type = "confirmed")
+  dplyr::ungroup() %>%
+  dplyr::mutate(type = "confirmed",
+                Country.Region = trimws(Country.Region),
+                Province.State = trimws(Province.State))
 
 head(df_conf2)
 tail(df_conf2)
@@ -90,7 +93,10 @@ df_death1$date <- as.Date(paste("2020", df_death1$month, df_death1$day, sep = "-
 df_death2 <- df_death1 %>%
   dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
   dplyr::summarise(cases = sum(cases_temp)) %>%
-  dplyr::mutate(type = "death")
+  dplyr::ungroup() %>%
+  dplyr::mutate(type = "death",
+                Country.Region = trimws(Country.Region),
+                Province.State = trimws(Province.State))
 
 head(df_death2)
 tail(df_death2)
@@ -135,7 +141,10 @@ df_rec1$date <- as.Date(paste("2020", df_rec1$month, df_rec1$day, sep = "-"))
 df_rec2 <- df_rec1 %>%
   dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
   dplyr::summarise(cases = sum(cases_temp)) %>%
-  dplyr::mutate(type = "recovered")
+  dplyr::ungroup() %>%
+  dplyr::mutate(type = "recovered",
+                Country.Region = trimws(Country.Region),
+                Province.State = trimws(Province.State))
 
 head(df_rec2)
 tail(df_rec2)

@@ -68,7 +68,7 @@ head(coronavirus)
 #> 4          Anhui Mainland China 31.8257 117.2264 2020-01-22     1 confirmed
 #> 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed
 #> 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed
-tail(coronavirus)
+tail(coronavirus) 
 #>      Province.State Country.Region     Lat     Long       date cases      type
 #> 2304         Shanxi Mainland China 37.5777 112.2922 2020-02-28     5 recovered
 #> 2305        Sichuan Mainland China 30.6171 102.7103 2020-02-28    17 recovered
@@ -150,7 +150,7 @@ coronavirus %>%
 #> 16 Romania                      2        NA    NA
 #> 17 Taiwan                       2         1    NA
 #> 18 US                           2         1    NA
-#> 19 " Azerbaijan"                1        NA    NA
+#> 19 Azerbaijan                   1        NA    NA
 #> 20 Belarus                      1        NA    NA
 #> 21 Canada                       1        NA    NA
 #> 22 Greece                       1        NA    NA
