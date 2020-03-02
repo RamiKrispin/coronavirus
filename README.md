@@ -23,6 +23,9 @@ More details available
 of the package dataset available
 [here](https://github.com/RamiKrispin/coronavirus-csv)
 
+A summary dashboard is available
+[here](https://ramikrispin.github.io/coronavirus_dashboard/)
+
 <img src="man/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"/></a>
 
 <figcaption>
