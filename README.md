@@ -68,14 +68,14 @@ head(coronavirus)
 #> 4          Anhui Mainland China 31.8257 117.2264 2020-01-22     1 confirmed
 #> 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed
 #> 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed
-tail(coronavirus)
+tail(coronavirus) 
 #>      Province.State Country.Region     Lat     Long       date cases      type
-#> 2395        Sichuan Mainland China 30.6171 102.7103 2020-02-29    13 recovered
-#> 2396         Taiwan         Taiwan 23.7000 121.0000 2020-02-29     3 recovered
-#> 2397        Tianjin Mainland China 39.3054 117.3230 2020-02-29     7 recovered
-#> 2398       Xinjiang Mainland China 41.1129  85.2401 2020-02-29    10 recovered
-#> 2399         Yunnan Mainland China 24.9740 101.4870 2020-02-29     1 recovered
-#> 2400       Zhejiang Mainland China 29.1832 120.0934 2020-02-29    41 recovered
+#> 2480         Shanxi Mainland China 37.5777 112.2922 2020-03-01     2 recovered
+#> 2481        Sichuan Mainland China 30.6171 102.7103 2020-03-01    14 recovered
+#> 2482        Tianjin Mainland China 39.3054 117.3230 2020-03-01     2 recovered
+#> 2483       Xinjiang Mainland China 41.1129  85.2401 2020-03-01     2 recovered
+#> 2484         Yunnan Mainland China 24.9740 101.4870 2020-03-01     6 recovered
+#> 2485       Zhejiang Mainland China 29.1832 120.0934 2020-03-01    30 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -92,30 +92,30 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       79251
-#>  2 Mainland China recovered       39279
-#>  3 South Korea    confirmed        3150
-#>  4 Mainland China death            2835
-#>  5 Italy          confirmed        1128
-#>  6 Others         confirmed         705
-#>  7 Iran           confirmed         593
-#>  8 Japan          confirmed         241
-#>  9 Iran           recovered         123
-#> 10 Singapore      confirmed         102
-#> 11 France         confirmed         100
-#> 12 Hong Kong      confirmed          95
-#> 13 Germany        confirmed          79
-#> 14 Singapore      recovered          72
-#> 15 US             confirmed          70
-#> 16 Italy          recovered          46
-#> 17 Kuwait         confirmed          45
-#> 18 Spain          confirmed          45
-#> 19 Iran           death              43
-#> 20 Thailand       confirmed          42
+#>  1 Mainland China confirmed       79826
+#>  2 Mainland China recovered       42118
+#>  3 South Korea    confirmed        3736
+#>  4 Mainland China death            2870
+#>  5 Italy          confirmed        1694
+#>  6 Iran           confirmed         978
+#>  7 Others         confirmed         705
+#>  8 Japan          confirmed         256
+#>  9 Iran           recovered         175
+#> 10 France         confirmed         130
+#> 11 Germany        confirmed         130
+#> 12 Singapore      confirmed         106
+#> 13 Hong Kong      confirmed          96
+#> 14 Spain          confirmed          84
+#> 15 Italy          recovered          83
+#> 16 US             confirmed          76
+#> 17 Singapore      recovered          72
+#> 18 Iran           death              54
+#> 19 Bahrain        confirmed          47
+#> 20 Kuwait         confirmed          45
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-02-29):
+2020-03-01):
 
 ``` r
 library(tidyr)
@@ -128,48 +128,51 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 38 x 4
-#> # Groups:   country [38]
-#>    country              confirmed recovered death
-#>    <chr>                    <int>     <int> <int>
-#>  1 South Korea                813         5     3
-#>  2 Mainland China             427      2988    47
-#>  3 Italy                      240        NA     8
-#>  4 Iran                       205        50     9
-#>  5 France                      43         1    NA
-#>  6 Germany                     31        NA    NA
-#>  7 Japan                       13        10     1
-#>  8 Spain                       13        NA    NA
-#>  9 Switzerland                 10        NA    NA
-#> 10 Norway                       9        NA    NA
-#> 11 Singapore                    9        10    NA
-#> 12 US                           8        NA     1
-#> 13 Austria                      6        NA    NA
-#> 14 Canada                       6        NA    NA
-#> 15 Iraq                         6        NA    NA
-#> 16 Bahrain                      5        NA    NA
-#> 17 Netherlands                  5        NA    NA
-#> 18 Sweden                       5        NA    NA
-#> 19 Taiwan                       5         3    NA
-#> 20 Israel                       3        NA    NA
-#> 21 Mexico                       3        NA    NA
-#> 22 UK                           3        NA    NA
-#> 23 Australia                    2        NA    NA
-#> 24 Denmark                      2        NA    NA
-#> 25 Lebanon                      2        NA    NA
-#> 26 Malaysia                     2        NA    NA
-#> 27 Oman                         2         1    NA
-#> 28 Pakistan                     2        NA    NA
-#> 29 United Arab Emirates         2        NA    NA
-#> 30 Brazil                       1        NA    NA
-#> 31 Croatia                      1        NA    NA
-#> 32 Finland                      1        NA    NA
-#> 33 Hong Kong                    1         3    NA
-#> 34 Ireland                      1        NA    NA
-#> 35 Luxembourg                   1        NA    NA
-#> 36 Monaco                       1        NA    NA
-#> 37 Qatar                        1        NA    NA
-#> 38 Thailand                     1        NA    NA
+#> # A tibble: 41 x 4
+#> # Groups:   country [41]
+#>    country            confirmed death recovered
+#>    <chr>                  <int> <int>     <int>
+#>  1 South Korea              586     1         3
+#>  2 Mainland China           575    35      2839
+#>  3 Italy                    566     5        37
+#>  4 Iran                     385    11        52
+#>  5 Germany                   51    NA        NA
+#>  6 Spain                     39    NA        NA
+#>  7 France                    30    NA        NA
+#>  8 Japan                     15     1        NA
+#>  9 UK                        13    NA        NA
+#> 10 Switzerland                9    NA        NA
+#> 11 Bahrain                    6    NA        NA
+#> 12 Ecuador                    6    NA        NA
+#> 13 Iraq                       6    NA        NA
+#> 14 Lebanon                    6    NA        NA
+#> 15 US                         6    NA        NA
+#> 16 Austria                    5    NA        NA
+#> 17 Canada                     4    NA        NA
+#> 18 Malaysia                   4    NA        NA
+#> 19 Netherlands                4    NA        NA
+#> 20 Norway                     4    NA        NA
+#> 21 Singapore                  4    NA        NA
+#> 22 Azerbaijan                 3    NA        NA
+#> 23 Czech Republic             3    NA        NA
+#> 24 Finland                    3    NA        NA
+#> 25 Greece                     3    NA        NA
+#> 26 Israel                     3    NA        NA
+#> 27 Australia                  2     1        NA
+#> 28 Georgia                    2    NA        NA
+#> 29 Iceland                    2    NA        NA
+#> 30 Qatar                      2    NA        NA
+#> 31 Sweden                     2    NA        NA
+#> 32 Armenia                    1    NA        NA
+#> 33 Belgium                    1    NA        NA
+#> 34 Croatia                    1    NA        NA
+#> 35 Denmark                    1    NA        NA
+#> 36 Dominican Republic         1    NA        NA
+#> 37 Egypt                      1    NA        NA
+#> 38 Hong Kong                  1    NA         3
+#> 39 Mexico                     1    NA        NA
+#> 40 Taiwan                     1    NA        NA
+#> 41 Thailand                  NA     1        NA
 ```
 
 ## Data Sources
