@@ -152,11 +152,10 @@ coronavirus %>%
    formatPercentage("death_rate", 2) 
 ```
 
-Based on the results,  we can observe that Thailand and Singapore have the highest recovery rate (around 60%). On the other hand, China, the country with the highest number of cases, has a recovery rate of 30% and a death rate of 3%. Yet, it hard to come to a solid conclusion based on those results as:
+Note that it hard and even could be misleading to make any conclusion about the recovery and death rate. As there is no detail information about:
 
-* There is no sufficient information about the demographics of the patients such as age, gender, or the stage of the virus
-* In addition, there is no information about the recovery time of each case
-* China here is an outlier due to the scale of the virus spread, and in this stage, it would not be apples to apples comparison with the rest of the countries here
+* There is no measurement between the time a case was confirmed and recovery or death. This is not an apple to apple comparison, as the outbreak did not start at the same time in all the affected countries.
+* As age plays a critical role in the probability of survival from the virus, we cannot make a comparison between different cases without having more demographic information.
 
 #### Diving into China
 
