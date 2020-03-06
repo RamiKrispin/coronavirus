@@ -152,7 +152,7 @@ coronavirus %>%
    formatPercentage("death_rate", 2) 
 ```
 
-Note that it hard and even could be misleading to make any conclusion about the recovery and death rate. As there is no detail information about:
+Note that it will be misleading to make any conclusion about the recovery and death rate. As there is no detail information about:
 
 * There is no measurement between the time a case was confirmed and recovery or death. This is not an apple to apple comparison, as the outbreak did not start at the same time in all the affected countries.
 * As age plays a critical role in the probability of survival from the virus, we cannot make a comparison between different cases without having more demographic information.
