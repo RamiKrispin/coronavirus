@@ -63,7 +63,7 @@ data("coronavirus")
 This `coronavirus` dataset has the following fields:
 
 ``` r
-head(coronavirus) 
+head(coronavirus)
 #>   Province.State Country.Region     Lat     Long       date cases      type
 #> 1                         Japan 36.0000 138.0000 2020-01-22     2 confirmed
 #> 2                   South Korea 36.0000 128.0000 2020-01-22     1 confirmed
