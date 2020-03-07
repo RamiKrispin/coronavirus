@@ -63,7 +63,7 @@ data("coronavirus")
 This `coronavirus` dataset has the following fields:
 
 ``` r
-head(coronavirus)
+head(coronavirus) 
 #>   Province.State Country.Region     Lat     Long       date cases      type
 #> 1                         Japan 36.0000 138.0000 2020-01-22     2 confirmed
 #> 2                   South Korea 36.0000 128.0000 2020-01-22     1 confirmed
@@ -72,13 +72,13 @@ head(coronavirus)
 #> 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed
 #> 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed
 tail(coronavirus) 
-#>      Province.State Country.Region      Lat     Long       date cases      type
-#> 2881         Shanxi Mainland China  37.5777 112.2922 2020-03-05     2 recovered
-#> 2882        Sichuan Mainland China  30.6171 102.7103 2020-03-05    19 recovered
-#> 2883        Tianjin Mainland China  39.3054 117.3230 2020-03-05     4 recovered
-#> 2884       Victoria      Australia -37.8136 144.9631 2020-03-05     3 recovered
-#> 2885       Xinjiang Mainland China  41.1129  85.2401 2020-03-05     1 recovered
-#> 2886       Zhejiang Mainland China  29.1832 120.0934 2020-03-05    10 recovered
+#>          Province.State Country.Region     Lat     Long       date cases      type
+#> 3028           Shanghai Mainland China 31.2020 121.4491 2020-03-06     3 recovered
+#> 3029            Sichuan Mainland China 30.6171 102.7103 2020-03-06    17 recovered
+#> 3030 Suffolk County, MA             US 42.3601 -71.0589 2020-03-06     1 recovered
+#> 3031           Xinjiang Mainland China 41.1129  85.2401 2020-03-06     1 recovered
+#> 3032             Yunnan Mainland China 24.9740 101.4870 2020-03-06     1 recovered
+#> 3033           Zhejiang Mainland China 29.1832 120.0934 2020-03-06    23 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -94,31 +94,31 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 3
 #> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
-#>    <chr>          <chr>           <int>
-#>  1 Mainland China confirmed       80422
-#>  2 Mainland China recovered       52240
-#>  3 South Korea    confirmed        6088
-#>  4 Italy          confirmed        3858
-#>  5 Iran           confirmed        3513
-#>  6 Mainland China death            3013
-#>  7 Iran           recovered         739
-#>  8 Others         confirmed         706
-#>  9 Germany        confirmed         482
-#> 10 Italy          recovered         414
-#> 11 France         confirmed         377
-#> 12 Japan          confirmed         360
-#> 13 Spain          confirmed         259
-#> 14 US             confirmed         221
-#> 15 Italy          death             148
-#> 16 Singapore      confirmed         117
-#> 17 UK             confirmed         115
-#> 18 Switzerland    confirmed         114
-#> 19 Iran           death             107
-#> 20 Hong Kong      confirmed         105
+#>    <chr>          <chr>           <dbl>
+#>  1 Mainland China confirmed       80573
+#>  2 Mainland China recovered       53888
+#>  3 South Korea    confirmed        6593
+#>  4 Iran           confirmed        4747
+#>  5 Italy          confirmed        4636
+#>  6 Mainland China death            3042
+#>  7 Iran           recovered         913
+#>  8 Others         confirmed         696
+#>  9 Germany        confirmed         670
+#> 10 France         confirmed         653
+#> 11 Italy          recovered         523
+#> 12 Japan          confirmed         420
+#> 13 Spain          confirmed         400
+#> 14 US             confirmed         278
+#> 15 Switzerland    confirmed         214
+#> 16 Italy          death             197
+#> 17 UK             confirmed         163
+#> 18 South Korea    recovered         135
+#> 19 Singapore      confirmed         130
+#> 20 Netherlands    confirmed         128
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-03-05):
+2020-03-06):
 
 ``` r
 library(tidyr)
@@ -131,59 +131,75 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 49 x 4
-#> # Groups:   country [49]
-#>    country                confirmed recovered death
-#>    <chr>                      <int>     <int> <int>
-#>  1 Italy                        769       138    41
-#>  2 Iran                         591       187    15
-#>  3 South Korea                  467        NA    NA
-#>  4 Germany                      220        NA    NA
-#>  5 Mainland China               151      2285    32
-#>  6 France                        92        NA     2
-#>  7 US                            68        NA     1
-#>  8 Sweden                        59        NA    NA
-#>  9 Netherlands                   44        NA    NA
-#> 10 Spain                         37        NA     1
-#> 11 Norway                        31        NA    NA
-#> 12 UK                            30        NA     1
-#> 13 Japan                         29        NA    NA
-#> 14 Belgium                       27        NA    NA
-#> 15 Switzerland                   24        NA     1
-#> 16 Greece                        22        NA    NA
-#> 17 Austria                       12        NA    NA
-#> 18 Iceland                        8        NA    NA
-#> 19 Singapore                      7        NA    NA
-#> 20 Finland                        6        NA    NA
-#> 21 San Marino                     5        NA    NA
-#> 22 Canada                         4        NA    NA
-#> 23 Czech Republic                 4        NA    NA
-#> 24 Palestine                      4        NA    NA
-#> 25 Saudi Arabia                   4        NA    NA
-#> 26 Thailand                       4        NA    NA
-#> 27 Australia                      3        10    NA
-#> 28 Azerbaijan                     3        NA    NA
-#> 29 Bahrain                        3        NA    NA
-#> 30 Chile                          3        NA    NA
-#> 31 Ecuador                        3        NA    NA
-#> 32 Lebanon                        3        NA    NA
-#> 33 Portugal                       3        NA    NA
-#> 34 Bosnia and Herzegovina         2        NA    NA
-#> 35 India                          2        NA    NA
-#> 36 Kuwait                         2        NA    NA
-#> 37 Romania                        2        NA    NA
-#> 38 Slovenia                       2        NA    NA
-#> 39 Taiwan                         2        NA    NA
-#> 40 United Arab Emirates           2        NA    NA
-#> 41 Egypt                          1        NA    NA
-#> 42 Estonia                        1        NA    NA
-#> 43 Georgia                        1        NA    NA
-#> 44 Israel                         1        NA    NA
-#> 45 Morocco                        1        NA    NA
-#> 46 Oman                           1        NA    NA
-#> 47 Russia                         1        NA    NA
-#> 48 South Africa                   1        NA    NA
-#> 49 Hong Kong                     NA         6    NA
+#> # A tibble: 65 x 4
+#> # Groups:   country [65]
+#>    country            confirmed recovered death
+#>    <chr>                  <dbl>     <dbl> <dbl>
+#>  1 Iran                    1234       174    17
+#>  2 Italy                    778       109    49
+#>  3 South Korea              505        94     7
+#>  4 France                   276        NA     3
+#>  5 Germany                  188         1    NA
+#>  6 Mainland China           151      1648    29
+#>  7 Spain                    141        NA     2
+#>  8 Switzerland              100        NA    NA
+#>  9 Japan                     60         3    NA
+#> 10 Belgium                   59        NA    NA
+#> 11 US                        57         0     2
+#> 12 UK                        48        NA     1
+#> 13 Netherlands               46        NA     1
+#> 14 Malaysia                  33        NA    NA
+#> 15 Norway                    21        NA    NA
+#> 16 Austria                   14        NA    NA
+#> 17 Greece                    14        NA    NA
+#> 18 Denmark                   13         1    NA
+#> 19 Singapore                 13        NA    NA
+#> 20 Canada                    12        NA    NA
+#> 21 Egypt                     12        NA    NA
+#> 22 Ireland                   12        NA    NA
+#> 23 Palestine                 12        NA    NA
+#> 24 Brazil                     9        NA    NA
+#> 25 Iceland                    9        NA    NA
+#> 26 Russia                     9        NA    NA
+#> 27 Estonia                    7        NA    NA
+#> 28 Sweden                     7        NA    NA
+#> 29 Czech Republic             6        NA    NA
+#> 30 Lebanon                    6        NA    NA
+#> 31 Algeria                    5        NA    NA
+#> 32 Australia                  5        NA    NA
+#> 33 Bahrain                    5         4    NA
+#> 34 Iraq                       5        NA     1
+#> 35 Israel                     5         1    NA
+#> 36 Portugal                   5        NA    NA
+#> 37 Slovenia                   5        NA    NA
+#> 38 Poland                     4        NA    NA
+#> 39 Finland                    3        NA    NA
+#> 40 Romania                    3        NA    NA
+#> 41 Hong Kong                  2         3    NA
+#> 42 Indonesia                  2        NA    NA
+#> 43 North Macedonia            2        NA    NA
+#> 44 Philippines                2        NA    NA
+#> 45 Argentina                  1        NA    NA
+#> 46 Bhutan                     1        NA    NA
+#> 47 Cameroon                   1        NA    NA
+#> 48 Colombia                   1        NA    NA
+#> 49 Costa Rica                 1        NA    NA
+#> 50 Croatia                    1        NA    NA
+#> 51 Dominican Republic         1        NA    NA
+#> 52 India                      1        NA    NA
+#> 53 Luxembourg                 1        NA    NA
+#> 54 Mexico                     1        NA    NA
+#> 55 New Zealand                1        NA    NA
+#> 56 Pakistan                   1        NA    NA
+#> 57 Peru                       1        NA    NA
+#> 58 Serbia                     1        NA    NA
+#> 59 Slovakia                   1        NA    NA
+#> 60 Taiwan                     1        NA    NA
+#> 61 Thailand                   1        NA    NA
+#> 62 Togo                       1        NA    NA
+#> 63 Vatican City               1        NA    NA
+#> 64 Others                   -10        30    NA
+#> 65 Macau                     NA         1    NA
 ```
 
 ## Data Sources
