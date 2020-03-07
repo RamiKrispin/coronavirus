@@ -9,6 +9,11 @@
 
 raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
                      stringsAsFactors = FALSE)
+
+# Fixing typo
+raw_conf$X2.6.20[which(raw_conf$Country.Region == "Japan")] <- 25
+
+
 # Transforming the data from wide to long
 # Creating new data frame
 df_conf <- raw_conf[, 1:4]
