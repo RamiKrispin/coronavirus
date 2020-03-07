@@ -67,13 +67,8 @@ sk_prov_map <- data.frame(province = c("Gyeonggi", "Gyeonggi", "Gyeonggi",
                                    "Jeonbuk", "Jeonnam", "Gwangju", "Jeju"),
                           stringsAsFactors = FALSE)
 
-df <- sk_raw
-
-df$date <- lubridate::ymd(df$`Report as of`)
-
-
-
-
+sk_prov_map$province <- tolower(sk_prov_map$province)
+sk_prov_map$city <- tolower(sk_prov_map$city)
 
 sk_names <- sk_raw[1, ] %>% as.character() %>% tolower()
 sk_names <- sk_names[- which(sk_names == "gyeongsang")]
@@ -92,4 +87,15 @@ sk_df <- sk_raw[-1,] %>% stats::setNames(sk_names) %>% dplyr::select(-time, -sou
 
 head(sk_df)
 tail(sk_df)
+sk <- sk_df %>% tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
+  dplyr::mutate(cases = strsplit(value, split = "\\[") %>%
+                  purrr::map_chr(~.x[1]))
 
+
+sk$tested <- gsub(",", "", sk$tested) %>% as.numeric
+
+sk <- sk %>% dplyr::left_join(sk_prov_map, by = "city") %>%
+  dplyr::select(date, city, province, cases)
+tail(sk, 20)
+
+sk %>% dplyr::filter(city == "seoul")
