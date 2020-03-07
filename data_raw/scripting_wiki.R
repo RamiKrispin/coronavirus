@@ -4,14 +4,14 @@
 `%>%` <- magrittr::`%>%`
 #----------------US----------------
 # Summarise table of cases in the US
-# Using : https://en.wikipedia.org/w/index.php?title=2020_coronavirus_outbreak_in_the_United_States&oldid=944107102
+# Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_the_United_States
 
-url <-  "https://en.wikipedia.org/w/index.php?title=2020_coronavirus_outbreak_in_the_United_States&oldid=944107102"
+url <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_the_United_States"
 
 us_raw <- url %>%
   xml2::read_html() %>%
-  html_node(xpath = '//*[@id="mw-content-text"]/div/table[6]') %>%
-  html_table(fill = TRUE,
+  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[6]') %>%
+  rvest::html_table(fill = TRUE,
              header = TRUE)
 
 
@@ -33,11 +33,63 @@ us <- us_raw %>% dplyr::filter(!is.na(date)) %>%
                 treatment_facility = `Treatment facility`,
                 sex = Sex,
                 age = Age) %>%
-  dplyr::mutate(case_no = strsplit(us$case_no_temp, split = "\\[") %>%
+  dplyr::mutate(case_no = strsplit(case_no_temp, split = "\\[") %>%
                   purrr::map(~.x[1]) %>%
                   as.numeric()) %>%
   dplyr::select(-case_no_temp) %>%
   dplyr::select(case_no, dplyr::everything())
 head(us)
+tail(us)
 str(us)
+
+#----------------South Korea----------------
+# Summarise table of cases in the South Korea
+# Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea
+
+url_sk <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea"
+
+sk_raw <- url_sk %>%
+  xml2::read_html() %>%
+  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[7]') %>%
+  rvest::html_table(fill = TRUE,
+             header = TRUE)
+
+
+sk_prov_map <- data.frame(province = c("Gyeonggi", "Gyeonggi", "Gyeonggi",
+                                       "Gangwon",
+                                       "Gyeongsang", "Gyeongsang", "Gyeongsang", "Gyeongsang","Gyeongsang", "Gyeongsang",
+                                       "Chungcheong", "Chungcheong", "Chungcheong", "Chungcheong",
+                                       "Jeolla", "Jeolla", "Jeolla", "Jeolla"),
+                          city = c("Incheon", "Seoul", "Gyeonggi",
+                                   "Gangwon",
+                                   "Daegu", "Gyeongbuk","Gyeongnam", "Gyeongsang", "Busan", "Ulsan",
+                                   "Chungbuk", "Chungnam", "Sejong", "Daejeon",
+                                   "Jeonbuk", "Jeonnam", "Gwangju", "Jeju"),
+                          stringsAsFactors = FALSE)
+
+df <- sk_raw
+
+df$date <- lubridate::ymd(df$`Report as of`)
+
+
+
+
+
+sk_names <- sk_raw[1, ] %>% as.character() %>% tolower()
+sk_names <- sk_names[- which(sk_names == "gyeongsang")]
+sk_names[20] <- "confirmed_new"
+sk_names[21] <- "confirmed_total"
+sk_names[22] <- "death_new"
+sk_names[23] <- "death_total"
+sk_names[24] <- "tested_total"
+sk_names <- c(sk_names, "source")
+
+
+sk_df <- sk_raw[-1,] %>% stats::setNames(sk_names) %>% dplyr::select(-time, -source) %>%
+  dplyr::mutate(date = lubridate::ymd(date)) %>%
+  dplyr::filter(!is.na(date))
+
+
+head(sk_df)
+tail(sk_df)
 
