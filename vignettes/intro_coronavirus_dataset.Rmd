@@ -37,7 +37,8 @@ The dataset has the following fields:
 * `Country.Region` - The country or region name
 * `Lat` - Latitude point
 * `Long`- Longitude point
-* `cases` number of daily cases (i.e., confirmed, death, and recovered)
+* `cases` - the number of daily cases (corresponding to the case type)
+* `type` - the type of case (i.e., confirmed, death, and recovered)
 
 We can use the `head` and `str` functions to see the structure of the dataset:
 
