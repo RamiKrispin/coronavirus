@@ -62,7 +62,7 @@ data("coronavirus")
 This `coronavirus` dataset has the following fields:
 
 ```{r}
-head(coronavirus) 
+head(coronavirus)
 tail(coronavirus) 
 ```
 
