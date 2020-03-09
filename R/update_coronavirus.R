@@ -23,7 +23,7 @@
 update_coronavirus <- function(){
 
 
-
+  print("Reading confirmed...")
   raw_conf <-
     read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
              stringsAsFactors = FALSE)
@@ -37,7 +37,7 @@ update_coronavirus <- function(){
   df_conf <- raw_conf[, 1:4]
 
   for (i in 5:ncol(raw_conf)) {
-    print(i)
+    #print(i) #debug
     raw_conf[, i] <- as.integer(raw_conf[, i])
     raw_conf[, i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
 
@@ -84,6 +84,7 @@ update_coronavirus <- function(){
   tail(df_conf2)
   #----------------------------------------------------
   # Pulling death cases
+  print("Reading deaths...")
 
   raw_death <-
     read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
@@ -93,7 +94,7 @@ update_coronavirus <- function(){
   df_death <- raw_death[, 1:4]
 
   for (i in 5:ncol(raw_death)) {
-    print(i)
+    #print(i) #debug
     raw_death[, i] <- as.integer(raw_death[, i])
     raw_death[, i] <-
       ifelse(is.na(raw_death[, i]), 0 , raw_death[, i])
@@ -142,6 +143,7 @@ update_coronavirus <- function(){
   tail(df_death2)
   #----------------------------------------------------
   # Pulling recovered cases
+  print("Reading recovery...")
 
   raw_rec <-
     read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
@@ -151,7 +153,7 @@ update_coronavirus <- function(){
   df_rec <- raw_rec[, 1:4]
 
   for (i in 5:ncol(raw_rec)) {
-    print(i)
+    #print(i) #debug
     raw_rec[, i] <- as.integer(raw_rec[, i])
     raw_rec[, i] <- ifelse(is.na(raw_rec[, i]), 0 , raw_rec[, i])
 
@@ -202,7 +204,6 @@ update_coronavirus <- function(){
     dplyr::filter(cases != 0)
 
 
-  usethis::use_data(coronavirus, overwrite = TRUE)
 
   coronavirus
 }
