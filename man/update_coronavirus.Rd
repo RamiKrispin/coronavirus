@@ -17,6 +17,6 @@ Update the data using the daily summary of the Coronavirus (COVID-19) cases by s
 }
 \examples{
 \dontrun{
-update_coronavirus()
+coronavirus <- update_coronavirus()
 }
 }

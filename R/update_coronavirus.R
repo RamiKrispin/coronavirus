@@ -8,7 +8,7 @@
 #'
 #' @examples
 #'\dontrun{
-#' update_coronavirus()
+#' coronavirus <- update_coronavirus()
 #' }
 
 #----------------------------------------------------
