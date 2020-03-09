@@ -57,7 +57,7 @@ The package contains a single dataset - `coronavirus`:
 ``` r
 library(coronavirus) 
 
-data("coronavirus") 
+data("coronavirus")
 ```
 
 This `coronavirus` dataset has the following fields:
@@ -73,12 +73,12 @@ head(coronavirus)
 #> 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed
 tail(coronavirus) 
 #>      Province.State Country.Region     Lat     Long       date cases      type
-#> 3314       Shandong Mainland China 36.3427 118.1498 2020-03-08    15 recovered
-#> 3315       Shanghai Mainland China 31.2020 121.4491 2020-03-08     1 recovered
-#> 3316        Sichuan Mainland China 30.6171 102.7103 2020-03-08    10 recovered
-#> 3317         Taiwan         Taiwan 23.7000 121.0000 2020-03-08     1 recovered
-#> 3318       Xinjiang Mainland China 41.1129  85.2401 2020-03-08     1 recovered
-#> 3319       Zhejiang Mainland China 29.1832 120.0934 2020-03-08     7 recovered
+#> 3315       Shandong Mainland China 36.3427 118.1498 2020-03-08    15 recovered
+#> 3316       Shanghai Mainland China 31.2020 121.4491 2020-03-08     1 recovered
+#> 3317        Sichuan Mainland China 30.6171 102.7103 2020-03-08    10 recovered
+#> 3318         Taiwan         Taiwan 23.7000 121.0000 2020-03-08     1 recovered
+#> 3319       Xinjiang Mainland China 41.1129  85.2401 2020-03-08     1 recovered
+#> 3320       Zhejiang Mainland China 29.1832 120.0934 2020-03-08     7 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -107,7 +107,7 @@ summary_df %>% head(20)
 #> 10 Others         confirmed         696
 #> 11 Spain          confirmed         673
 #> 12 Italy          recovered         622
-#> 13 US             confirmed         538
+#> 13 US             confirmed         537
 #> 14 Japan          confirmed         502
 #> 15 Italy          death             366
 #> 16 Switzerland    confirmed         337
@@ -141,7 +141,7 @@ coronavirus %>%
 #>  4 Germany                   241    NA        NA
 #>  5 France                    177     8        NA
 #>  6 Spain                     173     7        NA
-#>  7 US                        122     4        NA
+#>  7 US                        121     4        NA
 #>  8 Netherlands                77     2        NA
 #>  9 Switzerland                69     1        NA
 #> 10 UK                         67     1        NA
