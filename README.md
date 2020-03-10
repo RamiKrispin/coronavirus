@@ -55,7 +55,7 @@ devtools::install_github("RamiKrispin/coronavirus")
 The package contains a single dataset - `coronavirus`:
 
 ``` r
-library(coronavirus) 
+library(coronavirus)
 
 data("coronavirus")
 ```
