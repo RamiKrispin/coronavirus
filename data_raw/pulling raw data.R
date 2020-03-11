@@ -8,8 +8,7 @@
 # Pulling confirmed cases
 
 raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
-                     stringsAsFactors = FALSE,
-                     fill =FALSE)
+                     stringsAsFactors = FALSE)
 
 
 # Transforming the data from wide to long
@@ -17,15 +16,18 @@ raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/CO
 df_conf <- raw_conf[, 1:4]
 
 for(i in 5:ncol(raw_conf)){
-  print(i)
+
   raw_conf[,i] <- as.integer(raw_conf[,i])
-  raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
+  # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
+    print(names(raw_conf)[i])
 
   if(i == 5){
     df_conf[[names(raw_conf)[i]]] <- raw_conf[, i]
   } else {
     df_conf[[names(raw_conf)[i]]] <- raw_conf[, i] - raw_conf[, i - 1]
   }
+
+
 }
 
 
@@ -158,12 +160,25 @@ tail(df_rec2)
 
 coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
   dplyr::arrange(date) %>% dplyr::ungroup() %>%
-  dplyr::filter(cases != 0)
+  dplyr::filter(cases != 0) %>%
+  # dplyr::mutate(state_flag = FALSE) %>%
+  dplyr::mutate(state_flag = ifelse(!grepl(",", Province.State) &
+                                      Country.Region == "US" &
+                                      date == as.Date("2020-03-10") ,
+                                    TRUE, FALSE)) %>%
+  dplyr::filter(state_flag == FALSE) %>%
+  dplyr::select(-state_flag)
+
+
+
+
+
 head(coronavirus)
 tail(coronavirus)
 
 
-
+dplyr::filter(Country.Region == "US") %>%
+  dplyr::mutate(country = ifelse(grepl(",", Province.State), TRUE, FALSE))
 usethis::use_data(coronavirus, overwrite = TRUE)
 
 write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
