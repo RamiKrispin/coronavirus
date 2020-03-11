@@ -61,7 +61,7 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
   coronavirus_sf <- coronavirus %>%
     sf::st_as_sf(coords = c("Long", "Lat"),
              remove = FALSE,
-             crs = st_crs(worldmap))
+             crs = sf::st_crs(worldmap))
 
   #get geospatial info about where the coronavirus is
 
