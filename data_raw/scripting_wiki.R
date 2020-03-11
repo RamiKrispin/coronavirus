@@ -12,7 +12,7 @@ us_raw <- url %>%
   xml2::read_html() %>%
   rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[6]') %>%
   rvest::html_table(fill = TRUE,
-             header = TRUE)
+                    header = TRUE)
 
 
 # Setting the names
@@ -50,37 +50,40 @@ url_sk <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Kor
 
 sk_raw <- url_sk %>%
   xml2::read_html() %>%
-  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[8]') %>%
+  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[7]') %>%
   rvest::html_table(fill = TRUE,
-             header = TRUE)
+                    header = TRUE)
 
 head(sk_raw)
+
 sk_prov_map <- data.frame(province = c("Gyeonggi", "Gyeonggi", "Gyeonggi",
                                        "Gangwon",
-                                       "Gyeongsang", "Gyeongsang", "Gyeongsang", "Gyeongsang","Gyeongsang", "Gyeongsang",
+                                       "Gyeongsang", "Gyeongsang", "Gyeongsang", "Gyeongsang","Gyeongsang",
                                        "Chungcheong", "Chungcheong", "Chungcheong", "Chungcheong",
                                        "Jeolla", "Jeolla", "Jeolla", "Jeolla"),
                           city = c("Incheon", "Seoul", "Gyeonggi",
                                    "Gangwon",
-                                   "Daegu", "Gyeongbuk","Gyeongnam", "Gyeongsang", "Busan", "Ulsan",
-                                   "Chungbuk", "Chungnam", "Sejong", "Daejeon",
-                                   "Jeonbuk", "Jeonnam", "Gwangju", "Jeju"),
+                                   "Gyeongbuk", "Daegu", "Gyeongnam", "Busan", "Ulsan",
+                                   "Chungbuk", "Sejong", "Daejeon", "Chungnam",
+                                   "Jeonbuk", "Gwangju", "Jeonnam", "Jeju"),
                           stringsAsFactors = FALSE)
 
 sk_prov_map$province <- tolower(sk_prov_map$province)
 sk_prov_map$city <- tolower(sk_prov_map$city)
 
-sk_names <- sk_raw[1, ] %>% as.character() %>% tolower()
-sk_names <- sk_names[- which(sk_names == "gyeongsang")]
-sk_names[20] <- "confirmed_new"
-sk_names[21] <- "confirmed_total"
-sk_names[22] <- "death_new"
-sk_names[23] <- "death_total"
-sk_names[24] <- "tested_total"
-sk_names[25] <- "tested_current"
-sk_names[26] <- "discharged_total"
-sk_names <- c(sk_names, "source")
+sk_names <- c("date", "time",
+              "Incheon", "Seoul", "Gyeonggi",
+              "Gangwon",
+              "Gyeongbuk", "Daegu", "Gyeongnam", "Busan", "Ulsan",
+              "Chungbuk", "Sejong", "Daejeon", "Chungnam",
+              "Jeonbuk", "Gwangju", "Jeonnam", "Jeju",
+              "confirmed_new", "confirmed_total",
+              "death_new", "death_total",
+              "tested_total", "tested_current",
+              "discharged_total",
+              "source")
 
+sk_names <- sk_names %>% tolower()
 
 sk_df <- sk_raw[-1,] %>% stats::setNames(sk_names) %>%
   dplyr::select(-time, -source) %>%
@@ -92,42 +95,40 @@ head(sk_df)
 tail(sk_df)
 str(sk_df)
 
-sk_1 <- sk_df %>% dplyr::select(date)
+sk_df1 <- sk_df %>% dplyr::select(date)
 # Removing brackets
 for(i in 2:ncol(sk_df)){
+  print(i)
   x <- ifelse(grepl(")", x = sk_df[,i]),strsplit(sk_df[, i], split = ")") %>% purrr::map_chr(~.x[2]), sk_df[, i] )
   x <- ifelse(grepl("\\[", x = x),strsplit(x, split = "\\[") %>% purrr::map_chr(~.x[1]), x )
   x <- ifelse(grepl(",", x = x), gsub(pattern = ",", replacement = "", x), x)
   x <- gsub(pattern = ",", replacement = "", x)
-  sk_df1[[names(sk_df)[i]]] <- as.numeric(x)
+  sk_df1[[names(sk_df)[i]]] <- ifelse(is.na(as.numeric(x)), 0, x)
 }
 
 View(sk_df1)
-totals <- c("confirmed_new",
-            "confirmed_total",
-            "death_new",
-            "death_total",
-            "tested_total",
-            "tested_current",
-            "discharged_total")
+totals_sk <- c("confirmed_new", "confirmed_total",
+               "death_new", "death_total",
+               "tested_total", "tested_current",
+               "discharged_total")
 
 sk_df2 <- sk_df1 %>%
   tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
-  dplyr::mutate(cases = ifelse(is.na(cases), 0, cases))
+  dplyr::select(-value)
 View(sk_df2)
 
 
 
-sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals) %>%
+sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals_sk) %>%
   dplyr::group_by(date, city) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
 View(sk_df3)
 
-sk_city <- sk_df2 %>%
-  dplyr::filter(!city %in% totals) %>%
+covid_south_korea <- sk_df2 %>%
+  dplyr::filter(!city %in% totals_sk) %>%
   dplyr::group_by(date, city) %>%
   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
   dplyr::ungroup() %>%
@@ -135,9 +136,8 @@ sk_city <- sk_df2 %>%
   dplyr::select(date, city, province, total) %>%
   as.data.frame()
 
-str(sk_city)
-View(sk_city)
-covid_south_korea <- sk_city
+str(covid_south_korea)
+View(covid_south_korea)
 
 usethis::use_data(covid_south_korea, overwrite = TRUE)
 
@@ -217,14 +217,14 @@ View(italy3)
 
 
 
-italy4 <- italy3 %>% dplyr::filter(sub_region %in% totals) %>%
+italy4 <- italy3 %>% dplyr::filter(sub_region %in% italy_totals) %>%
   dplyr::group_by(date, sub_region) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
 View(italy4)
 
-italy_city <- italy3 %>%
+covid_italy <- italy3 %>%
   dplyr::filter(!sub_region %in% totals) %>%
   dplyr::group_by(date, sub_region) %>%
   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
@@ -233,27 +233,14 @@ italy_city <- italy3 %>%
   dplyr::select(date, region, sub_region, total) %>%
   as.data.frame()
 
-str(italy_city)
-View(italy_city)
-covid_italy <- italy_city
+str(covid_italy)
+View(covid_italy)
 
 usethis::use_data(covid_italy, overwrite = TRUE)
 
 write.csv(covid_italy, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_long.csv", row.names = FALSE)
 write.csv(italy2, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_wide.csv", row.names = FALSE)
 write.csv(italy_region_mapping, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/italy_region_mapping.csv", row.names = FALSE)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #----------------Germany----------------
