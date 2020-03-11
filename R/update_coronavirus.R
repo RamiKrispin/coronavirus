@@ -4,6 +4,7 @@
 #' @return An updated tbl object for the coronavirus dataset.
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 #' @export update_coronavirus
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #'\dontrun{
