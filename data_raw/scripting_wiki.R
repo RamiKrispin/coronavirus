@@ -92,28 +92,32 @@ head(sk_df)
 tail(sk_df)
 str(sk_df)
 
-sk_df1 <- sk_df %>% dplyr::select(date)
+sk_1 <- sk_df %>% dplyr::select(date)
 # Removing brackets
 for(i in 2:ncol(sk_df)){
   x <- ifelse(grepl(")", x = sk_df[,i]),strsplit(sk_df[, i], split = ")") %>% purrr::map_chr(~.x[2]), sk_df[, i] )
   x <- ifelse(grepl("\\[", x = x),strsplit(x, split = "\\[") %>% purrr::map_chr(~.x[1]), x )
   x <- ifelse(grepl(",", x = x),strsplit(x, split = "\\[") %>% purrr::map_chr(~.x[1]), x )
   x <- gsub(pattern = ",", replacement = "", x)
-  sk_df1[[names(sk_df)[i]]] <- x
+  sk_df1[[names(sk_df)[i]]] <- as.numeric(x)
 }
 
 View(sk_df1)
+totals <- c("confirmed_new",
+            "confirmed_total",
+            "death_new",
+            "death_total",
+            "tested_total",
+            "tested_current",
+            "discharged_total")
 
-
-sk_df2 <- sk_df1 %>% tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
+sk_df2 <- sk_df1 %>%
+  tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
   dplyr::mutate(cases = ifelse(is.na(cases), 0, cases))
 View(sk_df2)
 
-totals <- c("confirmed_new", "confirmed_total",
-            "death_new", "death_total",
-            "tested_total", "tested_current",
-            "discharged_total")
+
 
 sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals) %>%
   dplyr::group_by(date, city) %>%
@@ -122,22 +126,24 @@ sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals) %>%
 
 View(sk_df3)
 
-sk_df4 <- sk_df2 %>% dplyr::filter(!city %in% totals) %>%
+sk_city <- sk_df2 %>%
+  dplyr::filter(!city %in% totals) %>%
   dplyr::group_by(date, city) %>%
   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
   dplyr::ungroup() %>%
-  dplyr::select(date, type = city, total)
+  dplyr::left_join(sk_prov_map,  by = "city") %>%
+  dplyr::select(date, city, province, total) %>%
+  as.data.frame()
 
-View(sk_df4)
+str(sk_city)
+View(sk_city)
+covid_south_korea <- sk_city
 
-#### Need to
-# split non city categories and take max per day
-# for cities calculate the daily sum
+usethis::use_data(covid_south_korea, overwrite = TRUE)
 
-
-
-
-
+write.csv(covid_south_korea, "/Users/ramikrispin/R/packages/coronavirus_csv/south_korea/covid_south_korea_long.csv", row.names = FALSE)
+write.csv(sk_df1, "/Users/ramikrispin/R/packages/coronavirus_csv/south_korea/covid_south_korea_wide.csv", row.names = FALSE)
+write.csv(sk_prov_map, "/Users/ramikrispin/R/packages/coronavirus_csv/south_korea/sk_city_prov_mapping.csv", row.names = FALSE)
 #----------------Germany----------------
 # Summarise table of cases in the Germany
 # Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Germany
