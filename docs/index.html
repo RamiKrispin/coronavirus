@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
       </span>
     </div>
 
@@ -55,6 +55,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
+    </li>
+    <li>
+      <a href="articles/spatial_coronavirus.html">Showing the Spatial Distribution of Covid-19 Confirmed Cases</a>
     </li>
   </ul>
 </li>
@@ -99,154 +102,154 @@ Library
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the CRAN version:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"coronavirus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"coronavirus"</span>)</a></code></pre></div>
 <p>Install the Github version (refreshed on a daily bases):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>The package contains a single dataset - <code>coronavirus</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(coronavirus) </a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"coronavirus"</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(coronavirus) </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"coronavirus"</span>) </a></code></pre></div>
 <p>This <code>coronavirus</code> dataset has the following fields:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(coronavirus) </a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;   Province.State Country.Region     Lat     Long       date cases      type</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; 1                         Japan 36.0000 138.0000 2020-01-22     2 confirmed</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; 2                   South Korea 36.0000 128.0000 2020-01-22     1 confirmed</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 3                      Thailand 15.0000 101.0000 2020-01-22     2 confirmed</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; 4          Anhui Mainland China 31.8257 117.2264 2020-01-22     1 confirmed</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(coronavirus) </a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;      Province.State Country.Region     Lat     Long       date cases      type</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; 3314       Shandong Mainland China 36.3427 118.1498 2020-03-08    15 recovered</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; 3315       Shanghai Mainland China 31.2020 121.4491 2020-03-08     1 recovered</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; 3316        Sichuan Mainland China 30.6171 102.7103 2020-03-08    10 recovered</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt; 3317         Taiwan         Taiwan 23.7000 121.0000 2020-03-08     1 recovered</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; 3318       Xinjiang Mainland China 41.1129  85.2401 2020-03-08     1 recovered</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt; 3319       Zhejiang Mainland China 29.1832 120.0934 2020-03-08     7 recovered</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(coronavirus) </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;   Province.State Country.Region     Lat     Long       date cases      type</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; 1                         Japan 36.0000 138.0000 2020-01-22     2 confirmed</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 2                   South Korea 36.0000 128.0000 2020-01-22     1 confirmed</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3                      Thailand 15.0000 101.0000 2020-01-22     2 confirmed</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4          Anhui Mainland China 31.8257 117.2264 2020-01-22     1 confirmed</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 5        Beijing Mainland China 40.1824 116.4142 2020-01-22    14 confirmed</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 6      Chongqing Mainland China 30.0572 107.8740 2020-01-22     6 confirmed</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(coronavirus) </a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;      Province.State Country.Region     Lat     Long       date cases      type</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 3314       Shandong Mainland China 36.3427 118.1498 2020-03-08    15 recovered</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 3315       Shanghai Mainland China 31.2020 121.4491 2020-03-08     1 recovered</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3316        Sichuan Mainland China 30.6171 102.7103 2020-03-08    10 recovered</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 3317         Taiwan         Taiwan 23.7000 121.0000 2020-03-08     1 recovered</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 3318       Xinjiang Mainland China 41.1129  85.2401 2020-03-08     1 recovered</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 3319       Zhejiang Mainland China 29.1832 120.0934 2020-03-08     7 recovered</span></a></code></pre></div>
 <p>Here is an example of a summary total cases by region and type (top 20):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region, type) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</a>
-<a class="sourceLine" id="cb5-6" title="6"></a>
-<a class="sourceLine" id="cb5-7" title="7">summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">20</span>) </a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; # Groups:   Country.Region [15]</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt;    Country.Region type      total_cases</span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;  1 Mainland China confirmed       80699</span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;  2 Mainland China recovered       57320</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt;  3 Italy          confirmed        7375</span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt;  4 South Korea    confirmed        7314</span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt;  5 Iran           confirmed        6566</span></a>
-<a class="sourceLine" id="cb5-17" title="17"><span class="co">#&gt;  6 Mainland China death            3097</span></a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt;  7 Iran           recovered        2134</span></a>
-<a class="sourceLine" id="cb5-19" title="19"><span class="co">#&gt;  8 France         confirmed        1126</span></a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt;  9 Germany        confirmed        1040</span></a>
-<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt; 10 Others         confirmed         696</span></a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="co">#&gt; 11 Spain          confirmed         673</span></a>
-<a class="sourceLine" id="cb5-23" title="23"><span class="co">#&gt; 12 Italy          recovered         622</span></a>
-<a class="sourceLine" id="cb5-24" title="24"><span class="co">#&gt; 13 US             confirmed         538</span></a>
-<a class="sourceLine" id="cb5-25" title="25"><span class="co">#&gt; 14 Japan          confirmed         502</span></a>
-<a class="sourceLine" id="cb5-26" title="26"><span class="co">#&gt; 15 Italy          death             366</span></a>
-<a class="sourceLine" id="cb5-27" title="27"><span class="co">#&gt; 16 Switzerland    confirmed         337</span></a>
-<a class="sourceLine" id="cb5-28" title="28"><span class="co">#&gt; 17 UK             confirmed         273</span></a>
-<a class="sourceLine" id="cb5-29" title="29"><span class="co">#&gt; 18 Netherlands    confirmed         265</span></a>
-<a class="sourceLine" id="cb5-30" title="30"><span class="co">#&gt; 19 Sweden         confirmed         203</span></a>
-<a class="sourceLine" id="cb5-31" title="31"><span class="co">#&gt; 20 Belgium        confirmed         200</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region, type) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(cases)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">20</span>) </a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Groups:   Country.Region [15]</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;    Country.Region type      total_cases</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  1 Mainland China confirmed       80699</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  2 Mainland China recovered       57320</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  3 Italy          confirmed        7375</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  4 South Korea    confirmed        7314</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  5 Iran           confirmed        6566</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  6 Mainland China death            3097</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  7 Iran           recovered        2134</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  8 France         confirmed        1126</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  9 Germany        confirmed        1040</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 10 Others         confirmed         696</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 11 Spain          confirmed         673</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 12 Italy          recovered         622</span></a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 13 US             confirmed         538</span></a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; 14 Japan          confirmed         502</span></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 15 Italy          death             366</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 16 Switzerland    confirmed         337</span></a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 17 UK             confirmed         273</span></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; 18 Netherlands    confirmed         265</span></a>
+<a class="sourceLine" id="cb5-30" data-line-number="30"><span class="co">#&gt; 19 Sweden         confirmed         203</span></a>
+<a class="sourceLine" id="cb5-31" data-line-number="31"><span class="co">#&gt; 20 Belgium        confirmed         200</span></a></code></pre></div>
 <p>Summary of new cases during the past 24 hours by country and type (as of 2020-03-08):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb6-2" title="2"></a>
-<a class="sourceLine" id="cb6-3" title="3">coronavirus <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(date)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">country =</span> Country.Region, type, cases) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</a>
-<a class="sourceLine" id="cb6-9" title="9">              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-10" title="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; # A tibble: 72 x 4</span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; # Groups:   country [72]</span></a>
-<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt;    country             confirmed death recovered</span></a>
-<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt;    &lt;chr&gt;                   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt;  1 Italy                    1492   133        33</span></a>
-<a class="sourceLine" id="cb6-16" title="16"><span class="co">#&gt;  2 Iran                      743    49       465</span></a>
-<a class="sourceLine" id="cb6-17" title="17"><span class="co">#&gt;  3 South Korea               273     6       -17</span></a>
-<a class="sourceLine" id="cb6-18" title="18"><span class="co">#&gt;  4 Germany                   241    NA        NA</span></a>
-<a class="sourceLine" id="cb6-19" title="19"><span class="co">#&gt;  5 France                    177     8        NA</span></a>
-<a class="sourceLine" id="cb6-20" title="20"><span class="co">#&gt;  6 Spain                     173     7        NA</span></a>
-<a class="sourceLine" id="cb6-21" title="21"><span class="co">#&gt;  7 US                        122     4        NA</span></a>
-<a class="sourceLine" id="cb6-22" title="22"><span class="co">#&gt;  8 Netherlands                77     2        NA</span></a>
-<a class="sourceLine" id="cb6-23" title="23"><span class="co">#&gt;  9 Switzerland                69     1        NA</span></a>
-<a class="sourceLine" id="cb6-24" title="24"><span class="co">#&gt; 10 UK                         67     1        NA</span></a>
-<a class="sourceLine" id="cb6-25" title="25"><span class="co">#&gt; 11 Mainland China             47    27      1842</span></a>
-<a class="sourceLine" id="cb6-26" title="26"><span class="co">#&gt; 12 Sweden                     42    NA        NA</span></a>
-<a class="sourceLine" id="cb6-27" title="27"><span class="co">#&gt; 13 Japan                      41    NA        NA</span></a>
-<a class="sourceLine" id="cb6-28" title="28"><span class="co">#&gt; 14 Egypt                      34     1        NA</span></a>
-<a class="sourceLine" id="cb6-29" title="29"><span class="co">#&gt; 15 Belgium                    31    NA        NA</span></a>
-<a class="sourceLine" id="cb6-30" title="30"><span class="co">#&gt; 16 Norway                     29    NA        NA</span></a>
-<a class="sourceLine" id="cb6-31" title="31"><span class="co">#&gt; 17 Greece                     27    NA        NA</span></a>
-<a class="sourceLine" id="cb6-32" title="32"><span class="co">#&gt; 18 Austria                    25    NA        NA</span></a>
-<a class="sourceLine" id="cb6-33" title="33"><span class="co">#&gt; 19 Republic of Ireland        21    NA        NA</span></a>
-<a class="sourceLine" id="cb6-34" title="34"><span class="co">#&gt; 20 Israel                     18    NA        NA</span></a>
-<a class="sourceLine" id="cb6-35" title="35"><span class="co">#&gt; 21 Australia                  13     2        NA</span></a>
-<a class="sourceLine" id="cb6-36" title="36"><span class="co">#&gt; 22 San Marino                 13    NA        NA</span></a>
-<a class="sourceLine" id="cb6-37" title="37"><span class="co">#&gt; 23 Czech Republic             12    NA        NA</span></a>
-<a class="sourceLine" id="cb6-38" title="38"><span class="co">#&gt; 24 Denmark                    12    NA        NA</span></a>
-<a class="sourceLine" id="cb6-39" title="39"><span class="co">#&gt; 25 Singapore                  12    NA        NA</span></a>
-<a class="sourceLine" id="cb6-40" title="40"><span class="co">#&gt; 26 Vietnam                    12    NA        NA</span></a>
-<a class="sourceLine" id="cb6-41" title="41"><span class="co">#&gt; 27 Canada                     10    NA        NA</span></a>
-<a class="sourceLine" id="cb6-42" title="42"><span class="co">#&gt; 28 Lebanon                    10    NA        NA</span></a>
-<a class="sourceLine" id="cb6-43" title="43"><span class="co">#&gt; 29 Portugal                   10    NA        NA</span></a>
-<a class="sourceLine" id="cb6-44" title="44"><span class="co">#&gt; 30 Georgia                     9    NA        NA</span></a>
-<a class="sourceLine" id="cb6-45" title="45"><span class="co">#&gt; 31 Slovenia                    9    NA        NA</span></a>
-<a class="sourceLine" id="cb6-46" title="46"><span class="co">#&gt; 32 Finland                     8    NA        NA</span></a>
-<a class="sourceLine" id="cb6-47" title="47"><span class="co">#&gt; 33 Brazil                      7    NA        NA</span></a>
-<a class="sourceLine" id="cb6-48" title="48"><span class="co">#&gt; 34 Qatar                       7    NA        NA</span></a>
-<a class="sourceLine" id="cb6-49" title="49"><span class="co">#&gt; 35 Hong Kong                   6     1         7</span></a>
-<a class="sourceLine" id="cb6-50" title="50"><span class="co">#&gt; 36 Iraq                        6     2        NA</span></a>
-<a class="sourceLine" id="cb6-51" title="51"><span class="co">#&gt; 37 Malaysia                    6    NA         1</span></a>
-<a class="sourceLine" id="cb6-52" title="52"><span class="co">#&gt; 38 Poland                      6    NA        NA</span></a>
-<a class="sourceLine" id="cb6-53" title="53"><span class="co">#&gt; 39 Romania                     6    NA        NA</span></a>
-<a class="sourceLine" id="cb6-54" title="54"><span class="co">#&gt; 40 Saudi Arabia                6    NA        NA</span></a>
-<a class="sourceLine" id="cb6-55" title="55"><span class="co">#&gt; 41 India                       5    NA        NA</span></a>
-<a class="sourceLine" id="cb6-56" title="56"><span class="co">#&gt; 42 Peru                        5    NA        NA</span></a>
-<a class="sourceLine" id="cb6-57" title="57"><span class="co">#&gt; 43 Argentina                   4     1        NA</span></a>
-<a class="sourceLine" id="cb6-58" title="58"><span class="co">#&gt; 44 Bulgaria                    4    NA        NA</span></a>
-<a class="sourceLine" id="cb6-59" title="59"><span class="co">#&gt; 45 Chile                       4    NA        NA</span></a>
-<a class="sourceLine" id="cb6-60" title="60"><span class="co">#&gt; 46 Costa Rica                  4    NA        NA</span></a>
-<a class="sourceLine" id="cb6-61" title="61"><span class="co">#&gt; 47 Maldives                    4    NA        NA</span></a>
-<a class="sourceLine" id="cb6-62" title="62"><span class="co">#&gt; 48 Philippines                 4    NA        NA</span></a>
-<a class="sourceLine" id="cb6-63" title="63"><span class="co">#&gt; 49 Russia                      4    NA         1</span></a>
-<a class="sourceLine" id="cb6-64" title="64"><span class="co">#&gt; 50 Afghanistan                 3    NA        NA</span></a>
-<a class="sourceLine" id="cb6-65" title="65"><span class="co">#&gt; 51 Bangladesh                  3    NA        NA</span></a>
-<a class="sourceLine" id="cb6-66" title="66"><span class="co">#&gt; 52 Dominican Republic          3    NA        NA</span></a>
-<a class="sourceLine" id="cb6-67" title="67"><span class="co">#&gt; 53 Hungary                     3    NA        NA</span></a>
-<a class="sourceLine" id="cb6-68" title="68"><span class="co">#&gt; 54 Kuwait                      3    NA         1</span></a>
-<a class="sourceLine" id="cb6-69" title="69"><span class="co">#&gt; 55 Algeria                     2    NA        NA</span></a>
-<a class="sourceLine" id="cb6-70" title="70"><span class="co">#&gt; 56 Indonesia                   2    NA        NA</span></a>
-<a class="sourceLine" id="cb6-71" title="71"><span class="co">#&gt; 57 Slovakia                    2    NA        NA</span></a>
-<a class="sourceLine" id="cb6-72" title="72"><span class="co">#&gt; 58 South Africa                2    NA        NA</span></a>
-<a class="sourceLine" id="cb6-73" title="73"><span class="co">#&gt; 59 Cambodia                    1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-74" title="74"><span class="co">#&gt; 60 Cameroon                    1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-75" title="75"><span class="co">#&gt; 61 Ecuador                     1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-76" title="76"><span class="co">#&gt; 62 Faroe Islands               1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-77" title="77"><span class="co">#&gt; 63 Ireland                     1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-78" title="78"><span class="co">#&gt; 64 Latvia                      1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-79" title="79"><span class="co">#&gt; 65 Luxembourg                  1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-80" title="80"><span class="co">#&gt; 66 Mexico                      1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-81" title="81"><span class="co">#&gt; 67 Moldova                     1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-82" title="82"><span class="co">#&gt; 68 Paraguay                    1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-83" title="83"><span class="co">#&gt; 69 Tunisia                     1    NA        NA</span></a>
-<a class="sourceLine" id="cb6-84" title="84"><span class="co">#&gt; 70 Pakistan                   NA    NA         1</span></a>
-<a class="sourceLine" id="cb6-85" title="85"><span class="co">#&gt; 71 Senegal                    NA    NA         1</span></a>
-<a class="sourceLine" id="cb6-86" title="86"><span class="co">#&gt; 72 Taiwan                     NA    NA         1</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">coronavirus <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(date)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">country =</span> Country.Region, type, cases) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(cases)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; # A tibble: 72 x 4</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; # Groups:   country [72]</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;    country             confirmed death recovered</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;    &lt;chr&gt;                   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  1 Italy                    1492   133        33</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;  2 Iran                      743    49       465</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;  3 South Korea               273     6       -17</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;  4 Germany                   241    NA        NA</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;  5 France                    177     8        NA</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;  6 Spain                     173     7        NA</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  7 US                        122     4        NA</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt;  8 Netherlands                77     2        NA</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt;  9 Switzerland                69     1        NA</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; 10 UK                         67     1        NA</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; 11 Mainland China             47    27      1842</span></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; 12 Sweden                     42    NA        NA</span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; 13 Japan                      41    NA        NA</span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt; 14 Egypt                      34     1        NA</span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; 15 Belgium                    31    NA        NA</span></a>
+<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; 16 Norway                     29    NA        NA</span></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt; 17 Greece                     27    NA        NA</span></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt; 18 Austria                    25    NA        NA</span></a>
+<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt; 19 Republic of Ireland        21    NA        NA</span></a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt; 20 Israel                     18    NA        NA</span></a>
+<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt; 21 Australia                  13     2        NA</span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt; 22 San Marino                 13    NA        NA</span></a>
+<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; 23 Czech Republic             12    NA        NA</span></a>
+<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt; 24 Denmark                    12    NA        NA</span></a>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; 25 Singapore                  12    NA        NA</span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt; 26 Vietnam                    12    NA        NA</span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt; 27 Canada                     10    NA        NA</span></a>
+<a class="sourceLine" id="cb6-42" data-line-number="42"><span class="co">#&gt; 28 Lebanon                    10    NA        NA</span></a>
+<a class="sourceLine" id="cb6-43" data-line-number="43"><span class="co">#&gt; 29 Portugal                   10    NA        NA</span></a>
+<a class="sourceLine" id="cb6-44" data-line-number="44"><span class="co">#&gt; 30 Georgia                     9    NA        NA</span></a>
+<a class="sourceLine" id="cb6-45" data-line-number="45"><span class="co">#&gt; 31 Slovenia                    9    NA        NA</span></a>
+<a class="sourceLine" id="cb6-46" data-line-number="46"><span class="co">#&gt; 32 Finland                     8    NA        NA</span></a>
+<a class="sourceLine" id="cb6-47" data-line-number="47"><span class="co">#&gt; 33 Brazil                      7    NA        NA</span></a>
+<a class="sourceLine" id="cb6-48" data-line-number="48"><span class="co">#&gt; 34 Qatar                       7    NA        NA</span></a>
+<a class="sourceLine" id="cb6-49" data-line-number="49"><span class="co">#&gt; 35 Hong Kong                   6     1         7</span></a>
+<a class="sourceLine" id="cb6-50" data-line-number="50"><span class="co">#&gt; 36 Iraq                        6     2        NA</span></a>
+<a class="sourceLine" id="cb6-51" data-line-number="51"><span class="co">#&gt; 37 Malaysia                    6    NA         1</span></a>
+<a class="sourceLine" id="cb6-52" data-line-number="52"><span class="co">#&gt; 38 Poland                      6    NA        NA</span></a>
+<a class="sourceLine" id="cb6-53" data-line-number="53"><span class="co">#&gt; 39 Romania                     6    NA        NA</span></a>
+<a class="sourceLine" id="cb6-54" data-line-number="54"><span class="co">#&gt; 40 Saudi Arabia                6    NA        NA</span></a>
+<a class="sourceLine" id="cb6-55" data-line-number="55"><span class="co">#&gt; 41 India                       5    NA        NA</span></a>
+<a class="sourceLine" id="cb6-56" data-line-number="56"><span class="co">#&gt; 42 Peru                        5    NA        NA</span></a>
+<a class="sourceLine" id="cb6-57" data-line-number="57"><span class="co">#&gt; 43 Argentina                   4     1        NA</span></a>
+<a class="sourceLine" id="cb6-58" data-line-number="58"><span class="co">#&gt; 44 Bulgaria                    4    NA        NA</span></a>
+<a class="sourceLine" id="cb6-59" data-line-number="59"><span class="co">#&gt; 45 Chile                       4    NA        NA</span></a>
+<a class="sourceLine" id="cb6-60" data-line-number="60"><span class="co">#&gt; 46 Costa Rica                  4    NA        NA</span></a>
+<a class="sourceLine" id="cb6-61" data-line-number="61"><span class="co">#&gt; 47 Maldives                    4    NA        NA</span></a>
+<a class="sourceLine" id="cb6-62" data-line-number="62"><span class="co">#&gt; 48 Philippines                 4    NA        NA</span></a>
+<a class="sourceLine" id="cb6-63" data-line-number="63"><span class="co">#&gt; 49 Russia                      4    NA         1</span></a>
+<a class="sourceLine" id="cb6-64" data-line-number="64"><span class="co">#&gt; 50 Afghanistan                 3    NA        NA</span></a>
+<a class="sourceLine" id="cb6-65" data-line-number="65"><span class="co">#&gt; 51 Bangladesh                  3    NA        NA</span></a>
+<a class="sourceLine" id="cb6-66" data-line-number="66"><span class="co">#&gt; 52 Dominican Republic          3    NA        NA</span></a>
+<a class="sourceLine" id="cb6-67" data-line-number="67"><span class="co">#&gt; 53 Hungary                     3    NA        NA</span></a>
+<a class="sourceLine" id="cb6-68" data-line-number="68"><span class="co">#&gt; 54 Kuwait                      3    NA         1</span></a>
+<a class="sourceLine" id="cb6-69" data-line-number="69"><span class="co">#&gt; 55 Algeria                     2    NA        NA</span></a>
+<a class="sourceLine" id="cb6-70" data-line-number="70"><span class="co">#&gt; 56 Indonesia                   2    NA        NA</span></a>
+<a class="sourceLine" id="cb6-71" data-line-number="71"><span class="co">#&gt; 57 Slovakia                    2    NA        NA</span></a>
+<a class="sourceLine" id="cb6-72" data-line-number="72"><span class="co">#&gt; 58 South Africa                2    NA        NA</span></a>
+<a class="sourceLine" id="cb6-73" data-line-number="73"><span class="co">#&gt; 59 Cambodia                    1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-74" data-line-number="74"><span class="co">#&gt; 60 Cameroon                    1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-75" data-line-number="75"><span class="co">#&gt; 61 Ecuador                     1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-76" data-line-number="76"><span class="co">#&gt; 62 Faroe Islands               1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-77" data-line-number="77"><span class="co">#&gt; 63 Ireland                     1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-78" data-line-number="78"><span class="co">#&gt; 64 Latvia                      1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-79" data-line-number="79"><span class="co">#&gt; 65 Luxembourg                  1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-80" data-line-number="80"><span class="co">#&gt; 66 Mexico                      1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-81" data-line-number="81"><span class="co">#&gt; 67 Moldova                     1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-82" data-line-number="82"><span class="co">#&gt; 68 Paraguay                    1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-83" data-line-number="83"><span class="co">#&gt; 69 Tunisia                     1    NA        NA</span></a>
+<a class="sourceLine" id="cb6-84" data-line-number="84"><span class="co">#&gt; 70 Pakistan                   NA    NA         1</span></a>
+<a class="sourceLine" id="cb6-85" data-line-number="85"><span class="co">#&gt; 71 Senegal                    NA    NA         1</span></a>
+<a class="sourceLine" id="cb6-86" data-line-number="86"><span class="co">#&gt; 72 Taiwan                     NA    NA         1</span></a></code></pre></div>
 </div>
 <div id="data-sources" class="section level2">
 <h2 class="hasAnchor">
