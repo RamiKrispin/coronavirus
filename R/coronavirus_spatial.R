@@ -54,12 +54,12 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
   if(updated_data) coronavirus <- update_coronavirus()
 
   #get a world map
-  worldmap <- ne_countries(returnclass = "sf", ...) %>%
+  worldmap <- rnaturalearth::ne_countries(returnclass = "sf", ...) %>%
     select(-type)
 
   #filter data to confirmed
   coronavirus_sf <- coronavirus %>%
-    st_as_sf(coords = c("Long", "Lat"),
+    sf::st_as_sf(coords = c("Long", "Lat"),
              remove = FALSE,
              crs = st_crs(worldmap))
 
@@ -67,13 +67,10 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
 
   #if points join
   if(return_shape[1]=="point"){
-    joined_corona <- st_join(coronavirus_sf, worldmap)
+    joined_corona <- sf::st_join(coronavirus_sf, worldmap)
   }else{
-    joined_corona <- st_join(worldmap,coronavirus_sf) %>%
+    joined_corona <- sf::st_join(worldmap,coronavirus_sf) %>%
     mutate(ifelse(is.na(cases), 0, NA)) #deal with countries with 0 cases so far
-
-    ggplot(joined_corona) +
-      geom_sf()
   }
 
   #select down to sane columns
