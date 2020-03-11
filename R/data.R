@@ -55,3 +55,28 @@
 
 "covid_italy"
 
+
+#' The 2019 Novel Coronavirus COVID-19 (2019-nCoV) South Korea Outbreak Dataset
+#'
+#' @description  daily summary of the Coronavirus (COVID-19) confirmed cases in South Korea by province and city
+#'
+#'
+#' @format A data.frame object
+#' @source Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
+#' @keywords datasets coronavirus COVID19 South Korea
+#' @details The dataset contains the daily summary of the Coronavirus confirmed cases in South Korea by province and city
+#' @examples
+#'
+#' data(covid_south_korea)
+#'
+#' require(dplyr)
+#'
+#' # Get summary of total cases by city
+#'
+#' covid_south_korea %>%
+#' group_by(city) %>%
+#' summarise(total_cases = sum(total))
+#'
+
+"covid_south_korea"
+
