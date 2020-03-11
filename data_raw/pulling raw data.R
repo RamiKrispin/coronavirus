@@ -11,13 +11,6 @@ raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/CO
                      stringsAsFactors = FALSE,
                      fill =FALSE)
 
-# Fixing typo
-raw_conf$X2.6.20[which(raw_conf$Country.Region == "Japan")] <- 25
-
-#Handling missing data from last day of the data
-# If missing value, will use the value of the previous day as input
-raw_conf[, ncol(raw_conf)] <- ifelse(is.na(raw_conf[, ncol(raw_conf)]), raw_conf[, ncol(raw_conf) - 1], raw_conf[, ncol(raw_conf)])
-
 
 # Transforming the data from wide to long
 # Creating new data frame
@@ -69,10 +62,6 @@ raw_death <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/C
                       stringsAsFactors = FALSE,
                       fill =FALSE)
 
-#Handling missing data from last day of the data
-# If missing value, will use the value of the previous day as input
-raw_death[, ncol(raw_death)] <- ifelse(is.na(raw_death[, ncol(raw_death)]), raw_death[, ncol(raw_death) - 1], raw_death[, ncol(raw_death)])
-
 # Transforming the data from wide to long
 # Creating new data frame
 df_death <- raw_death[, 1:4]
@@ -122,13 +111,6 @@ tail(df_death2)
 raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
                     stringsAsFactors = FALSE,
                     fill =FALSE)
-
-
-#Handling missing data from last day of the data
-# If missing value, will use the value of the previous day as input
-raw_rec[, ncol(raw_rec)] <- ifelse(is.na(raw_rec[, ncol(raw_rec)]),
-                                   raw_rec[, ncol(raw_rec) - 1],
-                                   raw_rec[, ncol(raw_rec)])
 
 # Transforming the data from wide to long
 # Creating new data frame
