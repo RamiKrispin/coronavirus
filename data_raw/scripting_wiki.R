@@ -202,7 +202,7 @@ for(i in 2:ncol(italy1)){
   italy2[[names(italy1)[i]]] <- as.numeric(x)
 }
 
-italy_totals <- c("confirmed_new", "confirmed_total",
+totals_italy <- c("confirmed_new", "confirmed_total",
                   "death_new", "death_total",
                   "recovery_total", "tested_total")
 
@@ -217,7 +217,7 @@ View(italy3)
 
 
 
-italy4 <- italy3 %>% dplyr::filter(sub_region %in% italy_totals) %>%
+italy4 <- italy3 %>% dplyr::filter(sub_region %in% totals_italy) %>%
   dplyr::group_by(date, sub_region) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
@@ -225,7 +225,7 @@ italy4 <- italy3 %>% dplyr::filter(sub_region %in% italy_totals) %>%
 View(italy4)
 
 covid_italy <- italy3 %>%
-  dplyr::filter(!sub_region %in% totals) %>%
+  dplyr::filter(!sub_region %in% totals_italy) %>%
   dplyr::group_by(date, sub_region) %>%
   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
   dplyr::ungroup() %>%

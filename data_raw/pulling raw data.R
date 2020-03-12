@@ -10,21 +10,44 @@
 raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
                      stringsAsFactors = FALSE)
 
+# Fixing China label change
+
+c_old <- raw_conf %>% dplyr::filter(Country.Region %in% c("Mainland China", "Hong Kong SAR", "Macao SAR"))
+c_old$Country.Region <- "China"
+c_old$Province.State <- trimws(c_old$Province.State)
+c_old$X3.11.20 <- NULL
+
+c_new <- raw_conf %>%
+  dplyr::filter(Country.Region == "China") %>%
+  dplyr::select(Province.State, Country.Region, Lat, Long, X3.11.20)
+c_new$Province.State <- trimws(c_new$Province.State)
+
+
+c <- c_old %>% dplyr::select(-Lat, -Long) %>%
+  dplyr::left_join(c_new, by = c("Province.State", "Country.Region")) %>%
+  dplyr::arrange(Province.State)
+
+
+
+
+raw_conf1 <- raw_conf %>%
+  dplyr::filter(!Country.Region %in% c("Mainland China", "Hong Kong SAR", "Macao SAR", "China")) %>%
+  dplyr::bind_rows(c)
 
 # Transforming the data from wide to long
 # Creating new data frame
-df_conf <- raw_conf[, 1:4]
+df_conf <- raw_conf1[, 1:4]
 
-for(i in 5:ncol(raw_conf)){
+for(i in 5:ncol(raw_conf1)){
 
-  raw_conf[,i] <- as.integer(raw_conf[,i])
+  raw_conf1[,i] <- as.integer(raw_conf1[,i])
   # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
-    print(names(raw_conf)[i])
+    print(names(raw_conf1)[i])
 
   if(i == 5){
-    df_conf[[names(raw_conf)[i]]] <- raw_conf[, i]
+    df_conf[[names(raw_conf1)[i]]] <- raw_conf1[, i]
   } else {
-    df_conf[[names(raw_conf)[i]]] <- raw_conf[, i] - raw_conf[, i - 1]
+    df_conf[[names(raw_conf1)[i]]] <- raw_conf1[, i] - raw_conf1[, i - 1]
   }
 
 

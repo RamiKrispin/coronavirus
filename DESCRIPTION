@@ -1,6 +1,6 @@
 Package: coronavirus
 Title: The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset
-Version: 0.1.0.9000
+Version: 0.1.0.9002
 Authors@R: person("Rami", "Krispin", email = "rami.krispin@gmail.com",
   role = c("aut", "cre"))
 Maintainer: Rami Krispin <rami.krispin@gmail.com>
@@ -12,15 +12,19 @@ Depends:
   R (>= 3.0.2)
 Suggests:
     devtools,
-    dplyr,
     DT,
     knitr,
     plotly,
     rmarkdown,
     remotes,
     testthat (>= 2.1.0),
-    tidyr
+Imports:
+  tidyr,
+  purrr,
+  dplyr,
+  rnaturalearth,
+  sf
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr

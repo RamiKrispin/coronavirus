@@ -1,0 +1,134 @@
+---
+title: "Showing the Spatial Distribution of Covid-19 Confirmed Cases"
+author: "Jarrett Byrnes"
+date: "3/11/2020"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+library(ggplot2)
+
+```
+
+## Updating the coronavirus data
+
+To see the current distribution of cases around the world, we'll start by updating the coronavirus dataset.
+
+```{r update, results='hide'}
+library(coronavirus)
+library(dplyr)
+
+#as the package might not have the most
+#up to date data
+coronavirus <- update_coronavirus()
+```
+
+## Generating spatial data
+
+The `coronavirus` package using the [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/) package for spatial information. [Natural Earth](https://www.naturalearthdata.com/) provides a wealth of spatial data easily accessed via R as [sf](https://cran.r-project.org/web/packages/sf/) objects. Using [sf](https://cran.r-project.org/web/packages/sf/), we can do a spatial join on the coronavirus data to get it synced up with the `ne_countries()` data from `rnaturalearth`.
+
+Let's get the data as both points for plotting as well as polygons we can fill. We will filter to confirmed cases only.
+
+```{r make_sf_objs}
+library(sf)
+library(rnaturalearth)
+
+coronavirus_points <- coronavirus_spatial() %>%
+                       filter(type == "confirmed")
+                       
+coronavirus_polys <- coronavirus_spatial(return_shape = "polygon")%>%
+                       filter(type == "confirmed")
+```
+
+## Aggregating data
+
+Let's aggregate so that we only look at total confirmed cases.
+
+```{r aggregate}
+library(dplyr)
+coronavirus_points <- coronavirus_points %>%
+  group_by(Province.State, Country.Region, name, continent) %>%
+  summarize(cases = sum(cases))
+
+coronavirus_polys <- coronavirus_polys %>%
+  group_by(Country.Region, name, continent) %>%
+  summarize(cases = sum(cases))
+```
+
+## Plotting
+
+Great! We can now see what the spatial distribution looks like simply using ggplot. Note, the polys do not contain any records with nothing in them, so we'll need a baseline worldmap.
+
+```{r plot1, fig.width=6}
+library(ggplot2)
+
+worldmap <- ne_countries(returnclass = "sf")
+
+ggplot(data = worldmap) +
+  geom_sf(fill = "white") +
+  geom_sf(data = coronavirus_polys,
+          mapping = aes(fill = log10(cases+1))) +
+  geom_sf(data = coronavirus_points,
+          mapping = aes(size = cases),
+          alpha = 0.7, color = "black") +
+  scale_fill_viridis_c(option = "D",
+                       breaks = 0:4, labels = 10^c(0:4)) +
+  scale_size_continuous(range = c(1, 8)) +
+  labs(fill = "# of Cases", size = "# of Cases") +
+  theme_minimal()
+```
+
+Note, `rnaturalearth` returns lots of information, such as population size, which we might want to get percentages, etc.
+
+## Single Country
+What if we had wanted to just do a single country? We can manually implement the steps inside of the `coronavirus_spatial` ourselves quite easily. Let's look at the continental US, for example. Rather than doing a lot of string manipulation on the `Province.State` column, we can use `rnaturalearth` with an `st_join` to get the info we want for grouping calculations.
+
+```{r make_usa}
+usa <- ne_states(country = "United States of America", returnclass = "sf")
+
+usa_confirmed_sf <- coronavirus %>%
+  filter(Country.Region=="US") %>%
+  filter(type=="confirmed") %>%
+  st_as_sf(coords = c(x = "Long", y = "Lat"),
+           crs = st_crs(usa)) 
+
+usa_points <- st_join(usa_confirmed_sf, usa) %>%
+  group_by(name) %>%
+  summarize(cases = sum(cases)) %>%
+  filter(!(name %in% c("Hawaii", "Alaska"))) %>%
+  filter(!is.na(name))
+
+usa_polygons <- st_join(usa, usa_confirmed_sf) %>%
+  group_by(name) %>%
+  summarize(cases = sum(cases))%>%
+  filter(!(name %in% c("Hawaii", "Alaska")))%>%
+  filter(!is.na(name))
+```
+
+We can now see how things are as of the data downloaded on `r format(Sys.time(), "%a %b %d %Y")`.
+
+```{r plot_us_cases, fig.width=6}
+ggplot(data = usa %>% filter(!(name %in% c("Hawaii", "Alaska")))) +
+  geom_sf(fill = "white") +
+  geom_sf(data = usa_points, mapping = aes(size = cases),
+          alpha = 0.7) +
+  theme_minimal()
+```
+
+Or we can look at things state by state using fill.
+
+```{r plot_us_cases_poly, fig.width=6}
+ggplot(data = usa %>% filter(!(name %in% c("Hawaii", "Alaska")))) +
+  geom_sf(fill = "white") +
+  geom_sf(data = usa_polygons, mapping = aes(fill = cases)) +
+  theme_minimal() +
+  scale_fill_viridis_c(na.value = "white")
+```
+
+
