@@ -41,7 +41,7 @@ A summary dashboard is available [here](https://ramikrispin.github.io/coronaviru
 Install the CRAN version:
 
 ```r
-install.packages("coronavirus") 
+install.packages("coronavirus")
 ```
 
 Install the Github version (refreshed on a daily bases):
