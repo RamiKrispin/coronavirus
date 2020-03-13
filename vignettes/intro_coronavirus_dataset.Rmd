@@ -164,7 +164,7 @@ The following plot describes the overall distribution of the total confirmed cas
 
 ```{r}
 coronavirus %>% 
-  filter(Country.Region == "Mainland China",
+  filter(Country.Region == "China",
          type == "confirmed") %>%
   group_by(Province.State, type) %>%
   summarise(total_cases = sum(cases)) %>%  
