@@ -278,7 +278,8 @@ tail(df_rec2)
 #---------------- Aggregate all cases ----------------
 
 #
-coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2)
+coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
+  as.data.frame()
 
 
 
@@ -286,7 +287,7 @@ head(coronavirus)
 tail(coronavirus)
 
 
-usethis::use_data(coronavirus, overwrite = TRUE)
+usethis::use_data(coronavirus, overwrite = TRUE, compress = FALSE, version = 3)
 
 write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
 writexl::write_xlsx(x = coronavirus, path = "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.xlsx", col_names = TRUE)
