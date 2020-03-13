@@ -1,4 +1,15 @@
-
+#' Update the Package Datasets
+#' @description  Update the package datasets from the Dev version
+#' @details As the CRAN version is being updated every one-two months, the dev version of the package is being updated on a daily bases.
+#' This function enables to refresh the package dataset to the most up-to-date data
+#' @return A data.frame object
+#' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
+#' @export update_coronavirus
+#'
+#' @examples
+#'\dontrun{
+#' coronavirus <- update_coronavirus()
+#' }
 update_datasets <- function(){
 # Update the coronavirus dataset
 df1 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
