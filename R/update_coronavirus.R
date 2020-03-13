@@ -1,5 +1,4 @@
 #' update_coronavirus
-#' @export
 #' @description  Update the data using the daily summary of the Coronavirus (COVID-19) cases by state/province.
 #' @return An updated tbl object for the coronavirus dataset.
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
