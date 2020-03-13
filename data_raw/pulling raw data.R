@@ -287,7 +287,7 @@ head(coronavirus)
 tail(coronavirus)
 
 
-usethis::use_data(coronavirus, overwrite = TRUE, compress = FALSE, version = 3)
+usethis::use_data(coronavirus, overwrite = TRUE)
 
 write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
 writexl::write_xlsx(x = coronavirus, path = "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.xlsx", col_names = TRUE)
