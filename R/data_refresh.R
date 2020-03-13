@@ -8,7 +8,7 @@
 #'
 #' @examples
 #'\dontrun{
-#' coronavirus <- update_coronavirus()
+#' update_datasets()
 #' }
 update_datasets <- function(){
 # Update the coronavirus dataset
