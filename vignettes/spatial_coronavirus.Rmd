@@ -24,9 +24,6 @@ To see the current distribution of cases around the world, we'll start by updati
 library(coronavirus)
 library(dplyr)
 
-#as the package might not have the most
-#up to date data
-coronavirus <- update_coronavirus()
 ```
 
 ## Generating spatial data
