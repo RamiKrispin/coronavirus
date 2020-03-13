@@ -21,6 +21,6 @@ This function enables to refresh the package dataset to the most up-to-date data
 }
 \examples{
 \dontrun{
-coronavirus <- update_coronavirus()
+update_datasets()
 }
 }
