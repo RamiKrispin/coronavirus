@@ -45,7 +45,7 @@ str(us)
 #----------------South Korea----------------
 # Summarise table of cases in the South Korea
 # Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea
-
+`%>%` <- magrittr::`%>%`
 url_sk <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea"
 
 sk_raw <- url_sk %>%
@@ -106,7 +106,7 @@ for(i in 2:ncol(sk_df)){
   sk_df1[[names(sk_df)[i]]] <- ifelse(is.na(as.numeric(x)), 0, x)
 }
 
-View(sk_df1)
+# View(sk_df1)
 totals_sk <- c("confirmed_new", "confirmed_total",
                "death_new", "death_total",
                "tested_total", "tested_current",
@@ -116,7 +116,7 @@ sk_df2 <- sk_df1 %>%
   tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
   dplyr::select(-value)
-View(sk_df2)
+# View(sk_df2)
 
 
 
@@ -125,7 +125,7 @@ sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals_sk) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
-View(sk_df3)
+# View(sk_df3)
 
 covid_south_korea <- sk_df2 %>%
   dplyr::filter(!city %in% totals_sk) %>%
