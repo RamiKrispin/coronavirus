@@ -283,11 +283,29 @@ coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
 
 
 
+
+
+#use spatial info to make better Province.State and Country.Region
+states_of_the_world <- readRDS("./data_raw/select_info_states_rnaturalearth_sf.Rds")
+coronavirus_sf <- sf::st_as_sf(coronavirus, coords = c(x = "Long", y = "Lat"), remove = FALSE,
+                               crs = sf::st_crs(states_of_the_world)) %>%
+  sf::st_join(states_of_the_world) %>%
+  #some data is not actually at the state level
+  dplyr::mutate(name = ifelse(Province.State=="" | is.na(Province.State), NA, name),
+         Region.Type = ifelse(Province.State=="" | is.na(Province.State), NA,  Region.Type),
+  ) %>%
+  #make it have the same names and similar cols to previous versions
+  dplyr::select(name, admin, Region.Type, iso_3166_2, Lat, Long, date, cases, type) %>%
+  dplyr::rename(Province.State = name, Country.Region = admin)
+
+coronavirus <- as.data.frame(coronavirus_sf) %>%
+  dplyr::select(-geometry)
+
 head(coronavirus)
 tail(coronavirus)
 
-
 usethis::use_data(coronavirus, overwrite = TRUE)
+usethis::use_data(coronavirus_sf, overwrite = TRUE)
 
 write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
 writexl::write_xlsx(x = coronavirus, path = "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.xlsx", col_names = TRUE)
