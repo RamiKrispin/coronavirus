@@ -293,6 +293,7 @@ coronavirus_sf <- sf::st_as_sf(coronavirus, coords = c(x = "Long", y = "Lat"), r
   #some data is not actually at the state level
   dplyr::mutate(name = ifelse(Province.State=="" | is.na(Province.State), NA, name),
          Region.Type = ifelse(Province.State=="" | is.na(Province.State), NA,  Region.Type),
+         admin = ifelse(is.na(admin), Country.Region, admin) #not sure why this is happening...
   ) %>%
   #make it have the same names and similar cols to previous versions
   dplyr::select(name, admin, Region.Type, iso_3166_2, Lat, Long, date, cases, type) %>%
