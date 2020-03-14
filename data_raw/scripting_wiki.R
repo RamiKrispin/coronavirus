@@ -262,10 +262,28 @@ iran_raw <- url_iran %>%
 iran_region_mapping <- data.frame(region = c(rep("Region 1", 7), rep("Region 2", 6),
                                              rep("Region 3", 6), rep("Region 4", 6),
                                              rep("Region 5", 6)) ,
-                                  province = c("Qom", "Teh", "Maz", "Alb", "Sem", "Gol", "Qaz", "Esf", "Frs", "Hor", "Koh", "Cha", "Bus",
-                                               "Gil", "Ard", "Azs", "Azg", "Kur", "Zan", "Mar", "Ham", "Khz", "Krs", "Lor", "Ilm", "Khr",
-                                               "Sis", "Yaz", "Khs", "Ker", "Khn"),
-                                  stringsAsFactors = FALSE)
+                                  province_abb = c("Qom", "Teh", "Maz", "Alb",
+                                               "Sem", "Gol", "Qaz", "Esf",
+                                               "Frs", "Hor", "Koh", "Cha",
+                                               "Bus","Gil", "Ard", "Azs",
+                                               "Azg", "Kur", "Zan", "Mar",
+                                               "Ham", "Khz", "Krs", "Lor",
+                                               "Ilm", "Khr", "Sis", "Yaz",
+                                               "Khs", "Ker", "Khn"),
+                                  province = c("Qom", "Tehran", "Mazandaran", "Alborz",
+                                                "Semnan", "Golestan",  "Qazvin", "Esfahan",
+                                                "Fars", "Hormozgan", "Kohgiluyeh and Buyer Ahmad", "Chahar Mahall and Bakhtiari",
+                                                "Bushehr", "Gilan", "Ardebil", "East Azarbaijan",
+                                                "West Azarbaijan", "Kordestan", "Zanjan", "Markazi",
+                                                "Hamadan", "Khuzestan", "Kermanshah", "Lorestan",
+                                                "Ilam", "Razavi Khorasan", "Sistan and Baluchestan", "Yazd",
+                                                "South Khorasan", "Kerman", "North Khorasan"),
+                                  stringsAsFactors = FALSE) %>%
+  dplyr::arrange(province)
+
+iran_region_mapping
+
+
 
 iran_names <- iran_raw[1,] %>% as.character()
 iran_names[33] <- "confirmed_new"
@@ -275,22 +293,23 @@ iran_names[36] <- "death_total"
 
 
 
-covid_iran<- iran_raw[-1, ] %>% stats::setNames(iran_names) %>%
+covid_iran <- iran_raw[-1, ] %>% stats::setNames(iran_names) %>%
   dplyr::select(- Sources) %>%
   dplyr::mutate(date = as.Date(Date)) %>%
   dplyr::select(-Date, -confirmed_new, -confirmed_total, -death_new, -death_total) %>%
   dplyr::filter(!is.na(date)) %>%
-  tidyr::pivot_longer(cols = -date, names_to = "province") %>%
+  tidyr::pivot_longer(cols = -date, names_to = "province_abb") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
   dplyr::mutate(cases = ifelse(is.na(cases), 0, cases)) %>%
   dplyr::select(-value) %>%
-  dplyr::left_join(iran_region_mapping, by = "province") %>%
+  dplyr::left_join(iran_region_mapping , by = "province_abb") %>%
   dplyr::select(date, region, province, cases) %>%
   as.data.frame()
 
 covid_iran_wide <- covid_iran %>% tidyr::pivot_wider(names_from = province, values_from = cases)
 
 str(covid_iran)
+head(covid_iran)
 View(covid_iran)
 
 usethis::use_data(covid_iran, overwrite = TRUE)
