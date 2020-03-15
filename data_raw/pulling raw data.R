@@ -10,6 +10,14 @@
 raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
                      stringsAsFactors = FALSE)
 
+lapply(1:ncol(raw_conf), function(i){
+  if(all(is.na(raw_conf[, i]))){
+    raw_conf <<- raw_conf[, -i]
+    return(print(paste("Column", names(raw_conf)[i], "is missing", sep = " ")))
+  } else {
+    return(NULL)
+  }
+})
 # Fixing US data
 # Aggregating county level to state level
 
@@ -101,7 +109,14 @@ raw_death <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/C
                       stringsAsFactors = FALSE,
                       fill =FALSE)
 
-
+lapply(1:ncol(raw_death), function(i){
+  if(all(is.na(raw_death[, i]))){
+    raw_death <<- raw_death[, -i]
+    return(print(paste("Column", names(raw_death)[i], "is missing", sep = " ")))
+  } else {
+    return(NULL)
+  }
+})
 # Fixing US data
 # Aggregating county level to state level
 
@@ -192,7 +207,14 @@ raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COV
                     stringsAsFactors = FALSE,
                     fill =FALSE)
 
-
+lapply(1:ncol(raw_rec), function(i){
+  if(all(is.na(raw_rec[, i]))){
+    raw_rec <<- raw_rec[, -i]
+    return(print(paste("Column", names(raw_rec)[i], "is missing", sep = " ")))
+  } else {
+    return(NULL)
+  }
+})
 # Fixing US data
 # Aggregating county level to state level
 
@@ -287,7 +309,7 @@ head(coronavirus)
 tail(coronavirus)
 
 
-usethis::use_data(coronavirus, overwrite = TRUE)
+usethis::use_data(coronavirus, overwrite = TRUE, compress = "gzip")
 
 write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.csv", row.names = FALSE)
 writexl::write_xlsx(x = coronavirus, path = "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.xlsx", col_names = TRUE)

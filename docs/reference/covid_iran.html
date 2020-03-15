@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset — covid_italy • coronavirus</title>
+<title>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset — covid_iran • coronavirus</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset — covid_italy" />
+<meta property="og:title" content="The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset — covid_iran" />
 
-<meta property="og:description" content="daily summary of the Coronavirus (COVID-19) confirmed cases in Italy by region" />
+<meta property="og:description" content="daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region and province" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,18 +117,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset</h1>
+    <h1>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>covid_italy.Rd</code></div>
+    <div class="hidden name"><code>covid_iran.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>daily summary of the Coronavirus (COVID-19) confirmed cases in Italy by region</p>
+    <p>daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region and province</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>covid_italy</span></pre>
+    <pre class="usage"><span class='no'>covid_iran</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
@@ -136,37 +136,37 @@
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Wikipedia article "2020 coronavirus outbreak in Italy" <a href='https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy'>website</a></p>
+    <p>Wikipedia article "2020 coronavirus pandemic in Iran"  <a href='https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran'>website</a></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The dataset contains the daily summary of the Coronavirus confirmed cases in Italy by region</p>
+    <p>The dataset contains the cases in Iran by region and province</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>covid_italy</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>covid_iran</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>dplyr</span>)
 
-<span class='co'># Get summary by sub region of totalcases</span>
+<span class='co'># Get summary of total cases by province</span>
 
-<span class='no'>covid_italy</span> <span class='kw'>%&gt;%</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>sub_region</span>) <span class='kw'>%&gt;%</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total_cases</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>total</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 21 x 2</span><span>
-#&gt;    sub_region total_cases
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> ABR                112
-#&gt; </span><span style='color: #555555;'> 2</span><span> BAS                 10
-#&gt; </span><span style='color: #555555;'> 3</span><span> BZ                 173
-#&gt; </span><span style='color: #555555;'> 4</span><span> CAL                 60
-#&gt; </span><span style='color: #555555;'> 5</span><span> CAM                272
-#&gt; </span><span style='color: #555555;'> 6</span><span> EMR               </span><span style='text-decoration: underline;'>2</span><span>644
-#&gt; </span><span style='color: #555555;'> 7</span><span> FVG                301
-#&gt; </span><span style='color: #555555;'> 8</span><span> LAZ                357
-#&gt; </span><span style='color: #555555;'> 9</span><span> LIG                483
-#&gt; </span><span style='color: #555555;'>10</span><span> LOM              </span><span style='text-decoration: underline;'>11</span><span>685
-#&gt; </span><span style='color: #555555;'># … with 11 more rows</span><span></div><div class='input'>
+<span class='no'>covid_iran</span> <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>province</span>) <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 31 x 2</span><span>
+#&gt;    province                    total
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Alborz                        552
+#&gt; </span><span style='color: #555555;'> 2</span><span> Ardebil                       151
+#&gt; </span><span style='color: #555555;'> 3</span><span> Bushehr                        28
+#&gt; </span><span style='color: #555555;'> 4</span><span> Chahar Mahall and Bakhtiari    49
+#&gt; </span><span style='color: #555555;'> 5</span><span> East Azarbaijan               304
+#&gt; </span><span style='color: #555555;'> 6</span><span> Esfahan                       982
+#&gt; </span><span style='color: #555555;'> 7</span><span> Fars                          227
+#&gt; </span><span style='color: #555555;'> 8</span><span> Gilan                         681
+#&gt; </span><span style='color: #555555;'> 9</span><span> Golestan                      234
+#&gt; </span><span style='color: #555555;'>10</span><span> Hamadan                       108
+#&gt; </span><span style='color: #555555;'># … with 21 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

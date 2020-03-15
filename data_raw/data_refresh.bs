@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+
+#Rscript --no-save --no-restore /Users/ramikrispin/R/packages/coronavirus/data_raw/pulling\ raw\ data.R
+
+cd /Users/ramikrispin/R/packages/coronavirus/
+
+if [[ `git status --porcelain` ]]; then
+  printf "x"
+  git diff-index --quiet HEAD --
+else
+  printf "b"
+fi
+
+
