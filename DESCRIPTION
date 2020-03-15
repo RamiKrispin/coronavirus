@@ -23,7 +23,8 @@ Imports:
   purrr,
   dplyr,
   rnaturalearth,
-  sf
+  sf,
+  ggplot2
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.0
