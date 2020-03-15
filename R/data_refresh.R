@@ -10,7 +10,7 @@
 #' covid_south_korea - Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
 #'
 #' covid_iran - Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
-#' @export update_coronavirus
+#' @export update_datasets
 #'
 #' @examples
 #'\dontrun{
