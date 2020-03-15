@@ -17,28 +17,33 @@
 #' update_datasets()
 #' }
 update_datasets <- function(){
-# Update the coronavirus dataset
-df1 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
+
+  flag <- FALSE
 
 
-df1$date <- as.Date(df1$date)
+  # Update the coronavirus dataset
+  df1 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
 
-if(identical(df1, coronavirus::coronavirus)){
-  print("The coronavirus data set is up-to-date")
-} else {
-  l_date <- max(coronavirus::coronavirus$date)
-  g_date <- max(df1$date)
 
-  if(g_date > l_date & base::nrow(df1) > base::nrow(coronavirus::coronavirus)){
-    q <- base::tolower(base::readline("Updates for the coronavirus dataset are available. Do you want to update the dataset? N/y"))
+  df1$date <- as.Date(df1$date)
 
-    if(q == "y" || q == "Y" || q == "yes"){
-      coronavirus <<- df1
+  if(identical(df1, coronavirus::coronavirus)){
+    print("The coronavirus data set is up-to-date")
+  } else {
+    l_date <- max(coronavirus::coronavirus$date)
+    g_date <- max(df1$date)
 
-      print("The 'coronavirus' dataset was updated on the global envirunment")
+    if(g_date > l_date & base::nrow(df1) > base::nrow(coronavirus::coronavirus)){
+      q <- base::tolower(base::readline("Updates for the coronavirus dataset are available. Do you want to update the dataset? N/y"))
+
+      if(q == "y" || q == "Y" || q == "yes"){
+        coronavirus <<- df1
+
+        print("The 'coronavirus' dataset was updated on the global envirunment")
+        flag <- TRUE
+      }
     }
   }
-}
 
 
   # Update the coronavirus dataset
@@ -60,6 +65,8 @@ if(identical(df1, coronavirus::coronavirus)){
         covid_italy <<- df2
         save(covid_italy, file = paste(.libPaths(), "coronavirus/data/covid_italy.rda", sep = "/"))
         print("The 'covid_italy' dataset was updated on the global envirunment")
+
+        flag <- TRUE
       }
     }
   }
@@ -83,6 +90,7 @@ if(identical(df1, coronavirus::coronavirus)){
       if(q == "y" || q == "Y" || q == "yes"){
         covid_south_korea <<- df3
         print("The 'covid_south_korea' dataset was updated on the global envirunment")
+        flag <- TRUE
       }
     }
   }
@@ -106,9 +114,14 @@ if(identical(df1, coronavirus::coronavirus)){
       if(q == "y" || q == "Y" || q == "yes"){
         covid_south_korea <<- df4
         print("The 'covid_iran' dataset was updated on the global envirunment")
+        flag <- TRUE
       }
     }
   }
 
+
+  if(flag){
+    print("To update the dataset on the package itself please install the package dev version from Github")
+  }
 
 }
