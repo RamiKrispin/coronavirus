@@ -162,7 +162,8 @@ italy_raw <- url_italy %>%
 
 names(italy_raw)
 
-View(italy_raw)
+# View(italy_raw)
+head(italy_raw)
 
 italy_region_mapping <- data.frame(region = c("North-West", "North-West", "North-West", "North-West",
                                               "North-East", "North-East", "North-East", "North-East", "North-East",
@@ -207,13 +208,13 @@ totals_italy <- c("confirmed_new", "confirmed_total",
                   "recovery_total", "tested_total")
 
 
-View(italy2)
+head(italy2)
 
 italy3 <- italy2 %>%
   tidyr::pivot_longer(cols = c(-date), names_to = "sub_region") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
   dplyr::mutate(cases = ifelse(is.na(cases), 0, cases))
-View(italy3)
+head(italy3)
 
 
 
@@ -222,7 +223,7 @@ italy4 <- italy3 %>% dplyr::filter(sub_region %in% totals_italy) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
-View(italy4)
+head(italy4)
 
 covid_italy <- italy3 %>%
   dplyr::filter(!sub_region %in% totals_italy) %>%
