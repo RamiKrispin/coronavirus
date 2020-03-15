@@ -28,8 +28,8 @@ if(identical(df1, coronavirus::coronavirus)){
 
     if(q == "y" || q == "Y" || q == "yes"){
       coronavirus <<- df1
-      save(coronavirus, file = paste(.libPaths(), "coronavirus/data/coronavirus.rda", sep = "/"))
-      print("The coronavirus was update...")
+
+      print("The 'coronavirus' dataset was updated on the global envirunment")
     }
   }
 }
@@ -53,7 +53,7 @@ if(identical(df1, coronavirus::coronavirus)){
       if(q == "y" || q == "Y" || q == "yes"){
         covid_italy <<- df2
         save(covid_italy, file = paste(.libPaths(), "coronavirus/data/covid_italy.rda", sep = "/"))
-        print("The covid_italy was update...")
+        print("The 'covid_italy' dataset was updated on the global envirunment")
       }
     }
   }
@@ -72,12 +72,34 @@ if(identical(df1, coronavirus::coronavirus)){
     g_date <- max(df3$date)
 
     if(g_date > l_date & base::nrow(df3) > base::nrow(coronavirus::covid_south_korea)){
-      q <- base::tolower(base::readline("Updates for the covid_south_korea dataset are available. Do you want to update the dataset? N/y"))
+      q <- base::tolower(base::readline("Updates for the covid_south_korea dataset are available. Do you want to update it? N/y"))
 
       if(q == "y" || q == "Y" || q == "yes"){
         covid_south_korea <<- df3
-        save(covid_south_korea, file = paste(.libPaths(), "coronavirus/data/covid_south_korea.rda", sep = "/"))
-        print("The covid_south_korea was update...")
+        print("The 'covid_south_korea' dataset was updated on the global envirunment")
+      }
+    }
+  }
+
+
+  # Update the Iran dataset
+  df4 <- read.csv(file = "https://github.com/RamiKrispin/coronavirus-csv/blob/master/iran/covid_iran_long.csv", stringsAsFactors = FALSE)
+
+
+  df4$date <- as.Date(df4$date)
+
+  if(identical(df4, coronavirus::covid_iran)){
+    print("The covid_iran dataset is up-to-date")
+  } else{
+    l_date <- max(coronavirus::covid_iran$date)
+    g_date <- max(df4$date)
+
+    if(g_date > l_date & base::nrow(df4) > base::nrow(coronavirus::covid_iran)){
+      q <- base::tolower(base::readline("Updates for the covid_iran dataset are available. Do you want to update it? N/y"))
+
+      if(q == "y" || q == "Y" || q == "yes"){
+        covid_south_korea <<- df4
+        print("The 'covid_iran' dataset was updated on the global envirunment")
       }
     }
   }
