@@ -4,7 +4,9 @@
 \name{covid_italy}
 \alias{covid_italy}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset}
-\format{A data.frame object}
+\format{
+A data.frame object
+}
 \source{
 Wikipedia article "2020 coronavirus outbreak in Italy" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy}{website}
 }

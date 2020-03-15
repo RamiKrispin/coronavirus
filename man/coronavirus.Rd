@@ -4,12 +4,16 @@
 \name{coronavirus}
 \alias{coronavirus}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset}
-\format{A tbl object}
+\format{
+A tbl object or a sf object
+}
 \source{
 Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 }
 \usage{
 coronavirus
+
+coronavirus_sf
 }
 \description{
 daily summary of the Coronavirus (COVID-19) cases by state/province.
@@ -42,4 +46,5 @@ coronavirus \%>\%
 }
 \keyword{COVID19}
 \keyword{coronavirus}
+\keyword{coronavirus_sf}
 \keyword{datasets}
