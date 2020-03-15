@@ -72,9 +72,9 @@ worldmap <- ne_countries(returnclass = "sf")
 
 ggplot(data = worldmap) +
   geom_sf(fill = "white") +
-  geom_sf(data = coronavirus_polys %>% filter(type=="confirmed"),
+  geom_sf(data = coronavirus_polys,
           mapping = aes(fill = log10(cases+1))) +
-  geom_sf(data = coronavirus_points %>% filter(type=="confirmed"),
+  geom_sf(data = coronavirus_points,
           mapping = aes(size = cases),
           alpha = 0.7, color = "black") +
   scale_fill_viridis_c(option = "D",
