@@ -300,7 +300,8 @@ tail(df_rec2)
 #---------------- Aggregate all cases ----------------
 
 #
-coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2)
+coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
+  as.data.frame()
 
 
 

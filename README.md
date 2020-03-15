@@ -40,7 +40,7 @@ Library
 Install the CRAN version:
 
 ``` r
-install.packages("coronavirus")
+install.packages("coronavirus") 
 ```
 
 Install the Github version (refreshed on a daily bases):
