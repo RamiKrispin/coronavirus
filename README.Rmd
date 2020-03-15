@@ -47,7 +47,7 @@ install.packages("coronavirus")
 Install the Github version (refreshed on a daily bases):
 
 ``` r
-# install.packages("devtools") 
+# install.packages("devtools")
 devtools::install_github("RamiKrispin/coronavirus")
 ```
 ## Usage
