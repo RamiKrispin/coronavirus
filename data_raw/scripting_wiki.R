@@ -322,16 +322,24 @@ write.csv(iran_region_mapping, "/Users/ramikrispin/R/packages/coronavirus_csv/ir
 
 #----------------Germany----------------
 # Summarise table of cases in the Germany
-# Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Germany
+# Using : https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Germany
 
-url_gr <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Germany"
+url_gr <-  "https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Germany"
 
 gr_raw <- url_gr %>%
   xml2::read_html() %>%
   rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[3]') %>%
   rvest::html_table(fill = TRUE,
-                    header = TRUE) %>% t
+                    header = TRUE)
 
+
+gr_states <- gr_raw[2:18,1]
+dates <- lubridate::mdy(paste(names(gr_raw)[-1], gr_raw[1,-1], 2020, sep = "-"))
+
+
+gr_df <- lapply(gr_states, function(i){
+
+})
 
 gr_names <- c("date_temp", gr_raw[1, 2:ncol(gr_raw)])
 
