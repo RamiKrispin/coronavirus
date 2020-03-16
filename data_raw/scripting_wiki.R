@@ -165,7 +165,7 @@ names(italy_raw)
 # View(italy_raw)
 head(italy_raw)
 
-italy_region_mapping <- data.frame(region = c("North-West", "North-West", "North-West", "North-West",
+italy_region_mapping <- data.frame(area = c("North-West", "North-West", "North-West", "North-West",
                                               "North-East", "North-East", "North-East", "North-East", "North-East",
                                               "Center", "Center", "Center", "Center",
                                               "South","South", "South", "South", "South", "South",
@@ -173,6 +173,7 @@ italy_region_mapping <- data.frame(region = c("North-West", "North-West", "North
                                    sub_region = c("VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
                                                   "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
                                                   "CAM",	"BAS",	"PUG",	"CAL",	"SIC",	"SAR"),
+                                   province = c(),
                                    stringsAsFactors = FALSE)
 italy_names <- c("Date","VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
                  "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
