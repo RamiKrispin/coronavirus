@@ -1,16 +1,11 @@
 #!/bin/bash
 
+cd ~/R/packages/
 
+ R CMD INSTALL --no-multiarch --with-keep.source coronavirus
 
-#Rscript --no-save --no-restore /Users/ramikrispin/R/packages/coronavirus/data_raw/pulling\ raw\ data.R
+cd coronavirus
 
-cd /Users/ramikrispin/R/packages/coronavirus/
-
-if [[ `git status --porcelain` ]]; then
-  printf "x"
-  git diff-index --quiet HEAD --
-else
-  printf "b"
-fi
-
-
+git add data/covid_italy.rda
+git commit -m "Update the italy dataset"
+git push origin master
