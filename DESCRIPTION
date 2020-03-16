@@ -18,13 +18,16 @@ Suggests:
     rmarkdown,
     remotes,
     testthat (>= 2.1.0),
+    webshot
 Imports:
+  utils,
   tidyr,
   purrr,
   dplyr,
   rnaturalearth,
   sf,
-  ggplot2
+  ggplot2,
+  rgeos
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.0
