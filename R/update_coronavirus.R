@@ -1,13 +1,26 @@
 #' update_coronavirus
 #' @export
-#' @description  Update the data using the daily summary of the Coronavirus (COVID-19) cases by state/province.
-#' @return An updated tbl object for the coronavirus dataset.
+#' @param debug Should we print out the head of datasets as they are downloaded or other debug
+#' information? Defaults to `FALSE`.
+#' @param returnclass Return
+#'
+#' @description  Update the data using the daily summary of the Coronavirus (COVID-19) cases by
+#' state/province. Note, this function pulls from the raw archive. The data has not been
+#' QC-ed yet on our end, and as such might have some innaaccuracies in it, such as duplicated
+#' records, negative values, or other issues that we have noticed in the past. Please file issues
+#' at the data source - https://github.com/CSSEGISandData/COVID-19/ - and you can give us a heads
+#' up at https://github.com/RamiKrispin/coronavirus/issues as we will be pulling it soon.
+#'
+#' Spatial information (borders, etc.) are from \link[rnaturalearth]{rnaturalearth}. `sf` objects
+#' can be easily merged with other data from \link[coronavirus]{coronavirus} using \link[sf]{st_join}.
+#' @return An updated tbl or sf object for the coronavirus dataset.
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
-#' @export update_coronavirus
+#' @source The \link[rnaturalearth]{rnaturalearth}
+#' @export update_coronavirus_raw
 #'
 #' @examples
 #'\dontrun{
-#' coronavirus <- update_coronavirus()
+#' coronavirus <- update_coronavirus_raw()
 #' }
 
 #----------------------------------------------------
@@ -19,7 +32,7 @@
 # Pulling confirmed cases
 
 
-update_coronavirus <- function(){
+update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "sf")){
 
 `%>%` <- magrittr::`%>%`
 
@@ -80,8 +93,11 @@ update_coronavirus <- function(){
       Province.State = trimws(Province.State)
     )
 
-  head(df_conf2)
-  tail(df_conf2)
+  if(debug){
+    print(head(df_conf2))
+    print(tail(df_conf2))
+  }
+
   #----------------------------------------------------
   # Pulling death cases
   print("Reading deaths...")
@@ -139,8 +155,10 @@ update_coronavirus <- function(){
       Province.State = trimws(Province.State)
     )
 
-  head(df_death2)
-  tail(df_death2)
+  if(debug){
+    print(head(df_death2))
+    print(tail(df_death2))
+  }
   #----------------------------------------------------
   # Pulling recovered cases
   print("Reading recovery...")
@@ -196,13 +214,40 @@ update_coronavirus <- function(){
       Province.State = trimws(Province.State)
     )
 
-  head(df_rec2)
-  tail(df_rec2)
+  if(debug){
+    print(head(df_rec2))
+    print(tail(df_rec2))
+  }
 
   coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
     dplyr::arrange(date) %>% dplyr::ungroup() %>%
     dplyr::filter(cases != 0)
 
+
+
+  #use spatial info to make better Province.State and Country.Region
+  load("data/states_of_the_world.rda")
+  coronavirus_sf <- sf::st_as_sf(coronavirus, coords = c(x = "Long", y = "Lat"), remove = FALSE,
+                                 crs = sf::st_crs(states_of_the_world)) %>%
+    sf::st_join(states_of_the_world) %>%
+    #some data is not actually at the state level
+    dplyr::mutate(name = ifelse(Province.State=="" | is.na(Province.State), NA, name),
+                  Region.Type = ifelse(Province.State=="" | is.na(Province.State), NA,  Region.Type),
+                  admin = ifelse(is.na(admin), Country.Region, admin),#not sure why this is happening...
+                  admin = ifelse(admin =="US", "United States of America", admin) #fix for NA countries that are the US
+    ) %>%
+    rename(JHU.Province.State = Province.State,
+           JHU.Country.Region = Country.Region) %>%
+    #make it have the same names and similar cols to previous versions
+    dplyr::select(name, admin, Region.Type, iso_3166_2, JHU.Province.State, JHU.Country.Region, Lat, Long, date, cases, type) %>%
+    dplyr::rename(Province.State = name, Country.Region = admin)
+
+  #if they want the data in a spatial form
+  if(returnclass == "sf") return(coronavirus_sf)
+
+  #otherwise, return the data frame without a geometry column
+  coronavirus <- as.data.frame(coronavirus_sf) %>%
+    dplyr::select(-geometry)
 
 
   coronavirus

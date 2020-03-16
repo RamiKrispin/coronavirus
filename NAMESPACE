@@ -2,4 +2,5 @@
 
 export(coronavirus_spatial)
 export(update_coronavirus)
+export(update_coronavirus_raw)
 importFrom(dplyr,`%>%`)
