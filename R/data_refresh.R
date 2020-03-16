@@ -4,7 +4,7 @@
 #' This function enables to refresh the package dataset to the most up-to-date data
 #' @return A data.frame object
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
-#' @export update_coronavirus
+#' @export update_datasets
 #'
 #' @examples
 #'\dontrun{

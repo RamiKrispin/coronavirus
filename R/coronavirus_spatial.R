@@ -30,7 +30,7 @@
 #'
 #' worldmap <- ne_countries(returnclass = "sf")
 #'
-#' coronavirus <- update_coronavirus()
+#' coronavirus <- update_coronavirus_raw()
 #'
 #' coronavirus_points <- coronavirus_spatial() %>%
 #'                        filter(date == "2020-03-08") %>%
@@ -53,7 +53,7 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
                                 updated_data = FALSE,
                                 returncols = c("all", "simple","reduced"),
                                 ...){
-  if(updated_data) coronavirus <- update_coronavirus()
+  if(updated_data) coronavirus <- update_coronavirus_raw()
 
   #get a world map
   worldmap <- rnaturalearth::ne_countries(returnclass = "sf", ...) %>%

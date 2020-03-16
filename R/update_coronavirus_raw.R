@@ -1,4 +1,4 @@
-#' update_coronavirus
+#' update_coronavirus_raw
 #' @export
 #' @param debug Should we print out the head of datasets as they are downloaded or other debug
 #' information? Defaults to `FALSE`.
@@ -16,7 +16,6 @@
 #' @return An updated tbl or sf object for the coronavirus dataset.
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 #' @source The \link[rnaturalearth]{rnaturalearth}
-#' @export update_coronavirus_raw
 #'
 #' @examples
 #'\dontrun{

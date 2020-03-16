@@ -48,7 +48,7 @@ library(rnaturalearth)
 
 worldmap <- ne_countries(returnclass = "sf")
 
-coronavirus <- update_coronavirus()
+coronavirus <- update_coronavirus_raw()
 
 coronavirus_points <- coronavirus_spatial() \%>\%
                        filter(date == "2020-03-08") \%>\%
