@@ -1,7 +1,7 @@
 ---
 title: "Showing the Spatial Distribution of Covid-19 Confirmed Cases"
 author: "Jarrett Byrnes"
-date: "3/11/2020"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Put the title of your vignette here}
@@ -18,15 +18,19 @@ library(ggplot2)
 
 ## Updating the coronavirus data
 
-To see the current distribution of cases around the world, we'll start by updating the coronavirus dataset.
+To see the current distribution of cases around the world, we'll start by updating the coronavirus dataset and then making it spatial.
 
 ```{r update, results='hide'}
 library(coronavirus)
 library(dplyr)
 
+#spatial libraries
+library(sf)
+library(rnaturalearth)
+
 #as the package might not have the most
 #up to date data
-coronavirus <- update_coronavirus()
+coronavirus_sf <- update_coronavirus_raw(returnclass = "sf")
 ```
 
 ## Generating spatial data
@@ -36,13 +40,18 @@ The `coronavirus` package using the [rnaturalearth](https://cran.r-project.org/w
 Let's get the data as both points for plotting as well as polygons we can fill. We will filter to confirmed cases only.
 
 ```{r make_sf_objs}
-library(sf)
-library(rnaturalearth)
 
-coronavirus_points <- coronavirus_spatial() %>%
+coronavirus_points <- coronavirus_sf %>%
                        filter(type == "confirmed")
                        
-coronavirus_polys <- coronavirus_spatial(return_shape = "polygon")%>%
+
+#we need polygons to match against from rnaturalearth
+worldmap <- ne_countries(returnclass = "sf") %>%
+  rename(nation_type = type)
+
+coronavirus_polygons_sf <- st_join(worldmap, coronavirus_sf)
+
+coronavirus_polys <- coronavirus_polygons_sf %>%
                        filter(type == "confirmed")
 ```
 
@@ -51,13 +60,12 @@ coronavirus_polys <- coronavirus_spatial(return_shape = "polygon")%>%
 Let's aggregate so that we only look at total confirmed cases.
 
 ```{r aggregate}
-library(dplyr)
 coronavirus_points <- coronavirus_points %>%
-  group_by(Province.State, Country.Region, name, continent) %>%
+  group_by(Province.State, Country.Region) %>%
   summarize(cases = sum(cases))
 
 coronavirus_polys <- coronavirus_polys %>%
-  group_by(Country.Region, name, continent) %>%
+  group_by(Country.Region) %>%
   summarize(cases = sum(cases))
 ```
 
@@ -68,7 +76,6 @@ Great! We can now see what the spatial distribution looks like simply using ggpl
 ```{r plot1, fig.width=6}
 library(ggplot2)
 
-worldmap <- ne_countries(returnclass = "sf")
 
 ggplot(data = worldmap) +
   geom_sf(fill = "white") +

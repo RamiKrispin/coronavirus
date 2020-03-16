@@ -225,7 +225,7 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
 
 
   #use spatial info to make better Province.State and Country.Region
-  load("data/states_of_the_world.rda")
+  states_of_the_world <- coronavirus::states_of_the_world
   coronavirus_sf <- sf::st_as_sf(coronavirus, coords = c(x = "Long", y = "Lat"), remove = FALSE,
                                  crs = sf::st_crs(states_of_the_world)) %>%
     sf::st_join(states_of_the_world) %>%
