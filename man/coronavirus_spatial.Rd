@@ -45,6 +45,7 @@ datasets.
 library(ggplot2)
 library(dplyr)
 library(rnaturalearth)
+library(coronavirus)
 
 worldmap <- ne_countries(returnclass = "sf")
 
@@ -60,9 +61,9 @@ coronavirus_polys <- coronavirus_spatial(return_shape = "polygon")\%>\%
 
 ggplot(worldmap) +
   geom_sf() +
-  geom_sf(data = coronavirus_polys, aes(fill = log10(cases+1))) +
+  geom_sf(data = coronavirus_polys, aes(fill = cases)) +
   geom_sf(data = coronavirus_points) +
-  scale_fill_viridis_c() +
+  scale_fill_viridis_c(trans = "log10") +
   theme_void()
 
 }

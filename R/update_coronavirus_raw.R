@@ -37,7 +37,7 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
 
   print("Reading confirmed...")
   raw_conf <-
-    read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
+    utils::read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
              stringsAsFactors = FALSE)
 
   # Fixing typo
@@ -93,8 +93,8 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
     )
 
   if(debug){
-    print(head(df_conf2))
-    print(tail(df_conf2))
+    print(utils::head(df_conf2))
+    print(utils::tail(df_conf2))
   }
 
   #----------------------------------------------------
@@ -102,7 +102,7 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
   print("Reading deaths...")
 
   raw_death <-
-    read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
+    utils::read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
              stringsAsFactors = FALSE)
   # Transforming the data from wide to long
   # Creating new data frame
@@ -155,15 +155,15 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
     )
 
   if(debug){
-    print(head(df_death2))
-    print(tail(df_death2))
+    print(utils::head(df_death2))
+    print(utils::tail(df_death2))
   }
   #----------------------------------------------------
   # Pulling recovered cases
   print("Reading recovery...")
 
   raw_rec <-
-    read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
+    utils::read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
              stringsAsFactors = FALSE)
   # Transforming the data from wide to long
   # Creating new data frame
@@ -214,8 +214,8 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
     )
 
   if(debug){
-    print(head(df_rec2))
-    print(tail(df_rec2))
+    print(utils::head(df_rec2))
+    print(utils::tail(df_rec2))
   }
 
   coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
@@ -235,7 +235,7 @@ update_coronavirus_raw <- function(debug=FALSE, returnclass = c("data.frame", "s
                   admin = ifelse(is.na(admin), Country.Region, admin),#not sure why this is happening...
                   admin = ifelse(admin =="US", "United States of America", admin) #fix for NA countries that are the US
     ) %>%
-    rename(JHU.Province.State = Province.State,
+    dplyr::rename(JHU.Province.State = Province.State,
            JHU.Country.Region = Country.Region) %>%
     #make it have the same names and similar cols to previous versions
     dplyr::select(name, admin, Region.Type, iso_3166_2, JHU.Province.State, JHU.Country.Region, Lat, Long, date, cases, type) %>%

@@ -99,17 +99,11 @@ What if we had wanted to just do a single country? We can manually implement the
 ```{r make_usa}
 usa <- ne_states(country = "United States of America", returnclass = "sf")
 
-usa_confirmed_sf <- coronavirus %>%
-  filter(Country.Region=="US") %>%
+usa_confirmed_sf <- coronavirus_sf %>%
+  filter(Country.Region=="United States of America") %>%
   filter(type=="confirmed") %>%
-  st_as_sf(coords = c(x = "Long", y = "Lat"),
-           crs = st_crs(usa)) 
-
-usa_points <- st_join(usa_confirmed_sf, usa) %>%
-  group_by(name) %>%
-  summarize(cases = sum(cases)) %>%
-  filter(!(name %in% c("Hawaii", "Alaska"))) %>%
-  filter(!is.na(name))
+  filter(!(Province.State %in% c("Hawaii", "Alaska"))) %>%
+  filter(!is.na(Province.State))
 
 usa_polygons <- st_join(usa, usa_confirmed_sf) %>%
   group_by(name) %>%
@@ -123,9 +117,10 @@ We can now see how things are as of the data downloaded on `r format(Sys.time(),
 ```{r plot_us_cases, fig.width=6}
 ggplot(data = usa %>% filter(!(name %in% c("Hawaii", "Alaska")))) +
   geom_sf(fill = "white") +
-  geom_sf(data = usa_points, mapping = aes(size = cases),
-          alpha = 0.7) +
-  theme_minimal()
+  geom_sf(data = usa_confirmed_sf, mapping = aes(size = cases),
+          alpha = 0.7, shape = 1) +
+  theme_minimal() +
+  scale_size_continuous(trans = "log10")
 ```
 
 Or we can look at things state by state using fill.
