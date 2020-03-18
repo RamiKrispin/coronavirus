@@ -77,6 +77,7 @@ sk_names <- c("date", "time",
               "Gyeongbuk", "Daegu", "Gyeongnam", "Busan", "Ulsan",
               "Chungbuk", "Sejong", "Daejeon", "Chungnam",
               "Jeonbuk", "Gwangju", "Jeonnam", "Jeju",
+              "quarantine_station",
               "confirmed_new", "confirmed_total",
               "death_new", "death_total",
               "tested_total", "tested_current",
@@ -86,7 +87,7 @@ sk_names <- c("date", "time",
 sk_names <- sk_names %>% tolower()
 
 sk_df <- sk_raw[-1,] %>% stats::setNames(sk_names) %>%
-  dplyr::select(-time, -source) %>%
+  dplyr::select(-time, -source, quarantine_station) %>%
   dplyr::mutate(date = lubridate::ymd(date)) %>%
   dplyr::filter(!is.na(date))
 
@@ -116,7 +117,7 @@ sk_df2 <- sk_df1 %>%
   tidyr::pivot_longer(cols = c(-date), names_to = "city") %>%
   dplyr::mutate(cases = as.numeric(value)) %>%
   dplyr::select(-value)
-# View(sk_df2)
+head(sk_df2)
 
 
 
@@ -125,7 +126,7 @@ sk_df3 <- sk_df2 %>% dplyr::filter(city %in% totals_sk) %>%
   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
-# View(sk_df3)
+head(sk_df3)
 
 covid_south_korea <- sk_df2 %>%
   dplyr::filter(!city %in% totals_sk) %>%
@@ -150,100 +151,100 @@ write.csv(sk_prov_map, "/Users/ramikrispin/R/packages/coronavirus_csv/south_kore
 # Summarise table of cases in the Italy
 # Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy
 
-url_italy <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy"
-
-italy_raw <- url_italy %>%
-  xml2::read_html() %>%
-  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[4]') %>%
-  rvest::html_table(fill = TRUE,
-                    header = TRUE)
-
-
-
-names(italy_raw)
-
-# View(italy_raw)
-head(italy_raw)
-
-italy_region_mapping <- data.frame(area = c("North-West", "North-West", "North-West", "North-West",
-                                              "North-East", "North-East", "North-East", "North-East", "North-East",
-                                              "Center", "Center", "Center", "Center",
-                                              "South","South", "South", "South", "South", "South",
-                                              "Islands", "Islands"),
-                                   sub_region = c("VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
-                                                  "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
-                                                  "CAM",	"BAS",	"PUG",	"CAL",	"SIC",	"SAR"),
-                                   province = c(),
-                                   stringsAsFactors = FALSE)
-italy_names <- c("Date","VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
-                 "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
-                 "CAM",	"BAS",	"PUG",	"CAL",	"SIC",	"SAR",
-                 "confirmed_new", "confirmed_total", "death_new", "death_total",
-                 "recovery_total", "tested_total",
-                 "refs", "notes")
-
-
-italy1 <- italy_raw[, which(!is.na(names(italy_raw)))] %>%
-  stats::setNames(italy_names) %>%
-  dplyr::mutate(date = lubridate::ymd(Date)) %>%
-  dplyr::filter(!is.na(date)) %>%
-  dplyr::select(date, dplyr::everything()) %>%
-  dplyr::select(-refs, -Date, - notes)
-
-
-
-italy2 <- italy1 %>% dplyr::select(date)
-# Removing brackets
-for(i in 2:ncol(italy1)){
-  x <- ifelse(grepl(")", x = italy1[,i]),strsplit(italy1[, i], split = ")") %>%
-                purrr::map_chr(~.x[2]), italy1[, i] )
-  x <- ifelse(grepl("\\[", x = x),strsplit(x, split = "\\[") %>%
-                purrr::map_chr(~.x[1]), x )
-  x <- ifelse(grepl(",", x = x), gsub(pattern = ",", replacement = "", x), x)
-  x <- gsub(pattern = ",", replacement = "", x)
-  italy2[[names(italy1)[i]]] <- as.numeric(x)
-}
-
-totals_italy <- c("confirmed_new", "confirmed_total",
-                  "death_new", "death_total",
-                  "recovery_total", "tested_total")
-
-
-head(italy2)
-
-italy3 <- italy2 %>%
-  tidyr::pivot_longer(cols = c(-date), names_to = "sub_region") %>%
-  dplyr::mutate(cases = as.numeric(value)) %>%
-  dplyr::mutate(cases = ifelse(is.na(cases), 0, cases))
-head(italy3)
-
-
-
-italy4 <- italy3 %>% dplyr::filter(sub_region %in% totals_italy) %>%
-  dplyr::group_by(date, sub_region) %>%
-  dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
-  dplyr::ungroup()
-
-head(italy4)
-
-covid_italy <- italy3 %>%
-  dplyr::filter(!sub_region %in% totals_italy) %>%
-  dplyr::group_by(date, sub_region) %>%
-  dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
-  dplyr::ungroup() %>%
-  dplyr::left_join(italy_region_mapping,  by = "sub_region") %>%
-  dplyr::select(date, region, sub_region, total) %>%
-  as.data.frame()
-
-str(covid_italy)
-View(covid_italy)
-
-usethis::use_data(covid_italy, overwrite = TRUE)
-
-write.csv(covid_italy, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_long.csv", row.names = FALSE)
-write.csv(italy2, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_wide.csv", row.names = FALSE)
-write.csv(italy_region_mapping, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/italy_region_mapping.csv", row.names = FALSE)
-
+# url_italy <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy"
+#
+# italy_raw <- url_italy %>%
+#   xml2::read_html() %>%
+#   rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[4]') %>%
+#   rvest::html_table(fill = TRUE,
+#                     header = TRUE)
+#
+#
+#
+# names(italy_raw)
+#
+# # View(italy_raw)
+# head(italy_raw)
+#
+# italy_region_mapping <- data.frame(area = c("North-West", "North-West", "North-West", "North-West",
+#                                               "North-East", "North-East", "North-East", "North-East", "North-East",
+#                                               "Center", "Center", "Center", "Center",
+#                                               "South","South", "South", "South", "South", "South",
+#                                               "Islands", "Islands"),
+#                                    sub_region = c("VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
+#                                                   "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
+#                                                   "CAM",	"BAS",	"PUG",	"CAL",	"SIC",	"SAR"),
+#                                    province = c(),
+#                                    stringsAsFactors = FALSE)
+# italy_names <- c("Date","VDA",	"LIG", 	"PIE",	"LOM",	"VEN",	"TN",	"BZ",
+#                  "FVG",	"EMR",	"MAR",	"TOS",	"UMB",	"LAZ", "ABR",	"MOL",
+#                  "CAM",	"BAS",	"PUG",	"CAL",	"SIC",	"SAR",
+#                  "confirmed_new", "confirmed_total", "death_new", "death_total",
+#                  "recovery_total", "tested_total",
+#                  "refs", "notes")
+#
+#
+# italy1 <- italy_raw[, which(!is.na(names(italy_raw)))] %>%
+#   stats::setNames(italy_names) %>%
+#   dplyr::mutate(date = lubridate::ymd(Date)) %>%
+#   dplyr::filter(!is.na(date)) %>%
+#   dplyr::select(date, dplyr::everything()) %>%
+#   dplyr::select(-refs, -Date, - notes)
+#
+#
+#
+# italy2 <- italy1 %>% dplyr::select(date)
+# # Removing brackets
+# for(i in 2:ncol(italy1)){
+#   x <- ifelse(grepl(")", x = italy1[,i]),strsplit(italy1[, i], split = ")") %>%
+#                 purrr::map_chr(~.x[2]), italy1[, i] )
+#   x <- ifelse(grepl("\\[", x = x),strsplit(x, split = "\\[") %>%
+#                 purrr::map_chr(~.x[1]), x )
+#   x <- ifelse(grepl(",", x = x), gsub(pattern = ",", replacement = "", x), x)
+#   x <- gsub(pattern = ",", replacement = "", x)
+#   italy2[[names(italy1)[i]]] <- as.numeric(x)
+# }
+#
+# totals_italy <- c("confirmed_new", "confirmed_total",
+#                   "death_new", "death_total",
+#                   "recovery_total", "tested_total")
+#
+#
+# head(italy2)
+#
+# italy3 <- italy2 %>%
+#   tidyr::pivot_longer(cols = c(-date), names_to = "sub_region") %>%
+#   dplyr::mutate(cases = as.numeric(value)) %>%
+#   dplyr::mutate(cases = ifelse(is.na(cases), 0, cases))
+# head(italy3)
+#
+#
+#
+# italy4 <- italy3 %>% dplyr::filter(sub_region %in% totals_italy) %>%
+#   dplyr::group_by(date, sub_region) %>%
+#   dplyr::summarise(total = max(cases, na.rm = TRUE)) %>%
+#   dplyr::ungroup()
+#
+# head(italy4)
+#
+# covid_italy <- italy3 %>%
+#   dplyr::filter(!sub_region %in% totals_italy) %>%
+#   dplyr::group_by(date, sub_region) %>%
+#   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
+#   dplyr::ungroup() %>%
+#   dplyr::left_join(italy_region_mapping,  by = "sub_region") %>%
+#   dplyr::select(date, region, sub_region, total) %>%
+#   as.data.frame()
+#
+# str(covid_italy)
+# View(covid_italy)
+#
+# usethis::use_data(covid_italy, overwrite = TRUE)
+#
+# write.csv(covid_italy, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_long.csv", row.names = FALSE)
+# write.csv(italy2, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/covid_italy_wide.csv", row.names = FALSE)
+# write.csv(italy_region_mapping, "/Users/ramikrispin/R/packages/coronavirus_csv/italy/italy_region_mapping.csv", row.names = FALSE)
+#
 
 
 
