@@ -40,7 +40,7 @@ Library
 Install the CRAN version:
 
 ``` r
-install.packages("coronavirus")  
+install.packages("coronavirus") 
 ```
 
 Install the Github version (refreshed on a daily bases):
@@ -73,12 +73,12 @@ head(coronavirus)
 #> 6                   Afghanistan  33   65 2020-01-27     0 confirmed
 tail(coronavirus) 
 #>       Province.State Country.Region     Lat     Long       date cases      type
-#> 45040       Zhejiang          China 29.1832 120.0934 2020-03-11     4 recovered
-#> 45041       Zhejiang          China 29.1832 120.0934 2020-03-12     2 recovered
-#> 45042       Zhejiang          China 29.1832 120.0934 2020-03-13     0 recovered
-#> 45043       Zhejiang          China 29.1832 120.0934 2020-03-14    14 recovered
-#> 45044       Zhejiang          China 29.1832 120.0934 2020-03-15     0 recovered
-#> 45045       Zhejiang          China 29.1832 120.0934 2020-03-16     5 recovered
+#> 45355       Zhejiang          China 29.1832 120.0934 2020-03-12     2 recovered
+#> 45356       Zhejiang          China 29.1832 120.0934 2020-03-13     0 recovered
+#> 45357       Zhejiang          China 29.1832 120.0934 2020-03-14    14 recovered
+#> 45358       Zhejiang          China 29.1832 120.0934 2020-03-15     0 recovered
+#> 45359       Zhejiang          China 29.1832 120.0934 2020-03-16     5 recovered
+#> 45360       Zhejiang          China 29.1832 120.0934 2020-03-17     0 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -95,30 +95,30 @@ summary_df %>% head(20)
 #> # Groups:   Country.Region [14]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 China          confirmed       81033
-#>  2 China          recovered       67910
-#>  3 Italy          confirmed       27980
-#>  4 Iran           confirmed       14991
-#>  5 Spain          confirmed        9942
-#>  6 Korea, South   confirmed        8236
-#>  7 Germany        confirmed        7272
-#>  8 France         confirmed        6650
-#>  9 US             confirmed        4632
-#> 10 Iran           recovered        4590
-#> 11 China          death            3217
-#> 12 Italy          recovered        2749
-#> 13 Switzerland    confirmed        2200
-#> 14 Italy          death            2158
-#> 15 United Kingdom confirmed        1551
-#> 16 Netherlands    confirmed        1414
-#> 17 Norway         confirmed        1333
-#> 18 Korea, South   recovered        1137
-#> 19 Sweden         confirmed        1103
-#> 20 Belgium        confirmed        1058
+#>  1 China          confirmed       81058
+#>  2 China          recovered       68798
+#>  3 Italy          confirmed       31506
+#>  4 Iran           confirmed       16169
+#>  5 Spain          confirmed       11748
+#>  6 Germany        confirmed        9257
+#>  7 Korea, South   confirmed        8320
+#>  8 France         confirmed        7699
+#>  9 US             confirmed        6421
+#> 10 Iran           recovered        5389
+#> 11 China          death            3230
+#> 12 Italy          recovered        2941
+#> 13 Switzerland    confirmed        2700
+#> 14 Italy          death            2503
+#> 15 United Kingdom confirmed        1960
+#> 16 Netherlands    confirmed        1708
+#> 17 Norway         confirmed        1463
+#> 18 Korea, South   recovered        1407
+#> 19 Austria        confirmed        1332
+#> 20 Belgium        confirmed        1243
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-03-16):
+2020-03-17):
 
 ``` r
 library(tidyr)
@@ -131,51 +131,51 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 156 x 4
-#> # Groups:   country [156]
+#> # A tibble: 152 x 4
+#> # Groups:   country [152]
 #>    country        confirmed death recovered
 #>    <chr>              <int> <int>     <int>
-#>  1 Italy               3233   349       414
-#>  2 Spain               2144    53        13
-#>  3 France              2137    57         0
-#>  4 Germany             1477     6        21
-#>  5 US                  1133    22         5
-#>  6 Iran                1053   129         0
-#>  7 United Kingdom       406    35         2
-#>  8 Netherlands          278     4         0
-#>  9 Belgium              172     1         0
-#> 10 Canada               163     3         1
-#> 11 Austria              158     2         0
-#> 12 Malaysia             138     0         0
-#> 13 Norway               112     0         0
-#> 14 Portugal              86     0         1
-#> 15 Pakistan              83     0         0
-#> 16 Chile                 81     0         0
-#> 17 Sweden                81     3         0
-#> 18 Australia             80     0         0
-#> 19 Korea, South          74     0       627
-#> 20 Poland                58     1        13
-#> 21 Denmark               57     1         0
-#> 22 Czechia               45     0         3
-#> 23 Peru                  43     0         0
-#> 24 Egypt                 40     0         6
-#> 25 Ireland               40     0         0
-#> 26 Brazil                38     0         1
-#> 27 Qatar                 38     0         0
-#> 28 Estonia               34     0         0
-#> 29 Slovenia              34     0         0
-#> 30 Finland               33     0         0
-#> 31 Thailand              33     0         0
-#> 32 China                 30    14       893
-#> 33 Romania               27     0         0
-#> 34 Russia                27     0         0
-#> 35 Armenia               26     0         0
-#> 36 Colombia              20     0         0
-#> 37 Luxembourg            18     0         0
-#> 38 Indonesia             17     0         0
-#> 39 Singapore             17     0         4
-#> 40 Saudi Arabia          15     0         1
-#> # … with 116 more rows
+#>  1 Italy               3526   345       192
+#>  2 Germany             1985     7         0
+#>  3 Spain               1806   191       498
+#>  4 US                  1789    23         0
+#>  5 Iran                1178   135       799
+#>  6 France              1031     0         0
+#>  7 Switzerland          500    13         0
+#>  8 United Kingdom       409     0        32
+#>  9 Austria              314     0        -5
+#> 10 Netherlands          294    19         0
+#> 11 Belgium              185     5         0
+#> 12 Norway               130     0         0
+#> 13 Brazil               121     1         1
+#> 14 Portugal             117     1         0
+#> 15 Malaysia             107     2         7
+#> 16 Pakistan             100     0         0
+#> 17 Czechia               98     0         0
+#> 18 Denmark               92     1         0
+#> 19 Sweden                87     1         0
+#> 20 Korea, South          84     6       270
+#> 21 Israel                82     0         7
+#> 22 Australia             75     2         0
+#> 23 Canada                63     1         0
+#> 24 Luxembourg            63     0         0
+#> 25 Poland                61     1         0
+#> 26 Greece                56     1         0
+#> 27 Ireland               54     0         5
+#> 28 Japan                 53     2         0
+#> 29 Saudi Arabia          53     0         4
+#> 30 Chile                 46     0         0
+#> 31 Egypt                 46     2         5
+#> 32 Philippines           45     0         3
+#> 33 Finland               44     0         0
+#> 34 Iceland               40     1         0
+#> 35 Indonesia             38     0         0
+#> 36 Andorra               37     0         0
+#> 37 Peru                  31     0         1
+#> 38 Iraq                  30     1         6
+#> 39 Thailand              30     0         6
+#> 40 Mexico                29     0         0
+#> # … with 112 more rows
 ```
 
 ## Data Sources
