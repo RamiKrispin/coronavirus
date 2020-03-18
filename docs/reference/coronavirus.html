@@ -165,26 +165,26 @@
  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
 #&gt;    Country.Region total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> China          </span><span style='text-decoration: underline;'>81</span><span>033
-#&gt; </span><span style='color: #555555;'> 2</span><span> Italy          </span><span style='text-decoration: underline;'>27</span><span>980
-#&gt; </span><span style='color: #555555;'> 3</span><span> Iran           </span><span style='text-decoration: underline;'>14</span><span>991
-#&gt; </span><span style='color: #555555;'> 4</span><span> Spain           </span><span style='text-decoration: underline;'>9</span><span>942
-#&gt; </span><span style='color: #555555;'> 5</span><span> Korea, South    </span><span style='text-decoration: underline;'>8</span><span>236
-#&gt; </span><span style='color: #555555;'> 6</span><span> Germany         </span><span style='text-decoration: underline;'>7</span><span>272
-#&gt; </span><span style='color: #555555;'> 7</span><span> France          </span><span style='text-decoration: underline;'>6</span><span>650
-#&gt; </span><span style='color: #555555;'> 8</span><span> US              </span><span style='text-decoration: underline;'>4</span><span>632
-#&gt; </span><span style='color: #555555;'> 9</span><span> Switzerland     </span><span style='text-decoration: underline;'>2</span><span>200
-#&gt; </span><span style='color: #555555;'>10</span><span> United Kingdom  </span><span style='text-decoration: underline;'>1</span><span>551
-#&gt; </span><span style='color: #555555;'>11</span><span> Netherlands     </span><span style='text-decoration: underline;'>1</span><span>414
-#&gt; </span><span style='color: #555555;'>12</span><span> Norway          </span><span style='text-decoration: underline;'>1</span><span>333
-#&gt; </span><span style='color: #555555;'>13</span><span> Sweden          </span><span style='text-decoration: underline;'>1</span><span>103
-#&gt; </span><span style='color: #555555;'>14</span><span> Belgium         </span><span style='text-decoration: underline;'>1</span><span>058
-#&gt; </span><span style='color: #555555;'>15</span><span> Austria         </span><span style='text-decoration: underline;'>1</span><span>018
-#&gt; </span><span style='color: #555555;'>16</span><span> Denmark          932
-#&gt; </span><span style='color: #555555;'>17</span><span> Japan            825
+#&gt; </span><span style='color: #555555;'> 1</span><span> China          </span><span style='text-decoration: underline;'>81</span><span>058
+#&gt; </span><span style='color: #555555;'> 2</span><span> Italy          </span><span style='text-decoration: underline;'>31</span><span>506
+#&gt; </span><span style='color: #555555;'> 3</span><span> Iran           </span><span style='text-decoration: underline;'>16</span><span>169
+#&gt; </span><span style='color: #555555;'> 4</span><span> Spain          </span><span style='text-decoration: underline;'>11</span><span>748
+#&gt; </span><span style='color: #555555;'> 5</span><span> Germany         </span><span style='text-decoration: underline;'>9</span><span>257
+#&gt; </span><span style='color: #555555;'> 6</span><span> Korea, South    </span><span style='text-decoration: underline;'>8</span><span>320
+#&gt; </span><span style='color: #555555;'> 7</span><span> France          </span><span style='text-decoration: underline;'>7</span><span>699
+#&gt; </span><span style='color: #555555;'> 8</span><span> US              </span><span style='text-decoration: underline;'>6</span><span>421
+#&gt; </span><span style='color: #555555;'> 9</span><span> Switzerland     </span><span style='text-decoration: underline;'>2</span><span>700
+#&gt; </span><span style='color: #555555;'>10</span><span> United Kingdom  </span><span style='text-decoration: underline;'>1</span><span>960
+#&gt; </span><span style='color: #555555;'>11</span><span> Netherlands     </span><span style='text-decoration: underline;'>1</span><span>708
+#&gt; </span><span style='color: #555555;'>12</span><span> Norway          </span><span style='text-decoration: underline;'>1</span><span>463
+#&gt; </span><span style='color: #555555;'>13</span><span> Austria         </span><span style='text-decoration: underline;'>1</span><span>332
+#&gt; </span><span style='color: #555555;'>14</span><span> Belgium         </span><span style='text-decoration: underline;'>1</span><span>243
+#&gt; </span><span style='color: #555555;'>15</span><span> Sweden          </span><span style='text-decoration: underline;'>1</span><span>190
+#&gt; </span><span style='color: #555555;'>16</span><span> Denmark         </span><span style='text-decoration: underline;'>1</span><span>024
+#&gt; </span><span style='color: #555555;'>17</span><span> Japan            878
 #&gt; </span><span style='color: #555555;'>18</span><span> Cruise Ship      696
-#&gt; </span><span style='color: #555555;'>19</span><span> Malaysia         566
-#&gt; </span><span style='color: #555555;'>20</span><span> Qatar            439</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>19</span><span> Malaysia         673
+#&gt; </span><span style='color: #555555;'>20</span><span> Canada           478</div><div class='input'>
 <span class='co'># Get the number of recovered cases in Mainland China by province</span>
  <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>
