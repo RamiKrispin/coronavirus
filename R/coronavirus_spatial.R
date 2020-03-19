@@ -47,14 +47,13 @@
 #' }
 
 coronavirus_spatial <- function(return_shape = c("point", "polygon"),
-                                updated_data = FALSE,
                                 returncols = c("all", "simple","reduced"),
                                 ...){
-  if(updated_data) coronavirus <- update_coronavirus()
+
 
   #get a world map
   worldmap <- rnaturalearth::ne_countries(returnclass = "sf", ...) %>%
-    select(-type)
+    dplyr::select(-type)
 
   #filter data to confirmed
   coronavirus_sf <- coronavirus %>%
@@ -69,16 +68,16 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
     joined_corona <- sf::st_join(coronavirus_sf, worldmap)
   }else{
     joined_corona <- sf::st_join(worldmap,coronavirus_sf) %>%
-    mutate(ifelse(is.na(cases), 0, NA)) #deal with countries with 0 cases so far
+    dplyr::mutate(ifelse(is.na(cases), 0, NA)) #deal with countries with 0 cases so far
   }
 
   #select down to sane columns
   joined_corona <- switch(returncols[1],
-                               "simple" = joined_corona %>% select(names(coronavirus_sf),
+                               "simple" = joined_corona %>% dplyr::select(names(coronavirus_sf),
                                                                    admin, name_long, continent,
                                                                    region_un, subregion, region_wb),
 
-                               "reduced" = joined_corona %>% select(name, name_long,
+                               "reduced" = joined_corona %>% dplyr::select(name, name_long,
                                                                     names(coronavirus_sf),continent,
                                                                     region_un, subregion, region_wb,
                                                                     subunit, postal, formal_en,
