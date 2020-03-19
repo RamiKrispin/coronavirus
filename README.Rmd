@@ -114,5 +114,7 @@ The raw data pulled and arranged by the Johns Hopkins University Center for Syst
 * Government of Canada: https://www.canada.ca/en/public-health/services/diseases/coronavirus.html <br>
 * Australia Government Department of Health: https://www.health.gov.au/news/coronavirus-update-at-a-glance <br>
 * European Centre for Disease Prevention and Control (ECDC): https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases <br>
+* COVID-19 Tracking Project: 
+https://covidtracking.com/
   
 <br>
