@@ -4,7 +4,7 @@
 #'
 #'
 #' @format A tbl object
-#' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website} and the \href{https://covidtracking.com/}{COVID-19 Tracking Project website}
+#' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 #' @keywords datasets coronavirus COVID19
 #' @details The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province
 #' @examples
