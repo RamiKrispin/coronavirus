@@ -4,7 +4,9 @@
 \name{covid_italy}
 \alias{covid_italy}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset}
-\format{A data.frame object}
+\format{
+A data.frame object
+}
 \source{
 Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile \href{http://www.protezionecivile.it/}{website}
 }

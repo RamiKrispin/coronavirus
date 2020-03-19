@@ -4,7 +4,9 @@
 \name{covid_iran}
 \alias{covid_iran}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset}
-\format{A data.frame object}
+\format{
+A data.frame object
+}
 \source{
 Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
 }

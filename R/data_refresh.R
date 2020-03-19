@@ -119,6 +119,14 @@ update_datasets <- function(){
     }
   }
 
+  df5 <- covid19us::get_states_daily()
+  flag <- TRUE
+  print("The covid_us_states dataset is up-to-date.")
+#
+#   if (identical(df5, coronavirus::covid_us_states)) {
+#     print("The covid_us_states dataset is up-to-date.")
+#     flag <- TRUE
+#   }
 
   if(flag){
     print("To update the dataset on the package itself please install the package dev version from Github")

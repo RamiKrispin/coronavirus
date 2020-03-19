@@ -4,7 +4,7 @@
 #'
 #'
 #' @format A tbl object
-#' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
+#' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website} and the \href{https://covidtracking.com/}{COVID-19 Tracking Project website}
 #' @keywords datasets coronavirus COVID19
 #' @details The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province
 #' @examples
@@ -103,4 +103,25 @@
 
 "covid_iran"
 
+
+#' The 2019 Novel Coronavirus COVID-19 (2019-nCoV) US Outbreak Dataset
+#'
+#' @description  daily summary of the Coronavirus (COVID-19) confirmed cases in the United States by state
+#'
+#'
+#' @format A data.frame object
+#' @source The \href{https://covidtracking.com/}{COVID-19 Tracking Project website}
+#' @keywords datasets coronavirus COVID19 US
+#' @details The dataset contains the daily summary of the Coronavirus confirmed cases in the US by state
+#' @examples
+#'
+#' data(covid_us_states)
+#'
+#' library(dplyr)
+#'
+#' # Get summary by sub region of totalcases
+#'
+#' covid_us_states
+
+"covid_us_states"
 

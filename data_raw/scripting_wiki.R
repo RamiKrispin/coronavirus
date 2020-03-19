@@ -42,6 +42,12 @@ head(us)
 tail(us)
 str(us)
 
+#----------------US states----------------
+
+covid_us_states <- covid19us::get_states_daily()
+
+usethis::use_data(covid_us_states, overwrite = TRUE)
+
 #----------------South Korea----------------
 # Summarise table of cases in the South Korea
 # Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea

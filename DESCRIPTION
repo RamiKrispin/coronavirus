@@ -23,7 +23,8 @@ Imports:
   purrr,
   dplyr,
   rnaturalearth,
-  sf
+  sf,
+  covid19us
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.0

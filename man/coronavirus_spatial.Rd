@@ -9,9 +9,12 @@ Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) C
 The \link[rnaturalearth]{rnaturalearth}
 }
 \usage{
-coronavirus_spatial(return_shape = c("point", "polygon"),
-  updated_data = FALSE, returncols = c("all", "simple", "reduced"),
-  ...)
+coronavirus_spatial(
+  return_shape = c("point", "polygon"),
+  updated_data = FALSE,
+  returncols = c("all", "simple", "reduced"),
+  ...
+)
 }
 \arguments{
 \item{return_shape}{Should the \link[sf]{sf} object returned be points for cases or polygons of countries?

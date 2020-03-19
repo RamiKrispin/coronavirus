@@ -4,7 +4,9 @@
 \name{covid_south_korea}
 \alias{covid_south_korea}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) South Korea Outbreak Dataset}
-\format{A data.frame object}
+\format{
+A data.frame object
+}
 \source{
 Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
 }
