@@ -8,11 +8,13 @@
 
 <title>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset — coronavirus • coronavirus</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,10 +32,11 @@
 
 
 
-<meta property="og:title" content="The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset — coronavirus" />
 
+<meta property="og:title" content="The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset — coronavirus" />
 <meta property="og:description" content="daily summary of the Coronavirus (COVID-19) cases by state/province." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -97,7 +100,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/RamiKrispin/coronavirus">
@@ -123,25 +125,21 @@
     </div>
 
     <div class="ref-description">
-    
     <p>daily summary of the Coronavirus (COVID-19) cases by state/province.</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>coronavirus</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tbl object</p>
-    
+    <p>A data.frame object</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <a href='https://systems.jhu.edu/research/public-health/ncov/'>website</a></p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -165,26 +163,26 @@
  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
 #&gt;    Country.Region total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> China          </span><span style='text-decoration: underline;'>81</span><span>058
-#&gt; </span><span style='color: #555555;'> 2</span><span> Italy          </span><span style='text-decoration: underline;'>31</span><span>506
-#&gt; </span><span style='color: #555555;'> 3</span><span> Iran           </span><span style='text-decoration: underline;'>16</span><span>169
-#&gt; </span><span style='color: #555555;'> 4</span><span> Spain          </span><span style='text-decoration: underline;'>11</span><span>748
-#&gt; </span><span style='color: #555555;'> 5</span><span> Germany         </span><span style='text-decoration: underline;'>9</span><span>257
-#&gt; </span><span style='color: #555555;'> 6</span><span> Korea, South    </span><span style='text-decoration: underline;'>8</span><span>320
-#&gt; </span><span style='color: #555555;'> 7</span><span> France          </span><span style='text-decoration: underline;'>7</span><span>699
-#&gt; </span><span style='color: #555555;'> 8</span><span> US              </span><span style='text-decoration: underline;'>6</span><span>421
-#&gt; </span><span style='color: #555555;'> 9</span><span> Switzerland     </span><span style='text-decoration: underline;'>2</span><span>700
-#&gt; </span><span style='color: #555555;'>10</span><span> United Kingdom  </span><span style='text-decoration: underline;'>1</span><span>960
-#&gt; </span><span style='color: #555555;'>11</span><span> Netherlands     </span><span style='text-decoration: underline;'>1</span><span>708
-#&gt; </span><span style='color: #555555;'>12</span><span> Norway          </span><span style='text-decoration: underline;'>1</span><span>463
-#&gt; </span><span style='color: #555555;'>13</span><span> Austria         </span><span style='text-decoration: underline;'>1</span><span>332
-#&gt; </span><span style='color: #555555;'>14</span><span> Belgium         </span><span style='text-decoration: underline;'>1</span><span>243
-#&gt; </span><span style='color: #555555;'>15</span><span> Sweden          </span><span style='text-decoration: underline;'>1</span><span>190
-#&gt; </span><span style='color: #555555;'>16</span><span> Denmark         </span><span style='text-decoration: underline;'>1</span><span>024
-#&gt; </span><span style='color: #555555;'>17</span><span> Japan            878
-#&gt; </span><span style='color: #555555;'>18</span><span> Cruise Ship      696
-#&gt; </span><span style='color: #555555;'>19</span><span> Malaysia         673
-#&gt; </span><span style='color: #555555;'>20</span><span> Canada           478</div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 1</span><span> China          </span><span style='text-decoration: underline;'>81</span><span>156
+#&gt; </span><span style='color: #555555;'> 2</span><span> Italy          </span><span style='text-decoration: underline;'>41</span><span>035
+#&gt; </span><span style='color: #555555;'> 3</span><span> Iran           </span><span style='text-decoration: underline;'>18</span><span>407
+#&gt; </span><span style='color: #555555;'> 4</span><span> Spain          </span><span style='text-decoration: underline;'>17</span><span>963
+#&gt; </span><span style='color: #555555;'> 5</span><span> Germany        </span><span style='text-decoration: underline;'>15</span><span>320
+#&gt; </span><span style='color: #555555;'> 6</span><span> US             </span><span style='text-decoration: underline;'>13</span><span>677
+#&gt; </span><span style='color: #555555;'> 7</span><span> France         </span><span style='text-decoration: underline;'>10</span><span>947
+#&gt; </span><span style='color: #555555;'> 8</span><span> Korea, South    </span><span style='text-decoration: underline;'>8</span><span>565
+#&gt; </span><span style='color: #555555;'> 9</span><span> Switzerland     </span><span style='text-decoration: underline;'>4</span><span>075
+#&gt; </span><span style='color: #555555;'>10</span><span> United Kingdom  </span><span style='text-decoration: underline;'>2</span><span>716
+#&gt; </span><span style='color: #555555;'>11</span><span> Netherlands     </span><span style='text-decoration: underline;'>2</span><span>467
+#&gt; </span><span style='color: #555555;'>12</span><span> Austria         </span><span style='text-decoration: underline;'>2</span><span>013
+#&gt; </span><span style='color: #555555;'>13</span><span> Belgium         </span><span style='text-decoration: underline;'>1</span><span>795
+#&gt; </span><span style='color: #555555;'>14</span><span> Norway          </span><span style='text-decoration: underline;'>1</span><span>746
+#&gt; </span><span style='color: #555555;'>15</span><span> Sweden          </span><span style='text-decoration: underline;'>1</span><span>439
+#&gt; </span><span style='color: #555555;'>16</span><span> Denmark         </span><span style='text-decoration: underline;'>1</span><span>225
+#&gt; </span><span style='color: #555555;'>17</span><span> Japan            924
+#&gt; </span><span style='color: #555555;'>18</span><span> Malaysia         900
+#&gt; </span><span style='color: #555555;'>19</span><span> Canada           800
+#&gt; </span><span style='color: #555555;'>20</span><span> Portugal         785</div><div class='input'>
 <span class='co'># Get the number of recovered cases in Mainland China by province</span>
  <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>
@@ -197,13 +195,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#format">Format</a></li>
-
       <li><a href="#source">Source</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
