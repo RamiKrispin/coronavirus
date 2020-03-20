@@ -56,7 +56,7 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
     dplyr::select(-type)
 
   #filter data to confirmed
-  coronavirus_sf <- coronavirus %>%
+  coronavirus_sf <- coronavirus::coronavirus %>%
     sf::st_as_sf(coords = c("Long", "Lat"),
              remove = FALSE,
              crs = sf::st_crs(worldmap))
