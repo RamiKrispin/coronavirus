@@ -8,4 +8,4 @@
 ^CRAN-RELEASE$
 ^doc$
 ^Meta$
-^vignettes$
+^vignettes\.Rmd$
