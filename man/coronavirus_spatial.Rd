@@ -9,16 +9,15 @@ Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) C
 The \link[rnaturalearth]{rnaturalearth}
 }
 \usage{
-coronavirus_spatial(return_shape = c("point", "polygon"),
-  updated_data = FALSE, returncols = c("all", "simple", "reduced"),
-  ...)
+coronavirus_spatial(
+  return_shape = c("point", "polygon"),
+  returncols = c("all", "simple", "reduced"),
+  ...
+)
 }
 \arguments{
 \item{return_shape}{Should the \link[sf]{sf} object returned be points for cases or polygons of countries?
 Defaults to `point`.}
-
-\item{updated_data}{Should the `coronavirus` data be updated before generating the spatial
-object. Updated the data in the toplevel environment, as, why not. Defaults to `FALSE`}
 
 \item{returncols}{What coluns do you want returned. Defaults to `all`, giving all columns from
 the original `coronavirus` dataset as well as those returned by \link[rnaturalearth]{ne_countries}.
@@ -27,6 +26,9 @@ the original `coronavirus` dataset as well as those returned by \link[rnaturalea
 number of ISO codes.}
 
 \item{...}{Other arguments to \link[rnaturalearth]{ne_countries}}
+
+\item{updated_data}{Should the `coronavirus` data be updated before generating the spatial
+object. Updated the data in the toplevel environment, as, why not. Defaults to `FALSE`}
 }
 \value{
 An `sf` object with either country borders as polygons or cases as points

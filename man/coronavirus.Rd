@@ -5,7 +5,7 @@
 \alias{coronavirus}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset}
 \format{
-A tbl object
+A data.frame object
 }
 \source{
 Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
