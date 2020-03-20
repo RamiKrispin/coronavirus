@@ -19,7 +19,7 @@ update_coronavirus_raw
 \item{debug}{Should we print out the head of datasets as they are downloaded or other debug
 information? Defaults to `FALSE`.}
 
-\item{returnclass}{Return}
+\item{returnclass}{Returna sf or a data.frame object?}
 }
 \value{
 An updated tbl or sf object for the coronavirus dataset.

@@ -4,7 +4,7 @@
 #' @param geofix fix the bad lat/longs?
 #' @param fixed_geotable if you have an alternate data.frame to fix the geospatial errors, supply it.
 #' @param returnclass Return an sf or a data frame object
-#' @param googlemaps_api_key If you are fixing the geotable, you need a googlemaps api key. See \link[ggmaps](register_google) for more.
+#' @param googlemaps_api_key If you are fixing the geotable, you need a googlemaps api key. See \link[ggmaps]{register_google} for more.
 #' Defaults to NULL.
 #' @details As the CRAN version is being updated every one-two months, the dev version of the package is being updated on a daily bases.
 #' This function enables to refresh the package directly from the source with the most up-to-date data

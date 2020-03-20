@@ -22,7 +22,7 @@ update_coronavirus_cds_raw
 
 \item{returnclass}{Return an sf or a data frame object}
 
-\item{googlemaps_api_key}{If you are fixing the geotable, you need a googlemaps api key. See \link[ggmaps](register_google) for more.
+\item{googlemaps_api_key}{If you are fixing the geotable, you need a googlemaps api key. See \link[ggmaps]{register_google} for more.
 Defaults to NULL.}
 }
 \value{

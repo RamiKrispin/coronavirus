@@ -94,7 +94,7 @@ ggplot(data = worldmap) +
 Note, `rnaturalearth` returns lots of information, such as population size, which we might want to get percentages, etc.
 
 ## Single Country
-What if we had wanted to just do a single country? We can manually implement the steps inside of the `coronavirus_spatial` ourselves quite easily. Let's look at the continental US, for example. Rather than doing a lot of string manipulation on the `Province.State` column, we can use `rnaturalearth` with an `st_join` to get the info we want for grouping calculations.
+What if we had wanted to just do a single country? Let's look at the continental US, for example. Rather than doing a lot of string manipulation on the `Province.State` column, we can use `rnaturalearth` with an `st_join` to get the info we want for grouping calculations.
 
 ```{r make_usa}
 usa <- ne_states(country = "United States of America", returnclass = "sf")
