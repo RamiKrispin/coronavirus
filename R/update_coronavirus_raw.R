@@ -2,7 +2,7 @@
 #' @export
 #' @param debug Should we print out the head of datasets as they are downloaded or other debug
 #' information? Defaults to `FALSE`.
-#' @param returnclass Return
+#' @param returnclass Returna sf or a data.frame object?
 #'
 #' @description  Update the data using the daily summary of the Coronavirus (COVID-19) cases by
 #' state/province. Note, this function pulls from the raw archive. The data has not been
@@ -21,6 +21,7 @@
 #'\dontrun{
 #' coronavirus <- update_coronavirus_raw()
 #' }
+"update_coronavirus_raw"
 
 #----------------------------------------------------
 # Pulling the coronvirus data from John Hopkins repo

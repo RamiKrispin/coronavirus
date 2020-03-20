@@ -79,6 +79,47 @@
 #' group_by(city) %>%
 #' summarise(total_cases = sum(total))
 #'
-
 "covid_south_korea"
+
+#' The Corona Data Scrapper Dataset
+#'
+#' @description  daily summary of the Coronavirus (COVID-19) information by country, state, and county or province
+#'
+#' @usage coronavirus_cds
+#' @usage coronavirus_cds_sf
+#'
+#' @format A data.frame or sf object
+#' @source  \href{https://coronadatascraper.com/#home}{website}
+#' @keywords datasets coronavirus coronadatascrapper COVID19
+#' @details The dataset contains a timeseries garnered from a varity of sources.
+#' See \href{https://coronadatascraper.com/#sources}{its website for more}. The fields included are
+#' Province.State - The province or state of the source
+#' Country.Region - The full country name of the source
+#' city - The city of the source, if known
+#' county - The county of the source, if known or relevant
+#' country - The iso-3166-2 country code
+#' population - Current country population, as per wikipedia
+#' lat - Latitide of report
+#' long - Longitude of report
+#' date - Date of report
+#' type - Type of report. Cases = Total Cases. Deaths = total death. Recovered = total recovered.
+#'        active = total active cases. growthFactor = # cases today/# cases yesterday.
+#' value - value for the type of cases.
+#' @examples
+#'
+#' data(coronavirus_cds)
+#'
+#' require(dplyr)
+#'
+#' # Get summary of total cases by city
+#'
+#' coronavirus_cds %>%
+#' group_by(Country.Region) %>%
+#' filter(type=="cases") %>%
+#' summarise(total_cases = max(value)) %>%
+#' arrange(desc(total_cases))
+#'
+"coronavirus_cds"
+
+
 

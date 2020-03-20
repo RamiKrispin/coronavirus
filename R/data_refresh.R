@@ -12,7 +12,7 @@
 #' }
 update_datasets <- function(){
 # Update the coronavirus dataset
-df1 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
+df1 <- utils::read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
 
 
 df1$date <- as.Date(df1$date)
@@ -36,7 +36,7 @@ if(identical(df1, coronavirus::coronavirus)){
 
 
   # Update the coronavirus dataset
-  df2 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/italy/covid_italy_long.csv", stringsAsFactors = FALSE)
+  df2 <- utils::read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/italy/covid_italy_long.csv", stringsAsFactors = FALSE)
 
 
   df2$date <- as.Date(df2$date)
@@ -60,7 +60,7 @@ if(identical(df1, coronavirus::coronavirus)){
 
 
   # Update the South Korea dataset
-  df3 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv", stringsAsFactors = FALSE)
+  df3 <- utils::read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv", stringsAsFactors = FALSE)
 
 
   df3$date <- as.Date(df3$date)
