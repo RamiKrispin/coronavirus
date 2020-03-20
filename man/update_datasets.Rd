@@ -11,7 +11,10 @@ covid_south_korea - Wikipedia article "2020 coronavirus outbreak in South Korea"
 covid_iran - Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
 }
 \usage{
-update_datasets()
+update_datasets(silence = FALSE)
+}
+\arguments{
+\item{silence}{A boolean, if set to TRUE, will automatically install updates without prompt question, by default set to FALSE}
 }
 \value{
 A data.frame object
