@@ -3,7 +3,7 @@
 #' @description  daily summary of the Coronavirus (COVID-19) cases by state/province.
 #'
 #'
-#' @format A tbl object
+#' @format A data.frame object
 #' @source Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 #' @keywords datasets coronavirus COVID19
 #' @details The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province
