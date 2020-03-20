@@ -1,4 +1,5 @@
 #' Update the Package Datasets
+#' @param silence A boolean, if set to TRUE, will automatically install updates without prompt question, by default set to FALSE
 #' @description  Update the package datasets on the global environment with the most recent data on the Dev version
 #' @details As the CRAN version is being updated every one-two months, the dev version of the package is being updated on a daily bases.
 #' This function enables to refresh the package dataset to the most up-to-date data. Changes will be available on the global environment
@@ -15,7 +16,7 @@
 #' update_datasets()
 #' }
 
-update_datasets <- function(){
+update_datasets <- function(silence = FALSE){
   flag <- FALSE
 
   coronavirus_current <- coronavirus::coronavirus
@@ -57,8 +58,11 @@ update_datasets <- function(){
   }
 
   if(flag){
-    q <- base::tolower(base::readline("Updates are available on the coronavirus Dev version, do you want to update? n/Y"))
-
+    if(!silence){
+      q <- base::tolower(base::readline("Updates are available on the coronavirus Dev version, do you want to update? n/Y"))
+    } else {
+      q <- "y"
+    }
     if(q == "y" | q == "yes"){
 
       base::tryCatch(
