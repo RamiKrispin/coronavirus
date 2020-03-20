@@ -6,8 +6,6 @@
 \source{
 coronavirus - Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
 
-covid_italy - Wikipedia article "2020 coronavirus outbreak in Italy" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy}{website}
-
 covid_south_korea - Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
 
 covid_iran - Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
