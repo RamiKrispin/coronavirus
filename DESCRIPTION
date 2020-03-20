@@ -27,7 +27,7 @@ Imports:
   rnaturalearth,
   sf,
   ggplot2,
-  rgeos
+  countrycode
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.0
