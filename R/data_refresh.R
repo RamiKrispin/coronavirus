@@ -16,112 +16,72 @@
 #'\dontrun{
 #' update_datasets()
 #' }
-update_datasets <- function(){
-
+update_data <- function(){
   flag <- FALSE
 
+  coronavirus_current <- coronavirus::coronavirus
+  iran_current <- coronavirus::covid_iran
+  sk_current <- coronavirus::covid_south_korea
 
-  # Update the coronavirus dataset
-  df1 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv", stringsAsFactors = FALSE)
+
+  coronavirus_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv",
+                                     stringsAsFactors = FALSE)
+
+  iran_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/iran/covid_iran_long.csv",
+                              stringsAsFactors = FALSE)
+
+  sk_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv",
+                            stringsAsFactors = FALSE)
 
 
-  df1$date <- as.Date(df1$date)
+  coronavirus_git$date <- as.Date(coronavirus_git$date)
+  iran_git$date <- as.Date(iran_git$date)
+  sk_git$date <- as.Date(sk_git$date)
 
-  if(identical(df1, coronavirus::coronavirus)){
-    print("The coronavirus data set is up-to-date")
-  } else {
-    l_date <- max(coronavirus::coronavirus$date)
-    g_date <- max(df1$date)
 
-    if(g_date > l_date & base::nrow(df1) > base::nrow(coronavirus::coronavirus)){
-      q <- base::tolower(base::readline("Updates for the coronavirus dataset are available. Do you want to update the dataset? N/y"))
-
-      if(q == "y" || q == "Y" || q == "yes"){
-        coronavirus <<- df1
-
-        print("The 'coronavirus' dataset was updated on the global envirunment")
-        flag <- TRUE
-      }
+  if(!base::identical(coronavirus_git, coronavirus_current)){
+    if(base::nrow(coronavirus_git) > base::nrow(coronavirus_current)){
+      flag <- TRUE
     }
   }
 
-
-  # Update the coronavirus dataset
-  df2 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/italy/covid_italy_long.csv", stringsAsFactors = FALSE)
-
-
-  df2$date <- as.Date(df2$date)
-
-  if(identical(df2, coronavirus::covid_italy)){
-    print("The covid_italy data set is up-to-date")
-  } else{
-    l_date <- max(coronavirus::covid_italy$date)
-    g_date <- max(df2$date)
-
-    if(g_date > l_date & base::nrow(df2) > base::nrow(coronavirus::covid_italy)){
-      q <- base::tolower(base::readline("Updates for the covid_italy dataset are available. Do you want to update the dataset? N/y"))
-
-      if(q == "y" || q == "Y" || q == "yes"){
-        covid_italy <<- df2
-        save(covid_italy, file = paste(.libPaths(), "coronavirus/data/covid_italy.rda", sep = "/"))
-        print("The 'covid_italy' dataset was updated on the global envirunment")
-
-        flag <- TRUE
-      }
+  if(!base::identical(iran_git, iran_current)){
+    if(base::nrow(iran_git) > base::nrow(iran_current)){
+      flag <- TRUE
     }
   }
 
-
-  # Update the South Korea dataset
-  df3 <- read.csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv", stringsAsFactors = FALSE)
-
-
-  df3$date <- as.Date(df3$date)
-
-  if(identical(df3, coronavirus::covid_south_korea)){
-    print("The covid_italy data set is up-to-date")
-  } else{
-    l_date <- max(coronavirus::covid_south_korea$date)
-    g_date <- max(df3$date)
-
-    if(g_date > l_date & base::nrow(df3) > base::nrow(coronavirus::covid_south_korea)){
-      q <- base::tolower(base::readline("Updates for the covid_south_korea dataset are available. Do you want to update it? N/y"))
-
-      if(q == "y" || q == "Y" || q == "yes"){
-        covid_south_korea <<- df3
-        print("The 'covid_south_korea' dataset was updated on the global envirunment")
-        flag <- TRUE
-      }
+  if(!base::identical(sk_git, sk_current)){
+    if(base::nrow(sk_git) > base::nrow(sk_current)){
+      flag <- TRUE
     }
   }
-
-
-  # Update the Iran dataset
-  df4 <- read.csv(file = "https://github.com/RamiKrispin/coronavirus-csv/blob/master/iran/covid_iran_long.csv", stringsAsFactors = FALSE)
-
-
-  df4$date <- as.Date(df4$date)
-
-  if(identical(df4, coronavirus::covid_iran)){
-    print("The covid_iran dataset is up-to-date")
-  } else{
-    l_date <- max(coronavirus::covid_iran$date)
-    g_date <- max(df4$date)
-
-    if(g_date > l_date & base::nrow(df4) > base::nrow(coronavirus::covid_iran)){
-      q <- base::tolower(base::readline("Updates for the covid_iran dataset are available. Do you want to update it? N/y"))
-
-      if(q == "y" || q == "Y" || q == "yes"){
-        covid_south_korea <<- df4
-        print("The 'covid_iran' dataset was updated on the global envirunment")
-        flag <- TRUE
-      }
-    }
-  }
-
 
   if(flag){
-    print("To update the dataset on the package itself please install the package dev version from Github")
+    q <- base::tolower(base::readline("Updates are available on the coronavirus Dev version, do you want to update? n/Y"))
+
+    if(q == "y" | q == "yes"){
+
+      base::tryCatch(
+        expr = {
+          devtools::install_github("RamiKrispin/coronavirus")
+
+          base::message("The data was refresed, please restart your session to have the new data available")
+        },
+        error = function(e){
+          message('Caught an error!')
+          print(e)
+        },
+        warning = function(w){
+          message('Caught an warning!')
+          print(w)
+        }
+
+      )
+    }
+  } else {
+    base::message("No updates are available")
   }
+
 
 }
