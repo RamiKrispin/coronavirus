@@ -31,30 +31,6 @@
 #'
 "coronavirus"
 
-#' The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Italy Outbreak Dataset
-#'
-#' @description  daily summary of the Coronavirus (COVID-19) confirmed cases in Italy by province
-#'
-#'
-#' @format A data.frame object
-#' @source Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile \href{http://www.protezionecivile.it/}{website}
-#' @keywords datasets coronavirus COVID19 Italy
-#' @details The dataset contains the daily summary of the Coronavirus confirmed cases in Italy by province
-#' @examples
-#'
-#' data(covid_italy)
-#'
-#' require(dplyr)
-#'
-#' # Get summary by sub region of totalcases
-#'
-#' covid_italy %>%
-#' group_by(sub_region) %>%
-#' summarise(total_cases = sum(total))
-#'
-
-"covid_italy"
-
 
 #' The 2019 Novel Coronavirus COVID-19 (2019-nCoV) South Korea Outbreak Dataset
 #'
