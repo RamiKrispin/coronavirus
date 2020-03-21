@@ -40,9 +40,9 @@ update_datasets <- function(silence = FALSE){
                             stringsAsFactors = FALSE)
 
 
-  coronavirus_git$date <- as.Date(coronavirus_git$date)
-  iran_git$date <- as.Date(iran_git$date)
-  sk_git$date <- as.Date(sk_git$date)
+  coronavirus_git$date <- base::as.Date(coronavirus_git$date)
+  iran_git$date <- base::as.Date(iran_git$date)
+  sk_git$date <- base::as.Date(sk_git$date)
 
 
   if(!base::identical(coronavirus_git, coronavirus_current)){
