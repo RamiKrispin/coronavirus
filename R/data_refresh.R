@@ -13,7 +13,13 @@
 #'
 #' @examples
 #'\dontrun{
-#' update_datasets()
+#'
+#' # update with a question prompt
+#' update_datasets(silence = FALSE)
+#'
+#'
+#' # update without a question prompt
+#' update_datasets(silence = TRUE)
 #' }
 
 update_datasets <- function(silence = FALSE){

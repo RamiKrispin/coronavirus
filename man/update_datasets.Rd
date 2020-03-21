@@ -28,6 +28,12 @@ This function enables to refresh the package dataset to the most up-to-date data
 }
 \examples{
 \dontrun{
-update_datasets()
+
+# update with a question prompt
+update_datasets(silence = FALSE)
+
+
+# update without a question prompt
+update_datasets(silence = TRUE)
 }
 }
