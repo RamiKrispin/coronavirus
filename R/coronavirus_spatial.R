@@ -6,8 +6,6 @@
 #' datasets.
 #' @param return_shape Should the \link[sf]{sf} object returned be points for cases or polygons of countries?
 #' Defaults to `point`.
-#' @param updated_data Should the `coronavirus` data be updated before generating the spatial
-#' object. Updated the data in the toplevel environment, as, why not. Defaults to `FALSE`
 #' @param returncols What coluns do you want returned. Defaults to `all`, giving all columns from
 #' the original `coronavirus` dataset as well as those returned by \link[rnaturalearth]{ne_countries}.
 #' `simple` returned those from `coronavirus` as well as some larger scale geographic information.
@@ -51,6 +49,12 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
                                 ...){
 
 `%>%` <- magrittr::`%>%`
+
+admin <- cases <- continent <- formal_en <- gdp_md_est <- NULL
+  iso_a2 <- iso_a3 <- iso_n3 <- name <- NULL
+name_long <- pop_est <- postal <- region_un <- region_wb <-  subregion <- subunit <- type <- NULL
+un_a3<- NULL
+
   #get a world map
   worldmap <- rnaturalearth::ne_countries(returnclass = "sf", ...) %>%
     dplyr::select(-type)
