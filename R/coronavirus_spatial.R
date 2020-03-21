@@ -50,7 +50,7 @@ coronavirus_spatial <- function(return_shape = c("point", "polygon"),
                                 returncols = c("all", "simple","reduced"),
                                 ...){
 
-
+`%>%` <- magrittr::`%>%`
   #get a world map
   worldmap <- rnaturalearth::ne_countries(returnclass = "sf", ...) %>%
     dplyr::select(-type)
