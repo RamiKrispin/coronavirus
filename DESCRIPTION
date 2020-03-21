@@ -11,7 +11,6 @@ LazyData: true
 Depends:
   R (>= 3.0.2)
 Suggests:
-    devtools,
     DT,
     knitr,
     plotly,
