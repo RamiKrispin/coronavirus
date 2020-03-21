@@ -26,9 +26,6 @@ the original `coronavirus` dataset as well as those returned by \link[rnaturalea
 number of ISO codes.}
 
 \item{...}{Other arguments to \link[rnaturalearth]{ne_countries}}
-
-\item{updated_data}{Should the `coronavirus` data be updated before generating the spatial
-object. Updated the data in the toplevel environment, as, why not. Defaults to `FALSE`}
 }
 \value{
 An `sf` object with either country borders as polygons or cases as points
