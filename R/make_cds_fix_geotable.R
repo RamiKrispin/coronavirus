@@ -1,6 +1,6 @@
 make_cds_fix_geotable <- function(coronavirus_cds, googlemaps_api_key){
-  ggmap::register_google(googlemaps_api_key)
-  
+  ggmap::register_google(key=googlemaps_api_key)
+
   cds_geofix_table <- coronavirus_cds %>%
     dplyr::filter(is.na(lat)) %>%
     dplyr::select(city, county, Province.State, Country.Region, country) %>%
@@ -15,7 +15,7 @@ make_cds_fix_geotable <- function(coronavirus_cds, googlemaps_api_key){
     dplyr::mutate(ll = lapply(search_string, ggmap::geocode)) %>%
     tidyr::unnest(ll) %>%
     dplyr::rename(long_fix = lon, lat_fix = lat) %>%
-    mutate(Province.State = ifelse(Province.State=="Guam" & country == "USA", "GU", Province.State))
+    dplyr::mutate(Province.State = ifelse(Province.State=="Guam" & country == "USA", "GU", Province.State))
 
   cds_geofix_table
 }

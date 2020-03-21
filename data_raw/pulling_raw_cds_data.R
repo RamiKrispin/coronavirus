@@ -3,10 +3,11 @@
 # http://blog.lazd.net/coronadatascraper/timeseries-tidy.csv
 #----------------------------------------------------
 # Setting functions
-source("../R/update_coronavirus_cds.R")
+source("../R/update_coronavirus_cds_raw.R")
 source("../R/make_cds_fix_geotable.R")
+require(ggmap)
 
-coronavirus_cds <- update_coronavirus_cds(geofix=FALSE)
+coronavirus_cds <- update_coronavirus_cds_raw(geofix=FALSE)
 
 #many cds entries are bad - make a fix table
 googlemaps_api_key <-  read.csv("~/googlemaps.api", header=FALSE, stringsAsFactors = FALSE)[1,1]
@@ -14,7 +15,7 @@ cds_fix_geotable <- make_cds_fix_geotable(coronavirus_cds, googlemaps_api_key)
 usethis::use_data(cds_fix_geotable, overwrite = TRUE)
 
 #now, make the fixed dataset
-coronavirus_cds_sf <- update_coronavirus_cds_raw <- function(fixed_geotable = cds_fix_geotable, returnclass = "sf")
+coronavirus_cds_sf <- update_coronavirus_cds_raw(fixed_geotable = cds_fix_geotable, returnclass = "sf")
 
 coronavirus_cds <- dplyr::as_tibble(coronavirus_cds_sf) %>%
   dplyr::select(-geometry)

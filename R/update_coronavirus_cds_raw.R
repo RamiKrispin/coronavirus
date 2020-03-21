@@ -34,12 +34,12 @@ update_coronavirus_cds_raw <- function(geofix = TRUE, remake_table = FALSE,
   #pull from the CDS source and rename to match JHU data
   coronavirus_cds <-
     readr::read_csv("http://blog.lazd.net/coronadatascraper/timeseries-tidy.csv",
-                    col_types = "ccccdddDcd")
+                    col_types = "ccccdddcDcd")
 
 
   #make a bad name translation table
   fixme_countrycode <-
-    dplyr::tibble(country = unique(coronavirus$country)[nchar(unique(coronavirus$country)) >
+    dplyr::tibble(country = unique(coronavirus_cds$country)[nchar(unique(coronavirus_cds$country)) >
                                                           3]) %>%
     dplyr::mutate(fix =
                     countrycode::countrycode(country, destination = 'iso3c', origin = 'country.name'))
@@ -69,7 +69,9 @@ update_coronavirus_cds_raw <- function(geofix = TRUE, remake_table = FALSE,
     dplyr::select(-long_fix, -lat_fix)
 
   #returns
-  if(returnclass=="sf") return(sf::st_as_sf(coronavirus_cds, crs = 4326))
+  if(returnclass=="sf") return(sf::st_as_sf(coronavirus_cds,
+                                            coords = c("long", "lat"), crs = 4326,
+                                            remove = FALSE))
 
   coronavirus_cds
 
