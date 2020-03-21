@@ -342,6 +342,12 @@ dates <- lubridate::mdy(paste(names(gr_raw)[-1], gr_raw[1,-1], 2020, sep = "-"))
 
 gr_df <- lapply(gr_states, function(i){
 
+  r <- NULL
+  r <- which(gr_raw$State == i)
+  df <- data.frame(dates = dates,
+                   cases = as.character(gr_raw[r, -1]))
+
+
 })
 
 gr_names <- c("date_temp", gr_raw[1, 2:ncol(gr_raw)])
