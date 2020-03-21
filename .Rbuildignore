@@ -8,5 +8,6 @@
 ^CRAN-RELEASE$
 ^doc$
 ^Meta$
+^vignettes$
 ^vignettes/spatial_coronavirus.Rmd$
 ^vignettes/intro_coronavirus_dataset.Rmd$
