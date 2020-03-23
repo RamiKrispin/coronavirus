@@ -315,4 +315,6 @@ write.csv(coronavirus, "/Users/ramikrispin/R/packages/coronavirus_csv/coronaviru
 writexl::write_xlsx(x = coronavirus, path = "/Users/ramikrispin/R/packages/coronavirus_csv/coronavirus_dataset.xlsx", col_names = TRUE)
 
 
+system(command = "R CMD INSTALL --no-multiarch --with-keep.source /Users/ramikrispin/R/packages/coronavirus")
 
+.rs.restartR()
