@@ -35,7 +35,9 @@ A summary dashboard is available [here](https://ramikrispin.github.io/coronaviru
 
   <figcaption>Source: Centers for Disease Control and Prevention's Public Health Image Library </figcaption>
 
- 
+## Important Note
+
+As this an ongoing situation, there frequent changes in the data format, please visit the package news to get updates about those changes 
 
 ## Installation
 Install the CRAN version:
