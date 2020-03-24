@@ -5,9 +5,9 @@
 # Setting functions
 `%>%` <- magrittr::`%>%`
 #----------------------------------------------------
-# Pulling confirmed cases
-
-raw_conf <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
+#------------ Pulling confirmed cases------------
+conf_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+raw_conf <- read.csv(file = conf_url,
                      stringsAsFactors = FALSE)
 
 lapply(1:ncol(raw_conf), function(i){
@@ -21,55 +21,55 @@ lapply(1:ncol(raw_conf), function(i){
 # Fixing US data
 # Aggregating county level to state level
 
-raw_us_conf <- raw_conf %>%
-  dplyr::filter(Country.Region == "US") %>%
-  dplyr::mutate(state = ifelse(!grepl(",", Province.State),
-                               Province.State,
-                               trimws(substr(Province.State,
-                                             regexpr(",", Province.State) + 1,
-                                             regexpr(",", Province.State) + 3)))) %>%
-  dplyr::left_join(data.frame(state = state.abb,
-                              state_name = state.name,
-                              stringsAsFactors = FALSE),
-                   by = "state") %>%
-  dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
-  dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
-  dplyr::mutate(Province.State = state_name) %>%
-  dplyr::select(-state, -state_name)
-
-raw_us_map <- raw_us_conf %>%
-  dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
-  dplyr::distinct() %>%
-  dplyr::mutate(dup = duplicated(Province.State)) %>%
-  dplyr::filter(dup == FALSE) %>%
-  dplyr::select(-dup)
-
-us_agg_conf <- aggregate(x = raw_us_conf[, 5:(ncol(raw_us_conf))], by = list(raw_us_conf$Province.State), FUN = sum) %>%
-  dplyr::select(Province.State = Group.1, dplyr::everything())
-
-us_fix_conf <- raw_us_map %>% dplyr::left_join(us_agg_conf, by = "Province.State")
-
-
-raw_conf1 <- raw_conf %>%
-  dplyr::filter(Country.Region != "US") %>%
-  dplyr::bind_rows(us_fix_conf)
+# raw_us_conf <- raw_conf %>%
+#   dplyr::filter(Country.Region == "US") %>%
+#   dplyr::mutate(state = ifelse(!grepl(",", Province.State),
+#                                Province.State,
+#                                trimws(substr(Province.State,
+#                                              regexpr(",", Province.State) + 1,
+#                                              regexpr(",", Province.State) + 3)))) %>%
+#   dplyr::left_join(data.frame(state = state.abb,
+#                               state_name = state.name,
+#                               stringsAsFactors = FALSE),
+#                    by = "state") %>%
+#   dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
+#   dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
+#   dplyr::mutate(Province.State = state_name) %>%
+#   dplyr::select(-state, -state_name)
+#
+# raw_us_map <- raw_us_conf %>%
+#   dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
+#   dplyr::distinct() %>%
+#   dplyr::mutate(dup = duplicated(Province.State)) %>%
+#   dplyr::filter(dup == FALSE) %>%
+#   dplyr::select(-dup)
+#
+# us_agg_conf <- aggregate(x = raw_us_conf[, 5:(ncol(raw_us_conf))], by = list(raw_us_conf$Province.State), FUN = sum) %>%
+#   dplyr::select(Province.State = Group.1, dplyr::everything())
+#
+# us_fix_conf <- raw_us_map %>% dplyr::left_join(us_agg_conf, by = "Province.State")
+#
+#
+# raw_conf1 <- raw_conf %>%
+#   dplyr::filter(Country.Region != "US") %>%
+#   dplyr::bind_rows(us_fix_conf)
 
 
 
 # Transforming the data from wide to long
 # Creating new data frame
-df_conf <- raw_conf1[, 1:4]
+df_conf <- raw_conf[, 1:4]
 
 for(i in 5:ncol(raw_conf1)){
 
-  raw_conf1[,i] <- as.integer(raw_conf1[,i])
+  raw_conf[,i] <- as.integer(raw_conf[,i])
   # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
-    print(names(raw_conf1)[i])
+    print(names(raw_conf)[i])
 
   if(i == 5){
-    df_conf[[names(raw_conf1)[i]]] <- raw_conf1[, i]
+    df_conf[[names(raw_conf)[i]]] <- raw_conf[, i]
   } else {
-    df_conf[[names(raw_conf1)[i]]] <- raw_conf1[, i] - raw_conf1[, i - 1]
+    df_conf[[names(raw_conf)[i]]] <- raw_conf[, i] - raw_conf[, i - 1]
   }
 
 
@@ -105,7 +105,8 @@ tail(df_conf2)
 #----------------------------------------------------
 # Pulling death cases
 
-raw_death <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
+death_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+raw_death <- read.csv(file =death_url,
                       stringsAsFactors = FALSE,
                       fill =FALSE)
 
@@ -117,41 +118,41 @@ lapply(1:ncol(raw_death), function(i){
     return(NULL)
   }
 })
-# Fixing US data
-# Aggregating county level to state level
-
-raw_us_death <- raw_death %>%
-  dplyr::filter(Country.Region == "US") %>%
-  dplyr::mutate(state = ifelse(!grepl(",", Province.State),
-                               Province.State,
-                               trimws(substr(Province.State,
-                                             regexpr(",", Province.State) + 1,
-                                             regexpr(",", Province.State) + 3)))) %>%
-  dplyr::left_join(data.frame(state = state.abb,
-                              state_name = state.name,
-                              stringsAsFactors = FALSE),
-                   by = "state") %>%
-  dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
-  dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
-  dplyr::mutate(Province.State = state_name) %>%
-  dplyr::select(-state, -state_name)
-
-# raw_us_map <- raw_us_death %>%
-#   dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
-#   dplyr::distinct() %>%
-#   dplyr::mutate(dup = duplicated(Province.State)) %>%
-#   dplyr::filter(dup == FALSE) %>%
-#   dplyr::select(-dup)
-
-us_agg_death <- aggregate(x = raw_us_death[, 5:(ncol(raw_us_death))], by = list(raw_us_death$Province.State), FUN = sum) %>%
-  dplyr::select(Province.State = Group.1, dplyr::everything())
-
-us_fix_death <- raw_us_map %>% dplyr::left_join(us_agg_death, by = "Province.State")
-
-
-raw_death1 <- raw_death %>%
-  dplyr::filter(Country.Region != "US") %>%
-  dplyr::bind_rows(us_fix_death)
+# # Fixing US data
+# # Aggregating county level to state level
+#
+# raw_us_death <- raw_death %>%
+#   dplyr::filter(Country.Region == "US") %>%
+#   dplyr::mutate(state = ifelse(!grepl(",", Province.State),
+#                                Province.State,
+#                                trimws(substr(Province.State,
+#                                              regexpr(",", Province.State) + 1,
+#                                              regexpr(",", Province.State) + 3)))) %>%
+#   dplyr::left_join(data.frame(state = state.abb,
+#                               state_name = state.name,
+#                               stringsAsFactors = FALSE),
+#                    by = "state") %>%
+#   dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
+#   dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
+#   dplyr::mutate(Province.State = state_name) %>%
+#   dplyr::select(-state, -state_name)
+#
+# # raw_us_map <- raw_us_death %>%
+# #   dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
+# #   dplyr::distinct() %>%
+# #   dplyr::mutate(dup = duplicated(Province.State)) %>%
+# #   dplyr::filter(dup == FALSE) %>%
+# #   dplyr::select(-dup)
+#
+# us_agg_death <- aggregate(x = raw_us_death[, 5:(ncol(raw_us_death))], by = list(raw_us_death$Province.State), FUN = sum) %>%
+#   dplyr::select(Province.State = Group.1, dplyr::everything())
+#
+# us_fix_death <- raw_us_map %>% dplyr::left_join(us_agg_death, by = "Province.State")
+#
+#
+# raw_death1 <- raw_death %>%
+#   dplyr::filter(Country.Region != "US") %>%
+#   dplyr::bind_rows(us_fix_death)
 
 
 
