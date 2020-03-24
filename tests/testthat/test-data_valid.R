@@ -5,7 +5,7 @@ test_that(desc = "Test the dates", {
 
 
 test_that(desc = "Test the type variable", {
-  expect_equal(base::all(c("confirmed", "death", "recovered") %in%
+  expect_equal(base::all(c("confirmed", "death") %in%
                            unique(coronavirus$type)), TRUE)
   expect_equal(base::any(is.na(coronavirus$type)), FALSE)
 })
