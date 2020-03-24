@@ -128,13 +128,20 @@
     <p>Update the package datasets on the global environment with the most recent data on the Dev version</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_datasets</span>()</pre>
+    <pre class="usage"><span class='fu'>update_datasets</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>silence</th>
+      <td><p>A boolean, if set to TRUE, will automatically install updates without prompt question, by default set to FALSE</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>coronavirus - Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <a href='https://systems.jhu.edu/research/public-health/ncov/'>website</a></p>
-<p>covid_italy - Wikipedia article "2020 coronavirus outbreak in Italy" <a href='https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy'>website</a></p>
 <p>covid_south_korea - Wikipedia article "2020 coronavirus outbreak in South Korea" <a href='https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea'>website</a></p>
 <p>covid_iran - Wikipedia article "2020 coronavirus pandemic in Iran"  <a href='https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran'>website</a></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -147,12 +154,18 @@ This function enables to refresh the package dataset to the most up-to-date data
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>update_datasets</span>()
+<span class='co'># update with a question prompt</span>
+<span class='fu'>update_datasets</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+
+<span class='co'># update without a question prompt</span>
+<span class='fu'>update_datasets</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#source">Source</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
