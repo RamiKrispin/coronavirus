@@ -60,7 +60,7 @@ lapply(1:ncol(raw_conf), function(i){
 # Creating new data frame
 df_conf <- raw_conf[, 1:4]
 
-for(i in 5:ncol(raw_conf1)){
+for(i in 5:ncol(raw_conf)){
 
   raw_conf[,i] <- as.integer(raw_conf[,i])
   # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
