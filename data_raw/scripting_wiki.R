@@ -50,7 +50,7 @@ url_sk <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Kor
 
 sk_raw <- url_sk %>%
   xml2::read_html() %>%
-  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[9]') %>%
+  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[8]') %>%
   rvest::html_table(fill = TRUE,
                     header = TRUE)
 
@@ -147,7 +147,7 @@ write.csv(sk_df1, "/Users/ramikrispin/R/packages/coronavirus_csv/south_korea/cov
 write.csv(sk_prov_map, "/Users/ramikrispin/R/packages/coronavirus_csv/south_korea/sk_city_prov_mapping.csv", row.names = FALSE)
 
 
-#----------------Italy----------------
+  #----------------Italy----------------
 # Summarise table of cases in the Italy
 # Using : https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Italy
 
