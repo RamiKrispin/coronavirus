@@ -33,8 +33,9 @@ update_coronavirus_cds_raw <- function(geofix = TRUE, remake_table = FALSE,
 
   #pull from the CDS source and rename to match JHU data
   coronavirus_cds <-
-    readr::read_csv("http://blog.lazd.net/coronadatascraper/timeseries-tidy.csv",
-                    col_types = "ccccdddcDcd")
+    readr::read_csv("https://coronadatascraper.com/timeseries-tidy.csv",
+                    #col_types = "ccccdddcDcd",
+                    col_types = "ccccccdddccDcd")
 
 
   #make a bad name translation table

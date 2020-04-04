@@ -15,7 +15,8 @@ make_cds_fix_geotable <- function(coronavirus_cds, googlemaps_api_key){
     dplyr::mutate(ll = lapply(search_string, ggmap::geocode)) %>%
     tidyr::unnest(ll) %>%
     dplyr::rename(long_fix = lon, lat_fix = lat) %>%
-    dplyr::mutate(Province.State = ifelse(Province.State=="Guam" & country == "USA", "GU", Province.State))
+    dplyr::mutate(Province.State = ifelse(Province.State=="Guam" & country == "USA", "GU", Province.State)) %>%
+    dplyr::select(-search_string)
 
   cds_geofix_table
 }
