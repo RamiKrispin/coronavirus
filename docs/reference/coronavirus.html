@@ -102,7 +102,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/RamiKrispin/coronavirus">
+  <a href="https://github.com/covid19r/coronavirus">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -120,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/covid19r/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>coronavirus.Rd</code></div>
     </div>
 
@@ -161,28 +161,28 @@
  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>)) <span class='kw'>%&gt;%</span>
  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>) <span class='kw'>%&gt;%</span>
  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
-#&gt;    Country.Region total
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> US             </span><span style='text-decoration: underline;'>83</span><span>836
-#&gt; </span><span style='color: #555555;'> 2</span><span> China          </span><span style='text-decoration: underline;'>81</span><span>782
-#&gt; </span><span style='color: #555555;'> 3</span><span> Italy          </span><span style='text-decoration: underline;'>80</span><span>589
-#&gt; </span><span style='color: #555555;'> 4</span><span> Spain          </span><span style='text-decoration: underline;'>57</span><span>786
-#&gt; </span><span style='color: #555555;'> 5</span><span> Germany        </span><span style='text-decoration: underline;'>43</span><span>938
-#&gt; </span><span style='color: #555555;'> 6</span><span> France         </span><span style='text-decoration: underline;'>29</span><span>551
-#&gt; </span><span style='color: #555555;'> 7</span><span> Iran           </span><span style='text-decoration: underline;'>29</span><span>406
-#&gt; </span><span style='color: #555555;'> 8</span><span> United Kingdom </span><span style='text-decoration: underline;'>11</span><span>812
-#&gt; </span><span style='color: #555555;'> 9</span><span> Switzerland    </span><span style='text-decoration: underline;'>11</span><span>811
-#&gt; </span><span style='color: #555555;'>10</span><span> Korea, South    </span><span style='text-decoration: underline;'>9</span><span>241
-#&gt; </span><span style='color: #555555;'>11</span><span> Netherlands     </span><span style='text-decoration: underline;'>7</span><span>468
-#&gt; </span><span style='color: #555555;'>12</span><span> Austria         </span><span style='text-decoration: underline;'>6</span><span>909
-#&gt; </span><span style='color: #555555;'>13</span><span> Belgium         </span><span style='text-decoration: underline;'>6</span><span>235
-#&gt; </span><span style='color: #555555;'>14</span><span> Canada          </span><span style='text-decoration: underline;'>4</span><span>042
-#&gt; </span><span style='color: #555555;'>15</span><span> Turkey          </span><span style='text-decoration: underline;'>3</span><span>629
-#&gt; </span><span style='color: #555555;'>16</span><span> Portugal        </span><span style='text-decoration: underline;'>3</span><span>544
-#&gt; </span><span style='color: #555555;'>17</span><span> Norway          </span><span style='text-decoration: underline;'>3</span><span>369
-#&gt; </span><span style='color: #555555;'>18</span><span> Brazil          </span><span style='text-decoration: underline;'>2</span><span>985
-#&gt; </span><span style='color: #555555;'>19</span><span> Sweden          </span><span style='text-decoration: underline;'>2</span><span>840
-#&gt; </span><span style='color: #555555;'>20</span><span> Australia       </span><span style='text-decoration: underline;'>2</span><span>810</div><div class='input'>
+#&gt;    Country.Region  total
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> US             </span><span style='text-decoration: underline;'>275</span><span>586
+#&gt; </span><span style='color: #555555;'> 2</span><span> Italy          </span><span style='text-decoration: underline;'>119</span><span>827
+#&gt; </span><span style='color: #555555;'> 3</span><span> Spain          </span><span style='text-decoration: underline;'>119</span><span>199
+#&gt; </span><span style='color: #555555;'> 4</span><span> Germany         </span><span style='text-decoration: underline;'>91</span><span>159
+#&gt; </span><span style='color: #555555;'> 5</span><span> China           </span><span style='text-decoration: underline;'>82</span><span>511
+#&gt; </span><span style='color: #555555;'> 6</span><span> France          </span><span style='text-decoration: underline;'>65</span><span>202
+#&gt; </span><span style='color: #555555;'> 7</span><span> Iran            </span><span style='text-decoration: underline;'>53</span><span>183
+#&gt; </span><span style='color: #555555;'> 8</span><span> United Kingdom  </span><span style='text-decoration: underline;'>38</span><span>689
+#&gt; </span><span style='color: #555555;'> 9</span><span> Turkey          </span><span style='text-decoration: underline;'>20</span><span>921
+#&gt; </span><span style='color: #555555;'>10</span><span> Switzerland     </span><span style='text-decoration: underline;'>19</span><span>606
+#&gt; </span><span style='color: #555555;'>11</span><span> Belgium         </span><span style='text-decoration: underline;'>16</span><span>770
+#&gt; </span><span style='color: #555555;'>12</span><span> Netherlands     </span><span style='text-decoration: underline;'>15</span><span>821
+#&gt; </span><span style='color: #555555;'>13</span><span> Canada          </span><span style='text-decoration: underline;'>12</span><span>437
+#&gt; </span><span style='color: #555555;'>14</span><span> Austria         </span><span style='text-decoration: underline;'>11</span><span>524
+#&gt; </span><span style='color: #555555;'>15</span><span> Korea, South    </span><span style='text-decoration: underline;'>10</span><span>062
+#&gt; </span><span style='color: #555555;'>16</span><span> Portugal         </span><span style='text-decoration: underline;'>9</span><span>886
+#&gt; </span><span style='color: #555555;'>17</span><span> Brazil           </span><span style='text-decoration: underline;'>9</span><span>056
+#&gt; </span><span style='color: #555555;'>18</span><span> Israel           </span><span style='text-decoration: underline;'>7</span><span>428
+#&gt; </span><span style='color: #555555;'>19</span><span> Sweden           </span><span style='text-decoration: underline;'>6</span><span>131
+#&gt; </span><span style='color: #555555;'>20</span><span> Norway           </span><span style='text-decoration: underline;'>5</span><span>370</div><div class='input'>
 <span class='co'># Get the number of recovered cases in Mainland China by province</span>
  <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>

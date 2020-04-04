@@ -66,7 +66,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/RamiKrispin/coronavirus">
+  <a href="https://github.com/covid19r/coronavirus">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -89,12 +89,12 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="coronavirus" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#coronavirus" class="anchor"></a>coronavirus <a href="https://ramikrispin.github.io/coronavirus/"><img src="reference/figures/coronavirus.png" align="right"></a>
+<a href="#coronavirus" class="anchor"></a>coronavirus <a href="https://covid19r.github.io/coronavirus/"><img src="reference/figures/coronavirus.png" align="right"></a>
 </h1></div>
 <!-- badges: start --->
 
 <p>The coronavirus package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <a href="https://github.com/CSSEGISandData/COVID-19">repository</a>.</p>
-<p>More details available <a href="https://ramikrispin.github.io/coronavirus/">here</a>, and a <code>csv</code> format of the package dataset available <a href="https://github.com/RamiKrispin/coronavirus-csv">here</a></p>
+<p>More details available <a href="https://covid19r.github.io/coronavirus/">here</a>, and a <code>csv</code> format of the package dataset available <a href="https://github.com/RamiKrispin/coronavirus-csv">here</a></p>
 <p>A summary dashboard is available <a href="https://ramikrispin.github.io/coronavirus_dashboard/">here</a></p>
 <p><img src="reference/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"></p>
 <figcaption>
@@ -111,7 +111,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"coronavirus"</span>) </span></code></pre></div>
 <p>Install the Github version (refreshed on a daily bases):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"RamiKrispin/coronavirus"</span>)</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"covid19r/coronavirus"</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -130,13 +130,13 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 5                   Afghanistan  33   65 2020-01-26     0 confirmed</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 6                   Afghanistan  33   65 2020-01-27     0 confirmed</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(coronavirus) </span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;       Province.State Country.Region     Lat     Long       date cases  type</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 32235       Zhejiang          China 29.1832 120.0934 2020-03-21     0 death</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 32236       Zhejiang          China 29.1832 120.0934 2020-03-22     0 death</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 32237       Zhejiang          China 29.1832 120.0934 2020-03-23     0 death</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 32238       Zhejiang          China 29.1832 120.0934 2020-03-24     0 death</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 32239       Zhejiang          China 29.1832 120.0934 2020-03-25     0 death</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 32240       Zhejiang          China 29.1832 120.0934 2020-03-26     0 death</span></span></code></pre></div>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;       Province.State Country.Region     Lat     Long       date cases      type</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 55475       Zhejiang          China 29.1832 120.0934 2020-03-29     0 recovered</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 55476       Zhejiang          China 29.1832 120.0934 2020-03-30     0 recovered</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 55477       Zhejiang          China 29.1832 120.0934 2020-03-31     1 recovered</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 55478       Zhejiang          China 29.1832 120.0934 2020-04-01     0 recovered</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 55479       Zhejiang          China 29.1832 120.0934 2020-04-02     2 recovered</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 55480       Zhejiang          China 29.1832 120.0934 2020-04-03     0 recovered</span></span></code></pre></div>
 <p>Here is an example of a summary total cases by region and type (top 20):</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
@@ -146,30 +146,30 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb5-6"><a href="#cb5-6"></a></span>
 <span id="cb5-7"><a href="#cb5-7"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; # A tibble: 20 x 3</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # Groups:   Country.Region [17]</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # Groups:   Country.Region [13]</span></span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;    Country.Region type      total_cases</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;int&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 US             confirmed       83836</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 China          confirmed       81782</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 Italy          confirmed       80589</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 Spain          confirmed       57786</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  5 Germany        confirmed       43938</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 France         confirmed       29551</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 Iran           confirmed       29406</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 United Kingdom confirmed       11812</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 Switzerland    confirmed       11811</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 Korea, South   confirmed        9241</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 Italy          death            8215</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 Netherlands    confirmed        7468</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 Austria        confirmed        6909</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 Belgium        confirmed        6235</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 Spain          death            4365</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 Canada         confirmed        4042</span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 17 Turkey         confirmed        3629</span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 18 Portugal       confirmed        3544</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 19 Norway         confirmed        3369</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 20 China          death            3291</span></span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2020-03-26):</p>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 US             confirmed      275586</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 Italy          confirmed      119827</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 Spain          confirmed      119199</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 Germany        confirmed       91159</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  5 China          confirmed       82511</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 China          recovered       76760</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 France         confirmed       65202</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 Iran           confirmed       53183</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 United Kingdom confirmed       38689</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 Spain          recovered       30513</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 Germany        recovered       24575</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 Turkey         confirmed       20921</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 Italy          recovered       19758</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 Switzerland    confirmed       19606</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 Iran           recovered       17935</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 Belgium        confirmed       16770</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 17 Netherlands    confirmed       15821</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 18 Italy          death           14681</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 19 France         recovered       14135</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 20 Canada         confirmed       12437</span></span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2020-04-03):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -180,21 +180,21 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</span>
 <span id="cb6-9"><a href="#cb6-9"></a>              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; # A tibble: 175 x 3</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; # Groups:   country [175]</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;    country        confirmed death</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  1 US                 18058   267</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  2 Spain               8271   718</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  3 Germany             6615    61</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  4 Italy               6203   712</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  5 France              3951   365</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  6 Iran                2389   157</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  7 United Kingdom      2172   114</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;  8 Austria             1321    19</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;  9 Belgium             1298    42</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 10 Turkey              1196    16</span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; # … with 165 more rows</span></span></code></pre></div>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; # A tibble: 181 x 4</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; # Groups:   country [181]</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;    country        confirmed death recovered</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  1 US                 32133  1161       706</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  2 Spain               7134   850      3770</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  3 Germany             6365   168      2135</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  4 France              5273  1122      1587</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  5 Italy               4585   766      1480</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  6 United Kingdom      4516   685        16</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  7 Turkey              2786    69        69</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;  8 Iran                2715   134      1224</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;  9 Belgium             1422   132       377</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 10 Canada              1153    40       440</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; # … with 171 more rows</span></span></code></pre></div>
 </div>
 <div id="data-sources" class="section level2">
 <h2 class="hasAnchor">
@@ -236,9 +236,9 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=coronavirus">https://​cloud.r-project.org/​package=coronavirus</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/RamiKrispin/coronavirus">https://​github.com/​RamiKrispin/​coronavirus</a>
+<li>Browse source code at <br><a href="https://github.com/covid19r/coronavirus">https://​github.com/​covid19r/​coronavirus</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/RamiKrispin/coronavirus/issues">https://​github.com/​RamiKrispin/​coronavirus/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/covid19r/coronavirus/issues">https://​github.com/​covid19r/​coronavirus/​issues</a>
 </li>
 </ul>
 </div>
@@ -260,11 +260,11 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
       <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild"><img src="https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master" alt="build"></a></li>
+<li><a href="https://github.com/covid19r/coronavirus/actions?query=workflow%3Abuild"><img src="https://github.com/covid19r/coronavirus/workflows/build/badge.svg?branch=master" alt="build"></a></li>
 <li><a href="https://cran.r-project.org/package=coronavirus"><img src="https://www.r-pkg.org/badges/version/coronavirus" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a></li>
 <li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
-<li><a href="https://github.com/RamiKrispin/coronavirus/commit/master"><img src="https://img.shields.io/github/last-commit/RamiKrispin/coronavirus" alt="GitHub commit"></a></li>
+<li><a href="https://github.com/covid19r/coronavirus/commit/master"><img src="https://img.shields.io/github/last-commit/covid19r/coronavirus" alt="GitHub commit"></a></li>
 </ul>
 </div>
 </div>
