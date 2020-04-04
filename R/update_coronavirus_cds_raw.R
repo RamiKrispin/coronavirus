@@ -47,6 +47,7 @@ update_coronavirus_cds_raw <- function(geofix = TRUE, remake_table = FALSE,
 
   coronavirus_cds <- coronavirus_cds %>%
     dplyr::full_join(fixme_countrycode) %>%
+    dplyr::mutate(country = ifelse(country=="iso1:US", "USA", country)) %>%
     dplyr::mutate(country = ifelse(nchar(country) > 3, fix, country)) %>%
     dplyr::select(-fix) %>%
     dplyr::mutate(
