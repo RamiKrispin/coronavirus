@@ -1,17 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# coronavirus <a href='https://ramikrispin.github.io/coronavirus/'><img src='man/figures/coronavirus.png' align="right"  /></a>
+# coronavirus <a href='https://covid19r.github.io/coronavirus/'><img src='man/figures/coronavirus.png' align="right"  /></a>
 
 <!-- badges: start --->
 
-[![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild)
+[![build](https://github.com/covid19r/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/covid19r/coronavirus/actions?query=workflow%3Abuild)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub
-commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](https://github.com/RamiKrispin/coronavirus/commit/master)
+commit](https://img.shields.io/github/last-commit/covid19r/coronavirus)](https://github.com/covid19r/coronavirus/commit/master)
 <!-- badges: end -->
 
 The coronavirus package provides a tidy format dataset of the 2019 Novel
@@ -20,9 +20,8 @@ Johns Hopkins University Center for Systems Science and Engineering (JHU
 CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
 
-More details available
-[here](https://ramikrispin.github.io/coronavirus/), and a `csv` format
-of the package dataset available
+More details available [here](https://covid19r.github.io/coronavirus/),
+and a `csv` format of the package dataset available
 [here](https://github.com/RamiKrispin/coronavirus-csv)
 
 A summary dashboard is available
@@ -54,7 +53,7 @@ Install the Github version (refreshed on a daily bases):
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RamiKrispin/coronavirus")
+devtools::install_github("covid19r/coronavirus")
 ```
 
 ## Usage
@@ -79,13 +78,13 @@ head(coronavirus)
 #> 5                   Afghanistan  33   65 2020-01-26     0 confirmed
 #> 6                   Afghanistan  33   65 2020-01-27     0 confirmed
 tail(coronavirus) 
-#>       Province.State Country.Region     Lat     Long       date cases  type
-#> 32235       Zhejiang          China 29.1832 120.0934 2020-03-21     0 death
-#> 32236       Zhejiang          China 29.1832 120.0934 2020-03-22     0 death
-#> 32237       Zhejiang          China 29.1832 120.0934 2020-03-23     0 death
-#> 32238       Zhejiang          China 29.1832 120.0934 2020-03-24     0 death
-#> 32239       Zhejiang          China 29.1832 120.0934 2020-03-25     0 death
-#> 32240       Zhejiang          China 29.1832 120.0934 2020-03-26     0 death
+#>       Province.State Country.Region     Lat     Long       date cases      type
+#> 55475       Zhejiang          China 29.1832 120.0934 2020-03-29     0 recovered
+#> 55476       Zhejiang          China 29.1832 120.0934 2020-03-30     0 recovered
+#> 55477       Zhejiang          China 29.1832 120.0934 2020-03-31     1 recovered
+#> 55478       Zhejiang          China 29.1832 120.0934 2020-04-01     0 recovered
+#> 55479       Zhejiang          China 29.1832 120.0934 2020-04-02     2 recovered
+#> 55480       Zhejiang          China 29.1832 120.0934 2020-04-03     0 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -99,33 +98,33 @@ summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
 
 summary_df %>% head(20) 
 #> # A tibble: 20 x 3
-#> # Groups:   Country.Region [17]
+#> # Groups:   Country.Region [13]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 US             confirmed       83836
-#>  2 China          confirmed       81782
-#>  3 Italy          confirmed       80589
-#>  4 Spain          confirmed       57786
-#>  5 Germany        confirmed       43938
-#>  6 France         confirmed       29551
-#>  7 Iran           confirmed       29406
-#>  8 United Kingdom confirmed       11812
-#>  9 Switzerland    confirmed       11811
-#> 10 Korea, South   confirmed        9241
-#> 11 Italy          death            8215
-#> 12 Netherlands    confirmed        7468
-#> 13 Austria        confirmed        6909
-#> 14 Belgium        confirmed        6235
-#> 15 Spain          death            4365
-#> 16 Canada         confirmed        4042
-#> 17 Turkey         confirmed        3629
-#> 18 Portugal       confirmed        3544
-#> 19 Norway         confirmed        3369
-#> 20 China          death            3291
+#>  1 US             confirmed      275586
+#>  2 Italy          confirmed      119827
+#>  3 Spain          confirmed      119199
+#>  4 Germany        confirmed       91159
+#>  5 China          confirmed       82511
+#>  6 China          recovered       76760
+#>  7 France         confirmed       65202
+#>  8 Iran           confirmed       53183
+#>  9 United Kingdom confirmed       38689
+#> 10 Spain          recovered       30513
+#> 11 Germany        recovered       24575
+#> 12 Turkey         confirmed       20921
+#> 13 Italy          recovered       19758
+#> 14 Switzerland    confirmed       19606
+#> 15 Iran           recovered       17935
+#> 16 Belgium        confirmed       16770
+#> 17 Netherlands    confirmed       15821
+#> 18 Italy          death           14681
+#> 19 France         recovered       14135
+#> 20 Canada         confirmed       12437
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-03-26):
+2020-04-03):
 
 ``` r
 library(tidyr)
@@ -138,51 +137,51 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 175 x 3
-#> # Groups:   country [175]
-#>    country        confirmed death
-#>    <chr>              <int> <int>
-#>  1 US                 18058   267
-#>  2 Spain               8271   718
-#>  3 Germany             6615    61
-#>  4 Italy               6203   712
-#>  5 France              3951   365
-#>  6 Iran                2389   157
-#>  7 United Kingdom      2172   114
-#>  8 Austria             1321    19
-#>  9 Belgium             1298    42
-#> 10 Turkey              1196    16
-#> 11 Netherlands         1030    78
-#> 12 Switzerland          914    38
-#> 13 Canada               791     8
-#> 14 Portugal             549    17
-#> 15 Australia            446     5
-#> 16 Brazil               431    18
-#> 17 Israel               324     3
-#> 18 Sweden               314    15
-#> 19 Norway               285     0
-#> 20 Czechia              271     3
-#> 21 Ireland              255    10
-#> 22 Malaysia             235     3
-#> 23 Ecuador              230     6
-#> 24 South Africa         218     0
-#> 25 Russia               182     0
-#> 26 Poland               170     2
-#> 27 Chile                164     1
-#> 28 Denmark              161     7
-#> 29 Pakistan             138     1
-#> 30 Estonia              134     0
-#> 31 Romania              123     6
-#> 32 China                121     6
-#> 33 Luxembourg           120     1
-#> 34 Argentina            115     1
-#> 35 Panama               115     0
-#> 36 Saudi Arabia         112     1
-#> 37 Thailand             111     0
-#> 38 Korea, South         104     5
-#> 39 Indonesia            103    20
-#> 40 Peru                 100     0
-#> # … with 135 more rows
+#> # A tibble: 181 x 4
+#> # Groups:   country [181]
+#>    country              confirmed death recovered
+#>    <chr>                    <int> <int>     <int>
+#>  1 US                       32133  1161       706
+#>  2 Spain                     7134   850      3770
+#>  3 Germany                   6365   168      2135
+#>  4 France                    5273  1122      1587
+#>  5 Italy                     4585   766      1480
+#>  6 United Kingdom            4516   685        16
+#>  7 Turkey                    2786    69        69
+#>  8 Iran                      2715   134      1224
+#>  9 Belgium                   1422   132       377
+#> 10 Canada                    1153    40       440
+#> 11 Netherlands               1033   149         0
+#> 12 Brazil                    1012    35         0
+#> 13 Portugal                   852    37         0
+#> 14 Switzerland                779    55       833
+#> 15 Russia                     601     4        46
+#> 16 Israel                     571     4        65
+#> 17 Sweden                     563    50       102
+#> 18 Romania                    445    18        16
+#> 19 Poland                     437    14         0
+#> 20 Ireland                    424    22         0
+#> 21 Austria                    395    10       273
+#> 22 Philippines                385    29         1
+#> 23 Denmark                    373    16       115
+#> 24 Chile                      333     4        92
+#> 25 Serbia                     305     8         0
+#> 26 Pakistan                   265     6         1
+#> 27 United Arab Emirates       240     1        12
+#> 28 Czechia                    233     9         5
+#> 29 Norway                     223     9         0
+#> 30 Malaysia                   217     3        60
+#> 31 Australia                  214     4       129
+#> 32 Ecuador                    205    25         0
+#> 33 Cameroon                   203     1         7
+#> 34 Indonesia                  196    11        22
+#> 35 Algeria                    185    19         1
+#> 36 Peru                       181     6         0
+#> 37 Ukraine                    175     5         3
+#> 38 Panama                     158     5         1
+#> 39 Saudi Arabia               154     4        23
+#> 40 Argentina                  132     3        10
+#> # … with 141 more rows
 ```
 
 ## Data Sources
