@@ -2,14 +2,19 @@ on: [push, pull_request]
 
 name: build
 
+addons:
+  apt:
+    packages:
+      - libudunits2-dev
+      - gdal-bin
+      - libgdal1-dev
+      - libproj-dev
 jobs:
   R-CMD-check:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
       - uses: r-lib/actions/setup-r@master
-      - name: Install dependencies
-        run: sudo apt-get install gdal-bin libgdal-dev
       - name: Install R dependencies
         run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
