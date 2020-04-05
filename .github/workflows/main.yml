@@ -13,6 +13,7 @@ jobs:
           brew install pkg-config
           brew install udunits
           brew install gdal
+          brew install sqlite3
       - name: Install R dependencies
         run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
