@@ -16,6 +16,26 @@ jobs:
           brew install proj
           brew install PROJ
           brew install sqlite3
+      - name: Brew and macOS config
+        run: |
+          brew install pkg-config
+          brew install udunits
+          brew install gdal
+          cat <<EOT >> .Renviron
+          PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+          PROJ_LIB=/usr/local/opt/proj/share/proj/
+          # for installing XML package from source
+          XML_CONFIG=/usr/local/opt/libxml2/bin/xml2-config
+          EOT
+          cat <<EOT >> .Rprofile
+          r <- getOption("repos")
+          r["CRAN"] <- "https://cran.rstudio.com"
+          r["rccp_drat"] <- "https://RcppCore.github.io/drat"
+          config_args <- c("sf" = "--with-proj-lib=/usr/local/lib/", "rgdal" = "--with-proj-lib=/usr/local/lib/ --with-proj-include=/usr/local/include/")
+          options(configure.args = config_args,
+                  install.packages.compile.from.source = "yes",
+                  repos = r)
+          EOT
       - name: Install R dependencies
         run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
