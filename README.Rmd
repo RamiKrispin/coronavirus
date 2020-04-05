@@ -44,7 +44,7 @@ As this an ongoing situation, frequent changes in the data format may occur, ple
 Install the CRAN version:
 
 ```r
-install.packages("coronavirus") 
+install.packages("coronavirus")
 ```
 
 Install the Github version (refreshed on a daily bases):
