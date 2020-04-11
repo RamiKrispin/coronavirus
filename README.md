@@ -46,7 +46,7 @@ occur, please visit the package news to get updates about those changes
 Install the CRAN version:
 
 ``` r
-install.packages("coronavirus")
+install.packages("coronavirus") 
 ```
 
 Install the Github version (refreshed on a daily bases):
@@ -79,12 +79,12 @@ head(coronavirus)
 #> 6                   Afghanistan  33   65 2020-01-27     0 confirmed
 tail(coronavirus) 
 #>       Province.State Country.Region     Lat     Long       date cases      type
-#> 56457       Zhejiang          China 29.1832 120.0934 2020-03-30     0 recovered
-#> 56458       Zhejiang          China 29.1832 120.0934 2020-03-31     1 recovered
-#> 56459       Zhejiang          China 29.1832 120.0934 2020-04-01     0 recovered
-#> 56460       Zhejiang          China 29.1832 120.0934 2020-04-02     2 recovered
-#> 56461       Zhejiang          China 29.1832 120.0934 2020-04-03     0 recovered
-#> 56462       Zhejiang          China 29.1832 120.0934 2020-04-04     1 recovered
+#> 61220       Zhejiang          China 29.1832 120.0934 2020-04-04     1 recovered
+#> 61221       Zhejiang          China 29.1832 120.0934 2020-04-05     1 recovered
+#> 61222       Zhejiang          China 29.1832 120.0934 2020-04-06     0 recovered
+#> 61223       Zhejiang          China 29.1832 120.0934 2020-04-07     0 recovered
+#> 61224       Zhejiang          China 29.1832 120.0934 2020-04-08     2 recovered
+#> 61225       Zhejiang          China 29.1832 120.0934 2020-04-09     3 recovered
 ```
 
 Here is an example of a summary total cases by region and type (top 20):
@@ -98,33 +98,33 @@ summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
 
 summary_df %>% head(20) 
 #> # A tibble: 20 x 3
-#> # Groups:   Country.Region [12]
+#> # Groups:   Country.Region [13]
 #>    Country.Region type      total_cases
 #>    <chr>          <chr>           <int>
-#>  1 US             confirmed      308850
-#>  2 Spain          confirmed      126168
-#>  3 Italy          confirmed      124632
-#>  4 Germany        confirmed       96092
-#>  5 France         confirmed       90848
-#>  6 China          confirmed       82543
-#>  7 China          recovered       76946
-#>  8 Iran           confirmed       55743
-#>  9 United Kingdom confirmed       42477
-#> 10 Spain          recovered       34219
-#> 11 Germany        recovered       26400
-#> 12 Turkey         confirmed       23934
-#> 13 Italy          recovered       20996
-#> 14 Switzerland    confirmed       20505
-#> 15 Iran           recovered       19736
-#> 16 Belgium        confirmed       18431
-#> 17 Netherlands    confirmed       16727
-#> 18 France         recovered       15572
-#> 19 Italy          death           15362
-#> 20 US             recovered       14652
+#>  1 US             confirmed      461437
+#>  2 Spain          confirmed      153222
+#>  3 Italy          confirmed      143626
+#>  4 France         confirmed      118781
+#>  5 Germany        confirmed      118181
+#>  6 China          confirmed       82883
+#>  7 China          recovered       77679
+#>  8 Iran           confirmed       66220
+#>  9 United Kingdom confirmed       65872
+#> 10 Germany        recovered       52407
+#> 11 Spain          recovered       52165
+#> 12 Turkey         confirmed       42282
+#> 13 Iran           recovered       32309
+#> 14 Italy          recovered       28470
+#> 15 US             recovered       25410
+#> 16 Belgium        confirmed       24983
+#> 17 Switzerland    confirmed       24051
+#> 18 France         recovered       23413
+#> 19 Netherlands    confirmed       21903
+#> 20 Canada         confirmed       20654
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-04-04):
+2020-04-09):
 
 ``` r
 library(tidyr)
@@ -137,21 +137,51 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 181 x 4
-#> # Groups:   country [181]
-#>    country        confirmed death recovered
-#>    <chr>              <int> <int>     <int>
-#>  1 US                 33264  1320      4945
-#>  2 France             25646  1054      1437
-#>  3 Spain               6969   749      3706
-#>  4 Germany             4933   169      1825
-#>  5 Italy               4805   681      1238
-#>  6 United Kingdom      3788   709         7
-#>  7 Turkey              3013    76       302
-#>  8 Iran                2560   158      1801
-#>  9 Belgium             1661   140       375
-#> 10 Brazil              1304    86         0
-#> # … with 171 more rows
+#> # A tibble: 184 x 4
+#> # Groups:   country [184]
+#>    country              confirmed death recovered
+#>    <chr>                    <int> <int>     <int>
+#>  1 US                       32385  1783      1851
+#>  2 Spain                     5002   655      4144
+#>  3 Germany                   4885   258      6107
+#>  4 France                    4822  1341      1961
+#>  5 United Kingdom            4398   882        14
+#>  6 Italy                     4204   610      1979
+#>  7 Turkey                    4056    96       296
+#>  8 Brazil                    1922   131        46
+#>  9 Iran                      1634   117      2497
+#> 10 Belgium                   1580   283       483
+#> 11 Canada                    1513    96      1008
+#> 12 Russia                    1459    13       118
+#> 13 Netherlands               1221   148         6
+#> 14 Peru                       914    17       105
+#> 15 Portugal                   815    29         9
+#> 16 India                      809    48       114
+#> 17 Switzerland                771    53       800
+#> 18 Sweden                     722   106         0
+#> 19 Israel                     564    13       210
+#> 20 Ecuador                    515    30       199
+#> 21 Ireland                    500    28         0
+#> 22 Romania                    441    28       119
+#> 23 Chile                      426     9       159
+#> 24 Belarus                    420     3        62
+#> 25 Japan                      410     1        10
+#> 26 Mexico                     396    33         0
+#> 27 Poland                     370    15        62
+#> 28 Saudi Arabia               355     3        35
+#> 29 Indonesia                  337    40        30
+#> 30 United Arab Emirates       331     2        29
+#> 31 Austria                    302    22       728
+#> 32 Singapore                  287     0        54
+#> 33 Panama                     279     4         0
+#> 34 Czechia                    257    13        68
+#> 35 Dominican Republic         238    10        30
+#> 36 Denmark                    233    19       120
+#> 37 Pakistan                   226     4       105
+#> 38 Ukraine                    224     5        10
+#> 39 Philippines                206    21        28
+#> 40 Serbia                     201     1         0
+#> # … with 144 more rows
 ```
 
 ## Data Sources
