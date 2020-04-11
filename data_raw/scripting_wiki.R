@@ -9,7 +9,7 @@ url_sk <-  "https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Kor
 
 sk_raw <- url_sk %>%
   xml2::read_html() %>%
-  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[12]') %>%
+  rvest::html_node(xpath = '//*[@id="mw-content-text"]/div/table[10]') %>%
   rvest::html_table(fill = TRUE,
                     header = TRUE)
 
