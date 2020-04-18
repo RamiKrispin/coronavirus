@@ -5,22 +5,31 @@
 \alias{covid_south_korea}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) South Korea Outbreak Dataset}
 \format{
-A data.frame object
+A data frame with 4 variables.
+\describe{
+  \item{date}{Date in YYYY-MM-DD format.}
+  \item{city}{Name of city.}
+  \item{province}{Name of province.}
+  \item{total}{Number of confirmed cases.}
+  }
 }
 \source{
-Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
+Wikipedia contributors. 2020 coronavirus pandemic in South Korea.
+In Wikipedia, The Free Encyclopedia. Retrieved from
+\href{https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_South_Korea&oldid=951626301}{here}.
 }
 \usage{
 covid_south_korea
 }
 \description{
-daily summary of the Coronavirus (COVID-19) confirmed cases in South Korea by province and city
+Daily summary of the Coronavirus (COVID-19) confirmed cases in South Korea by
+province and city.
 }
 \details{
-The dataset contains the daily summary of the Coronavirus confirmed cases in South Korea by province and city
+The dataset contains the daily summary of the Coronavirus confirmed
+cases in South Korea by province and city.
 }
 \examples{
-
 data(covid_south_korea)
 
 require(dplyr)
@@ -28,8 +37,8 @@ require(dplyr)
 # Get summary of total cases by city
 
 covid_south_korea \%>\%
-group_by(city) \%>\%
-summarise(total_cases = sum(total))
+  group_by(city) \%>\%
+  summarise(total_cases = sum(total))
 
 }
 \keyword{COVID19}

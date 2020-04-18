@@ -5,41 +5,54 @@
 \alias{coronavirus}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset}
 \format{
-A data.frame object
+A data frame with 7 variables.
+\describe{
+  \item{Province.State}{Name of province/state, for countries where data is
+  provided split across multiple provinces/states.}
+  \item{Country.Region}{Name of country/region.}
+  \item{Lat}{Latitude of center of geographic region, defined as either
+  Country.Region or, if available, Province.State.}
+  \item{Long}{Longitude of center of geographic region, defined as either
+  Country.Region or, if available, Province.State.}
+  \item{date}{Date in YYYY-MM-DD format.}
+  \item{cases}{Number of cases on given date.}
+  \item{type}{An indicator for the type of cases (confirmed, death,
+  recovered).}
+  }
 }
 \source{
-Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}
+Johns Hopkins University Center for Systems Science and Engineering
+(JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}.
 }
 \usage{
 coronavirus
 }
 \description{
-daily summary of the Coronavirus (COVID-19) cases by state/province.
+Daily summary of the Coronavirus (COVID-19) cases by state/province.
 }
 \details{
-The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province
+The dataset contains the daily summary of Coronavirus cases
+(confirmed, death, and recovered), by state/province.
 }
 \examples{
-
 data(coronavirus)
 
 require(dplyr)
 
 # Get top confirmed cases by state
-
 coronavirus \%>\%
- filter(type == "confirmed") \%>\%
- group_by(Country.Region) \%>\%
- summarise(total = sum(cases)) \%>\%
- arrange(-total) \%>\%
- head(20)
+  filter(type == "confirmed") \%>\%
+  group_by(Country.Region) \%>\%
+  summarise(total = sum(cases)) \%>\%
+  arrange(-total) \%>\%
+  head(20)
 
 # Get the number of recovered cases in Mainland China by province
- coronavirus \%>\%
-    filter(type == "recovered", Country.Region == "Mainland China") \%>\%
-    group_by(Province.State) \%>\%
-    summarise(total = sum(cases)) \%>\%
-    arrange(-total)
+coronavirus \%>\%
+  filter(type == "recovered", Country.Region == "Mainland China") \%>\%
+  group_by(Province.State) \%>\%
+  summarise(total = sum(cases)) \%>\%
+  arrange(-total)
 
 }
 \keyword{COVID19}

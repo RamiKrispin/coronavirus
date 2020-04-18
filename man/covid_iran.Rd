@@ -5,22 +5,30 @@
 \alias{covid_iran}
 \title{The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset}
 \format{
-A data.frame object
+A data frame with 4 variables.
+\describe{
+  \item{date}{Date in YYYY-MM-DD format.}
+  \item{region}{Name of region.}
+  \item{province}{Name of province.}
+  \item{total}{Number of confirmed cases.}
+  }
 }
 \source{
-Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
+Wikipedia contributors. 2020 coronavirus pandemic in Iran.
+In Wikipedia, The Free Encyclopedia. Retrieved from
+\href{https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Iran&oldid=951436728}{here}.
 }
 \usage{
 covid_iran
 }
 \description{
-daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region and province
+Daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region
+and province.
 }
 \details{
-The dataset contains the cases in Iran by region and province
+The dataset contains the cases in Iran by region and province.
 }
 \examples{
-
 data(covid_iran)
 
 require(dplyr)
@@ -28,8 +36,8 @@ require(dplyr)
 # Get summary of total cases by province
 
 covid_iran \%>\%
-group_by(province) \%>\%
-summarise(total = sum(cases))
+  group_by(province) \%>\%
+  summarise(total = sum(cases))
 
 }
 \keyword{COVID19}
