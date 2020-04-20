@@ -141,41 +141,6 @@ data_refresh <- function(){
       return(NULL)
     }
   })
-  # # Fixing US data
-  # # Aggregating county level to state level
-  #
-  # raw_us_rec <- raw_rec %>%
-  #   dplyr::filter(Country.Region == "US") %>%
-  #   dplyr::mutate(state = ifelse(!grepl(",", Province.State),
-  #                                Province.State,
-  #                                trimws(substr(Province.State,
-  #                                              regexpr(",", Province.State) + 1,
-  #                                              regexpr(",", Province.State) + 3)))) %>%
-  #   dplyr::left_join(data.frame(state = state.abb,
-  #                               state_name = state.name,
-  #                               stringsAsFactors = FALSE),
-  #                    by = "state") %>%
-  #   dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
-  #   dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
-  #   dplyr::mutate(Province.State = state_name) %>%
-  #   dplyr::select(-state, -state_name)
-  #
-  # raw_us_map <- raw_us_rec %>%
-  #   dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
-  #   dplyr::distinct() %>%
-  #   dplyr::mutate(dup = duplicated(Province.State)) %>%
-  #   dplyr::filter(dup == FALSE) %>%
-  #   dplyr::select(-dup)
-  #
-  # us_agg_rec <- aggregate(x = raw_us_rec[, 5:(ncol(raw_us_rec))], by = list(raw_us_rec$Province.State), FUN = sum) %>%
-  #   dplyr::select(Province.State = Group.1, dplyr::everything())
-  #
-  # us_fix_rec <- raw_us_map %>% dplyr::left_join(us_agg_rec, by = "Province.State")
-  #
-  #
-  # raw_rec1 <- raw_rec %>%
-  #   dplyr::filter(Country.Region != "US") %>%
-  #   dplyr::bind_rows(us_fix_rec)
 
 
 
