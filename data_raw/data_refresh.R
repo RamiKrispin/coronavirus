@@ -288,8 +288,8 @@ data_refresh <- function(){
 
   if(nrow(coronavirus) > nrow(git_df)){
     print("Updates available")
-    # usethis::use_data(coronavirus, overwrite = TRUE, compress = "gzip")
-    # write.csv(coronavirus, "csv/coronavirus.csv", row.names = FALSE)
+    usethis::use_data(coronavirus, overwrite = TRUE, compress = "gzip")
+    write.csv(coronavirus, "csv/coronavirus.csv", row.names = FALSE)
     print("The coronavirus dataset was updated")
   } else {
     print("Updates are not available")
