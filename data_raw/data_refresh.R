@@ -29,7 +29,6 @@ data_refresh <- function(){
 
     raw_conf[,i] <- as.integer(raw_conf[,i])
     # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
-    print(names(raw_conf)[i])
 
     if(i == 5){
       df_conf[[names(raw_conf)[i]]] <- raw_conf[, i]
@@ -83,44 +82,6 @@ data_refresh <- function(){
       return(NULL)
     }
   })
-  # # Fixing US data
-  # # Aggregating county level to state level
-  #
-  # raw_us_death <- raw_death %>%
-  #   dplyr::filter(Country.Region == "US") %>%
-  #   dplyr::mutate(state = ifelse(!grepl(",", Province.State),
-  #                                Province.State,
-  #                                trimws(substr(Province.State,
-  #                                              regexpr(",", Province.State) + 1,
-  #                                              regexpr(",", Province.State) + 3)))) %>%
-  #   dplyr::left_join(data.frame(state = state.abb,
-  #                               state_name = state.name,
-  #                               stringsAsFactors = FALSE),
-  #                    by = "state") %>%
-  #   dplyr::mutate(state_name = ifelse(is.na(state_name), state, state_name)) %>%
-  #   dplyr::mutate(state_name = ifelse(state_name == "D.", "Washington, D.C.", state_name)) %>%
-  #   dplyr::mutate(Province.State = state_name) %>%
-  #   dplyr::select(-state, -state_name)
-  #
-  # # raw_us_map <- raw_us_death %>%
-  # #   dplyr::select("Province.State","Country.Region", "Lat", "Long") %>%
-  # #   dplyr::distinct() %>%
-  # #   dplyr::mutate(dup = duplicated(Province.State)) %>%
-  # #   dplyr::filter(dup == FALSE) %>%
-  # #   dplyr::select(-dup)
-  #
-  # us_agg_death <- aggregate(x = raw_us_death[, 5:(ncol(raw_us_death))], by = list(raw_us_death$Province.State), FUN = sum) %>%
-  #   dplyr::select(Province.State = Group.1, dplyr::everything())
-  #
-  # us_fix_death <- raw_us_map %>% dplyr::left_join(us_agg_death, by = "Province.State")
-  #
-  #
-  # raw_death1 <- raw_death %>%
-  #   dplyr::filter(Country.Region != "US") %>%
-  #   dplyr::bind_rows(us_fix_death)
-
-
-
 
 
   # Transforming the data from wide to long
@@ -128,7 +89,6 @@ data_refresh <- function(){
   df_death <- raw_death[, 1:4]
 
   for(i in 5:ncol(raw_death)){
-    print(i)
     raw_death[,i] <- as.integer(raw_death[,i])
     raw_death[,i] <- ifelse(is.na(raw_death[, i]), 0 , raw_death[, i])
 
@@ -225,7 +185,6 @@ data_refresh <- function(){
   df_rec <- raw_rec[, 1:4]
 
   for(i in 5:ncol(raw_rec)){
-    print(i)
     raw_rec[,i] <- as.integer(raw_rec[,i])
     raw_rec[,i] <- ifelse(is.na(raw_rec[, i]), 0 , raw_rec[, i])
 
