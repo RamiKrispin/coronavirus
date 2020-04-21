@@ -1,8 +1,8 @@
-name: Data Refresh 1am
+name: Data Refresh 0:30am
 
 on: 
   schedule:
-    - cron:  '0 1 * * *'
+    - cron:  '30 0 * * *'
 jobs:
   build:
     name: coronavirus dataset refresh
@@ -28,6 +28,6 @@ jobs:
           if [[ "$(git status --porcelain)" != "" ]]; then
               git config --global user.name 'RamiKrispin'
               git config --global user.email 'ramkrisp@umich.edu'
-              git commit -am "Update italy total data"
+              git commit -am "coronavirus dataset auto update"
               git push
           fi
