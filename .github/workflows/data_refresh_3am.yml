@@ -28,6 +28,6 @@ jobs:
           if [[ "$(git status --porcelain)" != "" ]]; then
               git config --global user.name 'RamiKrispin'
               git config --global user.email 'ramkrisp@umich.edu'
-              git commit -am "Update italy total data"
+              git commit -am "auto update"
               git push
           fi
