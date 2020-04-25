@@ -2,7 +2,7 @@ name: Data Refresh 3am
 
 on: 
   schedule:
-    - cron:  '0 3 * * *'
+    - cron:  '0 4 * * *'
 jobs:
   build:
     name: coronavirus dataset refresh
