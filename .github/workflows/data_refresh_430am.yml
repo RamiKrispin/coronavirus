@@ -1,8 +1,8 @@
-name: Data Refresh 0:30am
+name: Data Refresh 4:30am
 
 on: 
   schedule:
-    - cron:  '30 0 * * *'
+    - cron:  '30 4 * * *'
 jobs:
   build:
     name: coronavirus dataset refresh
