@@ -20,6 +20,6 @@ Suggests:
     testthat (>= 2.1.0)
 Imports:
   devtools(>= 2.2.2)
-URL: https://github.com/covid19r/coronavirus
-BugReports: https://github.com/covid19r/coronavirus/issues
+URL: https://github.com/RamiKrispin/coronavirus
+BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.0
