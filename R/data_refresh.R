@@ -9,20 +9,20 @@
 #' covid_south_korea - Wikipedia article "2020 coronavirus outbreak in South Korea" \href{https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_South_Korea}{website}
 #'
 #' covid_iran - Wikipedia article "2020 coronavirus pandemic in Iran"  \href{https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran}{website}
-#' @export update_datasets
+#' @export update_dataset
 #'
 #' @examples
 #'\dontrun{
 #'
 #' # update with a question prompt
-#' update_datasets(silence = FALSE)
+#' update_dataset(silence = FALSE)
 #'
 #'
 #' # update without a question prompt
-#' update_datasets(silence = TRUE)
+#' update_dataset(silence = TRUE)
 #' }
 
-update_datasets <- function(silence = FALSE){
+update_dataset <- function(silence = FALSE){
   flag <- FALSE
 
   coronavirus_current <- coronavirus::coronavirus
@@ -30,19 +30,12 @@ update_datasets <- function(silence = FALSE){
   sk_current <- coronavirus::covid_south_korea
 
 
-  coronavirus_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv",
+  coronavirus_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
                                      stringsAsFactors = FALSE)
 
-  iran_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/iran/covid_iran_long.csv",
-                              stringsAsFactors = FALSE)
-
-  sk_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv",
-                            stringsAsFactors = FALSE)
 
 
   coronavirus_git$date <- base::as.Date(coronavirus_git$date)
-  iran_git$date <- base::as.Date(iran_git$date)
-  sk_git$date <- base::as.Date(sk_git$date)
 
 
   if(!base::identical(coronavirus_git, coronavirus_current)){
@@ -51,17 +44,7 @@ update_datasets <- function(silence = FALSE){
     }
   }
 
-  if(!base::identical(iran_git, iran_current)){
-    if(base::nrow(iran_git) > base::nrow(iran_current)){
-      flag <- TRUE
-    }
-  }
 
-  if(!base::identical(sk_git, sk_current)){
-    if(base::nrow(sk_git) > base::nrow(sk_current)){
-      flag <- TRUE
-    }
-  }
 
   if(flag){
     if(!silence){
