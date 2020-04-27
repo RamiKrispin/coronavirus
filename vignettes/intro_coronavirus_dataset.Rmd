@@ -141,27 +141,25 @@ confirmed_country %>%
 ```
 
 
-The next plot summarize the distribution of the virus outside of Chine:
+The next plot summarize the distribution of confrimed cases by country:
 
 ```{r}
-coronavirus %>% 
-  filter(type == "confirmed", 
-         Country.Region != "China") %>%
+conf_df <- coronavirus %>% 
+  filter(type == "confirmed") %>%
   group_by(Country.Region) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases) %>%
-  mutate(country = factor(Country.Region, levels = Country.Region)) %>%
-  ungroup() %>%
-  plot_ly(labels = ~ country, 
-          values = ~ total_cases,
-          type = "pie",
-          textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#FFFFFF'),
-        hoverinfo = 'text',
-        text = ~ paste(country, "<br />",
-                     "Number of confirmed cases: ", total_cases, sep = "")) %>%
-  layout(title = "Coronavirus - Confirmed Cases (Excluding China)")
+  mutate(parents = "Confirmed") %>%
+  ungroup() 
+  
+  plot_ly(data = conf_df,
+          type= "treemap",
+          values = ~total_cases,
+          labels= ~ Country.Region,
+          parents=  ~parents,
+          domain = list(column=0),
+          name = "Confirmed",
+          textinfo="label+value+percent parent")
 ```
 
 #### Death rates
