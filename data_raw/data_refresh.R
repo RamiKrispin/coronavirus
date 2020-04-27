@@ -199,7 +199,7 @@ data_refresh <- function(){
     stop("The starting date is invalid")
   }
 
-  git_df <- read.csv("https://raw.githubusercontent.com/Covid19R/coronavirus/master/csv/coronavirus.csv", stringsAsFactors = FALSE)
+  git_df <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", stringsAsFactors = FALSE)
 
   git_df$date <- as.Date(git_df$date)
   if(ncol(git_df) != 7){
