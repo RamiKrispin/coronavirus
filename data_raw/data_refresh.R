@@ -189,6 +189,7 @@ data_refresh <- function(){
   tail(df_rec2)
   #---------------- Aggregate all cases ----------------
   coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
+    dplyr::select(date, Province.State, Country.Region, Lat, Long, type, cases) %>%
     as.data.frame()
   #---------------- Data validation ----------------
   if(ncol(coronavirus) != 7){
