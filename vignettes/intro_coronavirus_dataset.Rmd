@@ -93,44 +93,37 @@ The total active cases are the difference between the total confirmed cases and 
 total_cases$cases[1] - total_cases$cases[2] - - total_cases$cases[3]
 ```
 
-
-```{r}
-plot_ly(data = total_cases, 
-        x = ~ type, 
-        y = ~cases, 
-        type = 'bar',
-        text = ~ paste(type, cases, sep = ": "),
-    hoverinfo = 'text') %>%
-  layout(title = "Coronavirus - Cases Distribution",
-         yaxis = list(title = "Number of Cases"),
-         xaxis = list(title = "Case Type"),
-         hovermode = "compare")
-```
-
-
-The next plot represents the daily number of new cases worldwide:
+The following plot presents the cases (active, recovered, and death) distribution over time:
 
 
 ```{r}
 coronavirus %>% 
-  group_by(date, type) %>%
-  summarise(total = sum(cases)) %>%
-  pivot_wider(names_from = type, values_from = total) %>%
-  plot_ly(x = ~ date, y = ~ confirmed, 
-          name = "Confirmed", 
-          type = "scatter", 
-          mode = "none", 
-          stackgroup = "one",
-          fillcolor = "#4C74C9") %>%
-  add_trace(y = ~death, 
-            name = "Death", 
-            fillcolor = "#9E0003") %>%
-  layout(title = "Covid19 Daily Cases Worldwide",
+  group_by(type, date) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(date) %>%
+  mutate(active = confirmed - death - recovered) %>%
+  mutate(active_total = cumsum(active),
+                recovered_total = cumsum(recovered),
+                death_total = cumsum(death)) %>%
+  plot_ly(x = ~ date,
+                  y = ~ active_total,
+                  name = 'Active', 
+                  fillcolor = '#1f77b4',
+                  type = 'scatter',
+                  mode = 'none', 
+                  stackgroup = 'one') %>%
+  add_trace(y = ~ death_total, 
+             name = "Death",
+             fillcolor = '#E41317') %>%
+  add_trace(y = ~recovered_total, 
+            name = 'Recovered', 
+            fillcolor = 'forestgreen') %>%
+  layout(title = "Distribution of Covid19 Cases Worldwide",
          legend = list(x = 0.1, y = 0.9),
          yaxis = list(title = "Number of Cases"),
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 ```
-
 
 
 #### Top effected countries
