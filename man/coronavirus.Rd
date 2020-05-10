@@ -42,15 +42,15 @@ require(dplyr)
 # Get top confirmed cases by state
 coronavirus \%>\%
   filter(type == "confirmed") \%>\%
-  group_by(Country.Region) \%>\%
+  group_by(country) \%>\%
   summarise(total = sum(cases)) \%>\%
   arrange(-total) \%>\%
   head(20)
 
-# Get the number of recovered cases in Mainland China by province
+# Get the number of recovered cases in China by province
 coronavirus \%>\%
-  filter(type == "recovered", Country.Region == "Mainland China") \%>\%
-  group_by(Province.State) \%>\%
+  filter(type == "recovered", country == "China") \%>\%
+  group_by(province) \%>\%
   summarise(total = sum(cases)) \%>\%
   arrange(-total)
 
