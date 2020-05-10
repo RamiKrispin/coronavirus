@@ -13,8 +13,8 @@
 #'   \item{long}{Longitude of center of geographic region, defined as either
 #'   country or, if available, province.}
 #'   \item{type}{An indicator for the type of cases (confirmed, death,
-#'   \item{cases}{Number of cases on given date.}
 #'   recovered).}
+#'   \item{cases}{Number of cases on given date.}
 #'   }
 #' @source Johns Hopkins University Center for Systems Science and Engineering
 #' (JHU CCSE) Coronavirus \href{https://systems.jhu.edu/research/public-health/ncov/}{website}.
