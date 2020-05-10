@@ -7,16 +7,16 @@
 \format{
 A data frame with 7 variables.
 \describe{
-  \item{Province.State}{Name of province/state, for countries where data is
-  provided split across multiple provinces/states.}
-  \item{Country.Region}{Name of country/region.}
-  \item{Lat}{Latitude of center of geographic region, defined as either
-  Country.Region or, if available, Province.State.}
-  \item{Long}{Longitude of center of geographic region, defined as either
-  Country.Region or, if available, Province.State.}
   \item{date}{Date in YYYY-MM-DD format.}
-  \item{cases}{Number of cases on given date.}
+  \item{province}{Name of province/state, for countries where data is
+  provided split across multiple provinces/states.}
+  \item{country}{Name of country/region.}
+  \item{lat}{Latitude of center of geographic region, defined as either
+  country or, if available, province.}
+  \item{Long}{Longitude of center of geographic region, defined as either
+  country or, if available, province.}
   \item{type}{An indicator for the type of cases (confirmed, death,
+  \item{cases}{Number of cases on given date.}
   recovered).}
   }
 }
