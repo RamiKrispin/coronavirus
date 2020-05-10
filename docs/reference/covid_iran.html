@@ -34,7 +34,8 @@
 
 
 <meta property="og:title" content="The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset — covid_iran" />
-<meta property="og:description" content="daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region and province" />
+<meta property="og:description" content="Daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region
+and province." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -99,7 +100,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/covid19r/coronavirus">
+  <a href="https://github.com/RamiKrispin/coronavirus">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -117,12 +118,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Iran Outbreak Dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/covid19r/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>covid_iran.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region and province</p>
+    <p>Daily summary of the Coronavirus (COVID-19) confirmed cases in Iran by region
+and province.</p>
     </div>
 
     <pre class="usage"><span class='no'>covid_iran</span></pre>
@@ -130,25 +132,31 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data.frame object</p>
+    <p>A data frame with 4 variables.</p><dl class='dl-horizontal'>
+  <dt>date</dt><dd><p>Date in YYYY-MM-DD format.</p></dd>
+  <dt>region</dt><dd><p>Name of region.</p></dd>
+  <dt>province</dt><dd><p>Name of province.</p></dd>
+  <dt>total</dt><dd><p>Number of confirmed cases.</p></dd>
+  </dl>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Wikipedia article "2020 coronavirus pandemic in Iran"  <a href='https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Iran'>website</a></p>
+    <p>Wikipedia contributors. 2020 coronavirus pandemic in Iran.
+In Wikipedia, The Free Encyclopedia. Retrieved from
+<a href='https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Iran&amp;oldid=951436728'>here</a>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The dataset contains the cases in Iran by region and province</p>
+    <p>The dataset contains the cases in Iran by region and province.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>covid_iran</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>covid_iran</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>dplyr</span>)
 
 <span class='co'># Get summary of total cases by province</span>
 
 <span class='no'>covid_iran</span> <span class='kw'>%&gt;%</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>province</span>) <span class='kw'>%&gt;%</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 31 x 2</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>province</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 31 x 2</span><span>
 #&gt;    province                    total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Alborz                       </span><span style='text-decoration: underline;'>1</span><span>131
