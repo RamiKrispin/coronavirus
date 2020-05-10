@@ -33,12 +33,12 @@ data(coronavirus)
 The dataset has the following fields:
 
 * `date` - The date of the summary
-* `Province.State` - The province or state, when applicable
-* `Country.Region` - The country or region name
+* `province` - The province or state, when applicable
+* `country` - The country or region name
 * `Lat` - Latitude point
-* `Long`- Longitude point
-* `cases` - the number of daily cases (corresponding to the case type)
+* `Long` - Longitude point
 * `type` - the type of case (i.e., confirmed, death)
+* `cases` - the number of daily cases (corresponding to the case type)
 
 We can use the `head` and `str` functions to see the structure of the dataset:
 
@@ -67,7 +67,7 @@ Let's start with summarizing the total number of cases by type as of `r max(coro
 total_cases <- coronavirus %>% 
   group_by(type) %>%
   summarise(cases = sum(cases)) %>%
-  mutate(type = factor(type, levels = c("confirmed", "death"))) 
+  mutate(type = factor(type, levels = c("confirmed", "death", "recovered"))) 
 
 total_cases
 ```
@@ -78,6 +78,19 @@ You can use those numbers to derive the current worldwide death rate (precentage
 
 ```{r}
 round(100 * total_cases$cases[2] / total_cases$cases[1], 2)
+```
+
+Likewise, you can derive the recovery rate:
+
+```{r}
+round(100 * total_cases$cases[3] / total_cases$cases[1], 2)
+```
+
+
+The total active cases are the difference between the total confirmed cases and the total recovered and death cases:
+
+```{r}
+total_cases$cases[1] - total_cases$cases[2] - - total_cases$cases[3]
 ```
 
 
@@ -128,7 +141,7 @@ The next table provides an overview of the ten countries with the highest confir
 ```{r}
 confirmed_country <- coronavirus %>% 
   filter(type == "confirmed") %>%
-  group_by(Country.Region) %>%
+  group_by(country) %>%
   summarise(total_cases = sum(cases)) %>%
   mutate(perc = total_cases / sum(total_cases)) %>%
   arrange(-total_cases)
@@ -146,7 +159,7 @@ The next plot summarize the distribution of confrimed cases by country:
 ```{r}
 conf_df <- coronavirus %>% 
   filter(type == "confirmed") %>%
-  group_by(Country.Region) %>%
+  group_by(country) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases) %>%
   mutate(parents = "Confirmed") %>%
@@ -155,7 +168,7 @@ conf_df <- coronavirus %>%
   plot_ly(data = conf_df,
           type= "treemap",
           values = ~total_cases,
-          labels= ~ Country.Region,
+          labels= ~ country,
           parents=  ~parents,
           domain = list(column=0),
           name = "Confirmed",
@@ -168,8 +181,8 @@ Similarly, we can use the `pivot_wider` function from the **tidyr** package (in 
 
 ```{r}
 coronavirus %>% 
-  filter(Country.Region != "Others") %>%
-  group_by(Country.Region, type) %>%
+  filter(country != "Others") %>%
+  group_by(country, type) %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(- confirmed) %>%
@@ -191,20 +204,20 @@ The following plot describes the overall distribution of the total confirmed cas
 
 ```{r}
 coronavirus %>% 
-  filter(Country.Region == "China",
+  filter(country == "China",
          type == "confirmed") %>%
-  group_by(Province.State, type) %>%
+  group_by(province, type) %>%
   summarise(total_cases = sum(cases)) %>%  
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(- confirmed) %>%
-  plot_ly(labels = ~ Province.State, 
+  plot_ly(labels = ~ province, 
                   values = ~confirmed, 
                   type = 'pie',
                   textposition = 'inside',
                   textinfo = 'label+percent',
                   insidetextfont = list(color = '#FFFFFF'),
                   hoverinfo = 'text',
-                  text = ~ paste(Province.State, "<br />",
+                  text = ~ paste(province, "<br />",
                                  "Number of confirmed cases: ", confirmed, sep = "")) %>%
   layout(title = "Total China Confirmed Cases Dist. by Province")
 ```
