@@ -128,16 +128,29 @@
 <li>
 <code>coronavirus</code> dataset - Change the structure of the US data from March 23rd 2020 and forward. The US data is now available on an agregated level. More information about the changes on the raw data available on this <a href="https://github.com/CSSEGISandData/COVID-19/issues/1250">issue</a>
 </li>
+<li>Changes in the columns names and order:
+<ul>
 <li>
-<code>coronavirus</code> dataset - As of 2020-03-23, recovered cases were removed from the dataset</li>
-<li>covid_south_korea - new dataset provide daily number of new cases by province for South Koria</li>
-<li>covid_iran - new dataset provide daily number of new cases by province for Iran</li>
+<code>Province.State</code> changed to <code>province</code>
+</li>
+<li>
+<code>Country.Region</code> changed to <code>country</code>
+</li>
+<li>
+<code>Lat</code> changed to <code>lat</code>
+</li>
+<li>
+<code>Long</code> changed to <code>long</code>
+</li>
+</ul>
+</li>
+<li>The <code>covid_south_korea</code> and <code>covid_iran</code> that were avialble on the dev version were removed from the package and moved to new package <a href="https://github.com/RamiKrispin/covid19wiki">covid19wiki</a>, for now available only on Github</li>
 </ul>
 </li>
 <li>Function:
 <ul>
 <li>
-<code>update_datasets</code> - enable to update the installed version with new data that available on the <a href="https://github.com/RamiKrispin/coronavirus">Github version</a>
+<code>update_dataset</code> - enable to update the installed version with new data that available on the <a href="https://github.com/RamiKrispin/coronavirus">Github version</a>
 </li>
 </ul>
 </li>
