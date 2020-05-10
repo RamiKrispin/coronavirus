@@ -22,8 +22,6 @@ update_dataset <- function(silence = FALSE){
   flag <- FALSE
 
   coronavirus_current <- coronavirus::coronavirus
-  iran_current <- coronavirus::covid_iran
-  sk_current <- coronavirus::covid_south_korea
 
 
   coronavirus_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
@@ -52,7 +50,9 @@ update_dataset <- function(silence = FALSE){
 
       base::tryCatch(
         expr = {
-          devtools::install_github("RamiKrispin/coronavirus")
+          devtools::install_github("RamiKrispin/coronavirus",
+                                   upgrade = "never",
+                                   ref = "master")
 
           base::message("The data was refresed, please restart your session to have the new data available")
         },
