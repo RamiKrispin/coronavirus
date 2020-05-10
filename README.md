@@ -84,6 +84,16 @@ data("coronavirus")
 
 This `coronavirus` dataset has the following fields:
 
+  - `date` - The date of the summary
+  - `Province.State` - The province or state, when applicable
+  - `Country.Region` - The country or region name
+  - `Lat` - Latitude point
+  - `Long` - Longitude point
+  - `type` - the type of case (i.e., confirmed, death)
+  - `cases` - the number of daily cases (corresponding to the case type)
+
+<!-- end list -->
+
 ``` r
 head(coronavirus) 
 #>   Province.State Country.Region Lat Long       date cases      type
@@ -93,112 +103,163 @@ head(coronavirus)
 #> 4                   Afghanistan  33   65 2020-01-25     0 confirmed
 #> 5                   Afghanistan  33   65 2020-01-26     0 confirmed
 #> 6                   Afghanistan  33   65 2020-01-27     0 confirmed
-tail(coronavirus) 
-#>       Province.State Country.Region     Lat     Long       date cases      type
-#> 83883       Zhejiang          China 29.1832 120.0934 2020-05-02     0 recovered
-#> 83884       Zhejiang          China 29.1832 120.0934 2020-05-03     0 recovered
-#> 83885       Zhejiang          China 29.1832 120.0934 2020-05-04     2 recovered
-#> 83886       Zhejiang          China 29.1832 120.0934 2020-05-05     0 recovered
-#> 83887       Zhejiang          China 29.1832 120.0934 2020-05-06     0 recovered
-#> 83888       Zhejiang          China 29.1832 120.0934 2020-05-07     0 recovered
 ```
 
-Here is an example of a summary total cases by region and type (top 20):
+Summary of the total confrimed cases by country (top 20):
 
 ``` r
 library(dplyr)
 
-summary_df <- coronavirus %>% group_by(Country.Region, type) %>%
+summary_df <- coronavirus %>% 
+  filter(type == "confirmed") %>%
+  group_by(Country.Region) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
 summary_df %>% head(20) 
-#> # A tibble: 20 x 3
-#> # Groups:   Country.Region [12]
-#>    Country.Region type      total_cases
-#>    <chr>          <chr>           <int>
-#>  1 US             confirmed     1257023
-#>  2 Spain          confirmed      221447
-#>  3 Italy          confirmed      215858
-#>  4 United Kingdom confirmed      207977
-#>  5 US             recovered      195036
-#>  6 Russia         confirmed      177160
-#>  7 France         confirmed      174918
-#>  8 Germany        confirmed      169430
-#>  9 Germany        recovered      141700
-#> 10 Brazil         confirmed      135773
-#> 11 Turkey         confirmed      133721
-#> 12 Spain          recovered      128511
-#> 13 Iran           confirmed      103135
-#> 14 Italy          recovered       96276
-#> 15 China          confirmed       83975
-#> 16 Turkey         recovered       82984
-#> 17 Iran           recovered       82744
-#> 18 China          recovered       78977
-#> 19 US             death           75662
-#> 20 Canada         confirmed       66201
+#> # A tibble: 20 x 2
+#>    Country.Region total_cases
+#>    <chr>                <int>
+#>  1 US                 1283929
+#>  2 Spain               222857
+#>  3 Italy               217185
+#>  4 United Kingdom      212629
+#>  5 Russia              187859
+#>  6 France              176202
+#>  7 Germany             170588
+#>  8 Brazil              146894
+#>  9 Turkey              135569
+#> 10 Iran                104691
+#> 11 China                83976
+#> 12 Canada               67674
+#> 13 Peru                 61847
+#> 14 India                59695
+#> 15 Belgium              52011
+#> 16 Netherlands          42292
+#> 17 Saudi Arabia         35432
+#> 18 Mexico               31522
+#> 19 Switzerland          30207
+#> 20 Ecuador              28818
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-05-07):
+2020-05-08):
 
 ``` r
 library(tidyr)
 
 coronavirus %>% 
   filter(date == max(date)) %>%
-  select(country = Country.Region, type, cases) %>%
-  group_by(country, type) %>%
+  select(Country.Region, type, cases) %>%
+  group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
 #> # A tibble: 187 x 4
-#> # Groups:   country [187]
-#>    country              confirmed death recovered
+#> # Groups:   Country.Region [187]
+#>    Country.Region       confirmed death recovered
 #>    <chr>                    <int> <int>     <int>
-#>  1 US                       28420  2231      5126
-#>  2 Russia                   11231    88      2476
-#>  3 Brazil                    9162   602      3980
-#>  4 United Kingdom            5618   539        36
-#>  5 Peru                      3709    94       861
-#>  6 India                     3364   104      1445
-#>  7 Mexico                    1982   257         0
-#>  8 Turkey                    1977    57      4782
-#>  9 Saudi Arabia              1793    10      1015
-#> 10 Chile                     1533     4       475
-#> 11 Canada                    1507   175      1076
-#> 12 Iran                      1485    68      1157
-#> 13 Italy                     1401   274      3031
-#> 14 Germany                   1268   117      1800
-#> 15 Spain                     1122   213      2509
-#> 16 Qatar                      918     0       216
-#> 17 Belarus                    913     4       679
-#> 18 Singapore                  741     0        78
-#> 19 Bangladesh                 706    13       507
-#> 20 Sweden                     705    99       897
-#> 21 France                     694   178      1112
-#> 22 Belgium                    639    76       249
-#> 23 Pakistan                   571    21         0
-#> 24 Portugal                   533    16       182
-#> 25 Ukraine                    507    13       299
-#> 26 United Arab Emirates       502     8       213
-#> 27 Colombia                   497    10       152
-#> 28 Netherlands                455    85         1
-#> 29 South Africa               424     8         0
-#> 30 Egypt                      393    13        72
-#> 31 Romania                    392    24       356
-#> 32 Nigeria                    381     4        67
-#> 33 Philippines                339    27       112
-#> 34 Indonesia                  338    35        64
-#> 35 Poland                     307    22       207
-#> 36 Dominican Republic         288    11       104
-#> 37 Kuwait                     278     2       162
-#> 38 Bahrain                    265     0       140
-#> 39 Honduras                   224     6        22
-#> 40 Japan                      224    21       422
+#>  1 US                       26906  1518      3957
+#>  2 Brazil                   11121   827      3947
+#>  3 Russia                   10699    98      2805
+#>  4 United Kingdom            4652   627        27
+#>  5 India                     3344    96      1111
+#>  6 Peru                      3321    87       624
+#>  7 Mexico                    1906   199      2533
+#>  8 Turkey                    1848    48      3412
+#>  9 Pakistan                  1791    14      1066
+#> 10 Saudi Arabia              1701    10      1322
+#> 11 Iran                      1556    55      1093
+#> 12 Canada                    1473   156       979
+#> 13 Spain                     1410   229      2637
+#> 14 Chile                     1391     9       496
+#> 15 Italy                     1327   243      2747
+#> 16 Qatar                     1311     0        84
+#> 17 France                    1284   243       701
+#> 18 Germany                   1158   118         0
+#> 19 Belarus                    933     5       417
+#> 20 Ghana                      921     0        20
+#> 21 Singapore                  768     0       328
+#> 22 Bangladesh                 709     7       191
+#> 23 South Africa               663    17         0
+#> 24 Sweden                     642   135         0
+#> 25 Kuwait                     641     3        85
+#> 26 Colombia                   595    21       124
+#> 27 Belgium                    591   106       221
+#> 28 Portugal                   553     9       164
+#> 29 United Arab Emirates       553     9       265
+#> 30 Ukraine                    504    21       310
+#> 31 Egypt                      495    21        58
+#> 32 Nigeria                    386    10        78
+#> 33 Indonesia                  336    13       113
+#> 34 Netherlands                319    71         0
+#> 35 Poland                     319    21       322
+#> 36 Romania                    312    35       279
+#> 37 Dominican Republic         281     7       222
+#> 38 Kazakhstan                 256     1       113
+#> 39 Bahrain                    245     0        28
+#> 40 Argentina                  240    11        58
 #> # … with 147 more rows
 ```
+
+Plotting the total cases by type worldwide:
+
+``` r
+coronavirus %>% 
+  group_by(type, date) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(date) %>%
+  mutate(active = confirmed - death - recovered) %>%
+  mutate(active_total = cumsum(active),
+                recovered_total = cumsum(recovered),
+                death_total = cumsum(death)) %>%
+  plot_ly(x = ~ date,
+                  y = ~ active_total,
+                  name = 'Active', 
+                  fillcolor = '#1f77b4',
+                  type = 'scatter',
+                  mode = 'none', 
+                  stackgroup = 'one') %>%
+  add_trace(y = ~ death_total, 
+             name = "Death",
+             fillcolor = '#E41317') %>%
+  add_trace(y = ~recovered_total, 
+            name = 'Recovered', 
+            fillcolor = 'forestgreen') %>%
+  layout(title = "Distribution of Covid19 Cases Worldwide",
+         legend = list(x = 0.1, y = 0.9),
+         yaxis = list(title = "Number of Cases"),
+         xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
+```
+
+<img src="man/figures/total_cases.png" width="100%" />
+
+Plot the confirmed cases distribution by counrty with treemap plot:
+
+``` r
+library(plotly)
+
+conf_df <- coronavirus %>% 
+  filter(type == "confirmed") %>%
+  group_by(Country.Region) %>%
+  summarise(total_cases = sum(cases)) %>%
+  arrange(-total_cases) %>%
+  mutate(parents = "Confirmed") %>%
+  ungroup() 
+  
+  plot_ly(data = conf_df,
+          type= "treemap",
+          values = ~total_cases,
+          labels= ~ Country.Region,
+          parents=  ~parents,
+          domain = list(column=0),
+          name = "Confirmed",
+          textinfo="label+value+percent parent")
+```
+
+<img src="man/figures/treemap_conf.png" width="100%" />
 
 ## Data Sources
 
@@ -213,7 +274,7 @@ resources:
     <https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/>
     <br>
   - National Health Commission of the People’s Republic of China (NHC):
-    http:://www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml
+    <br> <http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml> <br>
   - China CDC (CCDC):
     http:://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm <br>
   - Hong Kong Department of Health:
@@ -230,6 +291,31 @@ resources:
     <https://www.health.gov.au/news/coronavirus-update-at-a-glance> <br>
   - European Centre for Disease Prevention and Control (ECDC):
     <https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases>
-    <br>
-
-<br>
+  - Ministry of Health Singapore (MOH):
+    <https://www.moh.gov.sg/covid-19>
+  - Italy Ministry of Health:
+    <http://www.salute.gov.it/nuovocoronavirus>
+  - 1Point3Arces: <https://coronavirus.1point3acres.com/en>
+  - WorldoMeters: <https://www.worldometers.info/coronavirus/>
+  - COVID Tracking Project: <https://covidtracking.com/data>. (US
+    Testing and Hospitalization Data. We use the maximum reported value
+    from “Currently” and “Cumulative” Hospitalized for our
+    hospitalization number reported for each state.)
+  - French Government: <https://dashboard.covid19.data.gouv.fr/>
+  - COVID Live (Australia): <https://www.covidlive.com.au/>
+  - Washington State Department of Health:
+    <https://www.doh.wa.gov/emergencies/coronavirus>
+  - Maryland Department of Health: <https://coronavirus.maryland.gov/>
+  - New York State Department of Health:
+    <https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data>
+  - NYC Department of Health and Mental Hygiene:
+    <https://www1.nyc.gov/site/doh/covid/covid-19-data.page> and
+    <https://github.com/nychealth/coronavirus-data>
+  - Florida Department of Health Dashboard:
+    <https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0>
+    and
+    <https://fdoh.maps.arcgis.com/apps/opsdashboard/index.html#/8d0de33f260d444c852a615dc7837c86>
+  - Palestine (West Bank and Gaza): <https://corona.ps/details>
+  - Israel:
+    <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
+  - Colorado: <https://covid19.colorado.gov/covid-19-data>
