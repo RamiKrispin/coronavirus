@@ -206,6 +206,8 @@ coronavirus %>%
 Plotting the total cases by type worldwide:
 
 ``` r
+library(plotly)
+
 coronavirus %>% 
   group_by(type, date) %>%
   summarise(total_cases = sum(cases)) %>%
@@ -239,8 +241,6 @@ coronavirus %>%
 Plot the confirmed cases distribution by counrty with treemap plot:
 
 ``` r
-library(plotly)
-
 conf_df <- coronavirus %>% 
   filter(type == "confirmed") %>%
   group_by(Country.Region) %>%
