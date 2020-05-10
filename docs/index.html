@@ -208,52 +208,52 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 10 Saudi Arabia        1701    10      1322</span></span>
 <span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; # … with 177 more rows</span></span></code></pre></div>
 <p>Plotting the total cases by type worldwide:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(type, date) <span class="op">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type, <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(date) <span class="op">%&gt;%</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">active =</span> confirmed <span class="op">-</span><span class="st"> </span>death <span class="op">-</span><span class="st"> </span>recovered) <span class="op">%&gt;%</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">active_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(active),</span>
-<span id="cb8-8"><a href="#cb8-8"></a>                <span class="dt">recovered_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(recovered),</span>
-<span id="cb8-9"><a href="#cb8-9"></a>                <span class="dt">death_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(death)) <span class="op">%&gt;%</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  </span><span class="kw">plot_ly</span>(<span class="dt">x =</span> <span class="op">~</span><span class="st"> </span>date,</span>
-<span id="cb8-11"><a href="#cb8-11"></a>                  <span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>active_total,</span>
-<span id="cb8-12"><a href="#cb8-12"></a>                  <span class="dt">name =</span> <span class="st">'Active'</span>, </span>
-<span id="cb8-13"><a href="#cb8-13"></a>                  <span class="dt">fillcolor =</span> <span class="st">'#1f77b4'</span>,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>                  <span class="dt">type =</span> <span class="st">'scatter'</span>,</span>
-<span id="cb8-15"><a href="#cb8-15"></a>                  <span class="dt">mode =</span> <span class="st">'none'</span>, </span>
-<span id="cb8-16"><a href="#cb8-16"></a>                  <span class="dt">stackgroup =</span> <span class="st">'one'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>death_total, </span>
-<span id="cb8-18"><a href="#cb8-18"></a>             <span class="dt">name =</span> <span class="st">"Death"</span>,</span>
-<span id="cb8-19"><a href="#cb8-19"></a>             <span class="dt">fillcolor =</span> <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">y =</span> <span class="op">~</span>recovered_total, </span>
-<span id="cb8-21"><a href="#cb8-21"></a>            <span class="dt">name =</span> <span class="st">'Recovered'</span>, </span>
-<span id="cb8-22"><a href="#cb8-22"></a>            <span class="dt">fillcolor =</span> <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/layout">layout</a></span>(<span class="dt">title =</span> <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,</span>
-<span id="cb8-24"><a href="#cb8-24"></a>         <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="fl">0.1</span>, <span class="dt">y =</span> <span class="fl">0.9</span>),</span>
-<span id="cb8-25"><a href="#cb8-25"></a>         <span class="dt">yaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Number of Cases"</span>),</span>
-<span id="cb8-26"><a href="#cb8-26"></a>         <span class="dt">xaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(type, date) <span class="op">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type, <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(date) <span class="op">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active =</span> confirmed <span class="op">-</span><span class="st"> </span>death <span class="op">-</span><span class="st"> </span>recovered) <span class="op">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(active),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>                <span class="dt">recovered_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(recovered),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>                <span class="dt">death_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(death)) <span class="op">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">x =</span> <span class="op">~</span><span class="st"> </span>date,</span>
+<span id="cb8-13"><a href="#cb8-13"></a>                  <span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>active_total,</span>
+<span id="cb8-14"><a href="#cb8-14"></a>                  <span class="dt">name =</span> <span class="st">'Active'</span>, </span>
+<span id="cb8-15"><a href="#cb8-15"></a>                  <span class="dt">fillcolor =</span> <span class="st">'#1f77b4'</span>,</span>
+<span id="cb8-16"><a href="#cb8-16"></a>                  <span class="dt">type =</span> <span class="st">'scatter'</span>,</span>
+<span id="cb8-17"><a href="#cb8-17"></a>                  <span class="dt">mode =</span> <span class="st">'none'</span>, </span>
+<span id="cb8-18"><a href="#cb8-18"></a>                  <span class="dt">stackgroup =</span> <span class="st">'one'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>death_total, </span>
+<span id="cb8-20"><a href="#cb8-20"></a>             <span class="dt">name =</span> <span class="st">"Death"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21"></a>             <span class="dt">fillcolor =</span> <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span>recovered_total, </span>
+<span id="cb8-23"><a href="#cb8-23"></a>            <span class="dt">name =</span> <span class="st">'Recovered'</span>, </span>
+<span id="cb8-24"><a href="#cb8-24"></a>            <span class="dt">fillcolor =</span> <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/layout">layout</a></span>(<span class="dt">title =</span> <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26"></a>         <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="fl">0.1</span>, <span class="dt">y =</span> <span class="fl">0.9</span>),</span>
+<span id="cb8-27"><a href="#cb8-27"></a>         <span class="dt">yaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Number of Cases"</span>),</span>
+<span id="cb8-28"><a href="#cb8-28"></a>         <span class="dt">xaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))</span></code></pre></div>
 <p><img src="reference/figures/total_cases.png" width="100%"></p>
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>conf_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(Country.Region) <span class="op">%&gt;%</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(<span class="op">-</span>total_cases) <span class="op">%&gt;%</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">parents =</span> <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">ungroup</a></span>() </span>
-<span id="cb9-10"><a href="#cb9-10"></a>  </span>
-<span id="cb9-11"><a href="#cb9-11"></a>  <span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">data =</span> conf_df,</span>
-<span id="cb9-12"><a href="#cb9-12"></a>          <span class="dt">type=</span> <span class="st">"treemap"</span>,</span>
-<span id="cb9-13"><a href="#cb9-13"></a>          <span class="dt">values =</span> <span class="op">~</span>total_cases,</span>
-<span id="cb9-14"><a href="#cb9-14"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>Country.Region,</span>
-<span id="cb9-15"><a href="#cb9-15"></a>          <span class="dt">parents=</span>  <span class="op">~</span>parents,</span>
-<span id="cb9-16"><a href="#cb9-16"></a>          <span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">column=</span><span class="dv">0</span>),</span>
-<span id="cb9-17"><a href="#cb9-17"></a>          <span class="dt">name =</span> <span class="st">"Confirmed"</span>,</span>
-<span id="cb9-18"><a href="#cb9-18"></a>          <span class="dt">textinfo=</span><span class="st">"label+value+percent parent"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>conf_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(Country.Region) <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(<span class="op">-</span>total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">parents =</span> <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">ungroup</a></span>() </span>
+<span id="cb9-8"><a href="#cb9-8"></a>  </span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">data =</span> conf_df,</span>
+<span id="cb9-10"><a href="#cb9-10"></a>          <span class="dt">type=</span> <span class="st">"treemap"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>          <span class="dt">values =</span> <span class="op">~</span>total_cases,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>Country.Region,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>          <span class="dt">parents=</span>  <span class="op">~</span>parents,</span>
+<span id="cb9-14"><a href="#cb9-14"></a>          <span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">column=</span><span class="dv">0</span>),</span>
+<span id="cb9-15"><a href="#cb9-15"></a>          <span class="dt">name =</span> <span class="st">"Confirmed"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>          <span class="dt">textinfo=</span><span class="st">"label+value+percent parent"</span>)</span></code></pre></div>
 <p><img src="reference/figures/treemap_conf.png" width="100%"></p>
 </div>
 <div id="data-sources" class="section level2">
