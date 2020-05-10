@@ -16,8 +16,8 @@ A data frame with 7 variables.
   \item{long}{Longitude of center of geographic region, defined as either
   country or, if available, province.}
   \item{type}{An indicator for the type of cases (confirmed, death,
-  \item{cases}{Number of cases on given date.}
   recovered).}
+  \item{cases}{Number of cases on given date.}
   }
 }
 \source{
