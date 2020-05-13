@@ -86,7 +86,7 @@ This `coronavirus` dataset has the following fields:
 * `cases` - the number of daily cases (corresponding to the case type)
 
 ```{r}
-head(coronavirus) 
+head(coronavirus)  
 ```
 
 

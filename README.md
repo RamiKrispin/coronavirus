@@ -95,7 +95,7 @@ This `coronavirus` dataset has the following fields:
 <!-- end list -->
 
 ``` r
-head(coronavirus) 
+head(coronavirus)  
 #>   Province.State Country.Region Lat Long       date cases      type
 #> 1                   Afghanistan  33   65 2020-01-22     0 confirmed
 #> 2                   Afghanistan  33   65 2020-01-23     0 confirmed
@@ -120,30 +120,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 2
 #>    Country.Region total_cases
 #>    <chr>                <int>
-#>  1 US                 1283929
-#>  2 Spain               222857
-#>  3 Italy               217185
-#>  4 United Kingdom      212629
-#>  5 Russia              187859
-#>  6 France              176202
-#>  7 Germany             170588
-#>  8 Brazil              146894
-#>  9 Turkey              135569
-#> 10 Iran                104691
-#> 11 China                83976
-#> 12 Canada               67674
-#> 13 Peru                 61847
-#> 14 India                59695
-#> 15 Belgium              52011
-#> 16 Netherlands          42292
-#> 17 Saudi Arabia         35432
-#> 18 Mexico               31522
-#> 19 Switzerland          30207
-#> 20 Ecuador              28818
+#>  1 US                 1369376
+#>  2 Russia              232243
+#>  3 Spain               228030
+#>  4 United Kingdom      227741
+#>  5 Italy               221216
+#>  6 France              178349
+#>  7 Brazil              178214
+#>  8 Germany             173171
+#>  9 Turkey              141475
+#> 10 Iran                110767
+#> 11 China                84018
+#> 12 India                74292
+#> 13 Canada               72419
+#> 14 Peru                 72059
+#> 15 Belgium              53779
+#> 16 Netherlands          43183
+#> 17 Saudi Arabia         42925
+#> 18 Mexico               38324
+#> 19 Pakistan             34336
+#> 20 Chile                31721
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-05-08):
+2020-05-12):
 
 ``` r
 library(tidyr)
@@ -160,46 +160,46 @@ coronavirus %>%
 #> # Groups:   Country.Region [187]
 #>    Country.Region       confirmed death recovered
 #>    <chr>                    <int> <int>     <int>
-#>  1 US                       26906  1518      3957
-#>  2 Brazil                   11121   827      3947
-#>  3 Russia                   10699    98      2805
-#>  4 United Kingdom            4652   627        27
-#>  5 India                     3344    96      1111
-#>  6 Peru                      3321    87       624
-#>  7 Mexico                    1906   199      2533
-#>  8 Turkey                    1848    48      3412
-#>  9 Pakistan                  1791    14      1066
-#> 10 Saudi Arabia              1701    10      1322
-#> 11 Iran                      1556    55      1093
-#> 12 Canada                    1473   156       979
-#> 13 Spain                     1410   229      2637
-#> 14 Chile                     1391     9       496
-#> 15 Italy                     1327   243      2747
-#> 16 Qatar                     1311     0        84
-#> 17 France                    1284   243       701
-#> 18 Germany                   1158   118         0
-#> 19 Belarus                    933     5       417
-#> 20 Ghana                      921     0        20
-#> 21 Singapore                  768     0       328
-#> 22 Bangladesh                 709     7       191
-#> 23 South Africa               663    17         0
-#> 24 Sweden                     642   135         0
-#> 25 Kuwait                     641     3        85
-#> 26 Colombia                   595    21       124
-#> 27 Belgium                    591   106       221
-#> 28 Portugal                   553     9       164
-#> 29 United Arab Emirates       553     9       265
-#> 30 Ukraine                    504    21       310
-#> 31 Egypt                      495    21        58
-#> 32 Nigeria                    386    10        78
-#> 33 Indonesia                  336    13       113
-#> 34 Netherlands                319    71         0
-#> 35 Poland                     319    21       322
-#> 36 Romania                    312    35       279
-#> 37 Dominican Republic         281     7       222
-#> 38 Kazakhstan                 256     1       113
-#> 39 Bahrain                    245     0        28
-#> 40 Argentina                  240    11        58
+#>  1 US                       21495  1674     -2446
+#>  2 Russia                   10899   107      3711
+#>  3 Brazil                    8620   808      5213
+#>  4 India                     3524   121      1871
+#>  5 United Kingdom            3409   628         8
+#>  6 Peru                      3237    96       918
+#>  7 Pakistan                  2255    31       257
+#>  8 Mexico                    1997   353      2835
+#>  9 Saudi Arabia              1911     9      2520
+#> 10 Turkey                    1704    53      3109
+#> 11 Chile                     1658    12       520
+#> 12 Qatar                     1526     0       179
+#> 13 Iran                      1481    48       935
+#> 14 Italy                     1402   172      2452
+#> 15 Canada                    1155   185      1048
+#> 16 Kuwait                     991    10       194
+#> 17 Bangladesh                 969    11       245
+#> 18 Belarus                    967     7       443
+#> 19 Ecuador                    910   182         0
+#> 20 Singapore                  849     0       626
+#> 21 France                     802   348      1063
+#> 22 United Arab Emirates       783     2       631
+#> 23 South Africa               698     0         0
+#> 24 Colombia                   659    14       146
+#> 25 Sweden                     602    57         0
+#> 26 Germany                    595    77      1583
+#> 27 Poland                     595    28       315
+#> 28 Spain                      594   176      1841
+#> 29 Indonesia                  484    16       182
+#> 30 Ghana                      427     0         0
+#> 31 Ukraine                    375    17        85
+#> 32 Egypt                      347    11       154
+#> 33 Belgium                    330    54        35
+#> 34 Bahrain                    295     1        40
+#> 35 Argentina                  285     5        25
+#> 36 Afghanistan                276     5        52
+#> 37 Dominican Republic         266     9       351
+#> 38 Philippines                264    25       107
+#> 39 Portugal                   234    19       464
+#> 40 Netherlands                196    54         0
 #> # … with 147 more rows
 ```
 
