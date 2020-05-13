@@ -80,8 +80,8 @@ This `coronavirus` dataset has the following fields:
 * `date` - The date of the summary
 * `province` - The province or state, when applicable
 * `country` - The country or region name
-* `Lat` - Latitude point
-* `Long` - Longitude point
+* `lat` - Latitude point
+* `long` - Longitude point
 * `type` - the type of case (i.e., confirmed, death)
 * `cases` - the number of daily cases (corresponding to the case type)
 

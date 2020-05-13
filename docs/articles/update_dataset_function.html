@@ -120,25 +120,25 @@
 <span id="cb4-2"><a href="#cb4-2"></a>                     <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus_df)</span></code></pre></div>
-<pre><code>##   Province.State Country.Region Lat Long       date cases      type
-## 1                   Afghanistan  33   65 2020-01-22     0 confirmed
-## 2                   Afghanistan  33   65 2020-01-23     0 confirmed
-## 3                   Afghanistan  33   65 2020-01-24     0 confirmed
-## 4                   Afghanistan  33   65 2020-01-25     0 confirmed
-## 5                   Afghanistan  33   65 2020-01-26     0 confirmed
-## 6                   Afghanistan  33   65 2020-01-27     0 confirmed</code></pre>
+<pre><code>##         date province     country lat long      type cases
+## 1 2020-01-22          Afghanistan  33   65 confirmed     0
+## 2 2020-01-23          Afghanistan  33   65 confirmed     0
+## 3 2020-01-24          Afghanistan  33   65 confirmed     0
+## 4 2020-01-25          Afghanistan  33   65 confirmed     0
+## 5 2020-01-26          Afghanistan  33   65 confirmed     0
+## 6 2020-01-27          Afghanistan  33   65 confirmed     0</code></pre>
 <p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>coronavirus_df<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date</a></span>(coronavirus_df<span class="op">$</span>date)</span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(coronavirus_df)</span></code></pre></div>
 <pre><code>## 'data.frame':    87808 obs. of  7 variables:
-##  $ Province.State: chr  "" "" "" "" ...
-##  $ Country.Region: chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-##  $ Lat           : num  33 33 33 33 33 33 33 33 33 33 ...
-##  $ Long          : num  65 65 65 65 65 65 65 65 65 65 ...
-##  $ date          : Date, format: "2020-01-22" "2020-01-23" ...
-##  $ cases         : int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ type          : chr  "confirmed" "confirmed" "confirmed" "confirmed" ...</code></pre>
+##  $ date    : Date, format: "2020-01-22" "2020-01-23" ...
+##  $ province: chr  "" "" "" "" ...
+##  $ country : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ lat     : num  33 33 33 33 33 33 33 33 33 33 ...
+##  $ long    : num  65 65 65 65 65 65 65 65 65 65 ...
+##  $ type    : chr  "confirmed" "confirmed" "confirmed" "confirmed" ...
+##  $ cases   : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
 </div>
   </div>
 
