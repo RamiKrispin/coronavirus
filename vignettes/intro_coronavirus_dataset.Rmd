@@ -90,7 +90,7 @@ round(100 * total_cases$cases[3] / total_cases$cases[1], 2)
 The total active cases are the difference between the total confirmed cases and the total recovered and death cases:
 
 ```{r}
-total_cases$cases[1] - total_cases$cases[2] - - total_cases$cases[3]
+total_cases$cases[1] - total_cases$cases[2] - total_cases$cases[3]
 ```
 
 The following plot presents the cases (active, recovered, and death) distribution over time:
