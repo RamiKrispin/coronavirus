@@ -54,14 +54,19 @@ update_dataset <- function(silence = FALSE){
                                    upgrade = "never",
                                    ref = "master")
 
-          base::message("The data was refresed, please restart your session to have the new data available")
+          # base::message("The data was refresed, please restart your session to have the new data available")
+          # If library is loaded, auto onload and load the library to have the new data available
+          if ("coronavirus" %in% names(utils::sessionInfo()$otherPkgs)) { 
+            detach(package:coronavirus, unload = TRUE)
+            library(coronavirus)
+           }
         },
         error = function(e){
           message('Caught an error!')
           print(e)
         },
         warning = function(w){
-          message('Caught a warning!')
+          message('Caught an warning!')
           print(w)
         }
 
