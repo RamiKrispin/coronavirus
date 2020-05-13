@@ -55,6 +55,9 @@
 <li>
       <a href="articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
     </li>
+    <li>
+      <a href="articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -128,9 +131,9 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li>
 <code>date</code> - The date of the summary</li>
 <li>
-<code>Province.State</code> - The province or state, when applicable</li>
+<code>province</code> - The province or state, when applicable</li>
 <li>
-<code>Country.Region</code> - The country or region name</li>
+<code>country</code> - The country or region name</li>
 <li>
 <code>Lat</code> - Latitude point</li>
 <li>
@@ -141,71 +144,71 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <code>cases</code> - the number of daily cases (corresponding to the case type)</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus) </span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt;   Province.State Country.Region Lat Long       date cases      type</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 1                   Afghanistan  33   65 2020-01-22     0 confirmed</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; 2                   Afghanistan  33   65 2020-01-23     0 confirmed</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; 3                   Afghanistan  33   65 2020-01-24     0 confirmed</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; 4                   Afghanistan  33   65 2020-01-25     0 confirmed</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; 5                   Afghanistan  33   65 2020-01-26     0 confirmed</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 6                   Afghanistan  33   65 2020-01-27     0 confirmed</span></span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt;         date province     country lat long      type cases</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 1 2020-01-22          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; 2 2020-01-23          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; 3 2020-01-24          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; 4 2020-01-25          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; 5 2020-01-26          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 6 2020-01-27          Afghanistan  33   65 confirmed     0</span></span></code></pre></div>
 <p>Summary of the total confrimed cases by country (top 20):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a>summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region) <span class="op">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</span>
 <span id="cb6-8"><a href="#cb6-8"></a></span>
 <span id="cb6-9"><a href="#cb6-9"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; # A tibble: 20 x 2</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;    Country.Region total_cases</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;    country        total_cases</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  1 US                 1283929</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  2 Spain               222857</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  3 Italy               217185</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  4 United Kingdom      212629</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  5 Russia              187859</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  6 France              176202</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  7 Germany             170588</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  8 Brazil              146894</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  9 Turkey              135569</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 10 Iran                104691</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; 11 China                83976</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 12 Canada               67674</span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; 13 Peru                 61847</span></span>
-<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; 14 India                59695</span></span>
-<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; 15 Belgium              52011</span></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; 16 Netherlands          42292</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt; 17 Saudi Arabia         35432</span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; 18 Mexico               31522</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 19 Switzerland          30207</span></span>
-<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 20 Ecuador              28818</span></span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2020-05-08):</p>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  1 US                 1369376</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  2 Russia              232243</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  3 Spain               228030</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  4 United Kingdom      227741</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  5 Italy               221216</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  6 France              178349</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  7 Brazil              178214</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  8 Germany             173171</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  9 Turkey              141475</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 10 Iran                110767</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; 11 China                84018</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 12 India                74292</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; 13 Canada               72419</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; 14 Peru                 72059</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; 15 Belgium              53779</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; 16 Netherlands          43183</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt; 17 Saudi Arabia         42925</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; 18 Mexico               38324</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 19 Pakistan             34336</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 20 Chile                31721</span></span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2020-05-12):</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(date)) <span class="op">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(Country.Region, type, cases) <span class="op">%&gt;%</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Country.Region, type) <span class="op">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(country, type, cases) <span class="op">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></span>
 <span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
 <span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</span>
 <span id="cb7-9"><a href="#cb7-9"></a>              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
 <span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</span>
 <span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; # A tibble: 187 x 4</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; # Groups:   Country.Region [187]</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;    Country.Region confirmed death recovered</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; # Groups:   country [187]</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;    country        confirmed death recovered</span></span>
 <span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  1 US                 26906  1518      3957</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  2 Brazil             11121   827      3947</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  3 Russia             10699    98      2805</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  4 United Kingdom      4652   627        27</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  5 India               3344    96      1111</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  6 Peru                3321    87       624</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  7 Mexico              1906   199      2533</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;  8 Turkey              1848    48      3412</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;  9 Pakistan            1791    14      1066</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 10 Saudi Arabia        1701    10      1322</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  1 US                 21495  1674     -2446</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  2 Russia             10899   107      3711</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  3 Brazil              8620   808      5213</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  4 India               3524   121      1871</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  5 United Kingdom      3409   628         8</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  6 Peru                3237    96       918</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  7 Pakistan            2255    31       257</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;  8 Mexico              1997   353      2835</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;  9 Saudi Arabia        1911     9      2520</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 10 Turkey              1704    53      3109</span></span>
 <span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; # … with 177 more rows</span></span></code></pre></div>
 <p>Plotting the total cases by type worldwide:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
@@ -240,7 +243,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>conf_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(Country.Region) <span class="op">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
 <span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(<span class="op">-</span>total_cases) <span class="op">%&gt;%</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">parents =</span> <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span></span>
@@ -249,7 +252,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb9-9"><a href="#cb9-9"></a>  <span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">data =</span> conf_df,</span>
 <span id="cb9-10"><a href="#cb9-10"></a>          <span class="dt">type=</span> <span class="st">"treemap"</span>,</span>
 <span id="cb9-11"><a href="#cb9-11"></a>          <span class="dt">values =</span> <span class="op">~</span>total_cases,</span>
-<span id="cb9-12"><a href="#cb9-12"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>Country.Region,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>country,</span>
 <span id="cb9-13"><a href="#cb9-13"></a>          <span class="dt">parents=</span>  <span class="op">~</span>parents,</span>
 <span id="cb9-14"><a href="#cb9-14"></a>          <span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">column=</span><span class="dv">0</span>),</span>
 <span id="cb9-15"><a href="#cb9-15"></a>          <span class="dt">name =</span> <span class="st">"Confirmed"</span>,</span>
@@ -267,7 +270,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>BNO News: <a href="https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/" class="uri">https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/</a> <br>
 </li>
-<li>National Health Commission of the People’s Republic of China (NHC): <br><a href="http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml" class="uri">http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml</a> <br>
+<li>National Health Commission of the People’s Republic of China (NHC): <br> http:://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml <br>
 </li>
 <li>China CDC (CCDC): http:://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm <br>
 </li>

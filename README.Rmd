@@ -78,8 +78,8 @@ data("coronavirus")
 This `coronavirus` dataset has the following fields:
 
 * `date` - The date of the summary
-* `Province.State` - The province or state, when applicable
-* `Country.Region` - The country or region name
+* `province` - The province or state, when applicable
+* `country` - The country or region name
 * `Lat` - Latitude point
 * `Long` - Longitude point
 * `type` - the type of case (i.e., confirmed, death)
@@ -97,7 +97,7 @@ library(dplyr)
 
 summary_df <- coronavirus %>% 
   filter(type == "confirmed") %>%
-  group_by(Country.Region) %>%
+  group_by(country) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases)
 
@@ -112,8 +112,8 @@ library(tidyr)
 
 coronavirus %>% 
   filter(date == max(date)) %>%
-  select(Country.Region, type, cases) %>%
-  group_by(Country.Region, type) %>%
+  select(country, type, cases) %>%
+  group_by(country, type) %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
@@ -162,7 +162,7 @@ Plot the confirmed cases distribution by counrty with treemap plot:
 ``` r
 conf_df <- coronavirus %>% 
   filter(type == "confirmed") %>%
-  group_by(Country.Region) %>%
+  group_by(country) %>%
   summarise(total_cases = sum(cases)) %>%
   arrange(-total_cases) %>%
   mutate(parents = "Confirmed") %>%
@@ -171,7 +171,7 @@ conf_df <- coronavirus %>%
   plot_ly(data = conf_df,
           type= "treemap",
           values = ~total_cases,
-          labels= ~ Country.Region,
+          labels= ~ country,
           parents=  ~parents,
           domain = list(column=0),
           name = "Confirmed",
@@ -188,7 +188,7 @@ The raw data pulled and arranged by the Johns Hopkins University Center for Syst
 * DXY.cn. Pneumonia. 2020. http://3g.dxy.cn/newh5/view/pneumonia.  <br>
 * BNO News: https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/  <br>
 * National Health Commission of the People’s Republic of China (NHC): <br>
- http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml <br>
+ http&#58;://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml <br>
 * China CDC (CCDC): http&#58;://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm <br>
 * Hong Kong Department of Health: https://www.chp.gov.hk/en/features/102465.html <br>
 * Macau Government: https://www.ssm.gov.mo/portal/ <br>

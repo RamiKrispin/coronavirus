@@ -91,6 +91,9 @@
     <li>
       <a href="../articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
     </li>
+    <li>
+      <a href="../articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -131,17 +134,17 @@
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A data frame with 7 variables.</p><dl class='dl-horizontal'>
-  <dt>Province.State</dt><dd><p>Name of province/state, for countries where data is
-  provided split across multiple provinces/states.</p></dd>
-  <dt>Country.Region</dt><dd><p>Name of country/region.</p></dd>
-  <dt>Lat</dt><dd><p>Latitude of center of geographic region, defined as either
-  Country.Region or, if available, Province.State.</p></dd>
-  <dt>Long</dt><dd><p>Longitude of center of geographic region, defined as either
-  Country.Region or, if available, Province.State.</p></dd>
   <dt>date</dt><dd><p>Date in YYYY-MM-DD format.</p></dd>
-  <dt>cases</dt><dd><p>Number of cases on given date.</p></dd>
+  <dt>province</dt><dd><p>Name of province/state, for countries where data is
+  provided split across multiple provinces/states.</p></dd>
+  <dt>country</dt><dd><p>Name of country/region.</p></dd>
+  <dt>lat</dt><dd><p>Latitude of center of geographic region, defined as either
+  country or, if available, province.</p></dd>
+  <dt>long</dt><dd><p>Longitude of center of geographic region, defined as either
+  country or, if available, province.</p></dd>
   <dt>type</dt><dd><p>An indicator for the type of cases (confirmed, death,
   recovered).</p></dd>
+  <dt>cases</dt><dd><p>Number of cases on given date.</p></dd>
   </dl>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
@@ -166,39 +169,51 @@
 <span class='co'># Get top confirmed cases by state</span>
 <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"confirmed"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Country.Region</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>country</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
-#&gt;    Country.Region   total
+#&gt;    country          total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> US             1</span><span style='text-decoration: underline;'>283</span><span>929
-#&gt; </span><span style='color: #555555;'> 2</span><span> Spain           </span><span style='text-decoration: underline;'>222</span><span>857
-#&gt; </span><span style='color: #555555;'> 3</span><span> Italy           </span><span style='text-decoration: underline;'>217</span><span>185
-#&gt; </span><span style='color: #555555;'> 4</span><span> United Kingdom  </span><span style='text-decoration: underline;'>212</span><span>629
-#&gt; </span><span style='color: #555555;'> 5</span><span> Russia          </span><span style='text-decoration: underline;'>187</span><span>859
-#&gt; </span><span style='color: #555555;'> 6</span><span> France          </span><span style='text-decoration: underline;'>176</span><span>202
-#&gt; </span><span style='color: #555555;'> 7</span><span> Germany         </span><span style='text-decoration: underline;'>170</span><span>588
-#&gt; </span><span style='color: #555555;'> 8</span><span> Brazil          </span><span style='text-decoration: underline;'>146</span><span>894
-#&gt; </span><span style='color: #555555;'> 9</span><span> Turkey          </span><span style='text-decoration: underline;'>135</span><span>569
-#&gt; </span><span style='color: #555555;'>10</span><span> Iran            </span><span style='text-decoration: underline;'>104</span><span>691
-#&gt; </span><span style='color: #555555;'>11</span><span> China            </span><span style='text-decoration: underline;'>83</span><span>976
-#&gt; </span><span style='color: #555555;'>12</span><span> Canada           </span><span style='text-decoration: underline;'>67</span><span>674
-#&gt; </span><span style='color: #555555;'>13</span><span> Peru             </span><span style='text-decoration: underline;'>61</span><span>847
-#&gt; </span><span style='color: #555555;'>14</span><span> India            </span><span style='text-decoration: underline;'>59</span><span>695
-#&gt; </span><span style='color: #555555;'>15</span><span> Belgium          </span><span style='text-decoration: underline;'>52</span><span>011
-#&gt; </span><span style='color: #555555;'>16</span><span> Netherlands      </span><span style='text-decoration: underline;'>42</span><span>292
-#&gt; </span><span style='color: #555555;'>17</span><span> Saudi Arabia     </span><span style='text-decoration: underline;'>35</span><span>432
-#&gt; </span><span style='color: #555555;'>18</span><span> Mexico           </span><span style='text-decoration: underline;'>31</span><span>522
-#&gt; </span><span style='color: #555555;'>19</span><span> Switzerland      </span><span style='text-decoration: underline;'>30</span><span>207
-#&gt; </span><span style='color: #555555;'>20</span><span> Ecuador          </span><span style='text-decoration: underline;'>28</span><span>818</div><div class='input'>
-<span class='co'># Get the number of recovered cases in Mainland China by province</span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> US             1</span><span style='text-decoration: underline;'>369</span><span>376
+#&gt; </span><span style='color: #555555;'> 2</span><span> Russia          </span><span style='text-decoration: underline;'>232</span><span>243
+#&gt; </span><span style='color: #555555;'> 3</span><span> Spain           </span><span style='text-decoration: underline;'>228</span><span>030
+#&gt; </span><span style='color: #555555;'> 4</span><span> United Kingdom  </span><span style='text-decoration: underline;'>227</span><span>741
+#&gt; </span><span style='color: #555555;'> 5</span><span> Italy           </span><span style='text-decoration: underline;'>221</span><span>216
+#&gt; </span><span style='color: #555555;'> 6</span><span> France          </span><span style='text-decoration: underline;'>178</span><span>349
+#&gt; </span><span style='color: #555555;'> 7</span><span> Brazil          </span><span style='text-decoration: underline;'>178</span><span>214
+#&gt; </span><span style='color: #555555;'> 8</span><span> Germany         </span><span style='text-decoration: underline;'>173</span><span>171
+#&gt; </span><span style='color: #555555;'> 9</span><span> Turkey          </span><span style='text-decoration: underline;'>141</span><span>475
+#&gt; </span><span style='color: #555555;'>10</span><span> Iran            </span><span style='text-decoration: underline;'>110</span><span>767
+#&gt; </span><span style='color: #555555;'>11</span><span> China            </span><span style='text-decoration: underline;'>84</span><span>018
+#&gt; </span><span style='color: #555555;'>12</span><span> India            </span><span style='text-decoration: underline;'>74</span><span>292
+#&gt; </span><span style='color: #555555;'>13</span><span> Canada           </span><span style='text-decoration: underline;'>72</span><span>419
+#&gt; </span><span style='color: #555555;'>14</span><span> Peru             </span><span style='text-decoration: underline;'>72</span><span>059
+#&gt; </span><span style='color: #555555;'>15</span><span> Belgium          </span><span style='text-decoration: underline;'>53</span><span>779
+#&gt; </span><span style='color: #555555;'>16</span><span> Netherlands      </span><span style='text-decoration: underline;'>43</span><span>183
+#&gt; </span><span style='color: #555555;'>17</span><span> Saudi Arabia     </span><span style='text-decoration: underline;'>42</span><span>925
+#&gt; </span><span style='color: #555555;'>18</span><span> Mexico           </span><span style='text-decoration: underline;'>38</span><span>324
+#&gt; </span><span style='color: #555555;'>19</span><span> Pakistan         </span><span style='text-decoration: underline;'>34</span><span>336
+#&gt; </span><span style='color: #555555;'>20</span><span> Chile            </span><span style='text-decoration: underline;'>31</span><span>721</div><div class='input'>
+<span class='co'># Get the number of recovered cases in China by province</span>
 <span class='no'>coronavirus</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>Country.Region</span> <span class='kw'>==</span> <span class='st'>"Mainland China"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Province.State</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"recovered"</span>, <span class='no'>country</span> <span class='kw'>==</span> <span class='st'>"China"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>province</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>cases</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 0 x 2</span><span>
-#&gt; </span><span style='color: #555555;'># … with 2 variables: Province.State </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, total </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(-<span class='no'>total</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 33 x 2</span><span>
+#&gt;    province     total
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Hubei        </span><span style='text-decoration: underline;'>63</span><span>616
+#&gt; </span><span style='color: #555555;'> 2</span><span> Guangdong     </span><span style='text-decoration: underline;'>1</span><span>578
+#&gt; </span><span style='color: #555555;'> 3</span><span> Zhejiang      </span><span style='text-decoration: underline;'>1</span><span>267
+#&gt; </span><span style='color: #555555;'> 4</span><span> Henan         </span><span style='text-decoration: underline;'>1</span><span>254
+#&gt; </span><span style='color: #555555;'> 5</span><span> Hunan         </span><span style='text-decoration: underline;'>1</span><span>015
+#&gt; </span><span style='color: #555555;'> 6</span><span> Hong Kong      991
+#&gt; </span><span style='color: #555555;'> 7</span><span> Anhui          985
+#&gt; </span><span style='color: #555555;'> 8</span><span> Jiangxi        936
+#&gt; </span><span style='color: #555555;'> 9</span><span> Heilongjiang   929
+#&gt; </span><span style='color: #555555;'>10</span><span> Shandong       777
+#&gt; </span><span style='color: #555555;'># … with 23 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
