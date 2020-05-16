@@ -26,8 +26,8 @@ jobs:
         if: success()
         run: |
           if [[ "$(git status --porcelain)" != "" ]]; then
-              git config --global user.name 'RamiKrispin'
-              git config --global user.email 'ramkrisp@umich.edu'
+              git config --global user.name 'LiorKri'
+              git config --global user.email 'Lior.krispin1@gmail.com'
               git commit -am "coronavirus dataset autoupdate"
               git push
           fi
