@@ -107,4 +107,5 @@ get_code_table <- function() {
 }
 
 iso_3166_2_code_table <- get_code_table()
-usethis::use_data(iso_3166_2_code_table)
+readr::write_csv(iso_3166_2_code_table, "data_raw/iso_3166_2_code_table.csv")
+#usethis::use_data(iso_3166_2_code_table)
