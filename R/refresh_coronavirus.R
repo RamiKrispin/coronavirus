@@ -41,7 +41,7 @@ refresh_coronavirus_jhu <- function(){
     df$location <- gsub("^\\, ", "",  df$location )
 
     #get code table
-    iso_3166_2_code_table <- read.csv("https://github.com/RamiKrispin/coronavirus/raw/dev-covid19r/data_raw/iso_3166_2_code_table.csv")
+    iso_3166_2_code_table <- utils::read.csv("https://github.com/RamiKrispin/coronavirus/raw/dev-covid19r/data_raw/iso_3166_2_code_table.csv")
 
     # left join codes in
     df <- base::merge(df, iso_3166_2_code_table,
