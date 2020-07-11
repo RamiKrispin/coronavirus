@@ -1,3 +1,8 @@
+# coronavirus 0.2.0.9000
+
+* Added the `refresh_coronavirus_jhu` function for pulling the `coronavirus` dataset using the covid19R project format
+
+
 # coronavirus 0.2.0
 
 * Data changes:

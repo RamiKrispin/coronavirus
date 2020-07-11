@@ -76,6 +76,25 @@ update_dataset()
 
 **Note:** must restart the R session to have the updates available
 
+Alternatively, you can pull the data using the
+[Covid19R](https://covid19r.github.io/documentation/) project [data
+standard
+format](https://covid19r.github.io/documentation/data-format-standard.html)
+with the `refresh_coronavirus_jhu` function:
+
+``` r
+covid19_df <- refresh_coronavirus_jhu()
+
+head(covid19_df)
+#>         date    location location_type location_code location_code_type     data_type value lat long
+#> 1 2020-05-12 Afghanistan       country            AF         iso_3166_2 recovered_new    52  33   65
+#> 2 2020-06-22 Afghanistan       country            AF         iso_3166_2 recovered_new    77  33   65
+#> 3 2020-04-16 Afghanistan       country            AF         iso_3166_2 recovered_new    11  33   65
+#> 4 2020-04-15 Afghanistan       country            AF         iso_3166_2 recovered_new     3  33   65
+#> 5 2020-05-26 Afghanistan       country            AF         iso_3166_2 recovered_new    31  33   65
+#> 6 2020-05-07 Afghanistan       country            AF         iso_3166_2 recovered_new    10  33   65
+```
+
 ## Usage
 
 ``` r
@@ -120,30 +139,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                 1369376
-#>  2 Russia              232243
-#>  3 Spain               228030
-#>  4 United Kingdom      227741
-#>  5 Italy               221216
-#>  6 France              178349
-#>  7 Brazil              178214
-#>  8 Germany             173171
-#>  9 Turkey              141475
-#> 10 Iran                110767
-#> 11 China                84018
-#> 12 India                74292
-#> 13 Canada               72419
-#> 14 Peru                 72059
-#> 15 Belgium              53779
-#> 16 Netherlands          43183
-#> 17 Saudi Arabia         42925
-#> 18 Mexico               38324
-#> 19 Pakistan             34336
-#> 20 Chile                31721
+#>  1 US                 2163290
+#>  2 Brazil              955377
+#>  3 Russia              552549
+#>  4 India               366946
+#>  5 United Kingdom      300717
+#>  6 Spain               244683
+#>  7 Peru                240908
+#>  8 Italy               237828
+#>  9 Chile               220628
+#> 10 Iran                195051
+#> 11 France              194805
+#> 12 Germany             188604
+#> 13 Turkey              182727
+#> 14 Pakistan            160118
+#> 15 Mexico              159793
+#> 16 Saudi Arabia        141234
+#> 17 Canada              101491
+#> 18 Bangladesh           98489
+#> 19 China                84458
+#> 20 Qatar                83174
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-05-12):
+2020-06-17):
 
 ``` r
 library(tidyr)
@@ -156,51 +175,51 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 187 x 4
-#> # Groups:   country [187]
-#>    country              confirmed death recovered
-#>    <chr>                    <int> <int>     <int>
-#>  1 US                       21495  1674     -2446
-#>  2 Russia                   10899   107      3711
-#>  3 Brazil                    8620   808      5213
-#>  4 India                     3524   121      1871
-#>  5 United Kingdom            3409   628         8
-#>  6 Peru                      3237    96       918
-#>  7 Pakistan                  2255    31       257
-#>  8 Mexico                    1997   353      2835
-#>  9 Saudi Arabia              1911     9      2520
-#> 10 Turkey                    1704    53      3109
-#> 11 Chile                     1658    12       520
-#> 12 Qatar                     1526     0       179
-#> 13 Iran                      1481    48       935
-#> 14 Italy                     1402   172      2452
-#> 15 Canada                    1155   185      1048
-#> 16 Kuwait                     991    10       194
-#> 17 Bangladesh                 969    11       245
-#> 18 Belarus                    967     7       443
-#> 19 Ecuador                    910   182         0
-#> 20 Singapore                  849     0       626
-#> 21 France                     802   348      1063
-#> 22 United Arab Emirates       783     2       631
-#> 23 South Africa               698     0         0
-#> 24 Colombia                   659    14       146
-#> 25 Sweden                     602    57         0
-#> 26 Germany                    595    77      1583
-#> 27 Poland                     595    28       315
-#> 28 Spain                      594   176      1841
-#> 29 Indonesia                  484    16       182
-#> 30 Ghana                      427     0         0
-#> 31 Ukraine                    375    17        85
-#> 32 Egypt                      347    11       154
-#> 33 Belgium                    330    54        35
-#> 34 Bahrain                    295     1        40
-#> 35 Argentina                  285     5        25
-#> 36 Afghanistan                276     5        52
-#> 37 Dominican Republic         266     9       351
-#> 38 Philippines                264    25       107
-#> 39 Portugal                   234    19       464
-#> 40 Netherlands                196    54         0
-#> # … with 147 more rows
+#> # A tibble: 188 x 4
+#> # Groups:   country [188]
+#>    country            confirmed death recovered
+#>    <chr>                  <int> <int>     <int>
+#>  1 Chile                  36179   232     25699
+#>  2 Brazil                 32188  1269     31041
+#>  3 US                     25559   754      8688
+#>  4 India                  12881   334      7390
+#>  5 Russia                  7824   194     10020
+#>  6 Pakistan                5358   118       778
+#>  7 Mexico                  4930   770      3110
+#>  8 Saudi Arabia            4919    39      2122
+#>  9 South Africa            4078    49      2268
+#> 10 Bangladesh              4008    43      1925
+#> 11 Peru                    3752   201      3417
+#> 12 Iran                    2612   120      2137
+#> 13 Colombia                1872    79       414
+#> 14 Iraq                    1554    61       908
+#> 15 Turkey                  1429    19      1261
+#> 16 Argentina               1393    35       338
+#> 17 Egypt                   1363    84       411
+#> 18 Sweden                  1239   102         0
+#> 19 United Kingdom          1117   184        11
+#> 20 Qatar                   1097     2      1711
+#> 21 Indonesia               1031    45       540
+#> 22 Oman                     810     2       708
+#> 23 Bolivia                  802    20       250
+#> 24 Ukraine                  777    31       431
+#> 25 Belarus                  663     6      1462
+#> 26 Honduras                 643     6        41
+#> 27 Panama                   635    13         0
+#> 28 Nigeria                  587    14       344
+#> 29 Nepal                    586     1         9
+#> 30 Kuwait                   575     3       690
+#> 31 Afghanistan              564    13       650
+#> 32 Ecuador                  547    37       197
+#> 33 Guatemala                545    14       104
+#> 34 Armenia                  544     9       243
+#> 35 Poland                   506    14       267
+#> 36 Moldova                  478    10       176
+#> 37 France                   458    28       332
+#> 38 Philippines              457     5       268
+#> 39 Dominican Republic       419    18        83
+#> 40 Bahrain                  408     2       319
+#> # … with 148 more rows
 ```
 
 Plotting the total cases by type worldwide:

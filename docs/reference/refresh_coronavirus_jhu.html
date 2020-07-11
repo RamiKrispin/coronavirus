@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update the coronavirus Dataset — update_dataset • coronavirus</title>
+<title>Refresh the 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset in the Covid19R Project Format — refresh_coronavirus_jhu • coronavirus</title>
 
 
 <!-- jquery -->
@@ -33,8 +33,8 @@
 
 
 
-<meta property="og:title" content="Update the coronavirus Dataset — update_dataset" />
-<meta property="og:description" content="Update the package datasets on the global environment with the most recent data on the Dev version" />
+<meta property="og:title" content="Refresh the 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset in the Covid19R Project Format — refresh_coronavirus_jhu" />
+<meta property="og:description" content="Daily summary of the Coronavirus (COVID-19) cases by state/province." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,54 +122,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update the coronavirus Dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data_refresh.R'><code>R/data_refresh.R</code></a></small>
-    <div class="hidden name"><code>update_dataset.Rd</code></div>
+    <h1>Refresh the 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset in the Covid19R Project Format</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/refresh_coronavirus.R'><code>R/refresh_coronavirus.R</code></a></small>
+    <div class="hidden name"><code>refresh_coronavirus_jhu.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Update the package datasets on the global environment with the most recent data on the Dev version</p>
+    <p>Daily summary of the Coronavirus (COVID-19) cases by state/province.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_dataset</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>refresh_coronavirus_jhu</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>silence</th>
-      <td><p>A boolean, if set to TRUE, will automatically install updates without prompt question, by default set to FALSE</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>coronavirus - Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <a href='https://systems.jhu.edu/research/public-health/ncov/'>website</a></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame object</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>As the CRAN version is being updated every one-two months, the dev version of the package is being updated on a daily bases.
-This function enables to refresh the package dataset to the most up-to-date data. Changes will be available on the global environment</p>
+    <p>A tibble object
+* date - The date in YYYY-MM-DD form
+* location - The name of the location as provided by the data source.
+* location_type - The type of location using the covid19R controlled vocabulary.
+* location_code - A standardized location code using a national or international standard. Drawn from <a href='https://github.com/olahol/iso-3166-2.js/'>iso-3166-2.js</a>'s version
+* location_code_type The type of standardized location code being used according to the covid19R controlled vocabulary. Here we use `iso_3166_2`
+* data_type - the type of data in that given row using the covid19R controlled vocabulary. Includes cases_new, deaths_new, recovered_new.
+* value - number of cases of each data type</p>
+<p>A data.frame object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># update with a question prompt</span>
-<span class='fu'>update_dataset</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-
-<span class='co'># update without a question prompt</span>
-<span class='fu'>update_dataset</span>(<span class='kw'>silence</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></pre>
+<span class='co'># update the data</span>
+<span class='no'>jhu_covid19_dat</span> <span class='kw'>&lt;-</span> <span class='fu'>refresh_coronavirus_jhu</span>()
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#source">Source</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

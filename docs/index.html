@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -53,6 +53,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/covid19R.html">Covid19R Project Data Format</a>
+    </li>
+    <li>
       <a href="articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
     </li>
     <li>
@@ -121,11 +124,29 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(coronavirus)</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="reference/update_dataset.html">update_dataset</a></span>()</span></code></pre></div>
 <p><strong>Note:</strong> must restart the R session to have the updates available</p>
+<p>Alternatively, you can pull the data using the <a href="https://covid19r.github.io/documentation/">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html">data standard format</a> with the <code>refresh_coronavirus_jhu</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>covid19_df &lt;-<span class="st"> </span><span class="kw"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span>()</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(covid19_df)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;         date    location location_type location_code location_code_type</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 1 2020-05-12 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 2 2020-06-22 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 3 2020-04-16 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 4 2020-04-15 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 5 2020-05-26 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 6 2020-05-07 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;       data_type value lat long</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 1 recovered_new    52  33   65</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 2 recovered_new    77  33   65</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 3 recovered_new    11  33   65</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 4 recovered_new     3  33   65</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 5 recovered_new    31  33   65</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 6 recovered_new    10  33   65</span></span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"coronavirus"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"coronavirus"</span>)</span></code></pre></div>
 <p>This <code>coronavirus</code> dataset has the following fields:</p>
 <ul>
 <li>
@@ -143,120 +164,120 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li>
 <code>cases</code> - the number of daily cases (corresponding to the case type)</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt;         date province     country lat long      type cases</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 1 2020-01-22          Afghanistan  33   65 confirmed     0</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; 2 2020-01-23          Afghanistan  33   65 confirmed     0</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; 3 2020-01-24          Afghanistan  33   65 confirmed     0</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; 4 2020-01-25          Afghanistan  33   65 confirmed     0</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; 5 2020-01-26          Afghanistan  33   65 confirmed     0</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 6 2020-01-27          Afghanistan  33   65 confirmed     0</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(coronavirus)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt;         date province     country lat long      type cases</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; 1 2020-01-22          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; 2 2020-01-23          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; 3 2020-01-24          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; 4 2020-01-25          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; 5 2020-01-26          Afghanistan  33   65 confirmed     0</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 6 2020-01-27          Afghanistan  33   65 confirmed     0</span></span></code></pre></div>
 <p>Summary of the total confrimed cases by country (top 20):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</span>
-<span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; # A tibble: 20 x 2</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;    country        total_cases</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  1 US                 1369376</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  2 Russia              232243</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  3 Spain               228030</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  4 United Kingdom      227741</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  5 Italy               221216</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  6 France              178349</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  7 Brazil              178214</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  8 Germany             173171</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  9 Turkey              141475</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 10 Iran                110767</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; 11 China                84018</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 12 India                74292</span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; 13 Canada               72419</span></span>
-<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; 14 Peru                 72059</span></span>
-<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; 15 Belgium              53779</span></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; 16 Netherlands          43183</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt; 17 Saudi Arabia         42925</span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; 18 Mexico               38324</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 19 Pakistan             34336</span></span>
-<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 20 Chile                31721</span></span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2020-05-12):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(date)) <span class="op">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(country, type, cases) <span class="op">%&gt;%</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</span>
-<span id="cb7-9"><a href="#cb7-9"></a>              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; # A tibble: 187 x 4</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; # Groups:   country [187]</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;    country        confirmed death recovered</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  1 US                 21495  1674     -2446</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  2 Russia             10899   107      3711</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  3 Brazil              8620   808      5213</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  4 India               3524   121      1871</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  5 United Kingdom      3409   628         8</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  6 Peru                3237    96       918</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  7 Pakistan            2255    31       257</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;  8 Mexico              1997   353      2835</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;  9 Saudi Arabia        1911     9      2520</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 10 Turkey              1704    53      3109</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; # … with 177 more rows</span></span></code></pre></div>
-<p>Plotting the total cases by type worldwide:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>summary_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>total_cases)</span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a>summary_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">20</span>) </span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; # A tibble: 20 x 2</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;    country        total_cases</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  1 US                 2163290</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  2 Brazil              955377</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  3 Russia              552549</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  4 India               366946</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  5 United Kingdom      300717</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  6 Spain               244683</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  7 Peru                240908</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  8 Italy               237828</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  9 Chile               220628</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 10 Iran                195051</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 11 France              194805</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 12 Germany             188604</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; 13 Turkey              182727</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; 14 Pakistan            160118</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; 15 Mexico              159793</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; 16 Saudi Arabia        141234</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; 17 Canada              101491</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; 18 Bangladesh           98489</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; 19 China                84458</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; 20 Qatar                83174</span></span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2020-06-17):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(type, date) <span class="op">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type, <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(date) <span class="op">%&gt;%</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active =</span> confirmed <span class="op">-</span><span class="st"> </span>death <span class="op">-</span><span class="st"> </span>recovered) <span class="op">%&gt;%</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(active),</span>
-<span id="cb8-10"><a href="#cb8-10"></a>                <span class="dt">recovered_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(recovered),</span>
-<span id="cb8-11"><a href="#cb8-11"></a>                <span class="dt">death_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(death)) <span class="op">%&gt;%</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">x =</span> <span class="op">~</span><span class="st"> </span>date,</span>
-<span id="cb8-13"><a href="#cb8-13"></a>                  <span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>active_total,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>                  <span class="dt">name =</span> <span class="st">'Active'</span>, </span>
-<span id="cb8-15"><a href="#cb8-15"></a>                  <span class="dt">fillcolor =</span> <span class="st">'#1f77b4'</span>,</span>
-<span id="cb8-16"><a href="#cb8-16"></a>                  <span class="dt">type =</span> <span class="st">'scatter'</span>,</span>
-<span id="cb8-17"><a href="#cb8-17"></a>                  <span class="dt">mode =</span> <span class="st">'none'</span>, </span>
-<span id="cb8-18"><a href="#cb8-18"></a>                  <span class="dt">stackgroup =</span> <span class="st">'one'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>death_total, </span>
-<span id="cb8-20"><a href="#cb8-20"></a>             <span class="dt">name =</span> <span class="st">"Death"</span>,</span>
-<span id="cb8-21"><a href="#cb8-21"></a>             <span class="dt">fillcolor =</span> <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span>recovered_total, </span>
-<span id="cb8-23"><a href="#cb8-23"></a>            <span class="dt">name =</span> <span class="st">'Recovered'</span>, </span>
-<span id="cb8-24"><a href="#cb8-24"></a>            <span class="dt">fillcolor =</span> <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/layout">layout</a></span>(<span class="dt">title =</span> <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,</span>
-<span id="cb8-26"><a href="#cb8-26"></a>         <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="fl">0.1</span>, <span class="dt">y =</span> <span class="fl">0.9</span>),</span>
-<span id="cb8-27"><a href="#cb8-27"></a>         <span class="dt">yaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Number of Cases"</span>),</span>
-<span id="cb8-28"><a href="#cb8-28"></a>         <span class="dt">xaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))</span></code></pre></div>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(date)) <span class="op">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(country, type, cases) <span class="op">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(country, type) <span class="op">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type,</span>
+<span id="cb8-9"><a href="#cb8-9"></a>              <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span>confirmed)</span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; # A tibble: 188 x 4</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; # Groups:   country [188]</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;    country      confirmed death recovered</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  1 Chile            36179   232     25699</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  2 Brazil           32188  1269     31041</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  3 US               25559   754      8688</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;  4 India            12881   334      7390</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt;  5 Russia            7824   194     10020</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt;  6 Pakistan          5358   118       778</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt;  7 Mexico            4930   770      3110</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt;  8 Saudi Arabia      4919    39      2122</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt;  9 South Africa      4078    49      2268</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; 10 Bangladesh        4008    43      1925</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; # … with 178 more rows</span></span></code></pre></div>
+<p>Plotting the total cases by type worldwide:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(type, date) <span class="op">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> type, <span class="dt">values_from =</span> total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(date) <span class="op">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active =</span> confirmed <span class="op">-</span><span class="st"> </span>death <span class="op">-</span><span class="st"> </span>recovered) <span class="op">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">active_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(active),</span>
+<span id="cb9-10"><a href="#cb9-10"></a>                <span class="dt">recovered_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(recovered),</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                <span class="dt">death_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(death)) <span class="op">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">x =</span> <span class="op">~</span><span class="st"> </span>date,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>                  <span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>active_total,</span>
+<span id="cb9-14"><a href="#cb9-14"></a>                  <span class="dt">name =</span> <span class="st">'Active'</span>, </span>
+<span id="cb9-15"><a href="#cb9-15"></a>                  <span class="dt">fillcolor =</span> <span class="st">'#1f77b4'</span>,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>                  <span class="dt">type =</span> <span class="st">'scatter'</span>,</span>
+<span id="cb9-17"><a href="#cb9-17"></a>                  <span class="dt">mode =</span> <span class="st">'none'</span>, </span>
+<span id="cb9-18"><a href="#cb9-18"></a>                  <span class="dt">stackgroup =</span> <span class="st">'one'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span><span class="st"> </span>death_total, </span>
+<span id="cb9-20"><a href="#cb9-20"></a>             <span class="dt">name =</span> <span class="st">"Death"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21"></a>             <span class="dt">fillcolor =</span> <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/add_trace">add_trace</a></span>(<span class="dt">y =</span> <span class="op">~</span>recovered_total, </span>
+<span id="cb9-23"><a href="#cb9-23"></a>            <span class="dt">name =</span> <span class="st">'Recovered'</span>, </span>
+<span id="cb9-24"><a href="#cb9-24"></a>            <span class="dt">fillcolor =</span> <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/layout">layout</a></span>(<span class="dt">title =</span> <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,</span>
+<span id="cb9-26"><a href="#cb9-26"></a>         <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="fl">0.1</span>, <span class="dt">y =</span> <span class="fl">0.9</span>),</span>
+<span id="cb9-27"><a href="#cb9-27"></a>         <span class="dt">yaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Number of Cases"</span>),</span>
+<span id="cb9-28"><a href="#cb9-28"></a>         <span class="dt">xaxis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))</span></code></pre></div>
 <p><img src="reference/figures/total_cases.png" width="100%"></p>
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>conf_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(<span class="op">-</span>total_cases) <span class="op">%&gt;%</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">parents =</span> <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">ungroup</a></span>() </span>
-<span id="cb9-8"><a href="#cb9-8"></a>  </span>
-<span id="cb9-9"><a href="#cb9-9"></a>  <span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">data =</span> conf_df,</span>
-<span id="cb9-10"><a href="#cb9-10"></a>          <span class="dt">type=</span> <span class="st">"treemap"</span>,</span>
-<span id="cb9-11"><a href="#cb9-11"></a>          <span class="dt">values =</span> <span class="op">~</span>total_cases,</span>
-<span id="cb9-12"><a href="#cb9-12"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>country,</span>
-<span id="cb9-13"><a href="#cb9-13"></a>          <span class="dt">parents=</span>  <span class="op">~</span>parents,</span>
-<span id="cb9-14"><a href="#cb9-14"></a>          <span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">column=</span><span class="dv">0</span>),</span>
-<span id="cb9-15"><a href="#cb9-15"></a>          <span class="dt">name =</span> <span class="st">"Confirmed"</span>,</span>
-<span id="cb9-16"><a href="#cb9-16"></a>          <span class="dt">textinfo=</span><span class="st">"label+value+percent parent"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>conf_df &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">filter</a></span>(type <span class="op">==</span><span class="st"> "confirmed"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">group_by</a></span>(country) <span class="op">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">summarise</a></span>(<span class="dt">total_cases =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">arrange</a></span>(<span class="op">-</span>total_cases) <span class="op">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">mutate</a></span>(<span class="dt">parents =</span> <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/reexports">ungroup</a></span>() </span>
+<span id="cb10-8"><a href="#cb10-8"></a>  </span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="kw"><a href="https://www.rdocumentation.org/packages/plotly/topics/plot_ly">plot_ly</a></span>(<span class="dt">data =</span> conf_df,</span>
+<span id="cb10-10"><a href="#cb10-10"></a>          <span class="dt">type=</span> <span class="st">"treemap"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11"></a>          <span class="dt">values =</span> <span class="op">~</span>total_cases,</span>
+<span id="cb10-12"><a href="#cb10-12"></a>          <span class="dt">labels=</span> <span class="op">~</span><span class="st"> </span>country,</span>
+<span id="cb10-13"><a href="#cb10-13"></a>          <span class="dt">parents=</span>  <span class="op">~</span>parents,</span>
+<span id="cb10-14"><a href="#cb10-14"></a>          <span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">column=</span><span class="dv">0</span>),</span>
+<span id="cb10-15"><a href="#cb10-15"></a>          <span class="dt">name =</span> <span class="st">"Confirmed"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16"></a>          <span class="dt">textinfo=</span><span class="st">"label+value+percent parent"</span>)</span></code></pre></div>
 <p><img src="reference/figures/treemap_conf.png" width="100%"></p>
 </div>
 <div id="data-sources" class="section level2">
@@ -345,6 +366,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Rami Krispin <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Jarrett Byrnes <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9791-9472" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 </ul>
 </div>
 
@@ -366,7 +388,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 
 
       <footer><div class="copyright">
-  <p>Developed by Rami Krispin.</p>
+  <p>Developed by Rami Krispin, Jarrett Byrnes.</p>
 </div>
 
 <div class="pkgdown">

@@ -1,0 +1,38 @@
+---
+title: "Covid19R Project Data Format"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Covid19R Project Format}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The `refresh_coronavirus_jhu` function enables to pull the `coronavirus` dataset using the [Covid19R](https://covid19r.github.io/documentation/) project [data format standard](https://covid19r.github.io/documentation/data-format-standard.html). This data format includes the following fields:
+
+* `date` - The date of the observation, using `Date` class
+* `location` - The name of the location as provided by John Hopkins raw data
+* `location_type` - The type of the location field, either `country` or `state`
+* `location_code` - The location code, using the `ios_3166_2` format
+* `location_code_type` - The location code type (`ios_3166_2`)
+* `data_type` - The case type, `c("recovered_new", "cases_new", "deaths_new" )`
+* `value` - The number of cases
+* `lat` - The latitude code
+* `long` - The longitude code
+
+
+```{r }
+library(coronavirus)
+
+covid19_df <- refresh_coronavirus_jhu()
+
+head(covid19_df)
+```
+
