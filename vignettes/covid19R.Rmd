@@ -1,5 +1,5 @@
 ---
-title: "Covid19R Project Format"
+title: "Covid19R Project Data Format"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Covid19R Project Format}
