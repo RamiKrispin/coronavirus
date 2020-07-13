@@ -9,3 +9,4 @@
 ^CRAN-RELEASE$
 ^doc$
 ^vignettes/intro_coronavirus_dataset.Rmd$
+^docker$
