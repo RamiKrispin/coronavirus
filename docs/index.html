@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -129,19 +129,19 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(covid19_df)</span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;         date    location location_type location_code location_code_type</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 1 2020-03-03 Afghanistan       country            AF         iso_3166_2</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 2 2020-02-26 Afghanistan       country            AF         iso_3166_2</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 3 2020-03-01 Afghanistan       country            AF         iso_3166_2</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 4 2020-06-21 Afghanistan       country            AF         iso_3166_2</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 5 2020-02-29 Afghanistan       country            AF         iso_3166_2</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 6 2020-02-27 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 1 2020-04-03 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 2 2020-04-18 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 3 2020-04-08 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 4 2020-04-07 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 5 2020-05-30 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 6 2020-04-01 Afghanistan       country            AF         iso_3166_2</span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;       data_type value lat long</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 1     cases_new     0  33   65</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 2     cases_new     0  33   65</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 3     cases_new     0  33   65</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 4 recovered_new   472  33   65</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 5     cases_new     0  33   65</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 6     cases_new     0  33   65</span></span></code></pre></div>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 1 recovered_new     0  33   65</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 2     cases_new    27  33   65</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 3    deaths_new     0  33   65</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 4    deaths_new     3  33   65</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 5 recovered_new    44  33   65</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 6 recovered_new     0  33   65</span></span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -185,27 +185,27 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; # A tibble: 20 x 2</span></span>
 <span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;    country        total_cases</span></span>
 <span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  1 US                 2163290</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  2 Brazil              955377</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  3 Russia              552549</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  4 India               366946</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  5 United Kingdom      300717</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  6 Spain               244683</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  7 Peru                240908</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  8 Italy               237828</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  9 Chile               220628</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 10 Iran                195051</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 11 France              194805</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 12 Germany             188604</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; 13 Turkey              182727</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; 14 Pakistan            160118</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; 15 Mexico              159793</span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; 16 Saudi Arabia        141234</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; 17 Canada              101491</span></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; 18 Bangladesh           98489</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; 19 China                84458</span></span>
-<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; 20 Qatar                83174</span></span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2020-06-17):</p>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  1 US                 3245925</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  2 Brazil             1839850</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  3 India               849522</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  4 Russia              719449</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;  5 Peru                322710</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;  6 Chile               312029</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  7 Mexico              295268</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  8 United Kingdom      290504</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  9 South Africa        264184</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 10 Iran                255117</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 11 Spain               253908</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 12 Pakistan            248872</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; 13 Italy               242827</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; 14 Saudi Arabia        229480</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; 15 Turkey              211981</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; 16 France              208015</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; 17 Germany             199709</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; 18 Bangladesh          181129</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; 19 Colombia            140776</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; 20 Canada              109150</span></span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2020-07-11):</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>coronavirus <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -220,16 +220,16 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; # Groups:   country [188]</span></span>
 <span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;    country      confirmed death recovered</span></span>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  1 Chile            36179   232     25699</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  2 Brazil           32188  1269     31041</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  3 US               25559   754      8688</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;  4 India            12881   334      7390</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt;  5 Russia            7824   194     10020</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt;  6 Pakistan          5358   118       778</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt;  7 Mexico            4930   770      3110</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt;  8 Saudi Arabia      4919    39      2122</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt;  9 South Africa      4078    49      2268</span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; 10 Bangladesh        4008    43      1925</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  1 US               61352   685     12391</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  2 Brazil           39023  1071     26727</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  3 India            28606   550     19232</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;  4 South Africa     13497   111      9483</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt;  5 Colombia          6803   217      2528</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt;  6 Russia            6586   188      8360</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt;  7 Mexico            6094   539      4500</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt;  8 Argentina         3449    36      2424</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt;  9 Peru              3064   182      3514</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; 10 Saudi Arabia      2994    30      2370</span></span>
 <span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; # … with 178 more rows</span></span></code></pre></div>
 <p>Plotting the total cases by type worldwide:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(plotly)</span>
