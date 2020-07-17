@@ -1,8 +1,8 @@
 name: Data Refresh
 
-on: 
-  schedule:
-    - cron:  '0 */4 * * *'
+on: [push]
+  #schedule:
+   # - cron:  '0 */4 * * *'
 jobs:
   data_refresh_dev:
     name: coronavirus dataset refresh
@@ -23,9 +23,9 @@ jobs:
       - name: Push the updates
         if: success()
         run: |
-          if [[ "$(git status --porcelain)" != "" ]]; then
+          #if [[ "$(git status --porcelain)" != "" ]]; then
               git config --global user.name 'RamiKrispin'
               git config --global user.email 'ramkrisp@umich.edu'
               git commit -am "coronavirus dataset autoup date [dev]"
               git push
-          fi
+         # fi
