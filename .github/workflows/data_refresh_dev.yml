@@ -1,4 +1,4 @@
-name: Data Refresh
+name: Data Refresh Dev
 
 on: [push]
   #schedule:
