@@ -13,9 +13,7 @@ jobs:
       - name: checkout_repo
         uses: actions/checkout@v2
         with:
-          repository: ${{ github.repository }}
           ref: 'dev'
-          token: ${{ github.token }}
           clean: 'true'
           fetch-depth: '1'
       - name: Refresh the data
