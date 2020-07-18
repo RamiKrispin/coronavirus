@@ -23,7 +23,7 @@ jobs:
       - name: Push the updates
         if: success()
         run: |
-              ls
+              git init
               git config --global user.name 'RamiKrispin'
               git config --global user.email 'ramkrisp@umich.edu'
               git commit -am 'coronavirus dataset autoup date [dev]'
