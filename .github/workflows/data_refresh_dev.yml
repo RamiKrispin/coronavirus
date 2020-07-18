@@ -13,6 +13,7 @@ jobs:
       - name: checkout_repo
         uses: actions/checkout@v2
         with:
+          repository: 'RamiKrispin/coronavirus'
           ref: 'dev'
           clean: 'true'
           fetch-depth: '1'
