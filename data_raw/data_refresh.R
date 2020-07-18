@@ -2,6 +2,9 @@
 # Pulling the coronvirus data from John Hopkins repo
 # https://github.com/CSSEGISandData/COVID-19
 data_refresh <- function(branch = "master"){
+
+  print(branch)
+  print(system(command = "git branch", intern = TRUE))
   #----------------------------------------------------
   # Setting functions
   `%>%` <- magrittr::`%>%`
