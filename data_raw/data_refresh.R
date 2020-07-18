@@ -3,8 +3,6 @@
 # https://github.com/CSSEGISandData/COVID-19
 data_refresh <- function(branch = "master"){
 
-  print(branch)
-  print(system(command = "git branch", intern = TRUE))
   #----------------------------------------------------
   # Setting functions
   `%>%` <- magrittr::`%>%`
@@ -229,7 +227,7 @@ data_refresh <- function(branch = "master"){
 
 }
 
-branch <- trimws(system(command = "git branch", intern = TRUE)[2])
-data_refresh(branch = branch)
+
+data_refresh(branch = "dev")
 
 
