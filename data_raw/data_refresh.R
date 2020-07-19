@@ -1,14 +1,13 @@
 #----------------------------------------------------
 # Pulling the coronvirus data from John Hopkins repo
 # https://github.com/CSSEGISandData/COVID-19
-data_refresh <- function(branch = "master"){
-
+data_refresh <- function(){
   #----------------------------------------------------
   # Setting functions
   `%>%` <- magrittr::`%>%`
   #----------------------------------------------------
   #------------ Pulling confirmed cases------------
-  conf_url <-  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+  conf_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
   raw_conf <- read.csv(file = conf_url,
                        stringsAsFactors = FALSE)
 
@@ -201,7 +200,7 @@ data_refresh <- function(branch = "master"){
     stop("The starting date is invalid")
   }
 
-  git_df <- read.csv(sprintf("https://raw.githubusercontent.com/RamiKrispin/coronavirus/%s/csv/coronavirus.csv", branch), stringsAsFactors = FALSE)
+  git_df <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", stringsAsFactors = FALSE)
 
   git_df$date <- as.Date(git_df$date)
   if(ncol(git_df) != 7){
@@ -227,7 +226,5 @@ data_refresh <- function(branch = "master"){
 
 }
 
-
-data_refresh(branch = "dev")
-
+data_refresh()
 
