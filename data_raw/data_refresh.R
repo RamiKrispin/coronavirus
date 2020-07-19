@@ -227,5 +227,3 @@ data_refresh <- function(){
 }
 
 data_refresh()
-
-

@@ -61,6 +61,7 @@ refresh_coronavirus_jhu <- function(){
     col_order <- c( "date", "location", "location_type",
                    "location_code", "location_code_type", "data_type",
                    "value", "lat", "long")
+    df$date <- as.Date(df$date)
 
     return(df[,col_order])
   }
