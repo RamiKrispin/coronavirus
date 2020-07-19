@@ -94,7 +94,7 @@ get_info_coronavirus <- function(){
     data_types = "cases_new, recovered_new, deaths_new",
     location_types = "country, state",
     spatial_extent = "global",
-    TRUE
+    has_geospatial_info = TRUE
   )
 }
 
