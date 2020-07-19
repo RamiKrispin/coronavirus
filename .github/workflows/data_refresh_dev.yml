@@ -19,12 +19,12 @@ jobs:
       - name: Push the updates
         if: success()
         run: |
-          if [[ "$(git status --porcelain)" != "" ]]; then
-              git init
+          #if [[ "$(git status --porcelain)" != "" ]]; then
               git config --global user.name 'RamiKrispin'
               git config --global user.email 'ramkrisp@umich.edu'
+              git status
               git add data/*
               git add csv/*
               git commit -m 'coronavirus dataset autoup date [dev]'
               git push origin dev
-          fi
+          #fi
