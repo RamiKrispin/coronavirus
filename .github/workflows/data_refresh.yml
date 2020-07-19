@@ -4,7 +4,7 @@ on:
   schedule:
     - cron:  '0 */4 * * *'
 jobs:
-  data refresh master:
+  data_refresh_master:
     name: coronavirus dataset refresh
     runs-on: macOS-latest
     steps:
