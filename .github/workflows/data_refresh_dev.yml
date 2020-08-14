@@ -15,16 +15,4 @@ jobs:
         with: 
           ref: 'dev'
       - name: Refresh the data
-        run: Rscript ./data_raw/data_refresh.R
-      - name: Push the updates
-        if: success()
-        run: |
-          if [[ "$(git status --porcelain)" != "" ]]; then
-              git config --global user.name 'RamiKrispin'
-              git config --global user.email 'ramkrisp@umich.edu'
-              git status
-              git add data/*
-              git add csv/*
-              git commit -m 'coronavirus dataset autoup date [dev]'
-              git push origin dev
-          fi
+        run: bash ./data_raw/data_refresh.sh
