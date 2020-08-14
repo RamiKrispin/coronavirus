@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo $1
-
 echo "Updating the total dataset"
 Rscript -e "./data_raw/data_refresh.R"
 
