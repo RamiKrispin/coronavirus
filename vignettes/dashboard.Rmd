@@ -1,5 +1,5 @@
 ---
-title: "Covid19 Italy Dashboard"
+title: "Coronavirus Dashboard"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{intro}
