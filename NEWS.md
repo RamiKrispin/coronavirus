@@ -1,3 +1,8 @@
+# coronavirus 0.3.0.9000
+
+* Add docker framework for the package dashboard 
+* Update the data refresh function and docker image
+
 # coronavirus 0.3.0
 
 * Added the `refresh_coronavirus_jhu` function for pulling the `coronavirus` dataset using the covid19R project format
