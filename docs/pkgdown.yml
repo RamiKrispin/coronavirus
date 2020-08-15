@@ -3,6 +3,7 @@ pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
   covid19R: covid19R.html
+  dashboard: dashboard.html
   intro_coronavirus_dataset: intro_coronavirus_dataset.html
   update_dataset_function: update_dataset_function.html
 
