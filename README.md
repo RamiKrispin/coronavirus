@@ -38,7 +38,7 @@ Library
 
 ## Important Note
 
-As this an ongoing situation, frequent changes in the data format may
+As this is an ongoing situation, frequent changes in the data format may
 occur, please visit the package news to get updates about those changes
 
 ## Installation
