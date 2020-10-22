@@ -42,7 +42,7 @@ update_dataset <- function(silence = FALSE){
 
   if(flag){
     if(!silence){
-      q <- base::tolower(base::readline("Updates are available on the coronavirus Dev version, do you want to update? n/Y"))
+      q <- base::tolower(base::readline("Updates are available on the coronavirus Dev version, do you want to update? y/n"))
     } else {
       q <- "y"
     }
@@ -54,8 +54,8 @@ update_dataset <- function(silence = FALSE){
                                    upgrade = "never",
                                    ref = "master")
 
-          # base::message("The data was refresed, please restart your session to have the new data available")
-          # If library is loaded, auto onload and load the library to have the new data available
+          # base::message("The data was refreshed, please restart your session to make the new data available")
+          # If library is loaded, this unloads and reloads the library to make the new data available.
           if ("coronavirus" %in% names(utils::sessionInfo()$otherPkgs)) { 
             detach(package:coronavirus, unload = TRUE)
             library(coronavirus)
