@@ -66,7 +66,7 @@ update_dataset <- function(silence = FALSE){
           print(e)
         },
         warning = function(w){
-          message('Caught an warning!')
+          message('Caught a warning!')
           print(w)
         }
 
