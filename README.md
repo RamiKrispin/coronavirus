@@ -16,8 +16,8 @@ commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](http
 
 <!-- badges: end -->
 
-The coronavirus package provides a tidy format dataset of the 2019 Novel
-Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the
+The coronavirus package provides a tidy format dataset of the 2019-2020 
+Coronavirus disease COVID-19 epidemic. The raw data pulled from the
 Johns Hopkins University Center for Systems Science and Engineering (JHU
 CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
@@ -49,7 +49,7 @@ Install the CRAN version:
 install.packages("coronavirus")
 ```
 
-Install the Github version (refreshed on a daily bases):
+Install the Github version (refreshed on a daily basis):
 
 ``` r
 # install.packages("devtools")
@@ -62,7 +62,7 @@ While the **coronavirus** [CRAN
 version](https://cran.r-project.org/package=coronavirus) is updated
 every month or two, the [Github (Dev)
 version](https://github.com/RamiKrispin/coronavirus) is updated on a
-daily bases. The `update_dataset` function enables to overcome this gap
+daily basis. The `update_dataset` function enables to overcome this gap
 and keep the installed version with the most recent data available on
 the Github version:
 
