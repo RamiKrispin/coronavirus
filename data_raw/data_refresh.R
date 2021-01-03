@@ -189,7 +189,8 @@ data_refresh <- function(){
   # Aggregate the data to daily
   df_rec2 <- df_rec1 %>%
     dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp)) %>%
+    dplyr::summarise(cases = sum(cases_temp),
+                     .groups = "drop") %>%
     dplyr::ungroup() %>%
     dplyr::mutate(type = "recovered",
                   Country.Region = trimws(Country.Region),
