@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   message=FALSE, 
   warning=FALSE
 )
-
+ 
 library(coronavirus)
 ``` 
 # coronavirus <a href='https://RamiKrispin.github.io/coronavirus/'><img src='man/figures/coronavirus.png' align="right"  /></a>
