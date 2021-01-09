@@ -1,33 +1,30 @@
-name: Data Refresh
+name: Data Refresh Dev
 
 on: 
   schedule:
     - cron:  '0 */4 * * *'
 jobs:
-  data_refresh_master:
-    name: coronavirus dataset refresh
-    runs-on: macOS-latest
+  data_refresh_dev:
+    name: coronavirus dataset refresh dev
+    runs-on: ubuntu-18.04 
+    container: 
+     image: rkrispin/coronavirus:dev
     steps:
       - name: checkout_repo
         uses: actions/checkout@v2
-      - name: set_R
-        uses: r-lib/actions/setup-r@master
-        with:
-          repository: ${{ github.repository }}
-          ref: 'master'
-          token: ${{ github.token }}
-          clean: 'true'
-          fetch-depth: '1'
-      - name: Install dependencies
-        run: Rscript -e "install.packages(c('dplyr', 'lubridate', 'usethis', 'remotes'))" -e "remotes::install_deps(dependencies = TRUE)"
+        with: 
+          ref: 'dev'
       - name: Refresh the data
-        run: Rscript ./data_raw/data_refresh.R
-      - name: Push the updates
-        if: success()
-        run: |
-          if [[ "$(git status --porcelain)" != "" ]]; then
-              git config --global user.name 'RamiKrispin'
-              git config --global user.email 'ramkrisp@umich.edu'
-              git commit -am "coronavirus dataset autoupdate"
-              git push
-          fi
+        run: bash ./data_raw/data_refresh.sh
+  data_refresh_master:
+    name: coronavirus dataset refresh master
+    runs-on: ubuntu-18.04 
+    container: 
+     image: rkrispin/coronavirus:dev
+    steps:
+      - name: checkout_repo
+        uses: actions/checkout@v2
+        with: 
+          ref: 'master'
+      - name: Refresh the data
+        run: bash ./data_raw/data_refresh.sh

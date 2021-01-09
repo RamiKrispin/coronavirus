@@ -52,13 +52,16 @@ data_refresh <- function(){
   df_conf1$day <- strsplit(df_conf1$date_temp, split = "\\.") %>%
     purrr::map_chr(~.x[2])
 
+  df_conf1$year <- strsplit(df_conf1$date_temp, split = "\\.") %>%
+    purrr::map_chr(~.x[3])
 
-  df_conf1$date <- as.Date(paste("2020", df_conf1$month, df_conf1$day, sep = "-"))
+  df_conf1$date <- as.Date(paste(paste("20", df_conf1$year, sep = ""),df_conf1$month, df_conf1$day, sep = "-"))
 
   # Aggregate the data to daily
   df_conf2 <- df_conf1 %>%
     dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp)) %>%
+    dplyr::summarise(cases = sum(cases_temp),
+                     .groups = "drop") %>%
     dplyr::ungroup() %>%
     dplyr::mutate(type = "confirmed",
                   Country.Region = trimws(Country.Region),
@@ -112,13 +115,17 @@ data_refresh <- function(){
   df_death1$day <- strsplit(df_death1$date_temp, split = "\\.") %>%
     purrr::map_chr(~.x[2])
 
+  df_death1$year <- strsplit(df_death1$date_temp, split = "\\.") %>%
+    purrr::map_chr(~.x[3])
 
-  df_death1$date <- as.Date(paste("2020", df_death1$month, df_death1$day, sep = "-"))
+
+  df_death1$date <- as.Date(paste(paste("20", df_death1$year, sep = ""), df_death1$month, df_death1$day, sep = "-"))
 
   # Aggregate the data to daily
   df_death2 <- df_death1 %>%
     dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp)) %>%
+    dplyr::summarise(cases = sum(cases_temp),
+                     .groups = "drop") %>%
     dplyr::ungroup() %>%
     dplyr::mutate(type = "death",
                   Country.Region = trimws(Country.Region),
@@ -173,13 +180,17 @@ data_refresh <- function(){
   df_rec1$day <- strsplit(df_rec1$date_temp, split = "\\.") %>%
     purrr::map_chr(~.x[2])
 
+  df_rec1$year <- strsplit(df_rec1$date_temp, split = "\\.") %>%
+    purrr::map_chr(~.x[3])
 
-  df_rec1$date <- as.Date(paste("2020", df_rec1$month, df_rec1$day, sep = "-"))
+
+  df_rec1$date <- as.Date(paste(paste("20", df_rec1$year, sep = ""), df_rec1$month, df_rec1$day, sep = "-"))
 
   # Aggregate the data to daily
   df_rec2 <- df_rec1 %>%
     dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp)) %>%
+    dplyr::summarise(cases = sum(cases_temp),
+                     .groups = "drop") %>%
     dplyr::ungroup() %>%
     dplyr::mutate(type = "recovered",
                   Country.Region = trimws(Country.Region),
