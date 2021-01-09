@@ -3,7 +3,7 @@
 * Data is up-to-date up to Jan 7th 2021
 * Add docker framework for the package dashboard 
 * Update the data refresh function and docker image
-* Removing the `refresh_coronavirus_jhu` due to the lake of maintenance of the source data
+* Removing the `refresh_coronavirus_jhu` due to the lake of maintenance of the covid19R project
 
 # coronavirus 0.3.0
 
