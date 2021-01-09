@@ -67,15 +67,6 @@ update_dataset()
 
 **Note:** must restart the R session to have the updates available
 
-Alternatively, you can pull the data using the [Covid19R](https://covid19r.github.io/documentation/) project [data standard format](https://covid19r.github.io/documentation/data-format-standard.html) with the `refresh_coronavirus_jhu` function:
-
-```{r}
-covid19_df <- refresh_coronavirus_jhu()
-
-head(covid19_df)
-```
-
-
 ## Dashboard
 
 A supporting dashboard is available [here](https://ramikrispin.github.io/coronavirus_dashboard/)
@@ -201,10 +192,10 @@ p <- coronavirus %>%
          yaxis = list(title = "Number of Cases"),
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 
-orca(p, "man/figures/total_cases.png")
+orca(p, "man/figures/total_cases.svg")
 ```
 
-<img src="man/figures/total_cases.png" width="100%" />
+<img src="man/figures/total_cases.svg" width="100%" />
 
 Plot the confirmed cases distribution by counrty with treemap plot:
 
@@ -246,10 +237,10 @@ p <-   plot_ly(data = conf_df,
           name = "Confirmed",
           textinfo="label+value+percent parent")
   
-orca(p, "man/figures/treemap_conf.png")
+orca(p, "man/figures/treemap_conf.svg")
 ```
 
-<img src="man/figures/treemap_conf.png" width="100%" />
+<img src="man/figures/treemap_conf.svg" width="100%" />
 
 ## Data Sources
 

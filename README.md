@@ -16,8 +16,8 @@ commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](http
 
 <!-- badges: end -->
 
-The coronavirus package provides a tidy format dataset of the 2019-2020 
-Coronavirus disease COVID-19 epidemic. The raw data pulled from the
+The coronavirus package provides a tidy format dataset of the 2019 Novel
+Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the
 Johns Hopkins University Center for Systems Science and Engineering (JHU
 CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
@@ -47,7 +47,7 @@ Install the CRAN version:
 install.packages("coronavirus")
 ```
 
-Install the Github version (refreshed on a daily basis):
+Install the Github version (refreshed on a daily bases):
 
 ``` r
 # install.packages("devtools")
@@ -60,7 +60,7 @@ While the **coronavirus** [CRAN
 version](https://cran.r-project.org/package=coronavirus) is updated
 every month or two, the [Github (Dev)
 version](https://github.com/RamiKrispin/coronavirus) is updated on a
-daily basis. The `update_dataset` function enables to overcome this gap
+daily bases. The `update_dataset` function enables to overcome this gap
 and keep the installed version with the most recent data available on
 the Github version:
 
@@ -70,25 +70,6 @@ update_dataset()
 ```
 
 **Note:** must restart the R session to have the updates available
-
-Alternatively, you can pull the data using the
-[Covid19R](https://covid19r.github.io/documentation/) project [data
-standard
-format](https://covid19r.github.io/documentation/data-format-standard.html)
-with the `refresh_coronavirus_jhu` function:
-
-``` r
-covid19_df <- refresh_coronavirus_jhu()
-
-head(covid19_df)
-#>         date    location location_type location_code location_code_type  data_type value      lat      long
-#> 1 2020-04-05 Afghanistan       country            AF         iso_3166_2  cases_new    38 33.93911 67.709953
-#> 2 2020-08-12 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953
-#> 3 2020-08-10 Afghanistan       country            AF         iso_3166_2 deaths_new     8 33.93911 67.709953
-#> 4 2020-08-15 Afghanistan       country            AF         iso_3166_2  cases_new    45 33.93911 67.709953
-#> 5 2020-10-09 Afghanistan       country            AF         iso_3166_2  cases_new    77 33.93911 67.709953
-#> 6 2020-04-03 Afghanistan       country            AF         iso_3166_2  cases_new    35 33.93911 67.709953
-```
 
 ## Dashboard
 
@@ -139,30 +120,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                19968087
-#>  2 India             10266674
-#>  3 Brazil             7675973
-#>  4 Russia             3127347
-#>  5 France             2677666
-#>  6 United Kingdom     2496231
-#>  7 Turkey             2208652
-#>  8 Italy              2107166
-#>  9 Spain              1928265
-#> 10 Germany            1760520
-#> 11 Colombia           1642775
-#> 12 Argentina          1625514
-#> 13 Mexico             1426094
-#> 14 Poland             1294878
-#> 15 Iran               1225142
-#> 16 Ukraine            1086997
-#> 17 South Africa       1057161
-#> 18 Peru               1015137
-#> 19 Netherlands         808382
-#> 20 Indonesia           743198
+#>  1 US                21574043
+#>  2 India             10413417
+#>  3 Brazil             7961673
+#>  4 Russia             3297833
+#>  5 United Kingdom     2898052
+#>  6 France             2763370
+#>  7 Turkey             2296102
+#>  8 Italy              2220361
+#>  9 Spain              2024904
+#> 10 Germany            1886561
+#> 11 Colombia           1737347
+#> 12 Argentina          1690006
+#> 13 Mexico             1493569
+#> 14 Poland             1356882
+#> 15 Iran               1268263
+#> 16 South Africa       1170590
+#> 17 Ukraine            1133802
+#> 18 Peru               1022018
+#> 19 Netherlands         862805
+#> 20 Indonesia           797723
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2020-12-31):
+2021-01-07):
 
 ``` r
 library(tidyr)
@@ -177,48 +158,48 @@ coronavirus %>%
   arrange(-confirmed)
 #> # A tibble: 191 x 4
 #> # Groups:   country [191]
-#>    country        confirmed death recovered
-#>    <chr>              <int> <int>     <int>
-#>  1 US                227315  3419         0
-#>  2 Brazil             56773  1074     34752
-#>  3 United Kingdom     56029   965        65
-#>  4 Russia             27329   579     28257
-#>  5 Italy              23477   555     17421
-#>  6 France             20042   251      1176
-#>  7 Germany            19367   561      4756
-#>  8 Spain              18047   148         0
-#>  9 South Africa       18000   436     12074
-#> 10 Czechia            17039   151      8098
-#> 11 Colombia           16314   304     11239
-#> 12 Turkey             14380   239     22021
-#> 13 Poland             13464   535     10249
-#> 14 Mexico             12159   910      8024
-#> 15 Argentina          11586    82         0
-#> 16 Ukraine            10117   223     12468
-#> 17 Netherlands         9790   108       196
-#> 18 Indonesia           8074   194      7356
-#> 19 Portugal            7627    76      3260
-#> 20 Canada              7143   134      3409
-#> 21 Israel              6678    18      4037
-#> 22 Iran                6389   128     10119
-#> 23 Slovakia            6315    73      1544
-#> 24 Peru                4641   106         0
-#> 25 Japan               4540    49      1985
-#> 26 Switzerland         4391    51         0
-#> 27 Romania             4322   171      6737
-#> 28 Panama              4046    47      2537
-#> 29 Lebanon             3507    12      1499
-#> 30 Hungary             2971   108      5868
-#> 31 Serbia              2932    48         0
-#> 32 Austria             2913    73      1962
-#> 33 Malaysia            2525     8      1481
-#> 34 Pakistan            2463    71      2156
-#> 35 Slovenia            2412    32      1616
-#> 36 Croatia             2391    60      1733
-#> 37 Lithuania           2360    36      4543
-#> 38 Belgium             2254    87         0
-#> 39 Denmark             2254    42      4329
-#> 40 Chile               2023   109      1787
+#>    country              confirmed death recovered
+#>    <chr>                    <int> <int>     <int>
+#>  1 US                      274703  4085         0
+#>  2 Brazil                   87843  1524     48235
+#>  3 United Kingdom           52787  1162        72
+#>  4 Germany                  45333  1152     20837
+#>  5 Spain                    42360   245         0
+#>  6 Russia                   23218   491     23379
+#>  7 South Africa             20999   441      8977
+#>  8 Italy                    18416   414     15659
+#>  9 India                    18139   234     20539
+#> 10 Czechia                  17773   185     11211
+#> 11 Colombia                 17576   344     10707
+#> 12 Argentina                13835   146     10746
+#> 13 Mexico                   13734  1044      7503
+#> 14 Sweden                   12536   277         0
+#> 15 Turkey                   12171   194      8211
+#> 16 Poland                   12119   186      7872
+#> 17 Portugal                  9927    95      3476
+#> 18 Netherlands               9745    86        73
+#> 19 Indonesia                 9321   224      6924
+#> 20 Ukraine                   9320   163     11666
+#> 21 Canada                    8227   192      7023
+#> 22 Israel                    7600    23      4545
+#> 23 Japan                     7563    65      3412
+#> 24 Ireland                   6503     8         0
+#> 25 Iran                      6360   103     10032
+#> 26 Romania                   4951   111      4832
+#> 27 Lebanon                   4774    16      1016
+#> 28 Panama                    4135    38      4036
+#> 29 Switzerland               3975    69         0
+#> 30 Chile                     3693    97      2154
+#> 31 Hungary                   3068   127         0
+#> 32 Malaysia                  3027     8      2145
+#> 33 United Arab Emirates      2988     5      3658
+#> 34 Belgium                   2923    53         0
+#> 35 Slovenia                  2821    23      2045
+#> 36 Austria                   2540    43      1927
+#> 37 Pakistan                  2435    47      3313
+#> 38 Tunisia                   2373    48      1816
+#> 39 Lithuania                 2335    40      2272
+#> 40 Slovakia                  2137    60      2623
 #> # … with 151 more rows
 ```
 
@@ -255,7 +236,7 @@ coronavirus %>%
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 ```
 
-<img src="man/figures/total_cases.png" width="100%" />
+<img src="man/figures/total_cases.svg" width="100%" />
 
 Plot the confirmed cases distribution by counrty with treemap plot:
 
@@ -278,7 +259,7 @@ conf_df <- coronavirus %>%
           textinfo="label+value+percent parent")
 ```
 
-<img src="man/figures/treemap_conf.png" width="100%" />
+<img src="man/figures/treemap_conf.svg" width="100%" />
 
 ## Data Sources
 
