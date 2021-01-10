@@ -67,6 +67,13 @@ update_dataset()
 
 **Note:** must restart the R session to have the updates available
 
+Alternatively, you can pull the data using the [Covid19R](https://covid19r.github.io/documentation/) project [data standard format](https://covid19r.github.io/documentation/data-format-standard.html) with the `refresh_coronavirus_jhu` function:
+
+```{r}
+covid19_df <- refresh_coronavirus_jhu()
+head(covid19_df)
+```
+
 ## Dashboard
 
 A supporting dashboard is available [here](https://ramikrispin.github.io/coronavirus_dashboard/)
