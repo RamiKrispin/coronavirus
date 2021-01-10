@@ -1,9 +1,9 @@
 # coronavirus 0.3.1
 
-* Data is up-to-date up to Jan 7th 2021
-* Add docker framework for the package dashboard 
-* Update the data refresh function and docker image
-* Removing the `refresh_coronavirus_jhu` due to the lake of maintenance of the covid19R project
+* Data is up-to-date up to Jan 9th 2021
+* Added docker framework for the package dashboard 
+* Updated the data refresh function and docker image
+* Fixed CRAN warnings
 
 # coronavirus 0.3.0
 
