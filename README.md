@@ -286,10 +286,10 @@ for Systems Science and Engineering (JHU CCSE) from the following
 resources:
 
 -   World Health Organization (WHO): <https://www.who.int/> <br>
--   DXY.cn. Pneumonia. 2020. <http://3g.dxy.cn/newh5/view/pneumonia>.
-    <br>
+-   DXY.cn. Pneumonia. 2020.
+    <https://ncov.dxy.cn/ncovh5/view/pneumonia>. <br>
 -   BNO News:
-    <https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/>
+    <https://bnonews.com/index.php/2020/04/the-latest-coronavirus-cases/>
     <br>
 -   National Health Commission of the People’s Republic of China (NHC):
     <br> http:://www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml <br>
@@ -303,10 +303,11 @@ resources:
     <br>
 -   US CDC: <https://www.cdc.gov/coronavirus/2019-ncov/index.html> <br>
 -   Government of Canada:
-    <https://www.canada.ca/en/public-health/services/diseases/coronavirus.html>
+    <https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html>
     <br>
--   Australia Government Department of Health:
-    <https://www.health.gov.au/news/coronavirus-update-at-a-glance> <br>
+-   Australia Government Department of
+    Health:<https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert>
+    <br>
 -   European Centre for Disease Prevention and Control (ECDC):
     <https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases>
 -   Ministry of Health Singapore (MOH):
@@ -320,9 +321,9 @@ resources:
     from “Currently” and “Cumulative” Hospitalized for our
     hospitalization number reported for each state.)
 -   French Government: <https://dashboard.covid19.data.gouv.fr/>
--   COVID Live (Australia): <https://www.covidlive.com.au/>
--   Washington State Department of Health:
-    <https://www.doh.wa.gov/emergencies/coronavirus>
+-   COVID Live (Australia): <https://covidlive.com.au/>
+-   Washington State Department of
+    Health:<https://www.doh.wa.gov/Emergencies/COVID19>
 -   Maryland Department of Health: <https://coronavirus.maryland.gov/>
 -   New York State Department of Health:
     <https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data>
@@ -336,4 +337,4 @@ resources:
 -   Palestine (West Bank and Gaza): <https://corona.ps/details>
 -   Israel:
     <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
--   Colorado: <https://covid19.colorado.gov/covid-19-data>
+-   Colorado: <https://covid19.colorado.gov/data>)

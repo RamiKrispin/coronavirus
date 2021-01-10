@@ -129,6 +129,18 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="fu"><a href="reference/update_dataset.html">update_dataset</a></span>()
 </pre></div>
 <p><strong>Note:</strong> must restart the R session to have the updates available</p>
+<p>Alternatively, you can pull the data using the <a href="https://covid19r.github.io/documentation/">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html">data standard format</a> with the <code>refresh_coronavirus_jhu</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">covid19_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span>()
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">covid19_df</span>)
+<span class="co">#&gt;         date    location location_type location_code location_code_type  data_type value      lat      long</span>
+<span class="co">#&gt; 1 2020-01-25 Afghanistan       country            AF         iso_3166_2  cases_new     0 33.93911 67.709953</span>
+<span class="co">#&gt; 2 2020-03-25 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953</span>
+<span class="co">#&gt; 3 2020-01-24 Afghanistan       country            AF         iso_3166_2  cases_new     0 33.93911 67.709953</span>
+<span class="co">#&gt; 4 2020-01-23 Afghanistan       country            AF         iso_3166_2  cases_new     0 33.93911 67.709953</span>
+<span class="co">#&gt; 5 2020-09-26 Afghanistan       country            AF         iso_3166_2 deaths_new     2 33.93911 67.709953</span>
+<span class="co">#&gt; 6 2020-09-25 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953</span>
+</pre></div>
 </div>
 <div id="dashboard" class="section level2">
 <h2 class="hasAnchor">
@@ -139,7 +151,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"coronavirus"</span>)
 </pre></div>
 <p>This <code>coronavirus</code> dataset has the following fields:</p>
@@ -159,7 +171,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li>
 <code>cases</code> - the number of daily cases (corresponding to the case type)</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus</span>)
 <span class="co">#&gt;         date province     country      lat      long      type cases</span>
 <span class="co">#&gt; 1 2020-01-22          Afghanistan 33.93911 67.709953 confirmed     0</span>
@@ -170,7 +182,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; 6 2020-01-27          Afghanistan 33.93911 67.709953 confirmed     0</span>
 </pre></div>
 <p>Summary of the total confrimed cases by country (top 20):</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
 
 <span class="kw">summary_df</span> <span class="op">&lt;-</span> <span class="kw">coronavirus</span> <span class="op">%&gt;%</span> 
@@ -183,29 +195,29 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # A tibble: 20 x 2</span>
 <span class="co">#&gt;    country        total_cases</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span>
-<span class="co">#&gt;  1 US                21574043</span>
-<span class="co">#&gt;  2 India             10413417</span>
-<span class="co">#&gt;  3 Brazil             7961673</span>
-<span class="co">#&gt;  4 Russia             3297833</span>
-<span class="co">#&gt;  5 United Kingdom     2898052</span>
-<span class="co">#&gt;  6 France             2763370</span>
-<span class="co">#&gt;  7 Turkey             2296102</span>
-<span class="co">#&gt;  8 Italy              2220361</span>
-<span class="co">#&gt;  9 Spain              2024904</span>
-<span class="co">#&gt; 10 Germany            1886561</span>
-<span class="co">#&gt; 11 Colombia           1737347</span>
-<span class="co">#&gt; 12 Argentina          1690006</span>
-<span class="co">#&gt; 13 Mexico             1493569</span>
-<span class="co">#&gt; 14 Poland             1356882</span>
-<span class="co">#&gt; 15 Iran               1268263</span>
-<span class="co">#&gt; 16 South Africa       1170590</span>
-<span class="co">#&gt; 17 Ukraine            1133802</span>
-<span class="co">#&gt; 18 Peru               1022018</span>
-<span class="co">#&gt; 19 Netherlands         862805</span>
-<span class="co">#&gt; 20 Indonesia           797723</span>
+<span class="co">#&gt;  1 US                22136627</span>
+<span class="co">#&gt;  2 India             10450284</span>
+<span class="co">#&gt;  3 Brazil             8075998</span>
+<span class="co">#&gt;  4 Russia             3344175</span>
+<span class="co">#&gt;  5 United Kingdom     3026342</span>
+<span class="co">#&gt;  6 France             2824920</span>
+<span class="co">#&gt;  7 Turkey             2317118</span>
+<span class="co">#&gt;  8 Italy              2257866</span>
+<span class="co">#&gt;  9 Spain              2050360</span>
+<span class="co">#&gt; 10 Germany            1928462</span>
+<span class="co">#&gt; 11 Colombia           1771363</span>
+<span class="co">#&gt; 12 Argentina          1714409</span>
+<span class="co">#&gt; 13 Mexico             1524036</span>
+<span class="co">#&gt; 14 Poland             1376389</span>
+<span class="co">#&gt; 15 Iran               1280438</span>
+<span class="co">#&gt; 16 South Africa       1214176</span>
+<span class="co">#&gt; 17 Ukraine            1144943</span>
+<span class="co">#&gt; 18 Peru               1026180</span>
+<span class="co">#&gt; 19 Netherlands         878443</span>
+<span class="co">#&gt; 20 Czechia             822716</span>
 </pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2021-01-07):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<p>Summary of new cases during the past 24 hours by country and type (as of 2021-01-09):</p>
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
 
 <span class="kw">coronavirus</span> <span class="op">%&gt;%</span> 
@@ -220,50 +232,50 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # Groups:   country [191]</span>
 <span class="co">#&gt;    country              confirmed death recovered</span>
 <span class="co">#&gt;    &lt;chr&gt;                    &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 US                      274703  4085         0</span>
-<span class="co">#&gt;  2 Brazil                   87843  1524     48235</span>
-<span class="co">#&gt;  3 United Kingdom           52787  1162        72</span>
-<span class="co">#&gt;  4 Germany                  45333  1152     20837</span>
-<span class="co">#&gt;  5 Spain                    42360   245         0</span>
-<span class="co">#&gt;  6 Russia                   23218   491     23379</span>
-<span class="co">#&gt;  7 South Africa             20999   441      8977</span>
-<span class="co">#&gt;  8 Italy                    18416   414     15659</span>
-<span class="co">#&gt;  9 India                    18139   234     20539</span>
-<span class="co">#&gt; 10 Czechia                  17773   185     11211</span>
-<span class="co">#&gt; 11 Colombia                 17576   344     10707</span>
-<span class="co">#&gt; 12 Argentina                13835   146     10746</span>
-<span class="co">#&gt; 13 Mexico                   13734  1044      7503</span>
-<span class="co">#&gt; 14 Sweden                   12536   277         0</span>
-<span class="co">#&gt; 15 Turkey                   12171   194      8211</span>
-<span class="co">#&gt; 16 Poland                   12119   186      7872</span>
-<span class="co">#&gt; 17 Portugal                  9927    95      3476</span>
-<span class="co">#&gt; 18 Netherlands               9745    86        73</span>
-<span class="co">#&gt; 19 Indonesia                 9321   224      6924</span>
-<span class="co">#&gt; 20 Ukraine                   9320   163     11666</span>
-<span class="co">#&gt; 21 Canada                    8227   192      7023</span>
-<span class="co">#&gt; 22 Israel                    7600    23      4545</span>
-<span class="co">#&gt; 23 Japan                     7563    65      3412</span>
-<span class="co">#&gt; 24 Ireland                   6503     8         0</span>
-<span class="co">#&gt; 25 Iran                      6360   103     10032</span>
-<span class="co">#&gt; 26 Romania                   4951   111      4832</span>
-<span class="co">#&gt; 27 Lebanon                   4774    16      1016</span>
-<span class="co">#&gt; 28 Panama                    4135    38      4036</span>
-<span class="co">#&gt; 29 Switzerland               3975    69         0</span>
-<span class="co">#&gt; 30 Chile                     3693    97      2154</span>
-<span class="co">#&gt; 31 Hungary                   3068   127         0</span>
-<span class="co">#&gt; 32 Malaysia                  3027     8      2145</span>
-<span class="co">#&gt; 33 United Arab Emirates      2988     5      3658</span>
-<span class="co">#&gt; 34 Belgium                   2923    53         0</span>
-<span class="co">#&gt; 35 Slovenia                  2821    23      2045</span>
-<span class="co">#&gt; 36 Austria                   2540    43      1927</span>
-<span class="co">#&gt; 37 Pakistan                  2435    47      3313</span>
-<span class="co">#&gt; 38 Tunisia                   2373    48      1816</span>
-<span class="co">#&gt; 39 Lithuania                 2335    40      2272</span>
-<span class="co">#&gt; 40 Slovakia                  2137    60      2623</span>
+<span class="co">#&gt;  1 US                      273854  3735         0</span>
+<span class="co">#&gt;  2 Brazil                   62290  1171     68593</span>
+<span class="co">#&gt;  3 United Kingdom           60098  1035       153</span>
+<span class="co">#&gt;  4 India                    36867   429     38552</span>
+<span class="co">#&gt;  5 Russia                   23012   456     23387</span>
+<span class="co">#&gt;  6 Germany                  22824   575     13063</span>
+<span class="co">#&gt;  7 South Africa             21606   399      8793</span>
+<span class="co">#&gt;  8 France                   20177   168       879</span>
+<span class="co">#&gt;  9 Italy                    19976   483     17040</span>
+<span class="co">#&gt; 10 Mexico                   16105  1135      8377</span>
+<span class="co">#&gt; 11 Colombia                 15795   353     12404</span>
+<span class="co">#&gt; 12 Czechia                  13115   178      2194</span>
+<span class="co">#&gt; 13 Argentina                11057   144      9434</span>
+<span class="co">#&gt; 14 Poland                   10744   437      9139</span>
+<span class="co">#&gt; 15 Indonesia                10046   194      6628</span>
+<span class="co">#&gt; 16 Turkey                    9537   181      7902</span>
+<span class="co">#&gt; 17 Portugal                  9478   111      5899</span>
+<span class="co">#&gt; 18 Canada                    8393   134      6611</span>
+<span class="co">#&gt; 19 Israel                    8077    49      3543</span>
+<span class="co">#&gt; 20 Japan                     7790    59      3632</span>
+<span class="co">#&gt; 21 Netherlands               7380   137       202</span>
+<span class="co">#&gt; 22 Iran                      5924    82      8812</span>
+<span class="co">#&gt; 23 Lebanon                   5414    20      1730</span>
+<span class="co">#&gt; 24 Ukraine                   5143    94      8254</span>
+<span class="co">#&gt; 25 Ireland                   4843     9         0</span>
+<span class="co">#&gt; 26 Romania                   4403    86      1508</span>
+<span class="co">#&gt; 27 Chile                     4361    63      3805</span>
+<span class="co">#&gt; 28 Slovakia                  4072    48      3122</span>
+<span class="co">#&gt; 29 Panama                    3735    43      2183</span>
+<span class="co">#&gt; 30 United Arab Emirates      2998     5      2264</span>
+<span class="co">#&gt; 31 Pakistan                  2899    46      1524</span>
+<span class="co">#&gt; 32 Hungary                   2716   114      6723</span>
+<span class="co">#&gt; 33 Tunisia                   2611    45      1353</span>
+<span class="co">#&gt; 34 Malaysia                  2451     5      1401</span>
+<span class="co">#&gt; 35 Austria                   2278    46      2167</span>
+<span class="co">#&gt; 36 Dominican Republic        2106     0      1164</span>
+<span class="co">#&gt; 37 Georgia                   2058    22       529</span>
+<span class="co">#&gt; 38 Belgium                   1991    46         0</span>
+<span class="co">#&gt; 39 Philippines               1945    34       285</span>
+<span class="co">#&gt; 40 Slovenia                  1889    26       344</span>
 <span class="co">#&gt; # … with 151 more rows</span>
 </pre></div>
 <p>Plotting the total cases by type worldwide:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://plotly-r.com">plotly</a></span>)
 
 <span class="kw">coronavirus</span> <span class="op">%&gt;%</span> 
@@ -295,7 +307,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </pre></div>
 <p><img src="reference/figures/total_cases.svg" width="100%"></p>
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">conf_df</span> <span class="op">&lt;-</span> <span class="kw">coronavirus</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">type</span> <span class="op">==</span> <span class="st">"confirmed"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">country</span>) <span class="op">%&gt;%</span>
@@ -322,9 +334,9 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <ul>
 <li>World Health Organization (WHO): <a href="https://www.who.int/" class="uri">https://www.who.int/</a> <br>
 </li>
-<li>DXY.cn. Pneumonia. 2020. <a href="http://3g.dxy.cn/newh5/view/pneumonia" class="uri">http://3g.dxy.cn/newh5/view/pneumonia</a>. <br>
+<li>DXY.cn. Pneumonia. 2020. <a href="https://ncov.dxy.cn/ncovh5/view/pneumonia" class="uri">https://ncov.dxy.cn/ncovh5/view/pneumonia</a>. <br>
 </li>
-<li>BNO News: <a href="https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/" class="uri">https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/</a> <br>
+<li>BNO News: <a href="https://bnonews.com/index.php/2020/04/the-latest-coronavirus-cases/" class="uri">https://bnonews.com/index.php/2020/04/the-latest-coronavirus-cases/</a> <br>
 </li>
 <li>National Health Commission of the People’s Republic of China (NHC): <br><a href="http:://www.nhc.gov.cn/xcs/yqtb/list%5C_gzbd.shtml" class="uri">http:://www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml</a> <br>
 </li>
@@ -338,9 +350,9 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>US CDC: <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" class="uri">https://www.cdc.gov/coronavirus/2019-ncov/index.html</a> <br>
 </li>
-<li>Government of Canada: <a href="https://www.canada.ca/en/public-health/services/diseases/coronavirus.html" class="uri">https://www.canada.ca/en/public-health/services/diseases/coronavirus.html</a> <br>
+<li>Government of Canada: <a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html" class="uri">https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html</a> <br>
 </li>
-<li>Australia Government Department of Health: <a href="https://www.health.gov.au/news/coronavirus-update-at-a-glance" class="uri">https://www.health.gov.au/news/coronavirus-update-at-a-glance</a> <br>
+<li>Australia Government Department of Health:<a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert" class="uri">https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert</a> <br>
 </li>
 <li>European Centre for Disease Prevention and Control (ECDC): <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases" class="uri">https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases</a>
 </li>
@@ -355,9 +367,9 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li>COVID Tracking Project: <a href="https://covidtracking.com/data" class="uri">https://covidtracking.com/data</a>. (US Testing and Hospitalization Data. We use the maximum reported value from “Currently” and “Cumulative” Hospitalized for our hospitalization number reported for each state.)</li>
 <li>French Government: <a href="https://dashboard.covid19.data.gouv.fr/" class="uri">https://dashboard.covid19.data.gouv.fr/</a>
 </li>
-<li>COVID Live (Australia): <a href="https://www.covidlive.com.au/" class="uri">https://www.covidlive.com.au/</a>
+<li>COVID Live (Australia): <a href="https://covidlive.com.au/" class="uri">https://covidlive.com.au/</a>
 </li>
-<li>Washington State Department of Health: <a href="https://www.doh.wa.gov/emergencies/coronavirus" class="uri">https://www.doh.wa.gov/emergencies/coronavirus</a>
+<li>Washington State Department of Health:<a href="https://www.doh.wa.gov/Emergencies/COVID19" class="uri">https://www.doh.wa.gov/Emergencies/COVID19</a>
 </li>
 <li>Maryland Department of Health: <a href="https://coronavirus.maryland.gov/" class="uri">https://coronavirus.maryland.gov/</a>
 </li>
@@ -371,8 +383,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>Israel: <a href="https://govextra.gov.il/ministry-of-health/corona/corona-virus/" class="uri">https://govextra.gov.il/ministry-of-health/corona/corona-virus/</a>
 </li>
-<li>Colorado: <a href="https://covid19.colorado.gov/covid-19-data" class="uri">https://covid19.colorado.gov/covid-19-data</a>
-</li>
+<li>Colorado: <a href="https://covid19.colorado.gov/data" class="uri">https://covid19.colorado.gov/data</a>)</li>
 </ul>
 </div>
 </div>
