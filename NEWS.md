@@ -1,3 +1,8 @@
+# coronavirus 0.3.2
+
+* Data is up-to-date up to Jan 22th 2021
+* Fixed issue with the data format and refresh function
+
 # coronavirus 0.3.1
 
 * Data is up-to-date up to Jan 9th 2021

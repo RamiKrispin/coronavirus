@@ -22,8 +22,9 @@ Suggests:
     dplyr,
     knitr,
     plotly,
-    rmarkdown,
+    readr,
     remotes,
+    rmarkdown,
     testthat (>= 2.1.0)
 Imports:
   devtools(>= 2.2.2)
