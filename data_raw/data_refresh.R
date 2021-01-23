@@ -136,9 +136,10 @@ data_refresh <- function(){
   #----------------------------------------------------
   # Pulling recovered cases
 
+
   raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",
                       stringsAsFactors = FALSE,
-                      fill =FALSE)
+                      fill =TRUE)
 
   lapply(1:ncol(raw_rec), function(i){
     if(all(is.na(raw_rec[, i]))){
