@@ -10,14 +10,34 @@ pkg_list <- c("dplyr",
               "tidyr",
               "testthat",
               "readr",
-              "usethis")
+              "usethis"
+              )
 
-install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
+
 
 for(i in pkg_list){
 
   if(!i %in% rownames(installed.packages())){
-    stop(paste("Package", i, "is not available"))
+
+    install.packages(pkgs = i,
+                     repos = "https://cran.rstudio.com/",
+                     dependencies = TRUE)
   }
+}
+
+flag <- FALSE
+
+for(i in pkg_list){
+
+  if(!i %in% rownames(installed.packages())){
+    cat(i, "...Failed\n")
+    flag <- TRUE
+  } else {
+    cat(i, "...OK\n")
+  }
+}
+
+if(flag){
+  stop("Failed to install one or more packages...")
 }
 
