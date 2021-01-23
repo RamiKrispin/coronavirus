@@ -28,10 +28,33 @@ The `refresh_coronavirus_jhu` function enables to pull the `coronavirus` dataset
 * `long` - The longitude code
 
 
-```{r }
+``` r 
 library(coronavirus)
 
 covid19_df <- refresh_coronavirus_jhu()
+#> Parsed with column specification:
+#> cols(
+#>   date = col_date(format = ""),
+#>   province = col_character(),
+#>   country = col_character(),
+#>   lat = col_double(),
+#>   long = col_double(),
+#>   type = col_character(),
+#>   cases = col_double()
+#> )
+#> Parsed with column specification:
+#> cols(
+#>   location = col_character(),
+#>   location_code = col_character(),
+#>   location_code_type = col_character()
+#> )
 
 head(covid19_df)
+#>         date        location location_type location_code location_code_type  data_type value     lat      long
+#> 1 2020-10-10 Alberta, Canada         state         CA-AB         iso_3166_2 deaths_new     0 53.9333 -116.5765
+#> 2 2020-08-09 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new     0 53.9333 -116.5765
+#> 3 2020-10-21 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new   406 53.9333 -116.5765
+#> 4 2020-06-15 Alberta, Canada         state         CA-AB         iso_3166_2 deaths_new     1 53.9333 -116.5765
+#> 5 2020-06-13 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new    37 53.9333 -116.5765
+#> 6 2020-06-21 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new    31 53.9333 -116.5765
 ```
