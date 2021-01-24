@@ -166,6 +166,8 @@ data_refresh <- function(){
   coronavirus <- dplyr::bind_rows(conf_df2, death_df2, rec_df2) %>%
     as.data.frame()
 
+  coronavirus$province <- ifelse(is.na(coronavirus$province), "",
+                                 coronavirus$province)
   #---------------- Data validation ----------------
   if(ncol(coronavirus) != 7){
     stop("The number of columns is invalid")
