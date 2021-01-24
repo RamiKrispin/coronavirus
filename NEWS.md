@@ -1,3 +1,7 @@
+# coronavirus 0.3.21
+
+* Fixed issue with the data refresh function - replacing NA on `province` column as empty strings ("")
+
 # coronavirus 0.3.2
 
 * Data is up-to-date up to Jan 22th 2021
