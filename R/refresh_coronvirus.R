@@ -20,11 +20,15 @@
 #' }
 #'
 refresh_coronavirus_jhu <- function(){
+
+
   df <- NULL
 
-  df <- readr::read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv") %>%
-    dplyr::mutate(province = ifelse(is.na(province), "", province)) %>%
-    as.data.frame()
+  df <- readr::read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
+
+  df <- as.data.frame(df)
+  df$province <- ifelse(is.na(df$province), "", df$province)
+
 
   if(base::is.null(df)){
     base::message("Could not refresh the coronavirus dataset, please check your connection")
