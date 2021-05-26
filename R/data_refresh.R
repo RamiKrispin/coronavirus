@@ -24,8 +24,7 @@ update_dataset <- function(silence = FALSE){
   coronavirus_current <- coronavirus::coronavirus
 
 
-  coronavirus_git <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
-                                     stringsAsFactors = FALSE)
+  coronavirus_git <- readr::read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
 
 
 
@@ -56,7 +55,7 @@ update_dataset <- function(silence = FALSE){
 
           # base::message("The data was refresed, please restart your session to have the new data available")
           # If library is loaded, auto onload and load the library to have the new data available
-          if ("coronavirus" %in% names(utils::sessionInfo()$otherPkgs)) { 
+          if ("coronavirus" %in% names(utils::sessionInfo()$otherPkgs)) {
             detach(package:coronavirus, unload = TRUE)
             library(coronavirus)
            }
