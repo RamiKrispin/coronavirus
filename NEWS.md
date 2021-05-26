@@ -1,3 +1,7 @@
+# coronavirus 0.3.22
+
+* Fixed issue with the data parsing - replacing `read.csv` with `read_csv`
+
 # coronavirus 0.3.21
 
 * Fixed issue with the data refresh function - replacing NA on `province` column as empty strings ("")
