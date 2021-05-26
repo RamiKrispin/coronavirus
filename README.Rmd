@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
  
 library(coronavirus)
 ``` 
-# coronavirus <a href='https://RamiKrispin.github.io/coronavirus/'><img src='man/figures/coronavirus.png' align="right"  /></a>
+# coronavirus <a href='https://RamiKrispin.github.io/coronavirus/'><img src='man/figures/coronavirus.png' align="right"  /></a> 
 
  
 <!-- badges: start --->
