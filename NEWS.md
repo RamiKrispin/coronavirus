@@ -1,7 +1,7 @@
 # coronavirus 0.3.22
 
 * Fixed issue with the data parsing - replacing `read.csv` with `read_csv`
-* Data is up-to-date till May 25th, 2021
+* Data is up-to-date till May 26th, 2021
 
 # coronavirus 0.3.21
 
