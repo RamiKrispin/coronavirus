@@ -4,11 +4,12 @@ name: build
 
 jobs:
   R-CMD-check:
-    runs-on: macOS-latest
+    name: R CMD check
+    runs-on: ubuntu-18.04
+    container:
+        image:  docker.io/rkrispin/coronavirus:dev.0.3.2
     steps:
-      - uses: actions/checkout@v1
-      - uses: r-lib/actions/setup-r@master
-      - name: Install dependencies
-        run: Rscript -e "install.packages(c('remotes', 'rcmdcheck', 'Rcpp'))" -e "remotes::install_deps(dependencies = TRUE)"
-      - name: Check
-        run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+       - name: checkout_repo
+         uses: actions/checkout@v2
+       - name: Check
+         run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
