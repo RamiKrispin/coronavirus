@@ -1,4 +1,4 @@
-FROM rkrispin/coronavirus:dev
+FROM rkrispin/coronavirus:dev.0.3.2
 
 ARG RSTUDIO_VERSION
 #ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.1.463}

@@ -10,7 +10,13 @@ pkg_list <- c("dplyr",
               "tidyr",
               "testthat",
               "readr",
-              "usethis"
+              "usethis",
+              "DT",
+              "plotly",
+              "knitr",
+              "remotes",
+              "rmarkdown",
+              "testthat"
               )
 
 
