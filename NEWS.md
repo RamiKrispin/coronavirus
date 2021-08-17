@@ -1,3 +1,7 @@
+# coronavirus 0.3.1.9000
+
+* Stop track recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
+
 # coronavirus 0.3.1
 
 * Data is up-to-date up to Jan 9th 2021
