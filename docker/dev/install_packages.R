@@ -9,6 +9,8 @@ pkg_list <- c("dplyr",
               "rmarkdown",
               "tidyr",
               "testthat",
+              "readr",
+              #"pkgdown",
               "usethis")
 
 install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
