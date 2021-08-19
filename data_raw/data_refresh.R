@@ -1,222 +1,78 @@
-#----------------------------------------------------
+# Info ----
 # Pulling the coronvirus data from John Hopkins repo
 # https://github.com/CSSEGISandData/COVID-19
 data_refresh <- function(){
-  #----------------------------------------------------
-  # Setting functions
+
+  # Functions ----
   `%>%` <- magrittr::`%>%`
-  #----------------------------------------------------
-  #------------ Pulling confirmed cases------------
-  conf_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
-  raw_conf <- read.csv(file = conf_url,
-                       stringsAsFactors = FALSE)
+  parse_url <- function(url, type){
+    raw <- readr::read_csv(file = url) %>%
+      as.data.frame()
 
-  lapply(1:ncol(raw_conf), function(i){
-    if(all(is.na(raw_conf[, i]))){
-      raw_conf <<- raw_conf[, -i]
-      return(print(paste("Column", names(raw_conf)[i], "is missing", sep = " ")))
-    } else {
-      return(NULL)
-    }
-  })
+    # Transforming the data from wide to long
+    # Creating new data frame
+    df <- raw[, 1:4]
 
+    names(df) <- gsub(pattern= "/", replacement = ".", x = names(df))
+    # Take diff
+    for(i in 5:ncol(raw)){
 
-  # Transforming the data from wide to long
-  # Creating new data frame
-  df_conf <- raw_conf[, 1:4]
+      raw[,i] <- as.integer(raw[,i])
 
-  for(i in 5:ncol(raw_conf)){
-
-    raw_conf[,i] <- as.integer(raw_conf[,i])
-    # raw_conf[,i] <- ifelse(is.na(raw_conf[, i]), 0 , raw_conf[, i])
-
-    if(i == 5){
-      df_conf[[names(raw_conf)[i]]] <- raw_conf[, i]
-    } else {
-      df_conf[[names(raw_conf)[i]]] <- raw_conf[, i] - raw_conf[, i - 1]
+      if(i == 5){
+        df[[names(raw)[i]]] <- raw[, i]
+      } else {
+        df[[names(raw)[i]]] <- raw[, i] - raw[, i - 1]
+      }
     }
 
-
-  }
-
-
-  df_conf1 <-  df_conf %>% tidyr::pivot_longer(cols = dplyr::starts_with("X"),
+    df1 <-  df %>% tidyr::pivot_longer(cols = dplyr::starts_with(c("1", "2", "3", "4", "5", "6", "7", "8", "9")),
                                                names_to = "date_temp",
-                                               values_to = "cases_temp")
+                                               values_to = "cases_temp") %>%
+      dplyr::mutate(date = lubridate::mdy(date_temp)) %>%
+      dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
+      dplyr::summarise(cases = sum(cases_temp),
+                       .groups = "drop") %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(type = type,
+                    Country.Region = trimws(Country.Region),
+                    Province.State = trimws(Province.State))
 
-  # Parsing the date
-  df_conf1$month <- sub("X", "",
-                        strsplit(df_conf1$date_temp, split = "\\.") %>%
-                          purrr::map_chr(~.x[1]) )
+    if(type == "recovered"){
+      df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0, NA, df1$cases)
+    }
 
-  df_conf1$day <- strsplit(df_conf1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[2])
 
-  df_conf1$year <- strsplit(df_conf1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[3])
-
-  df_conf1$date <- as.Date(paste(paste("20", df_conf1$year, sep = ""),df_conf1$month, df_conf1$day, sep = "-"))
-
-  # Aggregate the data to daily
-  df_conf2 <- df_conf1 %>%
-    dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp),
-                     .groups = "drop") %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(type = "confirmed",
-                  Country.Region = trimws(Country.Region),
-                  Province.State = trimws(Province.State))
-
-  head(df_conf2)
-  tail(df_conf2)
-  #----------------------------------------------------
-  # Pulling death cases
-
+    return(df1)
+  }
+  # Pulling confirmed cases ----
+  conf_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+  conf_df <- parse_url(url = conf_url, type = "confirmed")
+  # Pulling death cases ----
   death_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
-  raw_death <- read.csv(file =death_url,
-                        stringsAsFactors = FALSE,
-                        fill =FALSE)
-
-  lapply(1:ncol(raw_death), function(i){
-    if(all(is.na(raw_death[, i]))){
-      raw_death <<- raw_death[, -i]
-      return(print(paste("Column", names(raw_death)[i], "is missing", sep = " ")))
-    } else {
-      return(NULL)
-    }
-  })
-
-
-  # Transforming the data from wide to long
-  # Creating new data frame
-  df_death <- raw_death[, 1:4]
-
-  for(i in 5:ncol(raw_death)){
-    raw_death[,i] <- as.integer(raw_death[,i])
-    raw_death[,i] <- ifelse(is.na(raw_death[, i]), 0 , raw_death[, i])
-
-    if(i == 5){
-      df_death[[names(raw_death)[i]]] <- raw_death[, i]
-    } else {
-      df_death[[names(raw_death)[i]]] <- raw_death[, i] - raw_death[, i - 1]
-    }
-  }
-
-
-  df_death1 <-  df_death %>% tidyr::pivot_longer(cols = dplyr::starts_with("X"),
-                                                 names_to = "date_temp",
-                                                 values_to = "cases_temp")
-
-  # Parsing the date
-  df_death1$month <- sub("X", "",
-                         strsplit(df_death1$date_temp, split = "\\.") %>%
-                           purrr::map_chr(~.x[1]) )
-
-  df_death1$day <- strsplit(df_death1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[2])
-
-  df_death1$year <- strsplit(df_death1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[3])
-
-
-  df_death1$date <- as.Date(paste(paste("20", df_death1$year, sep = ""), df_death1$month, df_death1$day, sep = "-"))
-
-  # Aggregate the data to daily
-  df_death2 <- df_death1 %>%
-    dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp),
-                     .groups = "drop") %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(type = "death",
-                  Country.Region = trimws(Country.Region),
-                  Province.State = trimws(Province.State))
-
-  head(df_death2)
-  tail(df_death2)
-  #----------------------------------------------------
-  # Pulling recovered cases
-
-  raw_rec <- read.csv(file = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",
-                      stringsAsFactors = FALSE,
-                      fill =FALSE)
-
-  lapply(1:ncol(raw_rec), function(i){
-    if(all(is.na(raw_rec[, i]))){
-      raw_rec <<- raw_rec[, -i]
-      return(print(paste("Column", names(raw_rec)[i], "is missing", sep = " ")))
-    } else {
-      return(NULL)
-    }
-  })
-
-
-
-
-  # Transforming the data from wide to long
-  # Creating new data frame
-  df_rec <- raw_rec[, 1:4]
-
-  for(i in 5:ncol(raw_rec)){
-    raw_rec[,i] <- as.integer(raw_rec[,i])
-    raw_rec[,i] <- ifelse(is.na(raw_rec[, i]), 0 , raw_rec[, i])
-
-    if(i == 5){
-      df_rec[[names(raw_rec)[i]]] <- raw_rec[, i]
-    } else {
-      df_rec[[names(raw_rec)[i]]] <- raw_rec[, i] - raw_rec[, i - 1]
-    }
-  }
-
-
-  df_rec1 <-  df_rec %>% tidyr::pivot_longer(cols = dplyr::starts_with("X"),
-                                             names_to = "date_temp",
-                                             values_to = "cases_temp")
-
-  # Parsing the date
-  df_rec1$month <- sub("X", "",
-                       strsplit(df_rec1$date_temp, split = "\\.") %>%
-                         purrr::map_chr(~.x[1]) )
-
-  df_rec1$day <- strsplit(df_rec1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[2])
-
-  df_rec1$year <- strsplit(df_rec1$date_temp, split = "\\.") %>%
-    purrr::map_chr(~.x[3])
-
-
-  df_rec1$date <- as.Date(paste(paste("20", df_rec1$year, sep = ""), df_rec1$month, df_rec1$day, sep = "-"))
-
-  # Aggregate the data to daily
-  df_rec2 <- df_rec1 %>%
-    dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
-    dplyr::summarise(cases = sum(cases_temp),
-                     .groups = "drop") %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(type = "recovered",
-                  Country.Region = trimws(Country.Region),
-                  Province.State = trimws(Province.State))
-
-  head(df_rec2)
-  tail(df_rec2)
-  #---------------- Aggregate all cases ----------------
-  coronavirus <- dplyr::bind_rows(df_conf2, df_death2, df_rec2) %>%
+  death_df <- parse_url(url = death_url, type = "death")
+  # Pulling recovered cases ----
+  rec_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+  rec_df <- parse_url(url = rec_url, type = "recovered")
+  # Append the data----
+  coronavirus <- dplyr::bind_rows(conf_df, death_df, rec_df) %>%
     dplyr::select(date, province = Province.State, country = Country.Region, lat = Lat, long = Long, type, cases) %>%
     as.data.frame()
-  #---------------- Data validation ----------------
+  #-Data validation ----
   if(ncol(coronavirus) != 7){
     stop("The number of columns is invalid")
-  } else if(nrow(coronavirus)< 69000){
+  } else if(nrow(coronavirus)< 472600){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(coronavirus$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
   }
 
-  git_df <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", stringsAsFactors = FALSE)
+  git_df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
 
   git_df$date <- as.Date(git_df$date)
   if(ncol(git_df) != 7){
     stop("The number of columns is invalid")
-  } else if(nrow(git_df)< 69000){
+  } else if(nrow(git_df)< 472600){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(git_df$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
