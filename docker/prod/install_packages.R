@@ -1,6 +1,5 @@
 # installing package imports packages
-pkg_list <- c("pkgdown",
-              "dplyr",
+pkg_list <- c("dplyr",
               "tibble",
               "devtools",
               "here",
@@ -11,6 +10,7 @@ pkg_list <- c("pkgdown",
               "tidyr",
               "testthat",
               "readr",
+              "pkgdown",
               "usethis")
 
 install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
