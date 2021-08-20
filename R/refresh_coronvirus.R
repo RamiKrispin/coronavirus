@@ -22,12 +22,15 @@
 refresh_coronavirus_jhu <- function(){
   df <- NULL
   tryCatch(
-    df <- utils::read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
-                          stringsAsFactors = FALSE),
-    error = function(c) base::message(c),
-    warning = function(c) base::message(c),
-    message = function(c) base::message(c)
+    df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"),
+    error = function(c) base::message(c)
+    # warning = function(c) base::message(c),
+    # message = function(c) base::message(c)
   )
+
+
+
+
   if(base::is.null(df)){
     base::message("Could not refresh the coronavirus dataset, please check your connection")
   } else{

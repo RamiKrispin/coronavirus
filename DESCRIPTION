@@ -22,6 +22,7 @@ Suggests:
     dplyr,
     knitr,
     plotly,
+    readr,
     rmarkdown,
     remotes,
     testthat (>= 2.1.0)
