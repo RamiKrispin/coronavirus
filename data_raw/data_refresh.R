@@ -93,4 +93,43 @@ data_refresh <- function(){
 
 }
 
+
+update_vaccine_data <- function(url){
+  `%>%` <- magrittr::`%>%`
+  covid19_vaccine <- NULL
+  tryCatch(
+    covid19_vaccine <- readr::read_csv(file = url,
+                                       col_types = readr::cols(Date = readr::col_date(format = "%Y-%m-%d"),
+                                                               Doses_admin = readr::col_number(),
+                                                               People_partially_vaccinated = readr::col_number(),
+                                                               People_fully_vaccinated = readr::col_number(),
+                                                               Report_Date_String = readr::col_date(format = "%Y-%m-%d"),
+                                                               UID = readr::col_number(),
+                                                               Province_State = readr::col_character())) %>%
+      as.data.frame(),
+    error = function(c) base::message(c)
+  )
+
+
+  if(is.null(covid19_vaccine)){
+    stop("Could not pull the covid19_vaccine dataset, check the error")
+  } else if(nrow(covid19_vaccine) < 57800 || ncol(covid19_vaccine) != 8){
+    stop("The dimensions of the covid19_vaccine dataset are invalid")
+  } else if(class(covid19_vaccine$Date) != "Date"){
+    stop("The class of the Date column is invalid")
+  } else if(class(covid19_vaccine$Report_Date_String) != "Date"){
+    stop("The class of the Report_Date_String column is invalid")
+  }
+
+  names(covid19_vaccine) <- tolower(names(covid19_vaccine))
+
+  usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
+  write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+
+
+  return(covid19_vaccine)
+
+}
+
 data_refresh()
+
