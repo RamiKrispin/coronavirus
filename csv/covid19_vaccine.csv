@@ -1,4 +1,4 @@
-"Country_Region","Date","Doses_admin","People_partially_vaccinated","People_fully_vaccinated","Report_Date_String","UID","Province_State"
+"country_region","date","doses_admin","people_partially_vaccinated","people_fully_vaccinated","report_date_string","uid","province_state"
 "Afghanistan",2021-02-22,0,0,0,2021-02-22,4,NA
 "Afghanistan",2021-02-23,0,0,0,2021-02-23,4,NA
 "Afghanistan",2021-02-24,0,0,0,2021-02-24,4,NA
