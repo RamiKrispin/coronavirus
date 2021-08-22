@@ -11,7 +11,11 @@ pkg_list <- c("pkgdown",
               "tidyr",
               "testthat",
               "readr",
-              "usethis")
+              "plotly",
+              "DT",
+              "usethis",
+              "qpdf"
+              )
 
 install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
 
