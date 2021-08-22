@@ -93,5 +93,8 @@
 #' us_pop <- world_population %>%
 #'   filter(country_code == "USA")
 #' plot(us_pop$year, us_pop$population,
-#'      type = "l", main = "US Population")
+#'      type = "l", main = "US Population",
+#'      xlab = "Source: World Bank",
+#'      ylab = "Population",
+#'      col = "blue")
 "world_population"
