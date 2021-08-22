@@ -69,3 +69,29 @@
 #'
 "covid19_vaccine"
 
+#' World Population by Country Dataset
+#'
+#' World population by country between 1960 to 2020
+#'
+#' @format A data frame with 4 variables.
+#' \describe{
+#'   \item{country_name}{Country Name}
+#'   \item{country_code}{Country abbreviations code}
+#'   \item{year}{The year of the observation}
+#'   \item{population}{Population}
+#'   }
+#' @source The World Bank Data \href{https://data.worldbank.org/indicator/SP.POP.TOTL?most_recent_year_desc=false}{website}.
+#' @keywords datasets population country
+#' @details The dataset provides worldwide popluation values by country between 1960 and 2020
+#' @examples
+#'
+#' library(dplyr)
+#' data(world_population)
+#'
+#' head(world_population)
+#'
+#' us_pop <- world_population %>%
+#'   filter(country_code == "USA")
+#' plot(us_pop$year, us_pop$population,
+#'      type = "l", main = "US Population")
+"world_population"
