@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • coronavirus</title>
+<title>The COVID-19 Worldwide Vaccine Dataset — covid19_vaccine • coronavirus</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="The COVID-19 Worldwide Vaccine Dataset — covid19_vaccine" />
+<meta property="og:description" content="Daily summary of the COVID-19 vaccination by country/province." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,24 +132,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>The COVID-19 Worldwide Vaccine Dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>covid19_vaccine.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="covid19R.html">Covid19R Project Data Format</a></dt>
-        <dd></dt>
-        <dt><a href="dashboard.html">Coronavirus Dashboard</a></dt>
-        <dd></dt>
-        <dt><a href="intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a></dt>
-        <dd></dt>
-        <dt><a href="update_dataset_function.html">Update the coronavirus Dataset</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Daily summary of the COVID-19 vaccination by country/province.</p>
     </div>
+
+    <pre class="usage"><span class='kw'>covid19_vaccine</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 8 variables.</p><dl>
+  <dt>country_region</dt><dd><p>Country or region name</p></dd>
+  <dt>date</dt><dd><p>Data collection date in YYYY-MM-DD format</p></dd>
+  <dt>doses_admin</dt><dd><p>Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently</p></dd>
+  <dt>people_partially_vaccinated</dt><dd><p>Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice</p></dd>
+  <dt>people_fully_vaccinated</dt><dd><p>Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated</p></dd>
+  <dt>report_date_string</dt><dd><p>Data report date in YYYY-MM-DD format</p></dd>
+  <dt>uid</dt><dd><p>Country code</p></dd>
+  <dt>province_state</dt><dd><p>Province or state if applicable</p></dd>
+  
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Johns Hopkins University Centers for Civic Impact
+(JHU CCSE) COVID-19 <a href='https://github.com/govex/COVID-19'>repository</a>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The dataset provides the daily cumulative number of people who received vaccine (or at least one vaccine dose) by country and province (when applicable)</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>covid19_vaccine</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>covid19_vaccine</span>)
+</div><div class='output co'>#&gt;   country_region       date doses_admin people_partially_vaccinated
+#&gt; 1    Afghanistan 2021-02-22           0                           0
+#&gt; 2    Afghanistan 2021-02-23           0                           0
+#&gt; 3    Afghanistan 2021-02-24           0                           0
+#&gt; 4    Afghanistan 2021-02-25           0                           0
+#&gt; 5    Afghanistan 2021-02-26           0                           0
+#&gt; 6    Afghanistan 2021-02-27           0                           0
+#&gt;   people_fully_vaccinated report_date_string uid province_state
+#&gt; 1                       0         2021-02-22   4           &lt;NA&gt;
+#&gt; 2                       0         2021-02-23   4           &lt;NA&gt;
+#&gt; 3                       0         2021-02-24   4           &lt;NA&gt;
+#&gt; 4                       0         2021-02-25   4           &lt;NA&gt;
+#&gt; 5                       0         2021-02-26   4           &lt;NA&gt;
+#&gt; 6                       0         2021-02-27   4           &lt;NA&gt;</div><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

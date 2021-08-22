@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -128,32 +128,44 @@
 <a href="#reading-the-data-from-csv-version" class="anchor"></a>Reading the data from CSV version</h3>
 <p>Alternatively, you can read and load the data directly from the package repository, using the csv version:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>,
-                     stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://readr.tidyverse.org">readr</a></span>)
+<span class="kw">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>, 
+    col_types = <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span>(date = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date</a></span>(format = <span class="st">"%Y-%m-%d"</span>), 
+        cases = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number</a></span>()))
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
-<pre><code>##         date province     country      lat     long      type cases
-## 1 2020-01-22          Afghanistan 33.93911 67.70995 confirmed     0
-## 2 2020-01-23          Afghanistan 33.93911 67.70995 confirmed     0
-## 3 2020-01-24          Afghanistan 33.93911 67.70995 confirmed     0
-## 4 2020-01-25          Afghanistan 33.93911 67.70995 confirmed     0
-## 5 2020-01-26          Afghanistan 33.93911 67.70995 confirmed     0
-## 6 2020-01-27          Afghanistan 33.93911 67.70995 confirmed     0</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   date       province country               lat   long type      cases
+##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 2020-01-22 &lt;NA&gt;     Afghanistan          33.9  67.7  confirmed     0
+## 2 2020-01-22 &lt;NA&gt;     Albania              41.2  20.2  confirmed     0
+## 3 2020-01-22 &lt;NA&gt;     Algeria              28.0   1.66 confirmed     0
+## 4 2020-01-22 &lt;NA&gt;     Andorra              42.5   1.52 confirmed     0
+## 5 2020-01-22 &lt;NA&gt;     Angola              -11.2  17.9  confirmed     0
+## 6 2020-01-22 &lt;NA&gt;     Antigua and Barbuda  17.1 -61.8  confirmed     0</code></pre>
 <p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">coronavirus_df</span><span class="op">$</span><span class="kw">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="kw">coronavirus_df</span><span class="op">$</span><span class="kw">date</span>)
-
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
-<pre><code>## 'data.frame':    283554 obs. of  7 variables:
-##  $ date    : Date, format: "2020-01-22" "2020-01-23" ...
-##  $ province: chr  "" "" "" "" ...
-##  $ country : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-##  $ lat     : num  33.9 33.9 33.9 33.9 33.9 ...
-##  $ long    : num  67.7 67.7 67.7 67.7 67.7 ...
-##  $ type    : chr  "confirmed" "confirmed" "confirmed" "confirmed" ...
-##  $ cases   : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<pre><code>## tibble [475,116 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ date    : Date[1:475116], format: "2020-01-22" "2020-01-22" ...
+##  $ province: chr [1:475116] NA NA NA NA ...
+##  $ country : chr [1:475116] "Afghanistan" "Albania" "Algeria" "Andorra" ...
+##  $ lat     : num [1:475116] 33.9 41.2 28 42.5 -11.2 ...
+##  $ long    : num [1:475116] 67.71 20.17 1.66 1.52 17.87 ...
+##  $ type    : chr [1:475116] "confirmed" "confirmed" "confirmed" "confirmed" ...
+##  $ cases   : num [1:475116] 0 0 0 0 0 0 0 0 0 0 ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   date = col_date(format = "%Y-%m-%d"),
+##   ..   province = col_character(),
+##   ..   country = col_character(),
+##   ..   lat = col_double(),
+##   ..   long = col_double(),
+##   ..   type = col_character(),
+##   ..   cases = col_number()
+##   .. )</code></pre>
 </div>
   </div>
 

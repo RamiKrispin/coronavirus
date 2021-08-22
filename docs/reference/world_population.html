@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • coronavirus</title>
+<title>World Population by Country Dataset — world_population • coronavirus</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="World Population by Country Dataset — world_population" />
+<meta property="og:description" content="World population by country between 1960 to 2020" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,24 +132,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>World Population by Country Dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>world_population.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="covid19R.html">Covid19R Project Data Format</a></dt>
-        <dd></dt>
-        <dt><a href="dashboard.html">Coronavirus Dashboard</a></dt>
-        <dd></dt>
-        <dt><a href="intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a></dt>
-        <dd></dt>
-        <dt><a href="update_dataset_function.html">Update the coronavirus Dataset</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>World population by country between 1960 to 2020</p>
     </div>
+
+    <pre class="usage"><span class='kw'>world_population</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 4 variables.</p><dl>
+  <dt>country_name</dt><dd><p>Country Name</p></dd>
+  <dt>country_code</dt><dd><p>Country abbreviations code</p></dd>
+  <dt>year</dt><dd><p>The year of the observation</p></dd>
+  <dt>population</dt><dd><p>Population</p></dd>
+  
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>The World Bank Data <a href='https://data.worldbank.org/indicator/SP.POP.TOTL?most_recent_year_desc=false'>website</a>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The dataset provides worldwide popluation values by country between 1960 and 2020</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>world_population</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>world_population</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 4</span><span>
+#&gt;   country_name country_code  year population
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>960      </span><span style='text-decoration: underline;'>54</span><span>208
+#&gt; </span><span style='color: #555555;'>2</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>961      </span><span style='text-decoration: underline;'>55</span><span>434
+#&gt; </span><span style='color: #555555;'>3</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>962      </span><span style='text-decoration: underline;'>56</span><span>234
+#&gt; </span><span style='color: #555555;'>4</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>963      </span><span style='text-decoration: underline;'>56</span><span>699
+#&gt; </span><span style='color: #555555;'>5</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>964      </span><span style='text-decoration: underline;'>57</span><span>029
+#&gt; </span><span style='color: #555555;'>6</span><span> Aruba        ABW           </span><span style='text-decoration: underline;'>1</span><span>965      </span><span style='text-decoration: underline;'>57</span><span>357</div><div class='input'>
+<span class='kw'>us_pop</span> <span class='op'>&lt;-</span> <span class='kw'>world_population</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>country_code</span> <span class='op'>==</span> <span class='st'>"USA"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='kw'>us_pop</span><span class='op'>$</span><span class='kw'>year</span>, <span class='kw'>us_pop</span><span class='op'>$</span><span class='kw'>population</span>,
+     type = <span class='st'>"l"</span>, main = <span class='st'>"US Population"</span>,
+     xlab = <span class='st'>"Source: World Bank"</span>,
+     ylab = <span class='st'>"Population"</span>,
+     col = <span class='st'>"blue"</span>)
+</div><div class='img'><img src='world_population-1.png' alt='' width='700' height='433' /></div></span></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

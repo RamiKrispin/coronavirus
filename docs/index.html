@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -287,20 +287,20 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(active_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">active</span>),
                 recovered_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">recovered</span>),
                 death_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">death</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/plot_ly.html">plot_ly</a></span>(x = <span class="op">~</span> <span class="kw">date</span>,
+  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/plot_ly.html">plot_ly</a></span>(x = <span class="op">~</span> <span class="kw">date</span>,
                   y = <span class="op">~</span> <span class="kw">active_total</span>,
                   name = <span class="st">'Active'</span>, 
                   fillcolor = <span class="st">'#1f77b4'</span>,
                   type = <span class="st">'scatter'</span>,
                   mode = <span class="st">'none'</span>, 
                   stackgroup = <span class="st">'one'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/add_trace.html">add_trace</a></span>(y = <span class="op">~</span> <span class="kw">death_total</span>, 
+  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/add_trace.html">add_trace</a></span>(y = <span class="op">~</span> <span class="kw">death_total</span>, 
              name = <span class="st">"Death"</span>,
              fillcolor = <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/add_trace.html">add_trace</a></span>(y = <span class="op">~</span><span class="kw">recovered_total</span>, 
+  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/add_trace.html">add_trace</a></span>(y = <span class="op">~</span><span class="kw">recovered_total</span>, 
             name = <span class="st">'Recovered'</span>, 
             fillcolor = <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/layout.html">layout</a></span>(title = <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,
+  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/layout.html">layout</a></span>(title = <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,
          legend = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(x = <span class="fl">0.1</span>, y = <span class="fl">0.9</span>),
          yaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Number of Cases"</span>),
          xaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))
@@ -316,7 +316,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(parents = <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() 
   
-  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/plot_ly.html">plot_ly</a></span>(data = <span class="kw">conf_df</span>,
+  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/plot_ly.html">plot_ly</a></span>(data = <span class="kw">conf_df</span>,
           type= <span class="st">"treemap"</span>,
           values = <span class="op">~</span><span class="kw">total_cases</span>,
           labels= <span class="op">~</span> <span class="kw">country</span>,
