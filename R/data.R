@@ -43,3 +43,29 @@
 #'
 "coronavirus"
 
+#' The COVID-19 Worldwide Vaccine Dataset
+#'
+#' Daily summary of the COVID-19 vaccination by country/province.
+#'
+#' @format A data frame with 8 variables.
+#' \describe{
+#'   \item{country_region}{Country or region name}
+#'   \item{date}{Data collection date in YYYY-MM-DD format}
+#'   \item{doses_admin}{Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently}
+#'   \item{people_partially_vaccinated}{Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice}
+#'   \item{people_fully_vaccinated}{Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated}
+#'   \item{report_date_string}{Data report date in YYYY-MM-DD format}
+#'   \item{uid}{Country code}
+#'   \item{province_state}{Province or state if applicable}
+#'   }
+#' @source Johns Hopkins University Centers for Civic Impact
+#' (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}.
+#' @keywords datasets coronavirus COVID19 vaccine
+#' @details The dataset provides the daily cumulative number of people who received vaccine (or at least one vaccine dose) by country and province (when applicable)
+#' @examples
+#' data(covid19_vaccine)
+#'
+#' head(covid19_vaccine)
+#'
+"covid19_vaccine"
+
