@@ -1,8 +1,9 @@
 ### Package Development Environment
 
-The docker folder has two sub-folders each with the docker builds:
+The docker folder has three sub-folders each with the docker builds:
 
-* `packages` - a docker build with R4.0.0 and the package dependencies
+* `dev` - development environment for developing and testing the docker images for Github Actions. Currently using R version 4.1.0
+* `prod` - production environment for  deploying in Github Actions
 * `rstudio` - a docker with RStudio and the packages dependencies for development environment
 
 
