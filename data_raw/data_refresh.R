@@ -130,6 +130,3 @@ update_vaccine_data <- function(url){
   return(covid19_vaccine)
 
 }
-
-data_refresh()
-

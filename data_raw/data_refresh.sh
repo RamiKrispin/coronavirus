@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Updating the total dataset"
- Rscript -e "source('./data_raw/data_refresh.R')"
+ Rscript -e "source('./data_raw/data_refresh.R'); data_refresh(); data_refresh_vaccine()"
 
 if [[ "$(git status --porcelain)" != "" ]]; then
     git config --global user.name 'RamiKrispin'
