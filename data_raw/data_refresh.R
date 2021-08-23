@@ -94,7 +94,7 @@ data_refresh <- function(){
 }
 
 
-update_vaccine_data <- function(url){
+data_refresh_vaccine <- function(url){
   `%>%` <- magrittr::`%>%`
   covid19_vaccine <- NULL
   tryCatch(
