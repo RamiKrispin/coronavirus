@@ -13,13 +13,21 @@ pkg_list <- c("pkgdown",
               "readr",
               "plotly",
               "DT",
+              "remotes",
+              "rcmdcheck",
+              "Rcpp",
               "usethis",
               "qpdf"
               )
 
-install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
 
 for(i in pkg_list){
+
+  if(!i %in% rownames(installed.packages())){
+    cat(paste0("\033[0;", 42, "m","Installing ", i,"\033[0m","\n"))
+    install.packages(pkgs = i, repos = "https://cran.rstudio.com/")
+  }
+
 
   if(!i %in% rownames(installed.packages())){
     stop(paste("Package", i, "is not available"))
