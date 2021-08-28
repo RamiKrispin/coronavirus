@@ -94,7 +94,7 @@ data_refresh <- function(){
 }
 
 
-data_refresh_vaccine <- function(url){
+data_refresh_vaccine <- function(url, env = "master"){
   `%>%` <- magrittr::`%>%`
   covid19_vaccine <- NULL
   tryCatch(
@@ -122,11 +122,20 @@ data_refresh_vaccine <- function(url){
   }
 
   names(covid19_vaccine) <- tolower(names(covid19_vaccine))
+  git_df <- read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
+                           env,
+                           "/csv/covid19_vaccine.csv",
+                           sep = ""),
+                     col_types = cols(report_date_string = col_date(format = "%Y-%m-%d"),
+                                      province_state = col_character()))
 
+  if(nrow(covid19_vaccine) > nrow(git_df)){
   usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
   write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+  } else {
+    cat("No updates available...")
+  }
 
-
-  return(covid19_vaccine)
+  return(print("Done..."))
 
 }
