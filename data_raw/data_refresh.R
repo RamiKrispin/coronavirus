@@ -122,12 +122,12 @@ data_refresh_vaccine <- function(url, env = "master"){
   }
 
   names(covid19_vaccine) <- tolower(names(covid19_vaccine))
-  git_df <- read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
+  git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
                            env,
                            "/csv/covid19_vaccine.csv",
                            sep = ""),
-                     col_types = cols(report_date_string = col_date(format = "%Y-%m-%d"),
-                                      province_state = col_character()))
+                     col_types = readr::cols(report_date_string = readr::col_date(format = "%Y-%m-%d"),
+                                      province_state = readr::col_character()))
 
   if(nrow(covid19_vaccine) > nrow(git_df)){
   usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")

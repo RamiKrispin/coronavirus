@@ -15,7 +15,7 @@ jobs:
         with:
           ref: 'dev'
       - name: Refresh the data
-        run: bash ./data_raw/data_refresh.sh
+        run: bash ./data_raw/data_refresh.sh "dev"
   data_refresh_master:
     name: coronavirus dataset refresh master
     runs-on: ubuntu-18.04
@@ -27,4 +27,4 @@ jobs:
         with:
           ref: 'master'
       - name: Refresh the data
-        run: bash ./data_raw/data_refresh.sh
+        run: bash ./data_raw/data_refresh.sh "master"
