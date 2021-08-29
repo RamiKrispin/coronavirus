@@ -61,18 +61,20 @@ data_refresh <- function(){
   #-Data validation ----
   if(ncol(coronavirus) != 7){
     stop("The number of columns is invalid")
-  } else if(nrow(coronavirus)< 472600){
+  } else if(nrow(coronavirus)< 480000){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(coronavirus$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
   }
 
-  git_df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
+  git_df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
+                            col_types = readr::cols(date = readr::col_date(format = "%Y-%m-%d"),
+                                             cases = readr::col_number()))
 
-  git_df$date <- as.Date(git_df$date)
+
   if(ncol(git_df) != 7){
     stop("The number of columns is invalid")
-  } else if(nrow(git_df)< 472600){
+  } else if(nrow(git_df)< 480000){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(git_df$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
