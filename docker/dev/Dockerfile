@@ -1,4 +1,4 @@
-FROM docker.io/rkrispin/baser_dev:v4.1.0
+FROM docker.io/rkrispin/baser:v4.1.0
 
 LABEL maintainer="Rami Krispin <rami.krispin@gmail.com>"
 

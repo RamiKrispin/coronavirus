@@ -1,5 +1,6 @@
 # installing package imports packages
-pkg_list <- c("dplyr",
+pkg_list <- c("pkgdown",
+              "dplyr",
               "tibble",
               "devtools",
               "here",
@@ -7,15 +8,27 @@ pkg_list <- c("dplyr",
               "magrittr",
               "purrr",
               "rmarkdown",
+              "markdown",
               "tidyr",
               "testthat",
               "readr",
-              "pkgdown",
-              "usethis")
+              "plotly",
+              "DT",
+              "remotes",
+              "rcmdcheck",
+              "Rcpp",
+              "usethis",
+              "qpdf"
+              )
 
-install.packages(pkgs = pkg_list, repos = "https://cran.rstudio.com/")
 
 for(i in pkg_list){
+
+  if(!i %in% rownames(installed.packages())){
+    cat(paste0("\033[0;", 42, "m","Installing ", i,"\033[0m","\n"))
+    install.packages(pkgs = i, repos = "https://cran.rstudio.com/")
+  }
+
 
   if(!i %in% rownames(installed.packages())){
     stop(paste("Package", i, "is not available"))

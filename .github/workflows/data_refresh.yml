@@ -8,7 +8,7 @@ jobs:
     name: coronavirus dataset refresh dev
     runs-on: ubuntu-18.04
     container:
-     image: docker.io/rkrispin/coronavirus:dev.0.3.1.9000
+     image: docker.io/rkrispin/coronavirus:prod.0.3.2
     steps:
       - name: checkout_repo
         uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
     name: coronavirus dataset refresh staging
     runs-on: ubuntu-18.04
     container:
-     image: docker.io/rkrispin/coronavirus:dev.0.3.1.9000
+     image: docker.io/rkrispin/coronavirus:prod.0.3.2
     steps:
       - name: checkout_repo
         uses: actions/checkout@v2
