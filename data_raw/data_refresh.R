@@ -1,7 +1,6 @@
 # Info ----
 # Pulling the coronvirus data from John Hopkins repo
 # https://github.com/CSSEGISandData/COVID-19
-<<<<<<< HEAD
 data_refresh <- function(){
   `%>%` <- magrittr::`%>%`
 
