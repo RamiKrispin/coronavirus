@@ -6,5 +6,9 @@ articles:
   dashboard: dashboard.html
   intro_coronavirus_dataset: intro_coronavirus_dataset.html
   update_dataset_function: update_dataset_function.html
+<<<<<<< HEAD
 last_built: 2021-05-29T04:12Z
+=======
+last_built: 2021-08-22T21:36Z
+>>>>>>> staging
 

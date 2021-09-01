@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # coronavirus 0.3.22
 
 * Fixed issue with the data parsing - replacing `read.csv` with `read_csv`
@@ -11,6 +12,11 @@
 
 * Data is up-to-date up to Jan 22th 2021
 * Fixed issue with the data format and refresh function
+=======
+# coronavirus 0.3.1.9000
+
+* Stop track recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
+>>>>>>> staging
 
 # coronavirus 0.3.1
 

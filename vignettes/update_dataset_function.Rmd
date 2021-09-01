@@ -45,7 +45,24 @@ Alternatively, you can read and load the data directly from the package reposito
 
 ```{r}
 library(readr)
+<<<<<<< HEAD
 coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
 
 head(coronavirus_df)
 ```
+=======
+coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", 
+    col_types = cols(date = col_date(format = "%Y-%m-%d"), 
+        cases = col_number()))
+
+head(coronavirus_df)
+```
+
+The main difference between the first method (the `update_dataset` function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a `Date` object. A quick reformating can fix it:
+
+```{r}
+str(coronavirus_df)
+```
+
+
+>>>>>>> staging
