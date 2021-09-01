@@ -1,7 +1,7 @@
 # Info ----
 # Pulling the coronvirus data from John Hopkins repo
 # https://github.com/CSSEGISandData/COVID-19
-data_refresh <- function(){
+data_refresh <- function(env = "master"){
 
   # Functions ----
   `%>%` <- magrittr::`%>%`
@@ -67,7 +67,7 @@ data_refresh <- function(){
     stop("The starting date is invalid")
   }
 
-  git_df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
+  git_df <- readr::read_csv(file = sprintf("https://raw.githubusercontent.com/RamiKrispin/coronavirus/%s/csv/coronavirus.csv", env),
                             col_types = readr::cols(date = readr::col_date(format = "%Y-%m-%d"),
                                              cases = readr::col_number()))
 
