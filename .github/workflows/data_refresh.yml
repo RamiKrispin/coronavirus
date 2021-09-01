@@ -32,7 +32,7 @@ jobs:
     name: coronavirus dataset refresh master
     runs-on: ubuntu-18.04
     container:
-     image: rkrispin/coronavirus:dev
+     image: docker.io/rkrispin/coronavirus:prod.0.3.2
     steps:
       - name: checkout_repo
         uses: actions/checkout@v2
