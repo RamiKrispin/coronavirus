@@ -16,6 +16,18 @@ jobs:
           ref: 'dev'
       - name: Refresh the data
         run: bash ./data_raw/data_refresh.sh "dev"
+  data_refresh_staging:
+    name: coronavirus dataset refresh staging
+    runs-on: ubuntu-18.04
+    container:
+     image: docker.io/rkrispin/coronavirus:dev.0.3.1.9000
+    steps:
+      - name: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'staging'
+      - name: Refresh the data
+        run: bash ./data_raw/data_refresh.sh "staging"
   data_refresh_master:
     name: coronavirus dataset refresh master
     runs-on: ubuntu-18.04
