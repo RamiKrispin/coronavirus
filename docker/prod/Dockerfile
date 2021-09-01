@@ -1,4 +1,4 @@
-FROM rkrispin/baser4:v4.0.0
+FROM docker.io/rkrispin/baser:v4.1.0
 
 LABEL maintainer="Rami Krispin <rami.krispin@gmail.com>"
 
@@ -6,5 +6,4 @@ LABEL maintainer="Rami Krispin <rami.krispin@gmail.com>"
 RUN mkdir packages
 COPY install_packages.R packages/
 RUN Rscript packages/install_packages.R
-RUN git --version
 
