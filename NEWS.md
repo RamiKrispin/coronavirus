@@ -1,23 +1,3 @@
-
-# coronavirus 0.3.22
-
-* Fixed issue with the data parsing - replacing `read.csv` with `read_csv`
-* Data is up-to-date till May 26th, 2021
-
-# coronavirus 0.3.21
-
-* Fixed issue with the data refresh function - replacing NA on `province` column as empty strings ("")
-
-# coronavirus 0.3.2
-
-* Data is up-to-date up to Jan 22th 2021
-* Fixed issue with the data format and refresh function
-=======
-# coronavirus 0.3.1.9000
-
-* Stop track recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
->>>>>>> staging
-=======
 # coronavirus 0.3.3
 
 -   Stop tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
@@ -32,7 +12,6 @@
 # coronavirus 0.3.2
 
 Data is up-to-date up to Jan 22th 2021 Fixed issue with the data format and refresh function
->>>>>>> dev
 
 # coronavirus 0.3.1
 
