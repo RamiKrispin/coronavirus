@@ -20,27 +20,17 @@
 #' }
 #'
 refresh_coronavirus_jhu <- function(){
-
-
   df <- NULL
-<<<<<<< HEAD
-
-  df <- readr::read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
-
-  df <- as.data.frame(df)
-  df$province <- ifelse(is.na(df$province), "", df$province)
-=======
   tryCatch(
     df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
                           col_types = readr::cols(date = readr::col_date(format = "%Y-%m-%d"),
-                                           cases = readr::col_number())),
+                                                  cases = readr::col_number())),
     error = function(c) base::message(c)
     # warning = function(c) base::message(c),
     # message = function(c) base::message(c)
   )
 
 
->>>>>>> staging
 
 
   if(base::is.null(df)){
@@ -56,21 +46,19 @@ refresh_coronavirus_jhu <- function(){
     df$location <- gsub("^\\, ", "",  df$location )
 
     #get code table
-<<<<<<< HEAD
-    iso_3166_2_code_table <- readr::read_csv("https://github.com/RamiKrispin/coronavirus/raw/dev-covid19r/data_raw/iso_3166_2_code_table.csv")
-=======
     iso_3166_2_code_table <- readr::read_csv("https://github.com/RamiKrispin/coronavirus/raw/dev-covid19r/data_raw/iso_3166_2_code_table.csv",
                                              col_types = readr::cols(
                                                location = readr::col_character(),
                                                location_code = readr::col_character(),
                                                location_code_type = readr::col_character()
                                              ))
->>>>>>> staging
 
     # left join codes in
     df <- base::merge(df, iso_3166_2_code_table,
                       all.x = TRUE, by = "location")
 
+    #    df$location_code <- paste(df$lat, df$long, sep = ", ")
+    #    df$location_code_type <- "latitude, longitude"
 
     #data type
     df$data_type <- ifelse(df$type == "confirmed", "cases_new",
@@ -83,11 +71,7 @@ refresh_coronavirus_jhu <- function(){
     col_order <- c( "date", "location", "location_type",
                     "location_code", "location_code_type", "data_type",
                     "value", "lat", "long")
-<<<<<<< HEAD
-
-=======
     # df$date <- as.Date(df$date)
->>>>>>> staging
 
     return(df[,col_order])
   }
