@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # coronavirus 0.3.22
 
 * Fixed issue with the data parsing - replacing `read.csv` with `read_csv`
