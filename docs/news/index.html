@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -135,14 +135,32 @@
       <small>Source: <a href='https://github.com/RamiKrispin/coronavirus/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="coronavirus-0319000" class="section level1">
-<h1 class="page-header" data-toc-text="0.3.1.9000">
-<a href="#coronavirus-0319000" class="anchor"></a>coronavirus 0.3.1.9000<small> Unreleased </small>
+    <div id="coronavirus-033" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.3">
+<a href="#coronavirus-033" class="anchor"></a>coronavirus 0.3.3<small> Unreleased </small>
 </h1>
 <ul>
-<li>Stop track recovery cases as per this <a href="https://github.com/CSSEGISandData/COVID-19/issues/4465">issue</a>
+<li>Stop tracking recovery cases as per this <a href="https://github.com/CSSEGISandData/COVID-19/issues/4465">issue</a>
 </li>
+<li>Add vaccine data</li>
+<li>Add world population by country</li>
 </ul>
+</div>
+    <div id="coronavirus-0322" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.22">
+<a href="#coronavirus-0322" class="anchor"></a>coronavirus 0.3.22<small> 2021-05-29 </small>
+</h1>
+<ul>
+<li>Fixed issue with the data parsing - replacing <code>read.csv</code> with <code>read_csv</code>
+</li>
+<li>Data is up-to-date till May 26th, 2021</li>
+</ul>
+</div>
+    <div id="coronavirus-032" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.2">
+<a href="#coronavirus-032" class="anchor"></a>coronavirus 0.3.2<small> 2021-01-23 </small>
+</h1>
+<p>Data is up-to-date up to Jan 22th 2021 Fixed issue with the data format and refresh function</p>
 </div>
     <div id="coronavirus-031" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.1">
@@ -171,12 +189,12 @@
 <a href="#coronavirus-020" class="anchor"></a>coronavirus 0.2.0<small> 2020-05-13 </small>
 </h1>
 <ul>
-<li>Data changes:
-<ul>
 <li>
-<code>coronavirus</code> dataset - Change the structure of the US data from March 23rd 2020 and forward. The US data is now available on an agregated level. More information about the changes on the raw data available on this <a href="https://github.com/CSSEGISandData/COVID-19/issues/1250">issue</a>
-</li>
-<li>Changes in the columns names and order:
+<p>Data changes:</p>
+<ul>
+<li><p><code>coronavirus</code> dataset - Change the structure of the US data from March 23rd 2020 and forward. The US data is now available on an agregated level. More information about the changes on the raw data available on this <a href="https://github.com/CSSEGISandData/COVID-19/issues/1250">issue</a></p></li>
+<li>
+<p>Changes in the columns names and order:</p>
 <ul>
 <li>
 <code>Province.State</code> changed to <code>province</code>
@@ -192,17 +210,18 @@
 </li>
 </ul>
 </li>
-<li>The <code>covid_south_korea</code> and <code>covid_iran</code> that were avialble on the dev version were removed from the package and moved to new package <a href="https://github.com/RamiKrispin/covid19wiki">covid19wiki</a>, for now available only on Github</li>
+<li><p>The <code>covid_south_korea</code> and <code>covid_iran</code> that were avialble on the dev version were removed from the package and moved to new package <a href="https://github.com/RamiKrispin/covid19wiki">covid19wiki</a>, for now available only on Github</p></li>
 </ul>
 </li>
-<li>Function:
+<li>
+<p>Function:</p>
 <ul>
 <li>
 <code>update_dataset</code> - enable to update the installed version with new data that available on the <a href="https://github.com/RamiKrispin/coronavirus">Github version</a>
 </li>
 </ul>
 </li>
-<li>Data refresh - the <a href="https://github.com/RamiKrispin/coronavirus">Github version</a> is now updated on a daily basis with a cron job</li>
+<li><p>Data refresh - the <a href="https://github.com/RamiKrispin/coronavirus">Github version</a> is now updated on a daily basis with a cron job</p></li>
 </ul>
 </div>
     <div id="coronavirus-010" class="section level1">
