@@ -32,10 +32,14 @@
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.22</span>
 =======
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
 >>>>>>> staging
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+>>>>>>> dev
       </span>
     </div>
 
@@ -166,26 +170,26 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
 <pre><code>## # A tibble: 6 x 7
-##   date       province country               lat   long type      cases
-##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
-## 1 2020-01-22 &lt;NA&gt;     Afghanistan          33.9  67.7  confirmed     0
-## 2 2020-01-22 &lt;NA&gt;     Albania              41.2  20.2  confirmed     0
-## 3 2020-01-22 &lt;NA&gt;     Algeria              28.0   1.66 confirmed     0
-## 4 2020-01-22 &lt;NA&gt;     Andorra              42.5   1.52 confirmed     0
-## 5 2020-01-22 &lt;NA&gt;     Angola              -11.2  17.9  confirmed     0
-## 6 2020-01-22 &lt;NA&gt;     Antigua and Barbuda  17.1 -61.8  confirmed     0</code></pre>
+##   date       province country   lat  long type      cases
+##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 2020-01-22 Alberta  Canada   53.9 -117. confirmed     0
+## 2 2020-01-23 Alberta  Canada   53.9 -117. confirmed     0
+## 3 2020-01-24 Alberta  Canada   53.9 -117. confirmed     0
+## 4 2020-01-25 Alberta  Canada   53.9 -117. confirmed     0
+## 5 2020-01-26 Alberta  Canada   53.9 -117. confirmed     0
+## 6 2020-01-27 Alberta  Canada   53.9 -117. confirmed     0</code></pre>
 <p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
-<pre><code>## tibble [475,116 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ date    : Date[1:475116], format: "2020-01-22" "2020-01-22" ...
-##  $ province: chr [1:475116] NA NA NA NA ...
-##  $ country : chr [1:475116] "Afghanistan" "Albania" "Algeria" "Andorra" ...
-##  $ lat     : num [1:475116] 33.9 41.2 28 42.5 -11.2 ...
-##  $ long    : num [1:475116] 67.71 20.17 1.66 1.52 17.87 ...
-##  $ type    : chr [1:475116] "confirmed" "confirmed" "confirmed" "confirmed" ...
-##  $ cases   : num [1:475116] 0 0 0 0 0 0 0 0 0 0 ...
+<pre><code>## tibble [483,336 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ date    : Date[1:483336], format: "2020-01-22" "2020-01-23" ...
+##  $ province: chr [1:483336] "Alberta" "Alberta" "Alberta" "Alberta" ...
+##  $ country : chr [1:483336] "Canada" "Canada" "Canada" "Canada" ...
+##  $ lat     : num [1:483336] 53.9 53.9 53.9 53.9 53.9 ...
+##  $ long    : num [1:483336] -117 -117 -117 -117 -117 ...
+##  $ type    : chr [1:483336] "confirmed" "confirmed" "confirmed" "confirmed" ...
+##  $ cases   : num [1:483336] 0 0 0 0 0 0 0 0 0 0 ...
 ##  - attr(*, "spec")=
 ##   .. cols(
 ##   ..   date = col_date(format = "%Y-%m-%d"),
