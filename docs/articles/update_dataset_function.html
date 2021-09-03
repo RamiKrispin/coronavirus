@@ -31,15 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.22</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
->>>>>>> staging
-=======
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
->>>>>>> dev
       </span>
     </div>
 
@@ -137,32 +129,6 @@
 <p>Alternatively, you can read and load the data directly from the package repository, using the csv version:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://readr.tidyverse.org">readr</a></span>)
-<<<<<<< HEAD
-<span class="kw">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>)
-</pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   date = col_date(format = ""),
-##   province = col_character(),
-##   country = col_character(),
-##   lat = col_double(),
-##   long = col_double(),
-##   type = col_character(),
-##   cases = col_double()
-## )</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus_df</span>)
-</pre></div>
-<pre><code>## # A tibble: 6 x 7
-##   date       province country               lat   long type      cases
-##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
-## 1 2020-01-22 &lt;NA&gt;     Afghanistan          33.9  67.7  confirmed     0
-## 2 2020-01-22 &lt;NA&gt;     Albania              41.2  20.2  confirmed     0
-## 3 2020-01-22 &lt;NA&gt;     Algeria              28.0   1.66 confirmed     0
-## 4 2020-01-22 &lt;NA&gt;     Andorra              42.5   1.52 confirmed     0
-## 5 2020-01-22 &lt;NA&gt;     Angola              -11.2  17.9  confirmed     0
-## 6 2020-01-22 &lt;NA&gt;     Antigua and Barbuda  17.1 -61.8  confirmed     0</code></pre>
-=======
 <span class="kw">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>, 
     col_types = <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span>(date = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date</a></span>(format = <span class="st">"%Y-%m-%d"</span>), 
         cases = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number</a></span>()))
@@ -182,14 +148,14 @@
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
-<pre><code>## tibble [483,336 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ date    : Date[1:483336], format: "2020-01-22" "2020-01-23" ...
-##  $ province: chr [1:483336] "Alberta" "Alberta" "Alberta" "Alberta" ...
-##  $ country : chr [1:483336] "Canada" "Canada" "Canada" "Canada" ...
-##  $ lat     : num [1:483336] 53.9 53.9 53.9 53.9 53.9 ...
-##  $ long    : num [1:483336] -117 -117 -117 -117 -117 ...
-##  $ type    : chr [1:483336] "confirmed" "confirmed" "confirmed" "confirmed" ...
-##  $ cases   : num [1:483336] 0 0 0 0 0 0 0 0 0 0 ...
+<pre><code>## tibble [484,158 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ date    : Date[1:484158], format: "2020-01-22" "2020-01-23" ...
+##  $ province: chr [1:484158] "Alberta" "Alberta" "Alberta" "Alberta" ...
+##  $ country : chr [1:484158] "Canada" "Canada" "Canada" "Canada" ...
+##  $ lat     : num [1:484158] 53.9 53.9 53.9 53.9 53.9 ...
+##  $ long    : num [1:484158] -117 -117 -117 -117 -117 ...
+##  $ type    : chr [1:484158] "confirmed" "confirmed" "confirmed" "confirmed" ...
+##  $ cases   : num [1:484158] 0 0 0 0 0 0 0 0 0 0 ...
 ##  - attr(*, "spec")=
 ##   .. cols(
 ##   ..   date = col_date(format = "%Y-%m-%d"),
@@ -200,7 +166,6 @@
 ##   ..   type = col_character(),
 ##   ..   cases = col_number()
 ##   .. )</code></pre>
->>>>>>> staging
 </div>
   </div>
 
