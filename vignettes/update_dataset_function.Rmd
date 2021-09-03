@@ -45,12 +45,6 @@ Alternatively, you can read and load the data directly from the package reposito
 
 ```{r}
 library(readr)
-<<<<<<< HEAD
-coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
-
-head(coronavirus_df)
-```
-=======
 coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", 
     col_types = cols(date = col_date(format = "%Y-%m-%d"), 
         cases = col_number()))
@@ -65,4 +59,3 @@ str(coronavirus_df)
 ```
 
 
->>>>>>> staging
