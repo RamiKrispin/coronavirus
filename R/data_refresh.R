@@ -58,7 +58,7 @@ update_dataset <- function(silence = FALSE){
           if ("coronavirus" %in% names(utils::sessionInfo()$otherPkgs)) {
             detach(package:coronavirus, unload = TRUE)
             library(coronavirus)
-           }
+          }
         },
         error = function(e){
           message('Caught an error!')
