@@ -27,8 +27,8 @@ data_refresh <- function(env = "master"){
     }
 
     df1 <-  df %>% tidyr::pivot_longer(cols = dplyr::starts_with(c("1", "2", "3", "4", "5", "6", "7", "8", "9")),
-                                               names_to = "date_temp",
-                                               values_to = "cases_temp") %>%
+                                       names_to = "date_temp",
+                                       values_to = "cases_temp") %>%
       dplyr::mutate(date = lubridate::mdy(date_temp)) %>%
       dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
       dplyr::summarise(cases = sum(cases_temp),
@@ -69,7 +69,7 @@ data_refresh <- function(env = "master"){
 
   git_df <- readr::read_csv(file = sprintf("https://raw.githubusercontent.com/RamiKrispin/coronavirus/%s/csv/coronavirus.csv", env),
                             col_types = readr::cols(date = readr::col_date(format = "%Y-%m-%d"),
-                                             cases = readr::col_number()))
+                                                    cases = readr::col_number()))
 
 
   if(ncol(git_df) != 7){
@@ -125,16 +125,16 @@ data_refresh_vaccine <- function(url, env = "master"){
 
   names(covid19_vaccine) <- tolower(names(covid19_vaccine))
   git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
-                           env,
-                           "/csv/covid19_vaccine.csv",
-                           sep = ""),
-                     col_types = readr::cols(report_date_string = readr::col_date(format = "%Y-%m-%d"),
-                                      province_state = readr::col_character()))
+                                  env,
+                                  "/csv/covid19_vaccine.csv",
+                                  sep = ""),
+                            col_types = readr::cols(report_date_string = readr::col_date(format = "%Y-%m-%d"),
+                                                    province_state = readr::col_character()))
 
   if(nrow(covid19_vaccine) > nrow(git_df)){
     cat("Updating the vaccine data...")
-  usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
-  write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+    usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
+    write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
   } else {
     cat("No updates available...")
   }
