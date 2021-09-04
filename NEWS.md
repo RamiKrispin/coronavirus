@@ -1,8 +1,12 @@
 # coronavirus 0.3.3
 
--   Stop tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
--   Add vaccine data
--   Add world population by country
+- Stop tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
+- Add vaccine data
+- Add world population data by country
+- Bug fixing:
+  - Error with the `refresh_coronavirus_jhu` function, see [issue #78](https://github.com/RamiKrispin/coronavirus/issues/78)
+  - Issue with `refresh_coronavirus_jhu` function, see [issue #83](https://github.com/RamiKrispin/coronavirus/issues/83)
+
 
 # coronavirus 0.3.22
 

@@ -36,8 +36,8 @@ refresh_coronavirus_jhu <- function(){
   if(base::is.null(df)){
     base::message("Could not refresh the coronavirus dataset, please check your connection")
   } else{
-    df$location <- ifelse(df$province== "", df$country, paste(df$province, df$country, sep = ", "))
-    df$location_type <-  ifelse(df$province== "", "country", "state")
+    df$location <- ifelse(df$province == "" | is.na(df$province), df$country, paste(df$province, df$country, sep = ", "))
+    df$location_type <-  ifelse(df$province== "" | is.na(df$province), "country", "state")
 
     # Fixes before merging in codes
     df$location <- gsub("Korea, South", "South Korea",  df$location)
