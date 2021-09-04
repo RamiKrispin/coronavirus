@@ -39,7 +39,8 @@ data_refresh <- function(env = "master"){
                     Province.State = trimws(Province.State))
 
     if(type == "recovered"){
-      df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0, NA, df1$cases)
+      df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0 |
+                            df1$date > as.Date("2021-08-04") & df1$cases < 0, NA, df1$cases)
     }
 
 
