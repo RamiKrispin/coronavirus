@@ -132,6 +132,7 @@ data_refresh_vaccine <- function(url, env = "master"){
                                       province_state = readr::col_character()))
 
   if(nrow(covid19_vaccine) > nrow(git_df)){
+    cat("Updating the vaccine data...")
   usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
   write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
   } else {
