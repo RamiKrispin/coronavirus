@@ -67,7 +67,8 @@
 #'   \item{population}{Country or province population}
 #'   }
 #' @source Johns Hopkins University Centers for Civic Impact
-#' (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}. Country code (uid, iso2, iso3, etc.) are sourced from this \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}(repository)
+#' (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}.
+#' Country code (uid, iso2, iso3, etc.) are sourced from this \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}(repository), see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}(section 4) for data resources
 #' @keywords datasets coronavirus COVID19 vaccine
 #' @details The dataset provides the daily cumulative number of people who received vaccine (or at least one vaccine dose) by country and province (when applicable)
 #' @examples
