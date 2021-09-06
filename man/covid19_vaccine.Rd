@@ -28,7 +28,9 @@ A data frame with 8 variables.
 \source{
 Johns Hopkins University Centers for Civic Impact
 (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}.
-Country code (uid, iso2, iso3, etc.) are sourced from this \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}(repository), see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}(section 4) for data resources
+Country code (uid, iso2, iso3, etc.) are sourced from this \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}{repository},
+see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}{section 4}
+for full data resources.
 }
 \usage{
 covid19_vaccine
