@@ -132,7 +132,8 @@ data_refresh_vaccine <- function(url, env = "master"){
                                      covid19_vaccine_temp$uid)
 
   covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
-                                                               by = c("uid"))
+                                                               by = c("uid")) %>%
+    dplyr::select(-admin2)
 
 
   git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
