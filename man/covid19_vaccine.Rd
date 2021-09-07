@@ -15,13 +15,13 @@ A data frame with 8 variables.
   \item{report_date_string}{Data report date in YYYY-MM-DD format}
   \item{uid}{Country code}
   \item{province_state}{Province or state if applicable}
-  \item{iso2}{Officialy assigned country code identifiers with two-letter}
-  \item{iso3}{Officialy assigned country code identifiers with three-letter}
+  \item{iso2}{Officially assigned country code identifiers with two-letter}
+  \item{iso3}{Officially assigned country code identifiers with three-letter}
   \item{code3}{UN country code}
   \item{fips}{Federal Information Processing Standards code that uniquely identifies counties within the USA}
   \item{lat}{Latitude}
   \item{long}{Longitude}
-  \item{combined_key}{Country and provicnce (if applicable)}
+  \item{combined_key}{Country and province (if applicable)}
   \item{population}{Country or province population}
   }
 }
