@@ -1,0 +1,44 @@
+---
+title: "Covid19 Vaccine Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Covid19R Project Format}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
+
+ * `country_region` - Country or region name
+* `date` - Data collection date in YYYY-MM-DD format
+* `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
+* `people_partially_vaccinated` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
+* `people_fully_vaccinated` - Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated
+* `report_date_string` - Data report date in YYYY-MM-DD format
+* `uid` - Country code
+* `province_state` - Province or state if applicable
+* `iso2` - Officially assigned country code identifiers with two-letter
+* `iso3` - Officially assigned country code identifiers with three-letter
+* `code3` - UN country code
+* `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
+* `lat` - Latitude
+* `long` - Longitude
+* `combined_key` - Country and province (if applicable)
+* `population` - Country or province population
+
+Note that the country / province coding (e.g., `ios2`, `ios3`, etc.) is 
+```{r}
+library(coronavirus)
+
+data("covid19_vaccine")
+
+head(covid19_vaccine)
+```
+
