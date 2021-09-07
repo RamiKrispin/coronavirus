@@ -1,4 +1,4 @@
-# coronavirus 0.3.3
+# coronavirus 0.3.30
 
 - Stop tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
 - Add vaccine data
