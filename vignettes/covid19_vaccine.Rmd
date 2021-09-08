@@ -17,28 +17,30 @@ knitr::opts_chunk$set(
 
 The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
 
- * `country_region` - Country or region name
-* `date` - Data collection date in YYYY-MM-DD format
-* `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
-* `people_partially_vaccinated` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
-* `people_fully_vaccinated` - Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated
-* `report_date_string` - Data report date in YYYY-MM-DD format
-* `uid` - Country code
-* `province_state` - Province or state if applicable
-* `iso2` - Officially assigned country code identifiers with two-letter
-* `iso3` - Officially assigned country code identifiers with three-letter
-* `code3` - UN country code
-* `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
-* `lat` - Latitude
-* `long` - Longitude
-* `combined_key` - Country and province (if applicable)
-* `population` - Country or province population
+-   `country_region` - Country or region name
+-   `date` - Data collection date in YYYY-MM-DD format
+-   `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
+-   `people_partially_vaccinated` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
+-   `people_fully_vaccinated` - Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated
+-   `report_date_string` - Data report date in YYYY-MM-DD format
+-   `uid` - Country code
+-   `province_state` - Province or state if applicable
+-   `iso2` - Officially assigned country code identifiers with two-letter
+-   `iso3` - Officially assigned country code identifiers with three-letter
+-   `code3` - UN country code
+-   `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
+-   `lat` - Latitude
+-   `long` - Longitude
+-   `combined_key` - Country and province (if applicable)
+-   `population` - Country or province population
+-   `continent_name` - Continent name
+-   `continent_code` - Continent code
 
 Data sources:
 
-- Vaccine data - https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data
-- Country/province codes and population - https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv
-
+-   Vaccine data - <https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data>
+-   Country/province codes and population - <https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv>
+-   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/country-and-continent-codes-list>
 
 **Note:** The country / province code fields (e.g., `ios2`, `ios3`, etc.) and population were added to the raw dat
 
@@ -49,7 +51,6 @@ data("covid19_vaccine")
 
 head(covid19_vaccine)
 ```
-
 
 ### Proportion of vaccinated population
 
@@ -72,7 +73,6 @@ df <- df %>%
 
 head(df, 10)
 ```
-
 
 We can plot the top 20 vaccinated countries:
 
@@ -97,3 +97,13 @@ plot_ly(data = top_20,
 
 ```
 
+### Continent View
+
+Similarly, we can filter and plot the percentage of vaccinated people by continent, using the `continent_name` field:
+
+```{r}
+
+continent_df <- df %>%
+  filter(!is.na(continent_name))
+
+```
