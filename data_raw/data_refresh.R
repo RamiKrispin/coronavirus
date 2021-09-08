@@ -127,6 +127,7 @@ data_refresh_vaccine <- function(url, env = "master"){
   names(covid19_vaccine_temp) <- tolower(names(covid19_vaccine_temp))
 
   load("./data_raw/gis_mapping.RData")
+
   covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
                                      158,
                                      covid19_vaccine_temp$uid)
@@ -134,6 +135,7 @@ data_refresh_vaccine <- function(url, env = "master"){
   covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
                                                                by = c("uid")) %>%
     dplyr::select(-admin2) %>%
+    dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
     dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
                      by = c("uid", "iso2", "iso3"))
 
