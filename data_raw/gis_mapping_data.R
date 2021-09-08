@@ -24,7 +24,7 @@ continent_mapping <- readr::read_csv(file = "https://pkgstore.datahub.io/JohnSno
                 country_name = Country_Name,
                 iso2 = Two_Letter_Country_Code,
                 iso3 = Three_Letter_Country_Code,
-                uid = Country_Number)
+                uid = Country_Number) %>% as.data.frame()
 head(continent_mapping)
 
 save(continent_mapping, gis_code_mapping, file = "./data_raw/gis_mapping.RData")
