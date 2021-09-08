@@ -15,4 +15,16 @@ names(gis_code_mapping)[which(names(gis_code_mapping) == "long_")] <- "long"
 
 
 head(gis_code_mapping)
-save(gis_code_mapping, file = "./data_raw/gis_mapping.RData")
+
+# Continent mapping
+continent_mapping <- readr::read_csv(file = "https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/country-and-continent-codes-list-csv_csv/data/b7876b7f496677669644f3d1069d3121/country-and-continent-codes-list-csv_csv.csv",
+    na = "null") %>%
+  dplyr::select(continent_name = Continent_Name,
+                continent_code = Continent_Code,
+                country_name = Country_Name,
+                iso2 = Two_Letter_Country_Code,
+                iso3 = Three_Letter_Country_Code,
+                uid = Country_Number)
+head(continent_mapping)
+
+save(continent_mapping, gis_code_mapping, file = "./data_raw/gis_mapping.RData")
