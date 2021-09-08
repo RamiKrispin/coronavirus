@@ -2,13 +2,14 @@
 title: "Covid19 Vaccine Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Covid19R Project Format}
+  %\VignetteIndexEntry{Covid19 Vaccine Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
+  fig.height=5, fig.width=8, message=FALSE, warning=FALSE,
   collapse = TRUE,
   comment = "#>"
 )
@@ -33,12 +34,66 @@ The `covid19_vaccine` dataset provides time-series data on the vaccination progr
 * `combined_key` - Country and province (if applicable)
 * `population` - Country or province population
 
-Note that the country / province coding (e.g., `ios2`, `ios3`, etc.) is 
-```{r}
+Data sources:
+
+- Vaccine data - https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data
+- Country/province codes and population - https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv
+
+
+**Note:** The country / province code fields (e.g., `ios2`, `ios3`, etc.) and population were added to the raw dat
+
+```{r }
 library(coronavirus)
 
 data("covid19_vaccine")
 
 head(covid19_vaccine)
+```
+
+
+### Proportion of vaccinated population
+
+We can measure the proportion of vaccinated group out of the total population using the `people_fully_vaccinated` and `population` fields. We will start by filtering the data by the latest date and removing observations without population data (province level):
+
+```{r}
+library(dplyr)
+
+df <- covid19_vaccine %>% 
+  filter(date == max(date),
+         !is.na(population)) 
+```
+
+Next, we will calculate the ratio of the fully vaccinated people out of the total population:
+
+```{r}
+df <- df %>% 
+  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
+  arrange(- fully_vaccinated_ratio)
+
+head(df, 10)
+```
+
+
+We can plot the top 20 vaccinated countries:
+
+```{r fig.height=6, fig.width=8}
+library(plotly)
+
+top_20 <- df %>% 
+  slice_head(n = 20) %>%
+  arrange(fully_vaccinated_ratio) %>%
+  mutate(country = factor(country_region, levels = country_region))
+  
+plot_ly(data = top_20,
+        y = ~ country,
+        x = ~ round(100 * fully_vaccinated_ratio, 2),
+        text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
+        textposition = 'auto',
+        orientation = "h",
+        type = "bar") %>%
+  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
+         yaxis = list(title = ""),
+         xaxis = list(title = "Percentage", ticksuffix = "%"))
+
 ```
 
