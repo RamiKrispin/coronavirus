@@ -101,9 +101,46 @@ plot_ly(data = top_20,
 
 Similarly, we can filter and plot the percentage of vaccinated people by continent, using the `continent_name` field:
 
-```{r}
+```{r fig.height=8, fig.width=9}
 
 continent_df <- df %>%
-  filter(!is.na(continent_name))
+  filter(!is.na(continent_name),
+         !is.na(fully_vaccinated_ratio))
 
+table(continent_df$continent_name)
+
+p <- list()
+
+for(i in unique(continent_df$continent_name)){
+  d <- NULL
+  
+  d <- continent_df %>% 
+    filter(continent_name == i) %>% 
+    arrange(fully_vaccinated_ratio) %>%
+    mutate(country = factor(country_region, levels = country_region))
+  
+  p[[i]] <-  plot_ly(data = d,
+          y = ~ country,
+          x = ~ round(100 * fully_vaccinated_ratio, 2),
+          orientation = "h",
+          showlegend = FALSE,
+          name = i,
+          type = "bar") %>%
+    layout(title = "Percentage of Fully Vaccineted Population by Continent and Country",
+           yaxis = list(title = ""),
+           xaxis = list(title = "", ticksuffix = "%")) %>%
+    add_annotations(text = i,
+                    xref = "paper",
+                    yref = "paper",
+                    x = 0.5,
+                    y = 0.1,
+                    align = "right",
+                    showarrow = FALSE)
+  
+  
+}
+
+
+subplot(p, nrows = 3, shareX = TRUE, margin = 0.06)
+  
 ```
