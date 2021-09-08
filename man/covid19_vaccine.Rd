@@ -23,6 +23,9 @@ A data frame with 8 variables.
   \item{long}{Longitude}
   \item{combined_key}{Country and province (if applicable)}
   \item{population}{Country or province population}
+  \item{continent_name}{Continent name}
+  \item{continent_code}{Continent code}
+
   }
 }
 \source{

@@ -65,6 +65,9 @@
 #'   \item{long}{Longitude}
 #'   \item{combined_key}{Country and province (if applicable)}
 #'   \item{population}{Country or province population}
+#'   \item{continent_name}{Continent name}
+#'   \item{continent_code}{Continent code}
+#'
 #'   }
 #' @source Johns Hopkins University Centers for Civic Impact
 #' (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}.
