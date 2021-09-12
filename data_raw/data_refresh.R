@@ -140,6 +140,18 @@ data_refresh_vaccine <- function(url, env = "master"){
                      by = c("uid", "iso2", "iso3"))
 
 
+
+  # Check if there are duplication in the US data
+  x <- covid19_vaccine %>% dplyr::filter(iso2 == "US")
+  if(any(table(duplicated(x[, c( "date")]))) &&
+     all(c("US", "US (Aggregate)") %in% unique(x$country_region))){
+    covid19_vaccine <- covid19_vaccine %>%
+      dplyr::filter(country_region != "US (Aggregate)")
+  }
+
+
+
+
   git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
                                   env,
                                   "/csv/covid19_vaccine.csv",
