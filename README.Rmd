@@ -22,7 +22,7 @@ library(coronavirus)
 <!-- badges: start --->
 [![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](https://github.com/RamiKrispin/coronavirus/commit/master)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/coronavirus)](https://cran.r-project.org/package=coronavirus)
@@ -267,7 +267,7 @@ The raw data pulled and arranged by the Johns Hopkins University Center for Syst
 * Australia Government Department of Health:https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert <br>
 * European Centre for Disease Prevention and Control (ECDC): https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases 
 * Ministry of Health Singapore (MOH): https://www.moh.gov.sg/covid-19
-* Italy Ministry of Health: http://www.salute.gov.it/nuovocoronavirus
+* Italy Ministry of Health: https://www.salute.gov.it/nuovocoronavirus
 * 1Point3Arces: https://coronavirus.1point3acres.com/en
 * WorldoMeters: https://www.worldometers.info/coronavirus/
 * COVID Tracking Project: https://covidtracking.com/data. (US Testing and Hospitalization Data. We use the maximum reported value from "Currently" and "Cumulative" Hospitalized for our hospitalization number reported for each state.)

@@ -127,13 +127,29 @@ data_refresh_vaccine <- function(url, env = "master"){
   names(covid19_vaccine_temp) <- tolower(names(covid19_vaccine_temp))
 
   load("./data_raw/gis_mapping.RData")
+
   covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
                                      158,
                                      covid19_vaccine_temp$uid)
 
   covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
                                                                by = c("uid")) %>%
-    dplyr::select(-admin2)
+    dplyr::select(-admin2) %>%
+    dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
+    dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
+                     by = c("uid", "iso2", "iso3"))
+
+
+
+  # Check if there are duplication in the US data
+  x <- covid19_vaccine %>% dplyr::filter(iso2 == "US")
+  if(any(table(duplicated(x[, c( "date")]))) &&
+     all(c("US", "US (Aggregate)") %in% unique(x$country_region))){
+    covid19_vaccine <- covid19_vaccine %>%
+      dplyr::filter(country_region != "US (Aggregate)")
+  }
+
+
 
 
   git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
