@@ -136,13 +136,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type  data_type value      lat      long
-#> 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953
-#> 2 2021-04-02 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
-#> 3 2021-03-22 Afghanistan       country            AF         iso_3166_2  cases_new    50 33.93911 67.709953
-#> 4 2021-04-03 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953
-#> 5 2020-12-27 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953
-#> 6 2021-04-01 Afghanistan       country            AF         iso_3166_2 deaths_new     5 33.93911 67.709953
+#>         date    location location_type location_code location_code_type     data_type value      lat      long
+#> 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953
+#> 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
+#> 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953
+#> 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953
+#> 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953
+#> 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953
 ```
 
 ## Usage
@@ -258,7 +258,7 @@ coronavirus %>%
 #> # … with 155 more rows
 ```
 
-Plotting the total cases by type worldwide:
+Plotting daily confirmed and death cases in Brazil:
 
 ``` r
 library(plotly)
@@ -291,7 +291,7 @@ coronavirus %>%
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 ```
 
-<img src="man/figures/total_cases.svg" width="100%" />
+<img src="man/figures/brazil_cases.svg" width="100%" />
 
 Plot the confirmed cases distribution by counrty with treemap plot:
 

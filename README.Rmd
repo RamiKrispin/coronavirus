@@ -152,7 +152,7 @@ coronavirus %>%
 ```
 
 
-Plotting the total cases by type worldwide:
+Plotting daily confirmed and death cases in Brazil:
 
 ``` r
 library(plotly)
@@ -189,37 +189,41 @@ coronavirus %>%
 ```{r include=FALSE}
 library(plotly)
 
-p1 <- coronavirus %>% 
-  group_by(type, date) %>%
-  summarise(total_cases = sum(cases), .groups = "drop") %>%
-  pivot_wider(names_from = type, values_from = total_cases) %>%
-  arrange(date) %>%
-  mutate(active = confirmed - death - recovered) %>%
-  mutate(active_total = cumsum(active),
-                recovered_total = cumsum(recovered),
-                death_total = cumsum(death)) %>%
-  plot_ly(x = ~ date,
-                  y = ~ active_total,
-                  name = 'Active', 
-                  fillcolor = '#1f77b4',
-                  type = 'scatter',
-                  mode = 'none', 
-                  stackgroup = 'one') %>%
-  add_trace(y = ~ death_total, 
-             name = "Death",
-             fillcolor = '#E41317') %>%
-  add_trace(y = ~recovered_total, 
-            name = 'Recovered', 
-            fillcolor = 'forestgreen') %>%
-  layout(title = "Distribution of Covid19 Cases Worldwide",
-         legend = list(x = 0.1, y = 0.9),
-         yaxis = list(title = "Number of Cases"),
+df <- coronavirus %>%
+  filter(country == "Brazil",
+         is.na(province))
+
+p_1 <- plot_ly(data = df %>% filter(type == "confirmed"),
+        x = ~ date,
+        y = ~ cases,
+        name = "Confirmed",
+        type = "scatter",
+        mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
+         xaxis = list(title = ""))
+
+p_2 <- plot_ly(data = df %>% filter(type == "death"),
+              x = ~ date,
+              y = ~ cases,
+              name = "Death",
+              line = list(color = "red"),
+              type = "scatter",
+              mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 
-orca(p1, "man/figures/total_cases.svg")
+p1 <- subplot(p_1, p_2, nrows = 2, 
+              titleX = TRUE,
+              titleY = TRUE) %>%
+  layout(title = "Brazil - Daily Confirmed and Death Cases",
+         margin = list(t = 60, b = 60, l = 40, r = 40),
+         legend = list(x = 0.05, y = 1)
+         )
+
+orca(p1, "man/figures/brazil_cases.svg")
 ```
 
-<img src="man/figures/total_cases.svg" width="100%" />
+<img src="man/figures/brazil_cases.svg" width="100%" />
 
 Plot the confirmed cases distribution by counrty with treemap plot:
 
