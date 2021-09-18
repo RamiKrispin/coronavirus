@@ -17,9 +17,9 @@ commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](http
 <!-- badges: end -->
 
 The coronavirus package provides a tidy format dataset of the 2019 Novel
-Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the
-Johns Hopkins University Center for Systems Science and Engineering (JHU
-CCSE) Coronavirus
+Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by
+country. The raw data is being pulled from the Johns Hopkins University
+Center for Systems Science and Engineering (JHU CCSE) Coronavirus
 [repository](https://github.com/CSSEGISandData/COVID-19).
 
 More details available
@@ -54,6 +54,62 @@ Install the Github version (refreshed on a daily bases):
 devtools::install_github("RamiKrispin/coronavirus")
 ```
 
+## Datasets
+
+The package provides the following two datasets:
+
+-   **coronavirus** - tidy (long) format of the JHU CCSE
+    [datasets](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series).
+    That includes the following columns:
+
+    -   `date` - The date of the observation, using `Date` class
+    -   `location` - The name of the location as provided by John
+        Hopkins raw data
+    -   `location_type` - The type of the location field, either
+        `country` or `state`
+    -   `location_code` - The location code, using the `ios_3166_2`
+        format
+    -   `location_code_type` - The location code type (`ios_3166_2`)
+    -   `data_type` - The case type,
+        `c("recovered_new", "cases_new", "deaths_new" )`
+    -   `value` - The number of cases
+    -   `lat` - The latitude code
+    -   `long` - The longitude code
+
+-   **covid19\_vaccine** - a tidy (long) format of the the Johns Hopkins
+    [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
+    vaccination
+    [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data)
+    by country. This dataset includes the following columns:
+
+    -   `country_region` - Country or region name
+    -   `date` - Data collection date in YYYY-MM-DD format
+    -   `doses_admin` - Cumulative number of doses administered. When a
+        vaccine requires multiple doses, each one is counted
+        independently
+    -   `people_partially_vaccinated` - Cumulative number of people who
+        received at least one vaccine dose. When the person receives a
+        prescribed second dose, it is not counted twice
+    -   `people_fully_vaccinated` - Cumulative number of people who
+        received all prescribed doses necessary to be considered fully
+        vaccinated
+    -   `report_date_string` - Data report date in YYYY-MM-DD format
+    -   `uid` - Country code
+    -   `province_state` - Province or state if applicable
+    -   `iso2` - Officially assigned country code identifiers with
+        two-letter
+    -   `iso3` - Officially assigned country code identifiers with
+        three-letter
+    -   `code3` - UN country code
+    -   `fips` - Federal Information Processing Standards code that
+        uniquely identifies counties within the USA
+    -   `lat` - Latitude
+    -   `long` - Longitude
+    -   `combined_key` - Country and province (if applicable)
+    -   `population` - Country or province population
+    -   `continent_name` - Continent name
+    -   `continent_code` - Continent code
+
 ## Data refresh
 
 While the **coronavirus** [CRAN
@@ -80,39 +136,20 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type     data_type value      lat      long
-#> 1 2020-03-15 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
-#> 2 2021-01-31 Afghanistan       country            AF         iso_3166_2    deaths_new     0 33.93911 67.709953
-#> 3 2021-02-02 Afghanistan       country            AF         iso_3166_2    deaths_new     1 33.93911 67.709953
-#> 4 2021-01-30 Afghanistan       country            AF         iso_3166_2    deaths_new     1 33.93911 67.709953
-#> 5 2020-03-14 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
-#> 6 2020-03-16 Afghanistan       country            AF         iso_3166_2 recovered_new     1 33.93911 67.709953
+#>         date    location location_type location_code location_code_type  data_type value      lat      long
+#> 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953
+#> 2 2021-04-02 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 3 2021-03-22 Afghanistan       country            AF         iso_3166_2  cases_new    50 33.93911 67.709953
+#> 4 2021-04-03 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953
+#> 5 2020-12-27 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953
+#> 6 2021-04-01 Afghanistan       country            AF         iso_3166_2 deaths_new     5 33.93911 67.709953
 ```
-
-## Dashboard
-
-A supporting dashboard is available
-[here](https://ramikrispin.github.io/coronavirus_dashboard/)
-
-[<img src="man/figures/dashboard.png" width="100%" />](https://ramikrispin.github.io/coronavirus_dashboard/)
 
 ## Usage
 
 ``` r
 data("coronavirus")
-```
 
-This `coronavirus` dataset has the following fields:
-
--   `date` - The date of the summary
--   `province` - The province or state, when applicable
--   `country` - The country or region name
--   `lat` - Latitude point
--   `long` - Longitude point
--   `type` - the type of case (i.e., confirmed, death)
--   `cases` - the number of daily cases (corresponding to the case type)
-
-``` r
 head(coronavirus)
 #>         date province country     lat      long      type cases
 #> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
@@ -138,30 +175,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                39906426
-#>  2 India             32988673
-#>  3 Brazil            20877864
-#>  4 United Kingdom     6973995
-#>  5 France             6910865
-#>  6 Russia             6894113
-#>  7 Turkey             6412247
-#>  8 Argentina          5202405
-#>  9 Iran               5103537
-#> 10 Colombia           4916980
-#> 11 Spain              4877755
-#> 12 Italy              4566126
-#> 13 Indonesia          4123617
-#> 14 Germany            4014858
-#> 15 Mexico             3420880
-#> 16 Poland             2890161
-#> 17 South Africa       2814014
-#> 18 Ukraine            2395616
-#> 19 Peru               2154132
-#> 20 Philippines        2061084
+#>  1 US                41785903
+#>  2 India             33381728
+#>  3 Brazil            21069017
+#>  4 United Kingdom     7373451
+#>  5 Russia             7110656
+#>  6 France             7021091
+#>  7 Turkey             6766978
+#>  8 Iran               5378408
+#>  9 Argentina          5234851
+#> 10 Colombia           4936052
+#> 11 Spain              4926324
+#> 12 Italy              4623155
+#> 13 Indonesia          4181309
+#> 14 Germany            4127158
+#> 15 Mexico             3549229
+#> 16 Poland             2895947
+#> 17 South Africa       2873415
+#> 18 Ukraine            2435404
+#> 19 Philippines        2304192
+#> 20 Peru               2164380
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2021-09-04):
+2021-09-16):
 
 ``` r
 library(tidyr)
@@ -176,48 +213,48 @@ coronavirus %>%
   arrange(-confirmed)
 #> # A tibble: 195 x 4
 #> # Groups:   country [195]
-#>    country        confirmed death recovered
-#>    <chr>              <int> <int>     <int>
-#>  1 US                 56170   527        NA
-#>  2 India              42766   308        NA
-#>  3 United Kingdom     36725   120        NA
-#>  4 Brazil             21804   692        NA
-#>  5 Philippines        20516   189        NA
-#>  6 Iran               20404   515        NA
-#>  7 Malaysia           19057   362        NA
-#>  8 Russia             18400   776        NA
-#>  9 Germany            18170    21        NA
-#> 10 Japan              15999    60        NA
-#> 11 Thailand           15942   257        NA
-#> 12 Mexico             15586   647        NA
-#> 13 France             13336    83        NA
-#> 14 Vietnam             9521   347        NA
-#> 15 South Africa        8410   182        NA
-#> 16 Israel              7993    25        NA
-#> 17 Cuba                7854    79        NA
-#> 18 Pakistan            7727   140        NA
-#> 19 Indonesia           6727   539        NA
-#> 20 Italy               6156    56        NA
-#> 21 Kazakhstan          4866     0        NA
-#> 22 Iraq                4316    48        NA
-#> 23 Morocco             4310    70        NA
-#> 24 Portugal            3535    13        NA
-#> 25 Serbia              3497    19        NA
-#> 26 Azerbaijan          3305    40        NA
-#> 27 Burma               3078   102        NA
-#> 28 Netherlands         2816    12        NA
-#> 29 Georgia             2684    83        NA
-#> 30 Ukraine             2614    44        NA
-#> 31 Guatemala           2556    48        NA
-#> 32 Argentina           2486    88        NA
-#> 33 Greece              2284   106        NA
-#> 34 Tunisia             2209    63        NA
-#> 35 Colombia            2099    72        NA
-#> 36 Belarus             1946    12        NA
-#> 37 Bangladesh          1743    61        NA
-#> 38 Austria             1715     5        NA
-#> 39 Ireland             1703     0        NA
-#> 40 Australia           1670     3        NA
+#>    country            confirmed death recovered
+#>    <chr>                  <int> <int>     <int>
+#>  1 US                    157957  3393        NA
+#>  2 Brazil                 34407   649        NA
+#>  3 India                  34403   320        NA
+#>  4 Turkey                 28118   262        NA
+#>  5 United Kingdom         26619   159        NA
+#>  6 Philippines            21181   276        NA
+#>  7 Russia                 19288   774        NA
+#>  8 Malaysia               18815   346        NA
+#>  9 Iran                   18021   453        NA
+#> 10 Thailand               13894   188        NA
+#> 11 France                 13272    38        NA
+#> 12 Germany                11816    63        NA
+#> 13 Vietnam                10489   239        NA
+#> 14 Cuba                    7628    78        NA
+#> 15 Serbia                  7602    31        NA
+#> 16 Mexico                  7040   435        NA
+#> 17 Botswana                6608     6        NA
+#> 18 Israel                  6191    13        NA
+#> 19 Ukraine                 6050   121        NA
+#> 20 Italy                   5115    67        NA
+#> 21 Canada                  4671    21        NA
+#> 22 Japan                   4626    58        NA
+#> 23 Romania                 4441    71        NA
+#> 24 South Africa            4214   311        NA
+#> 25 Spain                   4075   101        NA
+#> 26 Iraq                    3923    52        NA
+#> 27 Azerbaijan              3847    60        NA
+#> 28 Ireland                 3765     0        NA
+#> 29 Kazakhstan              3317     0        NA
+#> 30 Indonesia               3145   237        NA
+#> 31 Pakistan                2928    68        NA
+#> 32 Costa Rica              2901    30        NA
+#> 33 West Bank and Gaza      2501    15        NA
+#> 34 Argentina               2493   132        NA
+#> 35 Morocco                 2432    46        NA
+#> 36 Belgium                 2359     8        NA
+#> 37 Greece                  2322    43        NA
+#> 38 Sri Lanka               2271   118        NA
+#> 39 Switzerland             2267    11        NA
+#> 40 Netherlands             2217     8        NA
 #> # … with 155 more rows
 ```
 
@@ -278,6 +315,63 @@ conf_df <- coronavirus %>%
 ```
 
 <img src="man/figures/treemap_conf.svg" width="100%" />
+
+``` r
+data(covid19_vaccine)
+
+head(covid19_vaccine)
+#>   country_region       date doses_admin people_partially_vaccinated people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3 fips      lat      long combined_key population
+#> 1    Afghanistan 2021-02-22           0                           0                       0         2021-02-22   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#> 2    Afghanistan 2021-02-23           0                           0                       0         2021-02-23   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#> 3    Afghanistan 2021-02-24           0                           0                       0         2021-02-24   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#> 4    Afghanistan 2021-02-25           0                           0                       0         2021-02-25   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#> 5    Afghanistan 2021-02-26           0                           0                       0         2021-02-26   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#> 6    Afghanistan 2021-02-27           0                           0                       0         2021-02-27   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
+#>   continent_name continent_code
+#> 1           Asia             AS
+#> 2           Asia             AS
+#> 3           Asia             AS
+#> 4           Asia             AS
+#> 5           Asia             AS
+#> 6           Asia             AS
+```
+
+Plot the top 20 vaccinated countries:
+
+``` r
+covid19_vaccine %>% 
+  filter(date == max(date),
+         !is.na(population)) %>% 
+  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
+  arrange(- fully_vaccinated_ratio) %>%
+  slice_head(n = 20) %>%
+  arrange(fully_vaccinated_ratio) %>%
+  mutate(country = factor(country_region, levels = country_region)) %>%
+  plot_ly(y = ~ country,
+          x = ~ round(100 * fully_vaccinated_ratio, 2),
+          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
+          textposition = 'auto',
+          orientation = "h",
+          type = "bar") %>%
+  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
+         yaxis = list(title = ""),
+         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
+                      ticksuffix = "%"))
+
+```
+
+<img src="man/figures/top20_countries.svg" width="100%" />
+
+## Dashboard
+
+**Note:** Currently, the dashboard is under maintenance due to recent
+changes in the data structure. Please see this
+[issue](https://github.com/RamiKrispin/coronavirus_dashboard/issues/25)
+
+A supporting dashboard is available
+[here](https://ramikrispin.github.io/coronavirus_dashboard/)
+
+[<img src="man/figures/dashboard.png" width="100%" />](https://ramikrispin.github.io/coronavirus_dashboard/)
 
 ## Data Sources
 

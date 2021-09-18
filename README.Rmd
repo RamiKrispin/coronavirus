@@ -29,8 +29,7 @@ library(coronavirus)
 
 <!-- badges: end -->
 
-The coronavirus package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus [repository](https://github.com/CSSEGISandData/COVID-19).
-
+The coronavirus package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The raw data is being pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus [repository](https://github.com/CSSEGISandData/COVID-19). 
 
 More details available [here](https://RamiKrispin.github.io/coronavirus/), and a `csv` format of the package dataset available [here](https://github.com/RamiKrispin/coronavirus/tree/master/csv)
 
@@ -56,6 +55,41 @@ Install the Github version (refreshed on a daily bases):
 devtools::install_github("RamiKrispin/coronavirus")
 ```
 
+## Datasets
+
+The package provides the following two datasets:
+
+* **coronavirus** - tidy (long) format of the JHU CCSE [datasets](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series). That includes the following columns:
+    * `date` - The date of the observation, using `Date` class
+    * `location` - The name of the location as provided by John Hopkins raw data
+    * `location_type` - The type of the location field, either `country` or `state`
+    * `location_code` - The location code, using the `ios_3166_2` format
+    * `location_code_type` - The location code type (`ios_3166_2`)
+    * `data_type` - The case type, `c("recovered_new", "cases_new", "deaths_new" )`
+    * `value` - The number of cases
+    * `lat` - The latitude code
+    * `long` - The longitude code 
+* **covid19_vaccine** - a tidy (long) format of the the Johns Hopkins [Centers for Civic Impact](https://civicimpact.jhu.edu/) global vaccination [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) by country. This dataset includes the following columns:
+
+    *   `country_region` - Country or region name
+    *   `date` - Data collection date in YYYY-MM-DD format
+    *   `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
+    *  `people_partially_vaccinated` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
+    *   `people_fully_vaccinated` - Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated
+    *   `report_date_string` - Data report date in YYYY-MM-DD format
+    *   `uid` - Country code
+    *   `province_state` - Province or state if applicable
+    *   `iso2` - Officially assigned country code identifiers with two-letter
+    *   `iso3` - Officially assigned country code identifiers with three-letter
+    *   `code3` - UN country code
+    *   `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
+    *   `lat` - Latitude
+    *   `long` - Longitude
+    *   `combined_key` - Country and province (if applicable)
+    *   `population` - Country or province population
+    *   `continent_name` - Continent name
+    *   `continent_code` - Continent code
+
 ## Data refresh
 
 While the **coronavirus** [CRAN version](https://cran.r-project.org/package=coronavirus) is updated every month or two, the [Github (Dev) version](https://github.com/RamiKrispin/coronavirus) is updated on a daily bases. The `update_dataset` function enables to overcome this gap and keep the installed version with the most recent data available on the Github version:
@@ -74,31 +108,14 @@ covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
 ```
 
-## Dashboard
 
-A supporting dashboard is available [here](https://ramikrispin.github.io/coronavirus_dashboard/)
-
-[<img src="man/figures/dashboard.png" width="100%" />](https://ramikrispin.github.io/coronavirus_dashboard/)
 
 ## Usage
 
 
 ```{r}
 data("coronavirus")
-```
 
-
-This `coronavirus` dataset has the following fields:
-
-* `date` - The date of the summary
-* `province` - The province or state, when applicable
-* `country` - The country or region name
-* `lat` - Latitude point
-* `long` - Longitude point
-* `type` - the type of case (i.e., confirmed, death)
-* `cases` - the number of daily cases (corresponding to the case type)
-
-```{r}
 head(coronavirus)
 ```
 
@@ -172,7 +189,7 @@ coronavirus %>%
 ```{r include=FALSE}
 library(plotly)
 
-p <- coronavirus %>% 
+p1 <- coronavirus %>% 
   group_by(type, date) %>%
   summarise(total_cases = sum(cases), .groups = "drop") %>%
   pivot_wider(names_from = type, values_from = total_cases) %>%
@@ -199,7 +216,7 @@ p <- coronavirus %>%
          yaxis = list(title = "Number of Cases"),
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 
-orca(p, "man/figures/total_cases.svg")
+orca(p1, "man/figures/total_cases.svg")
 ```
 
 <img src="man/figures/total_cases.svg" width="100%" />
@@ -235,7 +252,7 @@ conf_df <- coronavirus %>%
   mutate(parents = "Confirmed") %>%
   ungroup() 
   
-p <-   plot_ly(data = conf_df,
+p2 <-   plot_ly(data = conf_df,
           type= "treemap",
           values = ~total_cases,
           labels= ~ country,
@@ -244,10 +261,80 @@ p <-   plot_ly(data = conf_df,
           name = "Confirmed",
           textinfo="label+value+percent parent")
   
-orca(p, "man/figures/treemap_conf.svg")
+orca(p2, "man/figures/treemap_conf.svg")
 ```
 
 <img src="man/figures/treemap_conf.svg" width="100%" />
+
+
+
+
+```{r}
+data(covid19_vaccine)
+
+head(covid19_vaccine)
+```
+
+Plot the top 20 vaccinated countries:
+
+```r
+covid19_vaccine %>% 
+  filter(date == max(date),
+         !is.na(population)) %>% 
+  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
+  arrange(- fully_vaccinated_ratio) %>%
+  slice_head(n = 20) %>%
+  arrange(fully_vaccinated_ratio) %>%
+  mutate(country = factor(country_region, levels = country_region)) %>%
+  plot_ly(y = ~ country,
+          x = ~ round(100 * fully_vaccinated_ratio, 2),
+          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
+          textposition = 'auto',
+          orientation = "h",
+          type = "bar") %>%
+  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
+         yaxis = list(title = ""),
+         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
+                      ticksuffix = "%"))
+
+
+```
+
+```{r include=FALSE}
+p3 <- covid19_vaccine %>% 
+  filter(date == max(date),
+         !is.na(population)) %>% 
+  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
+  arrange(- fully_vaccinated_ratio) %>%
+  slice_head(n = 20) %>%
+  arrange(fully_vaccinated_ratio) %>%
+  mutate(country = factor(country_region, levels = country_region)) %>%
+  plot_ly(y = ~ country,
+          x = ~ round(100 * fully_vaccinated_ratio, 2),
+          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
+          textposition = 'auto',
+          orientation = "h",
+          type = "bar") %>%
+  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
+         yaxis = list(title = ""),
+         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
+                      ticksuffix = "%"))
+
+orca(p3, "man/figures/top20_countries.svg")
+
+```
+
+<img src="man/figures/top20_countries.svg" width="100%" />
+
+
+## Dashboard
+
+**Note:** Currently, the dashboard is under maintenance due to recent changes in the data structure. Please see this [issue](https://github.com/RamiKrispin/coronavirus_dashboard/issues/25)
+
+A supporting dashboard is available [here](https://ramikrispin.github.io/coronavirus_dashboard/)
+
+[<img src="man/figures/dashboard.png" width="100%" />](https://ramikrispin.github.io/coronavirus_dashboard/)
+
 
 ## Data Sources
 
