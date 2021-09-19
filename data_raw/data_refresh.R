@@ -39,7 +39,8 @@ data_refresh <- function(env = "master"){
                     Province.State = trimws(Province.State))
 
     if(type == "recovered"){
-      df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0, NA, df1$cases)
+      df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0 |
+                            df1$date > as.Date("2021-08-04") & df1$cases < 0, NA, df1$cases)
     }
 
 
@@ -98,9 +99,10 @@ data_refresh <- function(env = "master"){
 
 data_refresh_vaccine <- function(url, env = "master"){
   `%>%` <- magrittr::`%>%`
-  covid19_vaccine <- NULL
+  covid19_vaccine <- covid19_vaccine_temp <-  NULL
+
   tryCatch(
-    covid19_vaccine <- readr::read_csv(file = url,
+    covid19_vaccine_temp <- readr::read_csv(file = url,
                                        col_types = readr::cols(Date = readr::col_date(format = "%Y-%m-%d"),
                                                                Doses_admin = readr::col_number(),
                                                                People_partially_vaccinated = readr::col_number(),
@@ -112,18 +114,44 @@ data_refresh_vaccine <- function(url, env = "master"){
     error = function(c) base::message(c)
   )
 
-
-  if(is.null(covid19_vaccine)){
-    stop("Could not pull the covid19_vaccine dataset, check the error")
-  } else if(nrow(covid19_vaccine) < 57800 || ncol(covid19_vaccine) != 8){
-    stop("The dimensions of the covid19_vaccine dataset are invalid")
-  } else if(class(covid19_vaccine$Date) != "Date"){
+  if(is.null(covid19_vaccine_temp)){
+    stop("Could not pull the covid19_vaccine_temp dataset, check the error")
+  } else if(nrow(covid19_vaccine_temp) < 57800 || ncol(covid19_vaccine_temp) != 8){
+    stop("The dimensions of the covid19_vaccine_temp dataset are invalid")
+  } else if(class(covid19_vaccine_temp$Date) != "Date"){
     stop("The class of the Date column is invalid")
-  } else if(class(covid19_vaccine$Report_Date_String) != "Date"){
+  } else if(class(covid19_vaccine_temp$Report_Date_String) != "Date"){
     stop("The class of the Report_Date_String column is invalid")
   }
 
-  names(covid19_vaccine) <- tolower(names(covid19_vaccine))
+  names(covid19_vaccine_temp) <- tolower(names(covid19_vaccine_temp))
+
+  load("./data_raw/gis_mapping.RData")
+
+  covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
+                                     158,
+                                     covid19_vaccine_temp$uid)
+
+  covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
+                                                               by = c("uid")) %>%
+    dplyr::select(-admin2) %>%
+    dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
+    dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
+                     by = c("uid", "iso2", "iso3"))
+
+
+
+  # Check if there are duplication in the US data
+  x <- covid19_vaccine %>% dplyr::filter(iso2 == "US")
+  if(any(table(duplicated(x[, c( "date")]))) &&
+     all(c("US", "US (Aggregate)") %in% unique(x$country_region))){
+    covid19_vaccine <- covid19_vaccine %>%
+      dplyr::filter(country_region != "US (Aggregate)")
+  }
+
+
+
+
   git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
                                   env,
                                   "/csv/covid19_vaccine.csv",

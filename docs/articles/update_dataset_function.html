@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.30</span>
       </span>
     </div>
 
@@ -57,7 +57,13 @@
       <a href="../articles/covid19R.html">Covid19R Project Data Format</a>
     </li>
     <li>
+      <a href="../articles/covid19_vaccine.html">Covid19 Vaccine Data</a>
+    </li>
+    <li>
       <a href="../articles/dashboard.html">Coronavirus Dashboard</a>
+    </li>
+    <li>
+      <a href="../articles/geospatial_visualization.html">Geospatial Visualization</a>
     </li>
     <li>
       <a href="../articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
@@ -148,6 +154,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">coronavirus_df</span>)
 </pre></div>
+<<<<<<< HEAD
 <pre><code>## tibble [484,158 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ date    : Date[1:484158], format: "2020-01-22" "2020-01-23" ...
 ##  $ province: chr [1:484158] "Alberta" "Alberta" "Alberta" "Alberta" ...
@@ -156,6 +163,16 @@
 ##  $ long    : num [1:484158] -117 -117 -117 -117 -117 ...
 ##  $ type    : chr [1:484158] "confirmed" "confirmed" "confirmed" "confirmed" ...
 ##  $ cases   : num [1:484158] 0 0 0 0 0 0 0 0 0 0 ...
+=======
+<pre><code>## tibble [497,310 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ date    : Date[1:497310], format: "2020-01-22" "2020-01-23" ...
+##  $ province: chr [1:497310] "Alberta" "Alberta" "Alberta" "Alberta" ...
+##  $ country : chr [1:497310] "Canada" "Canada" "Canada" "Canada" ...
+##  $ lat     : num [1:497310] 53.9 53.9 53.9 53.9 53.9 ...
+##  $ long    : num [1:497310] -117 -117 -117 -117 -117 ...
+##  $ type    : chr [1:497310] "confirmed" "confirmed" "confirmed" "confirmed" ...
+##  $ cases   : num [1:497310] 0 0 0 0 0 0 0 0 0 0 ...
+>>>>>>> dev
 ##  - attr(*, "spec")=
 ##   .. cols(
 ##   ..   date = col_date(format = "%Y-%m-%d"),

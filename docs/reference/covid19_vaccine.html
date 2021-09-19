@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.30</span>
       </span>
     </div>
 
@@ -98,7 +98,13 @@
       <a href="../articles/covid19R.html">Covid19R Project Data Format</a>
     </li>
     <li>
+      <a href="../articles/covid19_vaccine.html">Covid19 Vaccine Data</a>
+    </li>
+    <li>
       <a href="../articles/dashboard.html">Coronavirus Dashboard</a>
+    </li>
+    <li>
+      <a href="../articles/geospatial_visualization.html">Geospatial Visualization</a>
     </li>
     <li>
       <a href="../articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
@@ -155,13 +161,28 @@
   <dt>report_date_string</dt><dd><p>Data report date in YYYY-MM-DD format</p></dd>
   <dt>uid</dt><dd><p>Country code</p></dd>
   <dt>province_state</dt><dd><p>Province or state if applicable</p></dd>
+  <dt>iso2</dt><dd><p>Officially assigned country code identifiers with two-letter</p></dd>
+  <dt>iso3</dt><dd><p>Officially assigned country code identifiers with three-letter</p></dd>
+  <dt>code3</dt><dd><p>UN country code</p></dd>
+  <dt>fips</dt><dd><p>Federal Information Processing Standards code that uniquely identifies counties within the USA</p></dd>
+  <dt>lat</dt><dd><p>Latitude</p></dd>
+  <dt>long</dt><dd><p>Longitude</p></dd>
+  <dt>combined_key</dt><dd><p>Country and province (if applicable)</p></dd>
+  <dt>population</dt><dd><p>Country or province population</p></dd>
+  <dt>continent_name</dt><dd><p>Continent name</p></dd>
+  <dt>continent_code</dt><dd><p>Continent code</p></dd>
+
   
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Johns Hopkins University Centers for Civic Impact
+    <p>- Vaccine data - Johns Hopkins University Centers for Civic Impact
 (JHU CCSE) COVID-19 <a href='https://github.com/govex/COVID-19'>repository</a>.</p>
+<p>- Country code (uid, iso2, iso3, etc.) are sourced from this <a href='https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data'>repository</a>,
+see <a href='https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic'>section 4</a>
+for full data resources.</p>
+<p>- Continent code mapping is sourced from <a href='https://datahub.io/JohnSnowLabs/country-and-continent-codes-list'>DATA HUB</a></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The dataset provides the daily cumulative number of people who received vaccine (or at least one vaccine dose) by country and province (when applicable)</p>
@@ -177,13 +198,20 @@
 #&gt; 4    Afghanistan 2021-02-25           0                           0
 #&gt; 5    Afghanistan 2021-02-26           0                           0
 #&gt; 6    Afghanistan 2021-02-27           0                           0
-#&gt;   people_fully_vaccinated report_date_string uid province_state
-#&gt; 1                       0         2021-02-22   4           &lt;NA&gt;
-#&gt; 2                       0         2021-02-23   4           &lt;NA&gt;
-#&gt; 3                       0         2021-02-24   4           &lt;NA&gt;
-#&gt; 4                       0         2021-02-25   4           &lt;NA&gt;
-#&gt; 5                       0         2021-02-26   4           &lt;NA&gt;
-#&gt; 6                       0         2021-02-27   4           &lt;NA&gt;</div><div class='input'>
+#&gt;   people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3
+#&gt; 1                       0         2021-02-22   4           &lt;NA&gt;   AF  AFG     4
+#&gt; 2                       0         2021-02-23   4           &lt;NA&gt;   AF  AFG     4
+#&gt; 3                       0         2021-02-24   4           &lt;NA&gt;   AF  AFG     4
+#&gt; 4                       0         2021-02-25   4           &lt;NA&gt;   AF  AFG     4
+#&gt; 5                       0         2021-02-26   4           &lt;NA&gt;   AF  AFG     4
+#&gt; 6                       0         2021-02-27   4           &lt;NA&gt;   AF  AFG     4
+#&gt;   fips      lat     long combined_key population continent_name continent_code
+#&gt; 1 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS
+#&gt; 2 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS
+#&gt; 3 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS
+#&gt; 4 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS
+#&gt; 5 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS
+#&gt; 6 &lt;NA&gt; 33.93911 67.70995  Afghanistan   38928341           Asia             AS</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

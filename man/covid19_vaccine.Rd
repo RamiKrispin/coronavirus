@@ -15,11 +15,28 @@ A data frame with 8 variables.
   \item{report_date_string}{Data report date in YYYY-MM-DD format}
   \item{uid}{Country code}
   \item{province_state}{Province or state if applicable}
+  \item{iso2}{Officially assigned country code identifiers with two-letter}
+  \item{iso3}{Officially assigned country code identifiers with three-letter}
+  \item{code3}{UN country code}
+  \item{fips}{Federal Information Processing Standards code that uniquely identifies counties within the USA}
+  \item{lat}{Latitude}
+  \item{long}{Longitude}
+  \item{combined_key}{Country and province (if applicable)}
+  \item{population}{Country or province population}
+  \item{continent_name}{Continent name}
+  \item{continent_code}{Continent code}
+
   }
 }
 \source{
-Johns Hopkins University Centers for Civic Impact
+- Vaccine data - Johns Hopkins University Centers for Civic Impact
 (JHU CCSE) COVID-19 \href{https://github.com/govex/COVID-19}{repository}.
+
+- Country code (uid, iso2, iso3, etc.) are sourced from this \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}{repository},
+see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}{section 4}
+for full data resources.
+
+- Continent code mapping is sourced from \href{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}{DATA HUB}
 }
 \usage{
 covid19_vaccine
