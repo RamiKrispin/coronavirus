@@ -1,6 +1,6 @@
 # coronavirus 0.3.30
 
-- Stop tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
+- Stopped tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
 - Added the vaccine data
 - Added the world population data by country
 - Added a new vignettes - **Geospatial Visualization**
