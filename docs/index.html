@@ -108,10 +108,32 @@
 <p><img src="reference/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"></p>
 <figcaption>
 Source: Centers for Disease Control and Prevention’s Public Health Image Library
-</figcaption><div id="important-note" class="section level2">
+</figcaption><div id="important-notes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#important-note" class="anchor"></a>Important Note</h2>
-<p>As this an ongoing situation, frequent changes in the data format may occur, please visit the package news to get updates about those changes</p>
+<a href="#important-notes" class="anchor"></a>Important Notes</h2>
+<ul>
+<li>As this an ongoing situation, frequent changes in the data format may occur, please visit the package <a href="https://ramikrispin.github.io/coronavirus/news/index.html">changelog</a> (e.g., News) and/or see pinned <a href="https://github.com/RamiKrispin/coronavirus/issues">issues</a> to get updates about those changes</li>
+<li>As of Auguest 4th JHU CCSE stopped track recovery cases, please see this <a href="https://github.com/RamiKrispin/coronavirus/issues/71">issue</a> for more details</li>
+<li>Negative values and/or anomalies may occurred in the data for the following reasons:
+<ul>
+<li>The calculation of the daily cases from the raw data which is in cumulative format is done by taking the daily difference. In some cases, some retro updates not tie to the day that they actually occurred such as removing false positive cases</li>
+<li>Anomalies or error in the raw data</li>
+<li>Please see this <a href="https://github.com/RamiKrispin/coronavirus/issues/55">issue</a> for more details</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="vignettes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<p>Additional documentation available on the followng vignettes:</p>
+<ul>
+<li><a href="https://ramikrispin.github.io/coronavirus/articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a></li>
+<li><a href="https://ramikrispin.github.io/coronavirus/articles/covid19R.html">Covid19R Project Data Format</a></li>
+<li><a href="https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html">Update the coronavirus Dataset</a></li>
+<li><a href="https://ramikrispin.github.io/coronavirus/articles/covid19_vaccine.html">Covid19 Vaccine Data</a></li>
+<li><a href="https://ramikrispin.github.io/coronavirus/articles/geospatial_visualization.html">Geospatial Visualization</a></li>
+</ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -212,13 +234,13 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">covid19_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span>()
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">covid19_df</span>)
-<span class="co">#&gt;         date    location location_type location_code location_code_type  data_type value      lat      long</span>
-<span class="co">#&gt; 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953</span>
-<span class="co">#&gt; 2 2021-04-02 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953</span>
-<span class="co">#&gt; 3 2021-03-22 Afghanistan       country            AF         iso_3166_2  cases_new    50 33.93911 67.709953</span>
-<span class="co">#&gt; 4 2021-04-03 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953</span>
-<span class="co">#&gt; 5 2020-12-27 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953</span>
-<span class="co">#&gt; 6 2021-04-01 Afghanistan       country            AF         iso_3166_2 deaths_new     5 33.93911 67.709953</span>
+<span class="co">#&gt;         date    location location_type location_code location_code_type     data_type value      lat      long</span>
+<span class="co">#&gt; 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953</span>
+<span class="co">#&gt; 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953</span>
+<span class="co">#&gt; 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953</span>
+<span class="co">#&gt; 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953</span>
+<span class="co">#&gt; 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953</span>
+<span class="co">#&gt; 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953</span>
 </pre></div>
 </div>
 <div id="usage" class="section level2">
@@ -329,7 +351,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; 40 Netherlands             2217     8        NA</span>
 <span class="co">#&gt; # … with 155 more rows</span>
 </pre></div>
-<p>Plotting the total cases by type worldwide:</p>
+<p>Plotting daily confirmed and death cases in Brazil:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://plotly-r.com">plotly</a></span>)
 
@@ -360,7 +382,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
          yaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Number of Cases"</span>),
          xaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))
 </pre></div>
-<p><img src="reference/figures/total_cases.svg" width="100%"></p>
+<p><img src="reference/figures/brazil_cases.svg" width="100%"></p>
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">conf_df</span> <span class="op">&lt;-</span> <span class="kw">coronavirus</span> <span class="op">%&gt;%</span> 
