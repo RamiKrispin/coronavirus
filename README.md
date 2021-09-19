@@ -34,10 +34,42 @@ Source: Centers for Disease Control and Prevention’s Public Health Image
 Library
 </figcaption>
 
-## Important Note
+## Important Notes
 
-As this an ongoing situation, frequent changes in the data format may
-occur, please visit the package news to get updates about those changes
+-   As this an ongoing situation, frequent changes in the data format
+    may occur, please visit the package
+    [changelog](https://ramikrispin.github.io/coronavirus/news/index.html)
+    (e.g., News) and/or see pinned
+    [issues](https://github.com/RamiKrispin/coronavirus/issues) to get
+    updates about those changes
+-   As of Auguest 4th JHU CCSE stopped track recovery cases, please see
+    this [issue](https://github.com/RamiKrispin/coronavirus/issues/71)
+    for more details
+-   Negative values and/or anomalies may occurred in the data for the
+    following reasons:
+    -   The calculation of the daily cases from the raw data which is in
+        cumulative format is done by taking the daily difference. In
+        some cases, some retro updates not tie to the day that they
+        actually occurred such as removing false positive cases
+    -   Anomalies or error in the raw data
+    -   Please see this
+        [issue](https://github.com/RamiKrispin/coronavirus/issues/55)
+        for more details
+
+## Vignettes
+
+Additional documentation available on the followng vignettes:
+
+-   [Introduction to the Coronavirus
+    Dataset](https://ramikrispin.github.io/coronavirus/articles/intro_coronavirus_dataset.html)
+-   [Covid19R Project Data
+    Format](https://ramikrispin.github.io/coronavirus/articles/covid19R.html)
+-   [Update the coronavirus
+    Dataset](https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html)
+-   [Covid19 Vaccine
+    Data](https://ramikrispin.github.io/coronavirus/articles/covid19_vaccine.html)
+-   [Geospatial
+    Visualization](https://ramikrispin.github.io/coronavirus/articles/geospatial_visualization.html)
 
 ## Installation
 
@@ -136,13 +168,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type  data_type value      lat      long
-#> 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953
-#> 2 2021-04-02 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
-#> 3 2021-03-22 Afghanistan       country            AF         iso_3166_2  cases_new    50 33.93911 67.709953
-#> 4 2021-04-03 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953
-#> 5 2020-12-27 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953
-#> 6 2021-04-01 Afghanistan       country            AF         iso_3166_2 deaths_new     5 33.93911 67.709953
+#>         date    location location_type location_code location_code_type     data_type value      lat      long
+#> 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953
+#> 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
+#> 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953
+#> 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953
+#> 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953
+#> 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953
 ```
 
 ## Usage
@@ -258,7 +290,7 @@ coronavirus %>%
 #> # … with 155 more rows
 ```
 
-Plotting the total cases by type worldwide:
+Plotting daily confirmed and death cases in Brazil:
 
 ``` r
 library(plotly)
@@ -291,7 +323,7 @@ coronavirus %>%
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
 ```
 
-<img src="man/figures/total_cases.svg" width="100%" />
+<img src="man/figures/brazil_cases.svg" width="100%" />
 
 Plot the confirmed cases distribution by counrty with treemap plot:
 
