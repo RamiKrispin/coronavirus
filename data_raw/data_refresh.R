@@ -74,14 +74,15 @@ data_refresh <- function(env = "master"){
                        dplyr::select(iso2, iso3, continent_name, continent_code),
                      by = c("iso2", "iso3")) %>%
     dplyr::mutate(continent_name = ifelse(country == "Kosovo", "Europe", continent_name),
-                  continent_code = ifelse(country == "Kosovo", "EU", continent_code))
+                  continent_code = ifelse(country == "Kosovo", "EU", continent_code)) %>%
+    dplyr::select(-admin2, -fips)
 
 
 unique(coronavirus$continent_code)
 unique(coronavirus$continent_name)
 table(coronavirus$continent_name)
   #-Data validation ----
-  if(ncol(coronavirus) != 17){
+  if(ncol(coronavirus) != 15){
     stop("The number of columns is invalid")
   } else if(nrow(coronavirus) < 500000){
     stop("The number of raws does not match the minimum number of rows")
@@ -94,7 +95,7 @@ table(coronavirus$continent_name)
                                                     cases = readr::col_number()))
 
 
-  if(ncol(git_df) != 17){
+  if(ncol(git_df) != 15){
     stop("The number of columns is invalid")
   } else if(nrow(git_df)< 500000){
     stop("The number of raws does not match the minimum number of rows")
