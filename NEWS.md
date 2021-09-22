@@ -1,6 +1,6 @@
 # coronavirus 0.3.30.9000
 
-
+- Added GIS and continent codes for the `coronavirus` dataset
 
 
 # coronavirus 0.3.30
