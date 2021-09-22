@@ -78,14 +78,22 @@ The package provides the following two datasets:
 
 * **coronavirus** - tidy (long) format of the JHU CCSE [datasets](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series). That includes the following columns:
     * `date` - The date of the observation, using `Date` class
-    * `location` - The name of the location as provided by John Hopkins raw data
-    * `location_type` - The type of the location field, either `country` or `state`
-    * `location_code` - The location code, using the `ios_3166_2` format
-    * `location_code_type` - The location code type (`ios_3166_2`)
-    * `data_type` - The case type, `c("recovered_new", "cases_new", "deaths_new" )`
-    * `value` - The number of cases
+    * `province` - Name of province/state, for countries where data is provided split across multiple provinces/states
+    * `country` - Name of country/region
     * `lat` - The latitude code
     * `long` - The longitude code 
+    * `type` - An indicator for the type of cases (confirmed, death, recovered)
+    * `cases` - Number of cases on given date
+    * `uid` - Country code
+    * `province_state` - Province or state if applicable
+    * `iso2` - Officially assigned country code identifiers with two-letter
+    * `iso3` - Officially assigned country code identifiers with three-letter
+    * `code3` - UN country code
+    * `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
+    *   `combined_key` - Country and province (if applicable)
+    *   `population` - Country or province population
+    *   `continent_name` - Continent name
+    *   `continent_code` - Continent code
 * **covid19_vaccine** - a tidy (long) format of the the Johns Hopkins [Centers for Civic Impact](https://civicimpact.jhu.edu/) global vaccination [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) by country. This dataset includes the following columns:
 
     *   `country_region` - Country or region name
