@@ -95,18 +95,27 @@ The package provides the following two datasets:
     That includes the following columns:
 
     -   `date` - The date of the observation, using `Date` class
-    -   `location` - The name of the location as provided by John
-        Hopkins raw data
-    -   `location_type` - The type of the location field, either
-        `country` or `state`
-    -   `location_code` - The location code, using the `ios_3166_2`
-        format
-    -   `location_code_type` - The location code type (`ios_3166_2`)
-    -   `data_type` - The case type,
-        `c("recovered_new", "cases_new", "deaths_new" )`
-    -   `value` - The number of cases
+    -   `province` - Name of province/state, for countries where data is
+        provided split across multiple provinces/states
+    -   `country` - Name of country/region
     -   `lat` - The latitude code
     -   `long` - The longitude code
+    -   `type` - An indicator for the type of cases (confirmed, death,
+        recovered)
+    -   `cases` - Number of cases on given date
+    -   `uid` - Country code
+    -   `province_state` - Province or state if applicable
+    -   `iso2` - Officially assigned country code identifiers with
+        two-letter
+    -   `iso3` - Officially assigned country code identifiers with
+        three-letter
+    -   `code3` - UN country code
+    -   `fips` - Federal Information Processing Standards code that
+        uniquely identifies counties within the USA
+    -   `combined_key` - Country and province (if applicable)
+    -   `population` - Country or province population
+    -   `continent_name` - Continent name
+    -   `continent_code` - Continent code
 
 -   **covid19\_vaccine** - a tidy (long) format of the the Johns Hopkins
     [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
@@ -168,13 +177,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type     data_type value      lat      long
-#> 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953
-#> 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
-#> 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953
-#> 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953
-#> 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953
-#> 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953
+#>         date    location location_type location_code location_code_type data_type value      lat      long
+#> 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 cases_new   183 33.93911 67.709953
+#> 2 2021-02-20 Afghanistan       country            AF         iso_3166_2 cases_new     5 33.93911 67.709953
+#> 3 2021-02-08 Afghanistan       country            AF         iso_3166_2 cases_new    24 33.93911 67.709953
+#> 4 2021-02-11 Afghanistan       country            AF         iso_3166_2 cases_new    18 33.93911 67.709953
+#> 5 2021-02-06 Afghanistan       country            AF         iso_3166_2 cases_new    65 33.93911 67.709953
+#> 6 2021-02-10 Afghanistan       country            AF         iso_3166_2 cases_new    18 33.93911 67.709953
 ```
 
 ## Usage
@@ -183,13 +192,13 @@ head(covid19_df)
 data("coronavirus")
 
 head(coronavirus)
-#>         date province country     lat      long      type cases
-#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#>         date province country     lat      long      type cases   uid iso2 iso3 code3 fips admin2    combined_key population continent_name continent_code
+#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
+#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
+#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
+#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
+#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
+#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   <NA> Alberta, Canada    4413146  North America             NA
 ```
 
 Summary of the total confrimed cases by country (top 20):
@@ -207,30 +216,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 x 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                41785903
-#>  2 India             33381728
-#>  3 Brazil            21069017
-#>  4 United Kingdom     7373451
-#>  5 Russia             7110656
-#>  6 France             7021091
-#>  7 Turkey             6766978
-#>  8 Iran               5378408
-#>  9 Argentina          5234851
-#> 10 Colombia           4936052
-#> 11 Spain              4926324
-#> 12 Italy              4623155
-#> 13 Indonesia          4181309
-#> 14 Germany            4127158
-#> 15 Mexico             3549229
-#> 16 Poland             2895947
-#> 17 South Africa       2873415
-#> 18 Ukraine            2435404
-#> 19 Philippines        2304192
-#> 20 Peru               2164380
+#>  1 US                42410607
+#>  2 India             33531498
+#>  3 Brazil            21247094
+#>  4 Russia            14416482
+#>  5 Turkey            13808510
+#>  6 United Kingdom     7531922
+#>  7 France             7054198
+#>  8 Iran               5459796
+#>  9 Argentina          5243231
+#> 10 Colombia           4943622
+#> 11 Spain              4937984
+#> 12 Italy              4641890
+#> 13 Indonesia          4195958
+#> 14 Germany            4162437
+#> 15 Mexico             3585565
+#> 16 Poland             2899008
+#> 17 South Africa       2886331
+#> 18 Ukraine            2461415
+#> 19 Philippines        2401916
+#> 20 Peru               2168431
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2021-09-16):
+2021-09-21):
 
 ``` r
 library(tidyr)
@@ -247,46 +256,46 @@ coronavirus %>%
 #> # Groups:   country [195]
 #>    country            confirmed death recovered
 #>    <chr>                  <int> <int>     <int>
-#>  1 US                    157957  3393        NA
-#>  2 Brazil                 34407   649        NA
-#>  3 India                  34403   320        NA
-#>  4 Turkey                 28118   262        NA
-#>  5 United Kingdom         26619   159        NA
-#>  6 Philippines            21181   276        NA
-#>  7 Russia                 19288   774        NA
-#>  8 Malaysia               18815   346        NA
-#>  9 Iran                   18021   453        NA
-#> 10 Thailand               13894   188        NA
-#> 11 France                 13272    38        NA
-#> 12 Germany                11816    63        NA
-#> 13 Vietnam                10489   239        NA
-#> 14 Cuba                    7628    78        NA
-#> 15 Serbia                  7602    31        NA
-#> 16 Mexico                  7040   435        NA
-#> 17 Botswana                6608     6        NA
-#> 18 Israel                  6191    13        NA
-#> 19 Ukraine                 6050   121        NA
-#> 20 Italy                   5115    67        NA
-#> 21 Canada                  4671    21        NA
-#> 22 Japan                   4626    58        NA
-#> 23 Romania                 4441    71        NA
-#> 24 South Africa            4214   311        NA
-#> 25 Spain                   4075   101        NA
-#> 26 Iraq                    3923    52        NA
-#> 27 Azerbaijan              3847    60        NA
-#> 28 Ireland                 3765     0        NA
-#> 29 Kazakhstan              3317     0        NA
-#> 30 Indonesia               3145   237        NA
-#> 31 Pakistan                2928    68        NA
-#> 32 Costa Rica              2901    30        NA
-#> 33 West Bank and Gaza      2501    15        NA
-#> 34 Argentina               2493   132        NA
-#> 35 Morocco                 2432    46        NA
-#> 36 Belgium                 2359     8        NA
-#> 37 Greece                  2322    43        NA
-#> 38 Sri Lanka               2271   118        NA
-#> 39 Switzerland             2267    11        NA
-#> 40 Netherlands             2217     8        NA
+#>  1 US                    120788  2331        NA
+#>  2 Turkey                 58676   520        NA
+#>  3 Russia                 37592  1594        NA
+#>  4 United Kingdom         31188   204        NA
+#>  5 India                  26964   383        NA
+#>  6 Iran                   17564   379        NA
+#>  7 Philippines            16300   140        NA
+#>  8 Malaysia               15759   334        NA
+#>  9 Mexico                 12521   815        NA
+#> 10 Vietnam                11692   240        NA
+#> 11 Thailand               10919   143        NA
+#> 12 France                  8776   136        NA
+#> 13 Cuba                    8289    63        NA
+#> 14 Germany                 7277    71        NA
+#> 15 Serbia                  7232    38        NA
+#> 16 Israel                  7198    12        NA
+#> 17 Romania                 6789   129        NA
+#> 18 Ukraine                 5542   152        NA
+#> 19 Kazakhstan              5456     0        NA
+#> 20 Georgia                 4940    92        NA
+#> 21 Guatemala               3718    54        NA
+#> 22 Greece                  3688    43        NA
+#> 23 Canada                  3685    52        NA
+#> 24 Italy                   3374    67        NA
+#> 25 Indonesia               3263   171        NA
+#> 26 Azerbaijan              3188    52        NA
+#> 27 Iraq                    3081    42        NA
+#> 28 Costa Rica              2731    42        NA
+#> 29 Mongolia                2543    13        NA
+#> 30 Spain                   2450    82        NA
+#> 31 Pakistan                2333    47        NA
+#> 32 South Africa            2197   160        NA
+#> 33 Bulgaria                2192    58        NA
+#> 34 Singapore               2095     5        NA
+#> 35 Sweden                  1986    15        NA
+#> 36 West Bank and Gaza      1977    17        NA
+#> 37 Jordan                  1945    17        NA
+#> 38 Belarus                 1917    12        NA
+#> 39 Morocco                 1848    51        NA
+#> 40 Argentina               1837    61        NA
 #> # … with 155 more rows
 ```
 

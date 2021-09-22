@@ -76,7 +76,7 @@ head(df, 10)
 
 We can plot the top 20 vaccinated countries:
 
-```{r fig.height=6, fig.width=8}
+```{r fig.height=6, fig.width=6}
 library(plotly)
 
 top_20 <- df %>% 
@@ -91,7 +91,7 @@ plot_ly(data = top_20,
         textposition = 'auto',
         orientation = "h",
         type = "bar") %>%
-  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
+  layout(title = "Proportion of Fully Vaccineted Population - Top 20 Countries",
          yaxis = list(title = ""),
          xaxis = list(title = "Percentage", ticksuffix = "%"))
 
@@ -101,7 +101,7 @@ plot_ly(data = top_20,
 
 Similarly, we can filter and plot the percentage of vaccinated people by continent, using the `continent_name` field:
 
-```{r fig.height=10, fig.width=10}
+```{r fig.height=10, fig.width=11}
 
 continent_df <- df %>%
   filter(!is.na(continent_name),

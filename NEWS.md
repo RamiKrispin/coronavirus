@@ -1,3 +1,8 @@
+# coronavirus 0.3.30.9000
+
+- Added GIS and continent codes for the `coronavirus` dataset
+
+
 # coronavirus 0.3.30
 
 - Stopped tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)
