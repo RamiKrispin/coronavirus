@@ -56,13 +56,34 @@ data_refresh <- function(env = "master"){
   rec_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
   rec_df <- parse_url(url = rec_url, type = "recovered")
   # Append the data----
-  coronavirus <- dplyr::bind_rows(conf_df, death_df, rec_df) %>%
+  coronavirus_temp <- dplyr::bind_rows(conf_df, death_df, rec_df) %>%
     dplyr::select(date, province = Province.State, country = Country.Region, lat = Lat, long = Long, type, cases) %>%
     as.data.frame()
+  # Merge gis codes ----
+  load("./data_raw/gis_mapping.RData")
+
+  gis_codes_coronavirues$iso2[which(gis_codes_coronavirues$country_region == "Namibia")] <- "NA"
+
+  coronavirus <- coronavirus_temp %>%
+    dplyr::left_join(gis_codes_coronavirues %>%
+                       dplyr::select(-lat, - long) %>%
+                       dplyr::select(province = province_state, country = country_region,
+                                     dplyr::everything()),
+                     by = c("province", "country")) %>%
+    dplyr::left_join(continent_mapping %>%
+                       dplyr::select(iso2, iso3, continent_name, continent_code),
+                     by = c("iso2", "iso3")) %>%
+    dplyr::mutate(continent_name = ifelse(country == "Kosovo", "Europe", continent_name),
+                  continent_code = ifelse(country == "Kosovo", "EU", continent_code))
+
+
+unique(coronavirus$continent_code)
+unique(coronavirus$continent_name)
+table(coronavirus$continent_name)
   #-Data validation ----
-  if(ncol(coronavirus) != 7){
+  if(ncol(coronavirus) != 17){
     stop("The number of columns is invalid")
-  } else if(nrow(coronavirus)< 480000){
+  } else if(nrow(coronavirus) < 500000){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(coronavirus$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
@@ -73,9 +94,9 @@ data_refresh <- function(env = "master"){
                                                     cases = readr::col_number()))
 
 
-  if(ncol(git_df) != 7){
+  if(ncol(git_df) != 17){
     stop("The number of columns is invalid")
-  } else if(nrow(git_df)< 480000){
+  } else if(nrow(git_df)< 500000){
     stop("The number of raws does not match the minimum number of rows")
   } else if(min(git_df$date) != as.Date("2020-01-22")){
     stop("The starting date is invalid")
