@@ -24,7 +24,8 @@ refresh_coronavirus_jhu <- function(){
   tryCatch(
     df <- readr::read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
                           col_types = readr::cols(date = readr::col_date(format = "%Y-%m-%d"),
-                                           cases = readr::col_number())),
+                                           cases = readr::col_number(),
+                                           continent_code = readr::col_character())),
     error = function(c) base::message(c)
     # warning = function(c) base::message(c),
     # message = function(c) base::message(c)
