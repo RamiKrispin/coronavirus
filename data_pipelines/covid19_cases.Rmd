@@ -267,18 +267,45 @@ if(min(coronavirus$date) != as.Date("2020-01-22")){
 
 ```{r}
 
-if(s){
-  usethis::use_data(coronavirus, overwrite = TRUE, compress = "xz")
-  write.csv(coronavirus, "csv/coronavirus.csv", row.names = FALSE)
-  
-  log <- data.frame(time = Sys.time(), 
+load("data_pipelines/log.RData")
+
+log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE) %>%
+  dplyr::filter(time == max(time))
+
+if(s && nrow(coronavirus) > log_last$nrows){
+  log <- rbind(log, data.frame(time = Sys.time(), 
                     dataset = "coronavirus",
                     nrows = nrow(coronavirus),
                     last_date = max(coronavirus$date),
-                    stringsAsFactors = FALSE)
+                    update = TRUE,
+                    success = TRUE,
+                    stringsAsFactors = FALSE))
   save(log, file = "data_pipelines/log.RData")
   
-} else {
+  usethis::use_data(coronavirus, overwrite = TRUE, compress = "xz")
+  write.csv(coronavirus, "csv/coronavirus.csv", row.names = FALSE)
+  
+} else if(s && nrow(coronavirus) == log_last$nrows){
+  cat("No updates available \n")
+  log <- rbind(log, data.frame(time = Sys.time(), 
+                    dataset = "coronavirus",
+                    nrows = nrow(coronavirus),
+                    last_date = max(coronavirus$date),
+                    update = FALSE,
+                    success = TRUE,
+                    stringsAsFactors = FALSE))
+  save(log, file = "data_pipelines/log.RData")
+} else if(s && nrow(coronavirus) < log_last$nrows) {
+    cat("Something went wrong, the number of rows of the new object are less than the previous object \n")
+  log <- rbind(log, data.frame(time = Sys.time(), 
+                    dataset = "coronavirus",
+                    nrows = nrow(coronavirus),
+                    last_date = max(coronavirus$date),
+                    update = FALSE,
+                    success = FALSE,
+                    stringsAsFactors = FALSE))
+  save(log, file = "data_pipelines/log.RData")
+} else if(!s){
   cat(msg, sep = "\n")
 }
 ```
