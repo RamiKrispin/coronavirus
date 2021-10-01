@@ -271,7 +271,7 @@ load("data_pipelines/log.RData")
 
 log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE) %>%
   dplyr::filter(time == max(time))
-
+branch <- system(command = "git rev-parse --abbrev-ref HEAD", intern = TRUE)
 if(s && nrow(coronavirus) > log_last$nrows){
   log <- rbind(log, data.frame(time = Sys.time(), 
                     dataset = "coronavirus",
@@ -279,6 +279,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     last_date = max(coronavirus$date),
                     update = TRUE,
                     success = TRUE,
+                    branch = branch,
                     stringsAsFactors = FALSE))
   save(log, file = "data_pipelines/log.RData")
   
@@ -293,6 +294,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     last_date = max(coronavirus$date),
                     update = FALSE,
                     success = TRUE,
+                    branch = branch,
                     stringsAsFactors = FALSE))
   save(log, file = "data_pipelines/log.RData")
 } else if(s && nrow(coronavirus) < log_last$nrows) {
@@ -303,6 +305,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     last_date = max(coronavirus$date),
                     update = FALSE,
                     success = FALSE,
+                    branch = branch,
                     stringsAsFactors = FALSE))
   save(log, file = "data_pipelines/log.RData")
 } else if(!s){
