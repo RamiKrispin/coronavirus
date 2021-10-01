@@ -47,7 +47,7 @@ refresh_coronavirus_jhu <- function(){
     df$location <- gsub("^\\, ", "",  df$location )
 
     #get code table
-    iso_3166_2_code_table <- readr::read_csv("https://github.com/RamiKrispin/coronavirus/raw/dev-covid19r/data_raw/iso_3166_2_code_table.csv",
+    iso_3166_2_code_table <- readr::read_csv("https://github.com/RamiKrispin/coronavirus/raw/master/data_raw/iso_3166_2_code_table.csv",
                                              col_types = readr::cols(
                                                location = readr::col_character(),
                                                location_code = readr::col_character(),
