@@ -217,7 +217,6 @@ continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "TR" &
 
 
 coronavirus <- coronavirus_temp %>%
-  dplyr::mutate(index = 1:nrow(coronavirus_temp)) %>%
   dplyr::left_join(gis_codes_coronavirues %>%
                      dplyr::select(-lat, - long) %>%
                      dplyr::select(province = province_state, country = country_region,
