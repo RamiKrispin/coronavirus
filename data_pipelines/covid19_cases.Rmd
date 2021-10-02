@@ -248,7 +248,7 @@ if(nrow(coronavirus) < 500000){
   msg <- c(msg, "The number of rows of the coronavirus table is too small") 
 }
 
-if(ncol(coronavirus) != 16){
+if(ncol(coronavirus) != 15){
   s <- FALSE
   msg <- c(msg, "The number of columns of the coronavirus table is invalid") 
 }
