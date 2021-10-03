@@ -88,7 +88,17 @@ total_cases
 ```
 
 
+Likewise, we can summarise the data by continent using the `continent_name` field:
 
+```{r}
+coronavirus %>%
+  filter(type != "recovery") %>%
+  group_by(type, continent_name) %>%
+  summarise(cases = sum(cases)) %>%
+  mutate(type = factor(type, levels = c("confirmed", "death")))
+```
+
+ 
 You can use those numbers to derive the current worldwide death rate (percentage):
 
 ```{r}
