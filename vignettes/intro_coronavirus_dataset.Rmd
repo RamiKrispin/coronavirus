@@ -20,7 +20,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ### The coronavirus dataset
 
-The `coronavirus` dataset provides a snapshot of the daily confirmed, recovered, and death cases of the Coronavirus (the 2019 Novel Coronavirus COVID-19) by geographic location (i.e., country/province). Let's load the dataset from the **coronavirus** package:
+The `coronavirus` dataset provides a daily summary of the COVID19 cases by geographic location (i.e., country/province). It includes total daily confirmed, death, and recovery^1^ cases. Let’s load the dataset from the **coronavirus** package:
+
 
 ```{r }
 library(coronavirus)
@@ -39,6 +40,15 @@ The dataset has the following fields:
 * `Long` - Longitude point
 * `type` - the type of case (i.e., confirmed, death)
 * `cases` - the number of daily cases (corresponding to the case type)
+* `uid` - Country code
+* `iso2` - Officially assigned country code identifiers with two-letter
+* `iso3` - Officially assigned country code identifiers with there-letter
+* `code3` - UN country code
+* `combined_key` - Country and province (if applicable)
+* `population` - Country or province population
+* `continent_name` - Continent name
+* `continent_code` - Continent code
+
 
 We can use the `head` and `str` functions to see the structure of the dataset:
 
@@ -47,6 +57,10 @@ head(coronavirus)
 
 str(coronavirus)
 ```
+
+
+^1^ Recovery data is discontinued from Aug 5th, please see the following [issue](https://github.com/RamiKrispin/coronavirus/issues/71) for more details.
+
 
 ### Querying and analyzing the coronavirus dataset
 
@@ -64,66 +78,57 @@ library(DT)
 Let's start with summarizing the total number of cases by type as of `r max(coronavirus$date)` and then plot it: 
 
 ```{r}
-total_cases <- coronavirus %>% 
+total_cases <- coronavirus %>%
+  filter(type != "recovery") %>%
   group_by(type) %>%
   summarise(cases = sum(cases)) %>%
-  mutate(type = factor(type, levels = c("confirmed", "death", "recovered"))) 
+  mutate(type = factor(type, levels = c("confirmed", "death"))) 
 
 total_cases
 ```
 
 
 
-You can use those numbers to derive the current worldwide death rate (precentage):
+You can use those numbers to derive the current worldwide death rate (percentage):
 
 ```{r}
 round(100 * total_cases$cases[2] / total_cases$cases[1], 2)
 ```
 
-Likewise, you can derive the recovery rate:
-
 ```{r}
-round(100 * total_cases$cases[3] / total_cases$cases[1], 2)
-```
+df <- coronavirus %>%
+  filter(type != "recovery") %>%
+  group_by(date,type) %>%
+  summarise(total = sum(cases), .groups = "drop")
 
+p_1 <- plot_ly(data = df %>% filter(type == "confirmed"),
+        x = ~ date,
+        y = ~ total,
+        name = "Confirmed",
+        type = "scatter",
+        mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
+         xaxis = list(title = ""))
 
-The total active cases are the difference between the total confirmed cases and the total recovered and death cases:
-
-```{r}
-total_cases$cases[1] - total_cases$cases[2] - total_cases$cases[3]
-```
-
-The following plot presents the cases (active, recovered, and death) distribution over time:
-
-
-```{r}
-coronavirus %>% 
-  group_by(type, date) %>%
-  summarise(total_cases = sum(cases)) %>%
-  pivot_wider(names_from = type, values_from = total_cases) %>%
-  arrange(date) %>%
-  mutate(active = confirmed - death - recovered) %>%
-  mutate(active_total = cumsum(active),
-                recovered_total = cumsum(recovered),
-                death_total = cumsum(death)) %>%
-  plot_ly(x = ~ date,
-                  y = ~ active_total,
-                  name = 'Active', 
-                  fillcolor = '#1f77b4',
-                  type = 'scatter',
-                  mode = 'none', 
-                  stackgroup = 'one') %>%
-  add_trace(y = ~ death_total, 
-             name = "Death",
-             fillcolor = '#E41317') %>%
-  add_trace(y = ~recovered_total, 
-            name = 'Recovered', 
-            fillcolor = 'forestgreen') %>%
-  layout(title = "Distribution of Covid19 Cases Worldwide",
-         legend = list(x = 0.1, y = 0.9),
-         yaxis = list(title = "Number of Cases"),
+p_2 <- plot_ly(data = df %>% filter(type == "death"),
+              x = ~ date,
+              y = ~ total,
+              name = "Death",
+              line = list(color = "red"),
+              type = "scatter",
+              mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
          xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
+
+subplot(p_1, p_2, nrows = 2, 
+              titleX = TRUE,
+              titleY = TRUE) %>%
+  layout(title = "Worldwide - Daily Confirmed and Death Cases",
+         margin = list(t = 60, b = 60, l = 40, r = 40),
+         legend = list(x = 0.05, y = 1)
+         )
 ```
+
 
 
 #### Top effected countries
