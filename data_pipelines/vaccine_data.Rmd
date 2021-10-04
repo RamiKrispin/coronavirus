@@ -1,0 +1,100 @@
+---
+title: "Vaccine Dataset Data Pipeline"
+author: 'Rami Krispin'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Functions and parameters
+
+```{r}
+`%>%` <- magrittr::`%>%`
+url <- "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_global.csv"
+
+branch <- system(command = "git rev-parse --abbrev-ref HEAD", intern = TRUE)
+```
+
+### Pulling raw data
+
+```{r}
+covid19_vaccine <- covid19_vaccine_temp <-  NULL
+
+  tryCatch(
+    covid19_vaccine_temp <- readr::read_csv(file = url,
+                                       col_types = readr::cols(Date = readr::col_date(format = "%Y-%m-%d"),
+                                                               Doses_admin = readr::col_number(),
+                                                               People_partially_vaccinated = readr::col_number(),
+                                                               People_fully_vaccinated = readr::col_number(),
+                                                               Report_Date_String = readr::col_date(format = "%Y-%m-%d"),
+                                                               UID = readr::col_number(),
+                                                               Province_State = readr::col_character())) %>%
+      as.data.frame(),
+    error = function(c) base::message(c)
+  )
+
+  if(is.null(covid19_vaccine_temp)){
+    stop("Could not pull the covid19_vaccine_temp dataset, check the error")
+  } else if(nrow(covid19_vaccine_temp) < 57800 || ncol(covid19_vaccine_temp) != 8){
+    stop("The dimensions of the covid19_vaccine_temp dataset are invalid")
+  } else if(class(covid19_vaccine_temp$Date) != "Date"){
+    stop("The class of the Date column is invalid")
+  } else if(class(covid19_vaccine_temp$Report_Date_String) != "Date"){
+    stop("The class of the Report_Date_String column is invalid")
+  }
+
+ names(covid19_vaccine_temp) <- tolower(names(covid19_vaccine_temp))
+```
+
+
+### Merge with GIS codes
+
+```{r}
+load("../data_raw/gis_mapping.RData")
+
+covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
+                                     158,
+                                     covid19_vaccine_temp$uid)
+
+  covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
+                                                               by = c("uid")) %>%
+    dplyr::select(-admin2) %>%
+    dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
+    dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
+                     by = c("uid", "iso2", "iso3"))
+```
+
+
+### Data validation
+
+```{r}
+# Check if there are duplication in the US data
+  x <- covid19_vaccine %>% dplyr::filter(iso2 == "US")
+  if(any(table(duplicated(x[, c( "date")]))) &&
+     all(c("US", "US (Aggregate)") %in% unique(x$country_region))){
+    covid19_vaccine <- covid19_vaccine %>%
+      dplyr::filter(country_region != "US (Aggregate)")
+  }
+
+
+
+
+  git_df <- readr::read_csv(paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/",
+                                  branch,
+                                  "/csv/covid19_vaccine.csv",
+                                  sep = ""),
+                            col_types = readr::cols(report_date_string = readr::col_date(format = "%Y-%m-%d"),
+                                                    province_state = readr::col_character()))
+
+  if(nrow(covid19_vaccine) > nrow(git_df)){
+    cat("Updating the vaccine data...")
+    usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
+    write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+  } else {
+    cat("No updates available...")
+  }
+```
+
