@@ -267,7 +267,7 @@ if(min(coronavirus$date) != as.Date("2020-01-22")){
 ```{r}
 
 load("../data_pipelines/log.RData")
-
+tail(log)
 log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE) %>%
   dplyr::filter(time == max(time))
 branch <- system(command = "git rev-parse --abbrev-ref HEAD", intern = TRUE)
