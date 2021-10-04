@@ -1,6 +1,6 @@
 ---
 title: "Coronavirus Dataset Data Pipeline"
-author: '@Rami_Krispin'
+author: 'Rami Krispin'
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
