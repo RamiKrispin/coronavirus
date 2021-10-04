@@ -9,14 +9,64 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Functions and parameters
+### Functions   
 
 ```{r}
 `%>%` <- magrittr::`%>%`
+
+# Get the table information
+tbl_info <- function(input){
+  
+  obj.name <- base::deparse(base::substitute(input))
+  
+  input <- as.data.frame(input)
+  
+  dup <- sum(duplicated(input))
+  
+  df <- data.frame(cols_name = names(input),
+                   cols_class = lapply(input, class) %>% unlist,
+                   cols_NAs = lapply(names(input), function(i){sum(is.na(input[, i]))}) %>% unlist,
+                   cols_min = lapply(names(input), function(i){if(is.numeric(input[, i])){
+                     min(input[, i], na.rm = TRUE)
+                   } else {
+                     NA
+                   }}) %>% unlist,
+                   cols_max = lapply(names(input), function(i){if(is.numeric(input[, i])){
+                     max(input[, i], na.rm = TRUE)
+                   } else {
+                     NA
+                   }}) %>% unlist,
+                   cols_unique = lapply(names(input), function(i){length(unique(input[, i]))}) %>% unlist,
+                   stringsAsFactors = FALSE)
+  
+  rownames(df) <- NULL
+  
+  t <- htmltools::div(class = "tbl-info",
+                      htmltools::div(class = "tbl-info",
+                                     htmltools::h4(class = "tbl-info", 
+                                                   paste("Table Info - ", obj.name)),
+                                     paste("Number of  columns:", ncol(input)),
+                                     htmltools::br(),
+                                     paste("Number of  rows:", nrow(input)),
+                                     htmltools::br(),
+                                     paste("Duplicated rows:", dup)
+                      ),
+                      reactable::reactable(df, defaultPageSize = nrow(df)))
+  
+  return(t)
+}
+
+```
+
+
+### Parameters
+
+```{r}
 url <- "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_global.csv"
 
 branch <- system(command = "git rev-parse --abbrev-ref HEAD", intern = TRUE)
 ```
+
 
 ### Pulling raw data
 
@@ -47,6 +97,9 @@ covid19_vaccine <- covid19_vaccine_temp <-  NULL
   }
 
  names(covid19_vaccine_temp) <- tolower(names(covid19_vaccine_temp))
+ 
+ 
+ tbl_info(covid19_vaccine_temp)
 ```
 
 
@@ -56,15 +109,17 @@ covid19_vaccine <- covid19_vaccine_temp <-  NULL
 load("../data_raw/gis_mapping.RData")
 
 covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
-                                     158,
-                                     covid19_vaccine_temp$uid)
+                                   158,
+                                   covid19_vaccine_temp$uid)
 
-  covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
-                                                               by = c("uid")) %>%
-    dplyr::select(-admin2) %>%
-    dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
-    dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
-                     by = c("uid", "iso2", "iso3"))
+covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
+                                                             by = c("uid")) %>%
+  dplyr::select(-admin2) %>%
+  dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
+  dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
+                   by = c("uid", "iso2", "iso3"))
+
+tbl_info(covid19_vaccine)
 ```
 
 
