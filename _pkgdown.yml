@@ -29,7 +29,7 @@ navbar:
           href: articles/dashboard.html
     - text: "Data Pipelines"
       menu:
-        - text: "Pipeline 1"
+        - text: "Coronavirus Data Pipeline"
           href: data_pipelines/covid19_cases.html
     - text: "Changelog"
       href: news/index.html
