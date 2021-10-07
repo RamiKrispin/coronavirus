@@ -107,6 +107,44 @@ covid19_vaccine <- covid19_vaccine_temp <-  NULL
 
 ```{r}
 load("../data_raw/gis_mapping.RData")
+# Removing duplicated iso codes for countries that located in two continents
+# Azerbaijan -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "AZ" & 
+                                                 continent_mapping$iso3 == "AZE" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+# Armenia -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "AM" & 
+                                                 continent_mapping$iso3 == "ARM" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+# Cyprus -> Europe
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "CY" & 
+                                                 continent_mapping$iso3 == "CYP" &
+                                                 continent_mapping$continent_name == "Asia"),] 
+# Georgia -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "GE" & 
+                                                 continent_mapping$iso3 == "GEO" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
+# Kazakhstan -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "KZ" & 
+                                                 continent_mapping$iso3 == "KAZ" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
+#United States Minor Outlying Islands -> Oceania
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "UM" & 
+                                                 continent_mapping$iso3 == "UMI" &
+                                                 continent_mapping$continent_name == "North America"),] 
+
+# Russian Federation -> Europe
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "RU" & 
+                                                 continent_mapping$iso3 == "RUS" &
+                                                 continent_mapping$continent_name == "Asia"),] 
+
+# Turkey -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "TR" & 
+                                                 continent_mapping$iso3 == "TUR" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
 
 covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwan*" & is.na(covid19_vaccine_temp$uid),
                                    158,

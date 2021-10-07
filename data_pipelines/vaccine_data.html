@@ -12,7 +12,7 @@
 <meta name="author" content="Rami Krispin" />
 
 
-<title>Coronavirus Dataset Data Pipeline</title>
+<title>Vaccine Dataset Data Pipeline</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -2142,7 +2142,7 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Coronavirus Dataset Data Pipeline</h1>
+<h1 class="title toc-ignore">Vaccine Dataset Data Pipeline</h1>
 <h4 class="author">Rami Krispin</h4>
 <h4 class="date">04 October, 2021</h4>
 
@@ -2152,50 +2152,6 @@ summary {
 <div id="functions" class="section level3">
 <h3>Functions</h3>
 <pre class="r"><code>`%&gt;%` &lt;- magrittr::`%&gt;%`
-
-# function for pursing the JH covid19 cases csv file
-parse_url &lt;- function(url, type){
-  raw &lt;- readr::read_csv(file = url) %&gt;%
-    as.data.frame()
-  
-  # Transforming the data from wide to long
-  # Creating new data frame
-  df &lt;- raw[, 1:4]
-  
-  names(df) &lt;- gsub(pattern= &quot;/&quot;, replacement = &quot;.&quot;, x = names(df))
-  # Take diff
-  for(i in 5:ncol(raw)){
-    
-    raw[,i] &lt;- as.integer(raw[,i])
-    
-    if(i == 5){
-      df[[names(raw)[i]]] &lt;- raw[, i]
-    } else {
-      df[[names(raw)[i]]] &lt;- raw[, i] - raw[, i - 1]
-    }
-  }
-  
-  df1 &lt;-  df %&gt;% tidyr::pivot_longer(cols = dplyr::starts_with(c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;)),
-                                     names_to = &quot;date_temp&quot;,
-                                     values_to = &quot;cases_temp&quot;) %&gt;%
-    dplyr::mutate(date = lubridate::mdy(date_temp)) %&gt;%
-    dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %&gt;%
-    dplyr::summarise(cases = sum(cases_temp),
-                     .groups = &quot;drop&quot;) %&gt;%
-    dplyr::ungroup() %&gt;%
-    dplyr::mutate(type = type,
-                  Country.Region = trimws(Country.Region),
-                  Province.State = trimws(Province.State))
-  
-  if(type == &quot;recovered&quot;){
-    df1$cases &lt;- ifelse(df1$date &gt; as.Date(&quot;2021-08-04&quot;) &amp; df1$cases == 0 |
-                          df1$date &gt; as.Date(&quot;2021-08-04&quot;) &amp; df1$cases &lt; 0, NA, df1$cases)
-  }
-  
-  
-  return(df1)
-}
-
 
 # Get the table information
 tbl_info &lt;- function(input){
@@ -2241,129 +2197,57 @@ tbl_info &lt;- function(input){
 </div>
 <div id="parameters" class="section level3">
 <h3>Parameters</h3>
-<pre class="r"><code># Set success flag
-s &lt;- TRUE
-msg &lt;- NULL
-# Confirmed cases
-conf_url &lt;- &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&quot;
-conf_df &lt;- NULL 
-# Death cases
-death_url &lt;- &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv&quot;
-death_df &lt;- NULL
-# Recovery cases
-rec_url &lt;- &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv&quot;
-rec_df &lt;- NULL</code></pre>
-</div>
-<div id="confirmed-cases" class="section level3">
-<h3>Confirmed Cases</h3>
-<pre class="r"><code>conf_df &lt;- parse_url(url = conf_url, type = &quot;confirmed&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_double(),
-##   `Province/State` = col_character(),
-##   `Country/Region` = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>if(is.null(conf_df) || !is.data.frame(conf_df) || nrow(conf_df) == 0){
-  s &lt;- FALSE
-} else{
-  tbl_info(conf_df)
-}</code></pre>
-<div class="tbl-info">
-<div class="tbl-info">
-<h4 class="tbl-info">Table Info -  conf_df</h4>
-Number of  columns: 7
-<br/>
-Number of  rows: 173259
-<br/>
-Duplicated rows: 0
-</div>
-<div id="htmlwidget-5c3bce24e7f76df8e1c4" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5c3bce24e7f76df8e1c4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[119232,0,1242,1242,0,0,0],"cols_min":["NA","NA",-51.7963,-178.1165,"NA",-349116,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",823225,"NA"],"cols_unique":[88,195,274,275,621,11567,1]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"3831da78b64d81d5befbb11eed27df38"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div id="death-cases" class="section level3">
-<h3>Death Cases</h3>
-<pre class="r"><code>death_df &lt;- parse_url(url = death_url, type = &quot;death&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_double(),
-##   `Province/State` = col_character(),
-##   `Country/Region` = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>if(is.null(death_df) || !is.data.frame(death_df) || nrow(death_df) == 0){
-  s &lt;- FALSE
-} else{
-  tbl_info(death_df)
-}</code></pre>
-<div class="tbl-info">
-<div class="tbl-info">
-<h4 class="tbl-info">Table Info -  death_df</h4>
-Number of  columns: 7
-<br/>
-Number of  rows: 173259
-<br/>
-Duplicated rows: 0
-</div>
-<div id="htmlwidget-fb14a56580d7932b179c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fb14a56580d7932b179c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[119232,0,1242,1242,0,0,0],"cols_min":["NA","NA",-51.7963,-178.1165,"NA",-1918,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",8786,"NA"],"cols_unique":[88,195,274,275,621,1601,1]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e65ea888366af1dbafe755c4f5cf7ae9"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div id="recovery-cases" class="section level3">
-<h3>Recovery Cases</h3>
-<pre class="r"><code>rec_df &lt;- parse_url(url = rec_url, type = &quot;recovery&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_double(),
-##   `Province/State` = col_character(),
-##   `Country/Region` = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>if(is.null(rec_df) || !is.data.frame(rec_df) || nrow(rec_df) == 0){
-  s &lt;- FALSE
-} else{
-  tbl_info(rec_df)
-}</code></pre>
-<div class="tbl-info">
-<div class="tbl-info">
-<h4 class="tbl-info">Table Info -  rec_df</h4>
-Number of  columns: 7
-<br/>
-Number of  rows: 163944
-<br/>
-Duplicated rows: 0
-</div>
-<div id="htmlwidget-32f7f697c371af417e3c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-32f7f697c371af417e3c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[119853,0,621,621,0,0,0],"cols_min":["NA","NA",-51.7963,-178.1165,"NA",-30974748,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",1123456,"NA"],"cols_unique":[72,195,263,263,621,9190,1]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e482246588467d984bb6d155e259c772"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div id="append-the-data" class="section level3">
-<h3>Append the data</h3>
-<pre class="r"><code>coronavirus_temp &lt;- dplyr::bind_rows(conf_df, death_df, rec_df) %&gt;%
-  dplyr::select(date, province = Province.State, country = Country.Region, lat = Lat, long = Long, type, cases) %&gt;%
-  as.data.frame()
+<pre class="r"><code>url &lt;- &quot;https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_global.csv&quot;
 
-tbl_info(coronavirus_temp)</code></pre>
+branch &lt;- system(command = &quot;git rev-parse --abbrev-ref HEAD&quot;, intern = TRUE)</code></pre>
+</div>
+<div id="pulling-raw-data" class="section level3">
+<h3>Pulling raw data</h3>
+<pre class="r"><code>covid19_vaccine &lt;- covid19_vaccine_temp &lt;-  NULL
+
+  tryCatch(
+    covid19_vaccine_temp &lt;- readr::read_csv(file = url,
+                                       col_types = readr::cols(Date = readr::col_date(format = &quot;%Y-%m-%d&quot;),
+                                                               Doses_admin = readr::col_number(),
+                                                               People_partially_vaccinated = readr::col_number(),
+                                                               People_fully_vaccinated = readr::col_number(),
+                                                               Report_Date_String = readr::col_date(format = &quot;%Y-%m-%d&quot;),
+                                                               UID = readr::col_number(),
+                                                               Province_State = readr::col_character())) %&gt;%
+      as.data.frame(),
+    error = function(c) base::message(c)
+  )
+
+  if(is.null(covid19_vaccine_temp)){
+    stop(&quot;Could not pull the covid19_vaccine_temp dataset, check the error&quot;)
+  } else if(nrow(covid19_vaccine_temp) &lt; 57800 || ncol(covid19_vaccine_temp) != 8){
+    stop(&quot;The dimensions of the covid19_vaccine_temp dataset are invalid&quot;)
+  } else if(class(covid19_vaccine_temp$Date) != &quot;Date&quot;){
+    stop(&quot;The class of the Date column is invalid&quot;)
+  } else if(class(covid19_vaccine_temp$Report_Date_String) != &quot;Date&quot;){
+    stop(&quot;The class of the Report_Date_String column is invalid&quot;)
+  }
+
+ names(covid19_vaccine_temp) &lt;- tolower(names(covid19_vaccine_temp))
+ 
+ 
+ tbl_info(covid19_vaccine_temp)</code></pre>
 <div class="tbl-info">
 <div class="tbl-info">
-<h4 class="tbl-info">Table Info -  coronavirus_temp</h4>
-Number of  columns: 7
+<h4 class="tbl-info">Table Info -  covid19_vaccine_temp</h4>
+Number of  columns: 8
 <br/>
-Number of  rows: 510462
+Number of  rows: 82572
 <br/>
 Duplicated rows: 0
 </div>
-<div id="htmlwidget-70bdbd9a1b65d194329c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-70bdbd9a1b65d194329c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases"],"cols_class":["Date","character","character","numeric","numeric","character","integer"],"cols_NAs":[0,358317,0,3105,3105,0,0],"cols_min":["NA","NA","NA",-51.7963,-178.1165,"NA",-30974748],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1123456],"cols_unique":[621,88,195,279,280,3,15376]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"b1df0bd372fc79aa0c246f04c0919c0e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5e256030c4194d666fc9" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5e256030c4194d666fc9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["country_region","date","doses_admin","people_partially_vaccinated","people_fully_vaccinated","report_date_string","uid","province_state"],"cols_class":["character","Date","numeric","numeric","numeric","Date","numeric","character"],"cols_NAs":[0,0,0,45153,45153,0,344,37969],"cols_min":["NA","NA",0,0,0,"NA",4,"NA"],"cols_max":["NA","NA",6311143269,3533229292,2635531028,"NA",524008,"NA"],"cols_unique":[165,294,57979,18866,16490,294,613,450]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":8,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"87b55526937810b4f6ae8715e24f0372"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div id="add-gis-codes" class="section level3">
-<h3>Add GIS codes</h3>
+<div id="merge-with-gis-codes" class="section level3">
+<h3>Merge with GIS codes</h3>
 <pre class="r"><code>load(&quot;../data_raw/gis_mapping.RData&quot;)
-
-gis_codes_coronavirues$iso2[which(gis_codes_coronavirues$country_region == &quot;Namibia&quot;)] &lt;- &quot;NA&quot;
-
 # Removing duplicated iso codes for countries that located in two continents
 # Azerbaijan -&gt; Asia
 continent_mapping &lt;- continent_mapping[- which(continent_mapping$iso2 == &quot;AZ&quot; &amp; 
@@ -2403,113 +2287,59 @@ continent_mapping &lt;- continent_mapping[- which(continent_mapping$iso2 == &quo
                                                  continent_mapping$continent_name == &quot;Europe&quot;),] 
 
 
+covid19_vaccine_temp$uid &lt;- ifelse(covid19_vaccine_temp$country_region == &quot;Taiwan*&quot; &amp; is.na(covid19_vaccine_temp$uid),
+                                   158,
+                                   covid19_vaccine_temp$uid)
 
+covid19_vaccine &lt;- covid19_vaccine_temp %&gt;% dplyr::left_join(gis_code_mapping %&gt;% dplyr::select(- country_region, - province_state),
+                                                             by = c(&quot;uid&quot;)) %&gt;%
+  dplyr::select(-admin2) %&gt;%
+  dplyr::mutate(iso2 = ifelse(country_region == &quot;Namibia&quot;, &quot;NA&quot;, iso2)) %&gt;%
+  dplyr::left_join(continent_mapping %&gt;% dplyr::select(-country_name),
+                   by = c(&quot;uid&quot;, &quot;iso2&quot;, &quot;iso3&quot;))
 
-coronavirus &lt;- coronavirus_temp %&gt;%
-  dplyr::left_join(gis_codes_coronavirues %&gt;%
-                     dplyr::select(-lat, - long) %&gt;%
-                     dplyr::select(province = province_state, country = country_region,
-                                   dplyr::everything()),
-                   by = c(&quot;province&quot;, &quot;country&quot;)) %&gt;%
-  dplyr::left_join(continent_mapping %&gt;%
-                     dplyr::select(iso2, iso3, continent_name, continent_code),
-                   by = c(&quot;iso2&quot;, &quot;iso3&quot;)) %&gt;%
-  dplyr::mutate(continent_name = ifelse(country == &quot;Kosovo&quot;, &quot;Europe&quot;, continent_name),
-                continent_code = ifelse(country == &quot;Kosovo&quot;, &quot;EU&quot;, continent_code)) %&gt;%
-  dplyr::select(-admin2, -fips)
-
-tbl_info(coronavirus)</code></pre>
+tbl_info(covid19_vaccine)</code></pre>
 <div class="tbl-info">
 <div class="tbl-info">
-<h4 class="tbl-info">Table Info -  coronavirus</h4>
-Number of  columns: 15
+<h4 class="tbl-info">Table Info -  covid19_vaccine</h4>
+Number of  columns: 18
 <br/>
-Number of  rows: 510462
+Number of  rows: 82572
 <br/>
 Duplicated rows: 0
 </div>
-<div id="htmlwidget-5f345a5fd55f40fbd32e" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5f345a5fd55f40fbd32e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases","uid","iso2","iso3","code3","combined_key","population","continent_name","continent_code"],"cols_class":["Date","character","character","numeric","numeric","character","integer","numeric","character","character","numeric","character","numeric","character","character"],"cols_NAs":[0,358317,0,3105,3105,0,0,1242,6831,6831,6831,1242,11178,6831,6831],"cols_min":["NA","NA","NA",-51.7963,-178.1165,"NA",-30974748,4,"NA","NA",4,"NA",809,"NA","NA"],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1123456,15699,"NA","NA",894,"NA",1380004385,"NA","NA"],"cols_unique":[621,88,195,279,280,3,15376,280,223,223,222,280,274,7,7]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"ead42ac8fa9b224d9f2650e35b8d3de4"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-031fd0058cc498941ee6" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-031fd0058cc498941ee6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["country_region","date","doses_admin","people_partially_vaccinated","people_fully_vaccinated","report_date_string","uid","province_state","iso2","iso3","code3","fips","lat","long","combined_key","population","continent_name","continent_code"],"cols_class":["character","Date","numeric","numeric","numeric","Date","numeric","character","character","character","numeric","character","numeric","numeric","character","numeric","character","character"],"cols_NAs":[0,0,0,45153,45153,0,294,37969,18015,18015,18015,82572,18337,18337,18015,18337,43509,43509],"cols_min":["NA","NA",0,0,0,"NA",4,"NA","NA","NA",4,"NA",-51.7963,-135,"NA",3483,"NA","NA"],"cols_max":["NA","NA",6311143269,3533229292,2635531028,"NA",524008,"NA","NA","NA",894,"NA",71.7069,178.065,"NA",1404676330,"NA","NA"],"cols_unique":[165,294,57979,18866,16490,294,613,450,176,176,175,1,358,351,363,358,7,7]},"columns":[{"accessor":"cols_name","name":"cols_name","type":"character"},{"accessor":"cols_class","name":"cols_class","type":"character"},{"accessor":"cols_NAs","name":"cols_NAs","type":"numeric"},{"accessor":"cols_min","name":"cols_min","type":"numeric"},{"accessor":"cols_max","name":"cols_max","type":"numeric"},{"accessor":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":18,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"17c976a1a9fd4e2a4f6a0d3b513c436a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="data-validation" class="section level3">
 <h3>Data validation</h3>
-<pre class="r"><code># Checking merge
-if(nrow(coronavirus) != nrow(coronavirus_temp)){
-  s &lt;- FALSE
-  msg &lt;- c(msg, &quot;Merge fail - the number of rows of the coronavirus_temp is different from the coronavirus&quot;)
-}
+<pre class="r"><code># Check if there are duplication in the US data
+  x &lt;- covid19_vaccine %&gt;% dplyr::filter(iso2 == &quot;US&quot;)
+  if(any(table(duplicated(x[, c( &quot;date&quot;)]))) &amp;&amp;
+     all(c(&quot;US&quot;, &quot;US (Aggregate)&quot;) %in% unique(x$country_region))){
+    covid19_vaccine &lt;- covid19_vaccine %&gt;%
+      dplyr::filter(country_region != &quot;US (Aggregate)&quot;)
+  }
 
-# Checking the table dimensions
-if(nrow(coronavirus) &lt; 500000){
-  s &lt;- FALSE
-  msg &lt;- c(msg, &quot;The number of rows of the coronavirus table is too small&quot;) 
-}
 
-if(ncol(coronavirus) != 15){
-  s &lt;- FALSE
-  msg &lt;- c(msg, &quot;The number of columns of the coronavirus table is invalid&quot;) 
-}
 
-if(min(coronavirus$date) != as.Date(&quot;2020-01-22&quot;)){
-  s &lt;- FALSE
-  msg &lt;- c(msg, &quot;The starting date is invalid&quot;) 
-}</code></pre>
-</div>
-<div id="saving-the-data" class="section level3">
-<h3>Saving the data</h3>
-<pre class="r"><code>load(&quot;../data_pipelines/log.RData&quot;)
-tail(log)</code></pre>
-<pre><code>##                  time     dataset  nrows  last_date update success branch
-## 1 2021-10-01 15:52:11 coronavirus 507996 2021-09-30   TRUE    TRUE    dev
-## 2 2021-10-01 15:53:17 coronavirus 507996 2021-09-30  FALSE    TRUE    dev
-## 3 2021-10-01 15:55:40 coronavirus 507996 2021-09-30  FALSE    TRUE    dev
-## 4 2021-10-02 16:41:24 coronavirus 508818 2021-10-01   TRUE    TRUE    dev</code></pre>
-<pre class="r"><code>log_last &lt;- log %&gt;% dplyr::filter(update == TRUE &amp; success == TRUE) %&gt;%
-  dplyr::filter(time == max(time))
-branch &lt;- system(command = &quot;git rev-parse --abbrev-ref HEAD&quot;, intern = TRUE)
-if(s &amp;&amp; nrow(coronavirus) &gt; log_last$nrows){
-  log &lt;- rbind(log, data.frame(time = Sys.time(),
-                    dataset = &quot;coronavirus&quot;,
-                    nrows = nrow(coronavirus),
-                    last_date = max(coronavirus$date),
-                    update = TRUE,
-                    success = TRUE,
-                    branch = branch,
-                    stringsAsFactors = FALSE))
-  save(log, file = &quot;../data_pipelines/log.RData&quot;)
 
-  usethis::use_data(coronavirus, overwrite = TRUE, compress = &quot;xz&quot;)
-  write.csv(coronavirus, &quot;../csv/coronavirus.csv&quot;, row.names = FALSE)
+  git_df &lt;- readr::read_csv(paste(&quot;https://raw.githubusercontent.com/RamiKrispin/coronavirus/&quot;,
+                                  branch,
+                                  &quot;/csv/covid19_vaccine.csv&quot;,
+                                  sep = &quot;&quot;),
+                            col_types = readr::cols(report_date_string = readr::col_date(format = &quot;%Y-%m-%d&quot;),
+                                                    province_state = readr::col_character()))
 
-} else if(s &amp;&amp; nrow(coronavirus) == log_last$nrows){
-  cat(&quot;No updates available \n&quot;)
-  log &lt;- rbind(log, data.frame(time = Sys.time(),
-                    dataset = &quot;coronavirus&quot;,
-                    nrows = nrow(coronavirus),
-                    last_date = max(coronavirus$date),
-                    update = FALSE,
-                    success = TRUE,
-                    branch = branch,
-                    stringsAsFactors = FALSE))
-  save(log, file = &quot;../data_pipelines/log.RData&quot;)
-} else if(s &amp;&amp; nrow(coronavirus) &lt; log_last$nrows) {
-    cat(&quot;Something went wrong, the number of rows of the new object are less than the previous object \n&quot;)
-  log &lt;- rbind(log, data.frame(time = Sys.time(),
-                    dataset = &quot;coronavirus&quot;,
-                    nrows = nrow(coronavirus),
-                    last_date = max(coronavirus$date),
-                    update = FALSE,
-                    success = FALSE,
-                    branch = branch,
-                    stringsAsFactors = FALSE))
-  save(log, file = &quot;../data_pipelines/log.RData&quot;)
-} else if(!s){
-  cat(msg, sep = &quot;\n&quot;)
-}</code></pre>
-<pre><code>## ✓ Setting active project to &#39;/Users/ramikrispin/R/covid19R/coronavirus&#39;</code></pre>
-<pre><code>## ✓ Saving &#39;coronavirus&#39; to &#39;data/coronavirus.rda&#39;</code></pre>
-<pre><code>## ● Document your data (see &#39;https://r-pkgs.org/data.html&#39;)</code></pre>
+  if(nrow(covid19_vaccine) &gt; nrow(git_df)){
+    cat(&quot;Updating the vaccine data...&quot;)
+    usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = &quot;xz&quot;)
+    write.csv(covid19_vaccine, &quot;csv/covid19_vaccine.csv&quot;, row.names = FALSE)
+  } else {
+    cat(&quot;No updates available...&quot;)
+  }</code></pre>
+<pre><code>## No updates available...</code></pre>
 </div>
 
 
