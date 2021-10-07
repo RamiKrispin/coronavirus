@@ -31,6 +31,8 @@ navbar:
       menu:
         - text: "Coronavirus Data Pipeline"
           href: data_pipelines/covid19_cases.html
+        - text: "Vaccine Data Pipeline"
+          href: data_pipelines/vaccine_data.html
     - text: "Changelog"
       href: news/index.html
 
