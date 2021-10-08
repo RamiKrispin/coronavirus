@@ -182,11 +182,36 @@ tbl_info(covid19_vaccine)
                             col_types = readr::cols(report_date_string = readr::col_date(format = "%Y-%m-%d"),
                                                     province_state = readr::col_character()))
 
+  
+load("../data_pipelines/log.RData")
+tail(log)
+  
   if(nrow(covid19_vaccine) > nrow(git_df)){
     cat("Updating the vaccine data...")
     usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
     write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+      
+    log <- rbind(log, data.frame(time = Sys.time(),
+                    dataset = "covid19_vaccine",
+                    nrows = nrow(covid19_vaccine),
+                    last_date = max(covid19_vaccine$date),
+                    update = TRUE,
+                    success = TRUE,
+                    branch = branch,
+                    stringsAsFactors = FALSE))
+  save(log, file = "../data_pipelines/log.RData")
+    
+    
   } else {
+        log <- rbind(log, data.frame(time = Sys.time(),
+                    dataset = "covid19_vaccine",
+                    nrows = nrow(covid19_vaccine),
+                    last_date = max(covid19_vaccine$date),
+                    update = FALSE,
+                    success = TRUE,
+                    branch = branch,
+                    stringsAsFactors = FALSE))
+  save(log, file = "../data_pipelines/log.RData")
     cat("No updates available...")
   }
 ```
