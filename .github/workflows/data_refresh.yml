@@ -1,4 +1,4 @@
-name: Data Refresh Dev
+name: Data Pipeline
 
 on:
   schedule:
