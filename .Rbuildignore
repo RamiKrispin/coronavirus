@@ -12,6 +12,7 @@
 ^vignettes/dashboard.Rmd$
 ^vignettes/covid19_vaccine.Rmd$
 ^vignettes/geospatial_visualization.Rmd$
+^vignettes/update_dataset_function.Rmd$
 ^docker$
 ^data_pipelines$
 ^_pkgdown.yml$
