@@ -266,7 +266,7 @@ if(min(coronavirus$date) != as.Date("2020-01-22")){
 
 ```{r}
 
-load("../data_pipelines/log.RData")
+load(sprintf("../data_pipelines/log_%s.RData", branch))
 tail(log)
 log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE) %>%
   dplyr::filter(time == max(time))
@@ -280,7 +280,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     success = TRUE,
                     branch = branch,
                     stringsAsFactors = FALSE))
-  save(log, file = "../data_pipelines/log.RData")
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
 
   usethis::use_data(coronavirus, overwrite = TRUE, compress = "xz")
   write.csv(coronavirus, "../csv/coronavirus.csv", row.names = FALSE)
@@ -295,7 +295,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     success = TRUE,
                     branch = branch,
                     stringsAsFactors = FALSE))
-  save(log, file = "../data_pipelines/log.RData")
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
 } else if(s && nrow(coronavirus) < log_last$nrows) {
     cat("Something went wrong, the number of rows of the new object are less than the previous object \n")
   log <- rbind(log, data.frame(time = Sys.time(),
@@ -306,7 +306,7 @@ if(s && nrow(coronavirus) > log_last$nrows){
                     success = FALSE,
                     branch = branch,
                     stringsAsFactors = FALSE))
-  save(log, file = "../data_pipelines/log.RData")
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
 } else if(!s){
   cat(msg, sep = "\n")
 }
