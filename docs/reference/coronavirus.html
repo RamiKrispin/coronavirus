@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,28 +89,43 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/intro_coronavirus_dataset.html">Introduction to the coronavirues Dataset</a>
+    </li>
+    <li>
+      <a href="../articles/covid19_vaccine.html">Introduction to the covid19_vaccine Dataset</a>
+    </li>
+    <li>
+      <a href="../articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+    </li>
+    <li>
       <a href="../articles/covid19R.html">Covid19R Project Data Format</a>
-    </li>
-    <li>
-      <a href="../articles/covid19_vaccine.html">Covid19 Vaccine Data</a>
-    </li>
-    <li>
-      <a href="../articles/dashboard.html">Coronavirus Dashboard</a>
     </li>
     <li>
       <a href="../articles/geospatial_visualization.html">Geospatial Visualization</a>
     </li>
     <li>
-      <a href="../articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
+      <a href="../articles/dashboard.html">Coronavirus Dashboard</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Pipelines
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../data_pipelines/covid19_cases.html">Coronavirus Data Pipeline</a>
     </li>
     <li>
-      <a href="../articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+      <a href="../data_pipelines/vaccine_data.html">Vaccine Data Pipeline</a>
     </li>
   </ul>
 </li>
@@ -201,49 +216,37 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(total = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>cases</span>)) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='op'>-</span><span class='kw'>total</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>20</span>)
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 × 2</span><span>
 #&gt;    country           total
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> US             42</span><span style='text-decoration: underline;'>410</span><span>607
-#&gt; </span><span style='color: #555555;'> 2</span><span> India          33</span><span style='text-decoration: underline;'>531</span><span>498
-#&gt; </span><span style='color: #555555;'> 3</span><span> Brazil         21</span><span style='text-decoration: underline;'>247</span><span>094
-#&gt; </span><span style='color: #555555;'> 4</span><span> Russia         14</span><span style='text-decoration: underline;'>416</span><span>482
-#&gt; </span><span style='color: #555555;'> 5</span><span> Turkey         13</span><span style='text-decoration: underline;'>808</span><span>510
-#&gt; </span><span style='color: #555555;'> 6</span><span> United Kingdom  7</span><span style='text-decoration: underline;'>531</span><span>922
-#&gt; </span><span style='color: #555555;'> 7</span><span> France          7</span><span style='text-decoration: underline;'>054</span><span>198
-#&gt; </span><span style='color: #555555;'> 8</span><span> Iran            5</span><span style='text-decoration: underline;'>459</span><span>796
-#&gt; </span><span style='color: #555555;'> 9</span><span> Argentina       5</span><span style='text-decoration: underline;'>243</span><span>231
-#&gt; </span><span style='color: #555555;'>10</span><span> Colombia        4</span><span style='text-decoration: underline;'>943</span><span>622
-#&gt; </span><span style='color: #555555;'>11</span><span> Spain           4</span><span style='text-decoration: underline;'>937</span><span>984
-#&gt; </span><span style='color: #555555;'>12</span><span> Italy           4</span><span style='text-decoration: underline;'>641</span><span>890
-#&gt; </span><span style='color: #555555;'>13</span><span> Indonesia       4</span><span style='text-decoration: underline;'>195</span><span>958
-#&gt; </span><span style='color: #555555;'>14</span><span> Germany         4</span><span style='text-decoration: underline;'>162</span><span>437
-#&gt; </span><span style='color: #555555;'>15</span><span> Mexico          3</span><span style='text-decoration: underline;'>585</span><span>565
-#&gt; </span><span style='color: #555555;'>16</span><span> Poland          2</span><span style='text-decoration: underline;'>899</span><span>008
-#&gt; </span><span style='color: #555555;'>17</span><span> South Africa    2</span><span style='text-decoration: underline;'>886</span><span>331
-#&gt; </span><span style='color: #555555;'>18</span><span> Ukraine         2</span><span style='text-decoration: underline;'>461</span><span>415
-#&gt; </span><span style='color: #555555;'>19</span><span> Philippines     2</span><span style='text-decoration: underline;'>401</span><span>916
-#&gt; </span><span style='color: #555555;'>20</span><span> Peru            2</span><span style='text-decoration: underline;'>168</span><span>431</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> US             44</span><span style='text-decoration: underline;'>058</span><span>827
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> India          33</span><span style='text-decoration: underline;'>894</span><span>312
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Brazil         21</span><span style='text-decoration: underline;'>516</span><span>967
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> United Kingdom  8</span><span style='text-decoration: underline;'>044</span><span>424
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Russia          7</span><span style='text-decoration: underline;'>548</span><span>944
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Turkey          7</span><span style='text-decoration: underline;'>327</span><span>317
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> France          7</span><span style='text-decoration: underline;'>310</span><span>355
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Iran            5</span><span style='text-decoration: underline;'>662</span><span>458
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Argentina       5</span><span style='text-decoration: underline;'>263</span><span>219
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Spain           4</span><span style='text-decoration: underline;'>969</span><span>503
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> Colombia        4</span><span style='text-decoration: underline;'>965</span><span>847
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Italy           4</span><span style='text-decoration: underline;'>689</span><span>341
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> Germany         4</span><span style='text-decoration: underline;'>284</span><span>400
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> Indonesia       4</span><span style='text-decoration: underline;'>223</span><span>094
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> Mexico          3</span><span style='text-decoration: underline;'>691</span><span>924
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> Poland          2</span><span style='text-decoration: underline;'>914</span><span>962
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> South Africa    2</span><span style='text-decoration: underline;'>908</span><span>768
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> Philippines     2</span><span style='text-decoration: underline;'>622</span><span>917
+#&gt; </span><span style='color: #BCBCBC;'>19</span><span> Ukraine         2</span><span style='text-decoration: underline;'>596</span><span>134
+#&gt; </span><span style='color: #BCBCBC;'>20</span><span> Malaysia        2</span><span style='text-decoration: underline;'>303</span><span>837</div><div class='input'>
 <span class='co'># Get the number of recovered cases in China by province</span>
 <span class='kw'>coronavirus</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>type</span> <span class='op'>==</span> <span class='st'>"recovered"</span>, <span class='kw'>country</span> <span class='op'>==</span> <span class='st'>"China"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>province</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(total = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>cases</span>)) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='op'>-</span><span class='kw'>total</span>)
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 34 x 2</span><span>
-#&gt;    province  total
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Anhui        </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> Beijing      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> Chongqing    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> Fujian       </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> Gansu        </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span> Guangdong    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> Guangxi      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> Guizhou      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> Hainan       </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> Hebei        </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'># … with 24 more rows</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 0 × 2</span><span>
+#&gt; </span><span style='color: #949494;'># … with 2 variables: province &lt;chr&gt;, total &lt;int&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,6 +1,9 @@
 # coronavirus 0.3.30.9000
 
 - Added GIS and continent codes for the `coronavirus` dataset
+- Fixed issue with the branch reference on the `refresh_coronavirus_jhu`
+- Updated the package docker image - add new packages for supporting the new data pipeline
+- Modified the data pipeline - now running with Github Actions and Rmarkdown
 
 
 # coronavirus 0.3.30

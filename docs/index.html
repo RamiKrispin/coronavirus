@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset • coronavirus</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -48,28 +48,43 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/intro_coronavirus_dataset.html">Introduction to the coronavirues Dataset</a>
+    </li>
+    <li>
+      <a href="articles/covid19_vaccine.html">Introduction to the covid19_vaccine Dataset</a>
+    </li>
+    <li>
+      <a href="articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+    </li>
+    <li>
       <a href="articles/covid19R.html">Covid19R Project Data Format</a>
-    </li>
-    <li>
-      <a href="articles/covid19_vaccine.html">Covid19 Vaccine Data</a>
-    </li>
-    <li>
-      <a href="articles/dashboard.html">Coronavirus Dashboard</a>
     </li>
     <li>
       <a href="articles/geospatial_visualization.html">Geospatial Visualization</a>
     </li>
     <li>
-      <a href="articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a>
+      <a href="articles/dashboard.html">Coronavirus Dashboard</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Pipelines
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="data_pipelines/covid19_cases.html">Coronavirus Data Pipeline</a>
     </li>
     <li>
-      <a href="articles/update_dataset_function.html">Update the coronavirus Dataset</a>
+      <a href="data_pipelines/vaccine_data.html">Vaccine Data Pipeline</a>
     </li>
   </ul>
 </li>
@@ -162,6 +177,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <code>province</code> - Name of province/state, for countries where data is provided split across multiple provinces/states</li>
 <li>
 <code>country</code> - Name of country/region</li>
+<<<<<<< HEAD
 <li>
 <code>lat</code> - The latitude code</li>
 <li>
@@ -175,6 +191,21 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li>
 <code>province_state</code> - Province or state if applicable</li>
 <li>
+=======
+<li>
+<code>lat</code> - The latitude code</li>
+<li>
+<code>long</code> - The longitude code</li>
+<li>
+<code>type</code> - An indicator for the type of cases (confirmed, death, recovered)</li>
+<li>
+<code>cases</code> - Number of cases on given date</li>
+<li>
+<code>uid</code> - Country code</li>
+<li>
+<code>province_state</code> - Province or state if applicable</li>
+<li>
+>>>>>>> dev
 <code>iso2</code> - Officially assigned country code identifiers with two-letter</li>
 <li>
 <code>iso3</code> - Officially assigned country code identifiers with three-letter</li>
@@ -378,20 +409,20 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(active_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">active</span>),
                 recovered_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">recovered</span>),
                 death_total = <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">death</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/plot_ly.html">plot_ly</a></span>(x = <span class="op">~</span> <span class="kw">date</span>,
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/plot_ly.html">plot_ly</a></span>(x = <span class="op">~</span> <span class="kw">date</span>,
                   y = <span class="op">~</span> <span class="kw">active_total</span>,
                   name = <span class="st">'Active'</span>, 
                   fillcolor = <span class="st">'#1f77b4'</span>,
                   type = <span class="st">'scatter'</span>,
                   mode = <span class="st">'none'</span>, 
                   stackgroup = <span class="st">'one'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/add_trace.html">add_trace</a></span>(y = <span class="op">~</span> <span class="kw">death_total</span>, 
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/add_trace.html">add_trace</a></span>(y = <span class="op">~</span> <span class="kw">death_total</span>, 
              name = <span class="st">"Death"</span>,
              fillcolor = <span class="st">'#E41317'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/add_trace.html">add_trace</a></span>(y = <span class="op">~</span><span class="kw">recovered_total</span>, 
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/add_trace.html">add_trace</a></span>(y = <span class="op">~</span><span class="kw">recovered_total</span>, 
             name = <span class="st">'Recovered'</span>, 
             fillcolor = <span class="st">'forestgreen'</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/layout.html">layout</a></span>(title = <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/layout.html">layout</a></span>(title = <span class="st">"Distribution of Covid19 Cases Worldwide"</span>,
          legend = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(x = <span class="fl">0.1</span>, y = <span class="fl">0.9</span>),
          yaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Number of Cases"</span>),
          xaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span>))
@@ -407,7 +438,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(parents = <span class="st">"Confirmed"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() 
   
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/plot_ly.html">plot_ly</a></span>(data = <span class="kw">conf_df</span>,
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/plot_ly.html">plot_ly</a></span>(data = <span class="kw">conf_df</span>,
           type= <span class="st">"treemap"</span>,
           values = <span class="op">~</span><span class="kw">total_cases</span>,
           labels= <span class="op">~</span> <span class="kw">country</span>,
@@ -446,13 +477,13 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span>(n = <span class="fl">20</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw">fully_vaccinated_ratio</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(country = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">country_region</span>, levels = <span class="kw">country_region</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/plot_ly.html">plot_ly</a></span>(y = <span class="op">~</span> <span class="kw">country</span>,
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/plot_ly.html">plot_ly</a></span>(y = <span class="op">~</span> <span class="kw">country</span>,
           x = <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fl">100</span> <span class="op">*</span> <span class="kw">fully_vaccinated_ratio</span>, <span class="fl">2</span>),
           text = <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fl">100</span> <span class="op">*</span> <span class="kw">fully_vaccinated_ratio</span>, <span class="fl">1</span>), <span class="st">"%"</span>),
           textposition = <span class="st">'auto'</span>,
           orientation = <span class="st">"h"</span>,
           type = <span class="st">"bar"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/layout.html">layout</a></span>(title = <span class="st">"Percentage of Fully Vaccineted Population - Top 20 Countries"</span>,
+  <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/layout.html">layout</a></span>(title = <span class="st">"Percentage of Fully Vaccineted Population - Top 20 Countries"</span>,
          yaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">""</span>),
          xaxis = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(title = <span class="st">"Source: Johns Hopkins Centers for Civic Impact"</span>,
                       ticksuffix = <span class="st">"%"</span>))

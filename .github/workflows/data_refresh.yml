@@ -1,4 +1,4 @@
-name: Data Refresh Dev
+name: Data Pipeline
 
 on:
   schedule:
@@ -8,7 +8,7 @@ jobs:
     name: coronavirus dataset refresh dev
     runs-on: ubuntu-18.04
     container:
-     image: docker.io/rkrispin/coronavirus:dev.0.3.30.9000s
+     image: docker.io/rkrispin/coronavirus:dev.0.3.30.9000
     steps:
       - name: checkout_repo
         uses: actions/checkout@v2
