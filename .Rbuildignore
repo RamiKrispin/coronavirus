@@ -14,3 +14,4 @@
 ^vignettes/geospatial_visualization.Rmd$
 ^docker$
 ^data_pipelines$
+^_pkgdown.yml$
