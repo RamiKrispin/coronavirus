@@ -183,7 +183,7 @@ tbl_info(covid19_vaccine)
                                                     province_state = readr::col_character()))
 
   
-load("../data_pipelines/log.RData")
+load(sprintf("../data_pipelines/log_%s.RData", branch))
 tail(log)
   
   if(nrow(covid19_vaccine) > nrow(git_df)){
@@ -199,7 +199,7 @@ tail(log)
                     success = TRUE,
                     branch = branch,
                     stringsAsFactors = FALSE))
-  save(log, file = "../data_pipelines/log.RData")
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
     
     
   } else {
@@ -211,7 +211,7 @@ tail(log)
                     success = TRUE,
                     branch = branch,
                     stringsAsFactors = FALSE))
-  save(log, file = "../data_pipelines/log.RData")
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
     cat("No updates available...")
   }
 ```
