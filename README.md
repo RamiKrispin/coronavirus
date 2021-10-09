@@ -5,9 +5,9 @@
 
 <!-- badges: start --->
 
-[![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild)
-![Data
-Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)
+[![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
+[![Data
+Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
@@ -180,12 +180,12 @@ with the `refresh_coronavirus_jhu` function:
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
 #>         date    location location_type location_code location_code_type  data_type value      lat      long
-#> 1 2020-09-12 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
-#> 2 2020-09-19 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
-#> 3 2020-09-20 Afghanistan       country            AF         iso_3166_2 deaths_new     4 33.93911 67.709953
-#> 4 2020-09-16 Afghanistan       country            AF         iso_3166_2 deaths_new    10 33.93911 67.709953
-#> 5 2020-08-30 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
-#> 6 2020-09-18 Afghanistan       country            AF         iso_3166_2 deaths_new     1 33.93911 67.709953
+#> 1 2020-04-08 Afghanistan       country            AF         iso_3166_2  cases_new    56 33.93911 67.709953
+#> 2 2020-04-03 Afghanistan       country            AF         iso_3166_2  cases_new    34 33.93911 67.709953
+#> 3 2021-09-25 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
+#> 4 2021-09-07 Afghanistan       country            AF         iso_3166_2 deaths_new     3 33.93911 67.709953
+#> 5 2021-09-08 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953
+#> 6 2020-04-07 Afghanistan       country            AF         iso_3166_2  cases_new    30 33.93911 67.709953
 ```
 
 ## Usage
