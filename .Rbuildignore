@@ -13,3 +13,4 @@
 ^vignettes/covid19_vaccine.Rmd$
 ^vignettes/geospatial_visualization.Rmd$
 ^docker$
+^data_pipelines$
