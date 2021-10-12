@@ -263,13 +263,13 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">covid19_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span>()
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">covid19_df</span>)
-<span class="co">#&gt;         date    location location_type location_code location_code_type data_type value      lat      long</span>
-<span class="co">#&gt; 1 2020-12-30 Afghanistan       country            AF         iso_3166_2 cases_new   183 33.93911 67.709953</span>
-<span class="co">#&gt; 2 2021-02-20 Afghanistan       country            AF         iso_3166_2 cases_new     5 33.93911 67.709953</span>
-<span class="co">#&gt; 3 2021-02-08 Afghanistan       country            AF         iso_3166_2 cases_new    24 33.93911 67.709953</span>
-<span class="co">#&gt; 4 2021-02-11 Afghanistan       country            AF         iso_3166_2 cases_new    18 33.93911 67.709953</span>
-<span class="co">#&gt; 5 2021-02-06 Afghanistan       country            AF         iso_3166_2 cases_new    65 33.93911 67.709953</span>
-<span class="co">#&gt; 6 2021-02-10 Afghanistan       country            AF         iso_3166_2 cases_new    18 33.93911 67.709953</span>
+<span class="co">#&gt;         date    location location_type location_code location_code_type  data_type value      lat      long</span>
+<span class="co">#&gt; 1 2020-04-08 Afghanistan       country            AF         iso_3166_2  cases_new    56 33.93911 67.709953</span>
+<span class="co">#&gt; 2 2020-04-03 Afghanistan       country            AF         iso_3166_2  cases_new    34 33.93911 67.709953</span>
+<span class="co">#&gt; 3 2021-09-25 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953</span>
+<span class="co">#&gt; 4 2021-09-07 Afghanistan       country            AF         iso_3166_2 deaths_new     3 33.93911 67.709953</span>
+<span class="co">#&gt; 5 2021-09-08 Afghanistan       country            AF         iso_3166_2 deaths_new     7 33.93911 67.709953</span>
+<span class="co">#&gt; 6 2020-04-07 Afghanistan       country            AF         iso_3166_2  cases_new    30 33.93911 67.709953</span>
 </pre></div>
 </div>
 <div id="usage" class="section level2">
@@ -279,13 +279,13 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"coronavirus"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus</span>)
-<span class="co">#&gt;         date province country     lat      long      type cases   uid iso2 iso3 code3 fips admin2    combined_key population continent_name continent_code</span>
-<span class="co">#&gt; 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
-<span class="co">#&gt; 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
-<span class="co">#&gt; 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
-<span class="co">#&gt; 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
-<span class="co">#&gt; 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
-<span class="co">#&gt; 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124   NA   &lt;NA&gt; Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt;         date province country     lat      long      type cases   uid iso2 iso3 code3    combined_key population continent_name continent_code</span>
+<span class="co">#&gt; 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt; 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt; 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt; 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt; 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
+<span class="co">#&gt; 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA</span>
 </pre></div>
 <p>Summary of the total confrimed cases by country (top 20):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
@@ -298,31 +298,31 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span><span class="kw">total_cases</span>)
 
 <span class="kw">summary_df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">20</span>) 
-<span class="co">#&gt; # A tibble: 20 x 2</span>
+<span class="co">#&gt; # A tibble: 20 × 2</span>
 <span class="co">#&gt;    country        total_cases</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span>
-<span class="co">#&gt;  1 US                42410607</span>
-<span class="co">#&gt;  2 India             33531498</span>
-<span class="co">#&gt;  3 Brazil            21247094</span>
-<span class="co">#&gt;  4 Russia            14416482</span>
-<span class="co">#&gt;  5 Turkey            13808510</span>
-<span class="co">#&gt;  6 United Kingdom     7531922</span>
-<span class="co">#&gt;  7 France             7054198</span>
-<span class="co">#&gt;  8 Iran               5459796</span>
-<span class="co">#&gt;  9 Argentina          5243231</span>
-<span class="co">#&gt; 10 Colombia           4943622</span>
-<span class="co">#&gt; 11 Spain              4937984</span>
-<span class="co">#&gt; 12 Italy              4641890</span>
-<span class="co">#&gt; 13 Indonesia          4195958</span>
-<span class="co">#&gt; 14 Germany            4162437</span>
-<span class="co">#&gt; 15 Mexico             3585565</span>
-<span class="co">#&gt; 16 Poland             2899008</span>
-<span class="co">#&gt; 17 South Africa       2886331</span>
-<span class="co">#&gt; 18 Ukraine            2461415</span>
-<span class="co">#&gt; 19 Philippines        2401916</span>
-<span class="co">#&gt; 20 Peru               2168431</span>
+<span class="co">#&gt;  1 US                43683048</span>
+<span class="co">#&gt;  2 India             33834702</span>
+<span class="co">#&gt;  3 Brazil            21468121</span>
+<span class="co">#&gt;  4 United Kingdom     7937810</span>
+<span class="co">#&gt;  5 Russia             7474850</span>
+<span class="co">#&gt;  6 Turkey             7238237</span>
+<span class="co">#&gt;  7 France             7120214</span>
+<span class="co">#&gt;  8 Iran               5624128</span>
+<span class="co">#&gt;  9 Argentina          5259738</span>
+<span class="co">#&gt; 10 Colombia           4962054</span>
+<span class="co">#&gt; 11 Spain              4961128</span>
+<span class="co">#&gt; 12 Italy              4682034</span>
+<span class="co">#&gt; 13 Germany            4260494</span>
+<span class="co">#&gt; 14 Indonesia          4219284</span>
+<span class="co">#&gt; 15 Mexico             3678980</span>
+<span class="co">#&gt; 16 Poland             2910866</span>
+<span class="co">#&gt; 17 South Africa       2906422</span>
+<span class="co">#&gt; 18 Philippines        2593399</span>
+<span class="co">#&gt; 19 Ukraine            2566875</span>
+<span class="co">#&gt; 20 Malaysia           2277565</span>
 </pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2021-09-21):</p>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2021-10-03):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
 
@@ -334,50 +334,50 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(names_from = <span class="kw">type</span>,
               values_from = <span class="kw">total_cases</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="op">-</span><span class="kw">confirmed</span>)
-<span class="co">#&gt; # A tibble: 195 x 4</span>
+<span class="co">#&gt; # A tibble: 195 × 4</span>
 <span class="co">#&gt; # Groups:   country [195]</span>
-<span class="co">#&gt;    country            confirmed death recovered</span>
-<span class="co">#&gt;    &lt;chr&gt;                  &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 US                    120788  2331        NA</span>
-<span class="co">#&gt;  2 Turkey                 58676   520        NA</span>
-<span class="co">#&gt;  3 Russia                 37592  1594        NA</span>
-<span class="co">#&gt;  4 United Kingdom         31188   204        NA</span>
-<span class="co">#&gt;  5 India                  26964   383        NA</span>
-<span class="co">#&gt;  6 Iran                   17564   379        NA</span>
-<span class="co">#&gt;  7 Philippines            16300   140        NA</span>
-<span class="co">#&gt;  8 Malaysia               15759   334        NA</span>
-<span class="co">#&gt;  9 Mexico                 12521   815        NA</span>
-<span class="co">#&gt; 10 Vietnam                11692   240        NA</span>
-<span class="co">#&gt; 11 Thailand               10919   143        NA</span>
-<span class="co">#&gt; 12 France                  8776   136        NA</span>
-<span class="co">#&gt; 13 Cuba                    8289    63        NA</span>
-<span class="co">#&gt; 14 Germany                 7277    71        NA</span>
-<span class="co">#&gt; 15 Serbia                  7232    38        NA</span>
-<span class="co">#&gt; 16 Israel                  7198    12        NA</span>
-<span class="co">#&gt; 17 Romania                 6789   129        NA</span>
-<span class="co">#&gt; 18 Ukraine                 5542   152        NA</span>
-<span class="co">#&gt; 19 Kazakhstan              5456     0        NA</span>
-<span class="co">#&gt; 20 Georgia                 4940    92        NA</span>
-<span class="co">#&gt; 21 Guatemala               3718    54        NA</span>
-<span class="co">#&gt; 22 Greece                  3688    43        NA</span>
-<span class="co">#&gt; 23 Canada                  3685    52        NA</span>
-<span class="co">#&gt; 24 Italy                   3374    67        NA</span>
-<span class="co">#&gt; 25 Indonesia               3263   171        NA</span>
-<span class="co">#&gt; 26 Azerbaijan              3188    52        NA</span>
-<span class="co">#&gt; 27 Iraq                    3081    42        NA</span>
-<span class="co">#&gt; 28 Costa Rica              2731    42        NA</span>
-<span class="co">#&gt; 29 Mongolia                2543    13        NA</span>
-<span class="co">#&gt; 30 Spain                   2450    82        NA</span>
-<span class="co">#&gt; 31 Pakistan                2333    47        NA</span>
-<span class="co">#&gt; 32 South Africa            2197   160        NA</span>
-<span class="co">#&gt; 33 Bulgaria                2192    58        NA</span>
-<span class="co">#&gt; 34 Singapore               2095     5        NA</span>
-<span class="co">#&gt; 35 Sweden                  1986    15        NA</span>
-<span class="co">#&gt; 36 West Bank and Gaza      1977    17        NA</span>
-<span class="co">#&gt; 37 Jordan                  1945    17        NA</span>
-<span class="co">#&gt; 38 Belarus                 1917    12        NA</span>
-<span class="co">#&gt; 39 Morocco                 1848    51        NA</span>
-<span class="co">#&gt; 40 Argentina               1837    61        NA</span>
+<span class="co">#&gt;    country        confirmed death recovery</span>
+<span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt;  1 United Kingdom     29719    43        0</span>
+<span class="co">#&gt;  2 Turkey             27351   194        0</span>
+<span class="co">#&gt;  3 US                 25215   237        0</span>
+<span class="co">#&gt;  4 Russia             25161   882        0</span>
+<span class="co">#&gt;  5 India              20799   180        0</span>
+<span class="co">#&gt;  6 Philippines        13226   112        0</span>
+<span class="co">#&gt;  7 Iran               12428   229        0</span>
+<span class="co">#&gt;  8 Thailand           10828    77        0</span>
+<span class="co">#&gt;  9 Malaysia            9066   118        0</span>
+<span class="co">#&gt; 10 Brazil              9004   225        0</span>
+<span class="co">#&gt; 11 Romania             8682   150        0</span>
+<span class="co">#&gt; 12 Ukraine             8575   134        0</span>
+<span class="co">#&gt; 13 Vietnam             5376   114        0</span>
+<span class="co">#&gt; 14 Serbia              5334    49        0</span>
+<span class="co">#&gt; 15 Germany             4951     7        0</span>
+<span class="co">#&gt; 16 Cuba                4097    46        0</span>
+<span class="co">#&gt; 17 France              3799    17        0</span>
+<span class="co">#&gt; 18 Italy               2967    33        0</span>
+<span class="co">#&gt; 19 Venezuela           2964    27        0</span>
+<span class="co">#&gt; 20 Iraq                2451    21        0</span>
+<span class="co">#&gt; 21 Austria             2445     5        0</span>
+<span class="co">#&gt; 22 Slovakia            2270    19        0</span>
+<span class="co">#&gt; 23 Israel              2152    43        0</span>
+<span class="co">#&gt; 24 Singapore           2057     6        0</span>
+<span class="co">#&gt; 25 Australia           2023    12        0</span>
+<span class="co">#&gt; 26 Belarus             1899    14        0</span>
+<span class="co">#&gt; 27 Kazakhstan          1763     0        0</span>
+<span class="co">#&gt; 28 Korea, South        1672     6        0</span>
+<span class="co">#&gt; 29 Netherlands         1652     2        0</span>
+<span class="co">#&gt; 30 Lithuania           1615    22        0</span>
+<span class="co">#&gt; 31 Mongolia            1501    14        0</span>
+<span class="co">#&gt; 32 Pakistan            1490    27        0</span>
+<span class="co">#&gt; 33 Colombia            1413    29        0</span>
+<span class="co">#&gt; 34 Canada              1396     6        0</span>
+<span class="co">#&gt; 35 Ecuador             1381    29        0</span>
+<span class="co">#&gt; 36 Burma               1194    48        0</span>
+<span class="co">#&gt; 37 Georgia             1164    33        0</span>
+<span class="co">#&gt; 38 Greece              1142    31        0</span>
+<span class="co">#&gt; 39 Indonesia           1142    58        0</span>
+<span class="co">#&gt; 40 Poland              1090     6        0</span>
 <span class="co">#&gt; # … with 155 more rows</span>
 </pre></div>
 <p>Plotting daily confirmed and death cases in Brazil:</p>
@@ -573,7 +573,8 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild"><img src="https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master" alt="build"></a></li>
+<li><a href="https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml"><img src="https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master" alt="R-CMD"></a></li>
+<li><a href="https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml"><img src="https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master" alt="Data Pipeline"></a></li>
 <li><a href="https://cran.r-project.org/package=coronavirus"><img src="https://www.r-pkg.org/badges/version/coronavirus" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
 <li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
