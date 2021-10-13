@@ -18,8 +18,10 @@ pkg_list <- c("pkgdown",
               "rcmdcheck",
               "Rcpp",
               "usethis",
-              "qpdf"
-              )
+              "qpdf",
+              "reactable",
+              "htmltools"
+)
 
 
 for(i in pkg_list){
