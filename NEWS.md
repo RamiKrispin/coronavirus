@@ -1,4 +1,4 @@
-# coronavirus 0.3.30.9000
+# coronavirus 0.3.31
 
 - Added GIS and continent codes for the `coronavirus` dataset
 - Fixed issue with the branch reference on the `refresh_coronavirus_jhu`
