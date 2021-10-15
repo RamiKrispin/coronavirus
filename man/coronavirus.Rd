@@ -18,6 +18,14 @@ A data frame with 7 variables.
   \item{type}{An indicator for the type of cases (confirmed, death,
   recovered).}
   \item{cases}{Number of cases on given date.}
+  \item{uid}{Country code}
+  \item{iso2}{Officially assigned country code identifiers with two-letter}
+  \item{iso3}{Officially assigned country code identifiers with three-letter}
+  \item{code3}{UN country code}
+  \item{combined_key}{Country and province (if applicable)}
+  \item{population}{Country or province population}
+  \item{continent_name}{Continent name}
+  \item{continent_code}{Continent code}
   }
 }
 \source{

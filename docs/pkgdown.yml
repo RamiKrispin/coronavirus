@@ -8,5 +8,12 @@ articles:
   geospatial_visualization: geospatial_visualization.html
   intro_coronavirus_dataset: intro_coronavirus_dataset.html
   update_dataset_function: update_dataset_function.html
+<<<<<<< HEAD
 last_built: 2021-09-19T05:06Z
+=======
+last_built: 2021-10-11T18:53Z
+urls:
+  reference: https://ramikrispin.github.io/coronavirus//reference
+  article: https://ramikrispin.github.io/coronavirus//articles
+>>>>>>> dev
 

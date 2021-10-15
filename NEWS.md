@@ -1,3 +1,12 @@
+# coronavirus 0.3.31
+
+- Added GIS and continent codes for the `coronavirus` dataset
+- Fixed issue with the branch reference on the `refresh_coronavirus_jhu`
+- Updated the package docker image - add new packages for supporting the new data pipeline
+- Modified the data pipeline - now running with Github Actions and Rmarkdown
+- Removed duplication from the `covid19_vaccine` due to continent mapping issue
+
+
 # coronavirus 0.3.30
 
 - Stopped tracking recovery cases as per this [issue](https://github.com/CSSEGISandData/COVID-19/issues/4465)

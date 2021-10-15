@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: build
+name: R CMD
 jobs:
   R-CMD-check:
     name: R CMD check

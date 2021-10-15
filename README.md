@@ -5,7 +5,9 @@
 
 <!-- badges: start --->
 
-[![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild)
+[![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
+[![Data
+Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
@@ -95,18 +97,27 @@ The package provides the following two datasets:
     That includes the following columns:
 
     -   `date` - The date of the observation, using `Date` class
-    -   `location` - The name of the location as provided by John
-        Hopkins raw data
-    -   `location_type` - The type of the location field, either
-        `country` or `state`
-    -   `location_code` - The location code, using the `ios_3166_2`
-        format
-    -   `location_code_type` - The location code type (`ios_3166_2`)
-    -   `data_type` - The case type,
-        `c("recovered_new", "cases_new", "deaths_new" )`
-    -   `value` - The number of cases
+    -   `province` - Name of province/state, for countries where data is
+        provided split across multiple provinces/states
+    -   `country` - Name of country/region
     -   `lat` - The latitude code
     -   `long` - The longitude code
+    -   `type` - An indicator for the type of cases (confirmed, death,
+        recovered)
+    -   `cases` - Number of cases on given date
+    -   `uid` - Country code
+    -   `province_state` - Province or state if applicable
+    -   `iso2` - Officially assigned country code identifiers with
+        two-letter
+    -   `iso3` - Officially assigned country code identifiers with
+        three-letter
+    -   `code3` - UN country code
+    -   `fips` - Federal Information Processing Standards code that
+        uniquely identifies counties within the USA
+    -   `combined_key` - Country and province (if applicable)
+    -   `population` - Country or province population
+    -   `continent_name` - Continent name
+    -   `continent_code` - Continent code
 
 -   **covid19\_vaccine** - a tidy (long) format of the the Johns Hopkins
     [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
@@ -168,13 +179,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type     data_type value      lat      long
-#> 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953
-#> 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
-#> 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953
-#> 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953
-#> 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953
-#> 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953
+#>         date    location location_type location_code location_code_type data_type value      lat      long
+#> 1 2021-04-16 Afghanistan       country            AF         iso_3166_2 cases_new    78 33.93911 67.709953
+#> 2 2021-07-15 Afghanistan       country            AF         iso_3166_2 cases_new  1210 33.93911 67.709953
+#> 3 2021-04-26 Afghanistan       country            AF         iso_3166_2 cases_new   172 33.93911 67.709953
+#> 4 2021-04-25 Afghanistan       country            AF         iso_3166_2 cases_new   113 33.93911 67.709953
+#> 5 2021-04-28 Afghanistan       country            AF         iso_3166_2 cases_new   145 33.93911 67.709953
+#> 6 2021-04-29 Afghanistan       country            AF         iso_3166_2 cases_new   206 33.93911 67.709953
 ```
 
 ## Usage
@@ -183,13 +194,13 @@ head(covid19_df)
 data("coronavirus")
 
 head(coronavirus)
-#>         date province country     lat      long      type cases
-#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#>         date province country     lat      long      type cases   uid iso2 iso3 code3    combined_key population continent_name continent_code
+#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
 ```
 
 Summary of the total confrimed cases by country (top 20):
@@ -204,9 +215,10 @@ summary_df <- coronavirus %>%
   arrange(-total_cases)
 
 summary_df %>% head(20) 
-#> # A tibble: 20 x 2
+#> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
+<<<<<<< HEAD
 #>  1 US                41993789
 #>  2 India             33417390
 #>  3 Brazil            21080219
@@ -231,6 +243,32 @@ summary_df %>% head(20)
 
 Summary of new cases during the past 24 hours by country and type (as of
 2021-09-17):
+=======
+#>  1 US                44455949
+#>  2 India             33985920
+#>  3 Brazil            21582738
+#>  4 United Kingdom     8232327
+#>  5 Russia             7687559
+#>  6 Turkey             7475085
+#>  7 France             7157206
+#>  8 Iran               5716394
+#>  9 Argentina          5266275
+#> 10 Spain              4977448
+#> 11 Colombia           4973325
+#> 12 Italy              4701832
+#> 13 Germany            4323346
+#> 14 Indonesia          4228552
+#> 15 Mexico             3725242
+#> 16 Poland             2923304
+#> 17 South Africa       2912346
+#> 18 Philippines        2674814
+#> 19 Ukraine            2667304
+#> 20 Malaysia           2346303
+```
+
+Summary of new cases during the past 24 hours by country and type (as of
+2021-10-11):
+>>>>>>> dev
 
 ``` r
 library(tidyr)
@@ -243,8 +281,9 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 195 x 4
+#> # A tibble: 195 × 4
 #> # Groups:   country [195]
+<<<<<<< HEAD
 #>    country            confirmed death recovered
 #>    <chr>                  <int> <int>     <int>
 #>  1 US                    207886  2635        NA
@@ -287,6 +326,50 @@ coronavirus %>%
 #> 38 Greece                  2231    40        NA
 #> 39 West Bank and Gaza      2219    19        NA
 #> 40 Burma                   2187    75        NA
+=======
+#>    country            confirmed death recovery
+#>    <chr>                  <int> <int>    <int>
+#>  1 US                    116202  1182        0
+#>  2 United Kingdom         39738    28        0
+#>  3 Turkey                 30563   188        0
+#>  4 Russia                 28636   946        0
+#>  5 India                  14313   181        0
+#>  6 Iran                   13504   276        0
+#>  7 Thailand               10035    60        0
+#>  8 Ukraine                 9605   218        0
+#>  9 Romania                 9148   209        0
+#> 10 Philippines             8252    36        0
+#> 11 Brazil                  6918   202        0
+#> 12 Malaysia                6709    93        0
+#> 13 Serbia                  5700    51        0
+#> 14 Belgium                 5460    20        0
+#> 15 Germany                 4909    95        0
+#> 16 Spain                   3829    49        0
+#> 17 Vietnam                 3619   115        0
+#> 18 Bulgaria                3471   157        0
+#> 19 Cuba                    2945    40        0
+#> 20 Netherlands             2769     5        0
+#> 21 Costa Rica              2574    86        0
+#> 22 Greece                  2358    42        0
+#> 23 Switzerland             2266    13        0
+#> 24 Singapore               2263    10        0
+#> 25 Israel                  2159    20        0
+#> 26 Hungary                 2046    28        0
+#> 27 Mexico                  2007   141        0
+#> 28 Belarus                 1943    15        0
+#> 29 West Bank and Gaza      1884    39        0
+#> 30 Australia               1848    13        0
+#> 31 Finland                 1618     4        0
+#> 32 Georgia                 1530    23        0
+#> 33 Italy                   1516    34        0
+#> 34 Kazakhstan              1510   127        0
+#> 35 Ireland                 1357     0        0
+#> 36 Lithuania               1350    17        0
+#> 37 Korea, South            1347    11        0
+#> 38 Austria                 1320    10        0
+#> 39 Jordan                  1307     7        0
+#> 40 Venezuela               1292    17        0
+>>>>>>> dev
 #> # … with 155 more rows
 ```
 
