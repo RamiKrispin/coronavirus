@@ -2,7 +2,7 @@ name: Data Pipeline
 
 on:
   schedule:
-    - cron:  '0 */4 * * *'
+    - cron:  '0 */8 * * *'
 jobs:
   data_refresh_dev:
     name: coronavirus dataset refresh dev
