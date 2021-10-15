@@ -179,13 +179,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type data_type value      lat      long
-#> 1 2021-04-16 Afghanistan       country            AF         iso_3166_2 cases_new    78 33.93911 67.709953
-#> 2 2021-07-15 Afghanistan       country            AF         iso_3166_2 cases_new  1210 33.93911 67.709953
-#> 3 2021-04-26 Afghanistan       country            AF         iso_3166_2 cases_new   172 33.93911 67.709953
-#> 4 2021-04-25 Afghanistan       country            AF         iso_3166_2 cases_new   113 33.93911 67.709953
-#> 5 2021-04-28 Afghanistan       country            AF         iso_3166_2 cases_new   145 33.93911 67.709953
-#> 6 2021-04-29 Afghanistan       country            AF         iso_3166_2 cases_new   206 33.93911 67.709953
+#>         date    location location_type location_code location_code_type  data_type value      lat      long
+#> 1 2021-10-04 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 2 2021-10-03 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
+#> 3 2020-11-09 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 4 2021-10-10 Afghanistan       country            AF         iso_3166_2 deaths_new     4 33.93911 67.709953
+#> 5 2021-10-06 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 6 2020-11-10 Afghanistan       country            AF         iso_3166_2 deaths_new    12 33.93911 67.709953
 ```
 
 ## Usage
@@ -194,13 +194,13 @@ head(covid19_df)
 data("coronavirus")
 
 head(coronavirus)
-#>         date province country     lat      long      type cases   uid iso2 iso3 code3    combined_key population continent_name continent_code
-#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
-#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
-#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
-#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
-#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
-#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN   124 Alberta, Canada    4413146  North America             NA
+#>         date province country     lat      long      type cases
+#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0
 ```
 
 Summary of the total confrimed cases by country (top 20):
@@ -218,57 +218,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
-<<<<<<< HEAD
-#>  1 US                41993789
-#>  2 India             33417390
-#>  3 Brazil            21080219
-#>  4 United Kingdom     7406017
-#>  5 Russia             7130245
-#>  6 France             7029959
-#>  7 Turkey             6794670
-#>  8 Iran               5396013
-#>  9 Argentina          5237159
-#> 10 Colombia           4937596
-#> 11 Spain              4929546
-#> 12 Italy              4627699
-#> 13 Indonesia          4185144
-#> 14 Germany            4137062
-#> 15 Mexico             3552983
-#> 16 Poland             2896599
-#> 17 South Africa       2877063
-#> 18 Ukraine            2442344
-#> 19 Philippines        2324475
-#> 20 Peru               2164380
+#>  1 US                44683014
+#>  2 India             34020730
+#>  3 Brazil            21597949
+#>  4 United Kingdom     8311851
+#>  5 Russia             7742899
+#>  6 Turkey             7540193
+#>  7 France             7164924
+#>  8 Iran               5742083
+#>  9 Argentina          5268653
+#> 10 Spain              4980206
+#> 11 Colombia           4975656
+#> 12 Italy              4707087
+#> 13 Germany            4343591
+#> 14 Indonesia          4231046
+#> 15 Mexico             3732429
+#> 16 Poland             2928065
+#> 17 South Africa       2913880
+#> 18 Ukraine            2697176
+#> 19 Philippines        2690455
+#> 20 Malaysia           2361529
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2021-09-17):
-=======
-#>  1 US                44455949
-#>  2 India             33985920
-#>  3 Brazil            21582738
-#>  4 United Kingdom     8232327
-#>  5 Russia             7687559
-#>  6 Turkey             7475085
-#>  7 France             7157206
-#>  8 Iran               5716394
-#>  9 Argentina          5266275
-#> 10 Spain              4977448
-#> 11 Colombia           4973325
-#> 12 Italy              4701832
-#> 13 Germany            4323346
-#> 14 Indonesia          4228552
-#> 15 Mexico             3725242
-#> 16 Poland             2923304
-#> 17 South Africa       2912346
-#> 18 Philippines        2674814
-#> 19 Ukraine            2667304
-#> 20 Malaysia           2346303
-```
-
-Summary of new cases during the past 24 hours by country and type (as of
-2021-10-11):
->>>>>>> dev
+2021-10-13):
 
 ``` r
 library(tidyr)
@@ -283,93 +256,48 @@ coronavirus %>%
   arrange(-confirmed)
 #> # A tibble: 195 × 4
 #> # Groups:   country [195]
-<<<<<<< HEAD
-#>    country            confirmed death recovered
-#>    <chr>                  <int> <int>     <int>
-#>  1 US                    207886  2635        NA
-#>  2 India                  35662   281        NA
-#>  3 United Kingdom         32566   180        NA
-#>  4 Turkey                 27692   237        NA
-#>  5 Philippines            20283   310        NA
-#>  6 Russia                 19589   771        NA
-#>  7 Iran                   17605   364        NA
-#>  8 Malaysia               17577   388        NA
-#>  9 Thailand               14555   171        NA
-#> 10 Vietnam                11521   212        NA
-#> 11 Brazil                 11202   327        NA
-#> 12 Germany                 9904    22        NA
-#> 13 Cuba                    8291    75        NA
-#> 14 France                  7756   107        NA
-#> 15 Serbia                  7572    34        NA
-#> 16 Ukraine                 6940   119        NA
-#> 17 Japan                   6164    69        NA
-#> 18 Canada                  5107    44        NA
-#> 19 Italy                   4544    66        NA
-#> 20 Romania                 4478    73        NA
-#> 21 Guatemala               4068    40        NA
-#> 22 Indonesia               3835   219        NA
-#> 23 Mexico                  3754   190        NA
-#> 24 South Africa            3648   173        NA
-#> 25 Iraq                    3559    56        NA
-#> 26 Spain                   3222    44        NA
-#> 27 Kazakhstan              3117     0        NA
-#> 28 Israel                  3040    29        NA
-#> 29 Costa Rica              2801    30        NA
-#> 30 Mongolia                2796     9        NA
-#> 31 Venezuela               2606    30        NA
-#> 32 Pakistan                2512    63        NA
-#> 33 Morocco                 2412    53        NA
-#> 34 Austria                 2364    12        NA
-#> 35 Belgium                 2341     3        NA
-#> 36 Argentina               2308   185        NA
-#> 37 Netherlands             2236    11        NA
-#> 38 Greece                  2231    40        NA
-#> 39 West Bank and Gaza      2219    19        NA
-#> 40 Burma                   2187    75        NA
-=======
-#>    country            confirmed death recovery
-#>    <chr>                  <int> <int>    <int>
-#>  1 US                    116202  1182        0
-#>  2 United Kingdom         39738    28        0
-#>  3 Turkey                 30563   188        0
-#>  4 Russia                 28636   946        0
-#>  5 India                  14313   181        0
-#>  6 Iran                   13504   276        0
-#>  7 Thailand               10035    60        0
-#>  8 Ukraine                 9605   218        0
-#>  9 Romania                 9148   209        0
-#> 10 Philippines             8252    36        0
-#> 11 Brazil                  6918   202        0
-#> 12 Malaysia                6709    93        0
-#> 13 Serbia                  5700    51        0
-#> 14 Belgium                 5460    20        0
-#> 15 Germany                 4909    95        0
-#> 16 Spain                   3829    49        0
-#> 17 Vietnam                 3619   115        0
-#> 18 Bulgaria                3471   157        0
-#> 19 Cuba                    2945    40        0
-#> 20 Netherlands             2769     5        0
-#> 21 Costa Rica              2574    86        0
-#> 22 Greece                  2358    42        0
-#> 23 Switzerland             2266    13        0
-#> 24 Singapore               2263    10        0
-#> 25 Israel                  2159    20        0
-#> 26 Hungary                 2046    28        0
-#> 27 Mexico                  2007   141        0
-#> 28 Belarus                 1943    15        0
-#> 29 West Bank and Gaza      1884    39        0
-#> 30 Australia               1848    13        0
-#> 31 Finland                 1618     4        0
-#> 32 Georgia                 1530    23        0
-#> 33 Italy                   1516    34        0
-#> 34 Kazakhstan              1510   127        0
-#> 35 Ireland                 1357     0        0
-#> 36 Lithuania               1350    17        0
-#> 37 Korea, South            1347    11        0
-#> 38 Austria                 1320    10        0
-#> 39 Jordan                  1307     7        0
-#> 40 Venezuela               1292    17        0
->>>>>>> dev
+#>    country        confirmed death recovered
+#>    <chr>              <int> <int>     <int>
+#>  1 US                120321  3054        NA
+#>  2 United Kingdom     41669   136        NA
+#>  3 Turkey             31248   236        NA
+#>  4 Russia             27926   962        NA
+#>  5 India              18987   246        NA
+#>  6 Ukraine            17100   493        NA
+#>  7 Romania            15733   390        NA
+#>  8 Germany            12317    14        NA
+#>  9 Iran               12298   194        NA
+#> 10 Thailand           10064    82        NA
+#> 11 Malaysia            7950    68        NA
+#> 12 Brazil              7852   176        NA
+#> 13 Philippines         7083   173        NA
+#> 14 Serbia              6699    51        NA
+#> 15 Georgia             4837    26        NA
+#> 16 Netherlands         3772    13        NA
+#> 17 Belgium             3667    13        NA
+#> 18 Vietnam             3461   106        NA
+#> 19 Bulgaria            3327    98        NA
+#> 20 Singapore           3190     9        NA
+#> 21 Cameroon            3003    33        NA
+#> 22 Italy               2769    37        NA
+#> 23 Spain               2758    42        NA
+#> 24 Australia           2744    18        NA
+#> 25 Lithuania           2740    26        NA
+#> 26 Canada              2706    79        NA
+#> 27 Poland              2640    40        NA
+#> 28 Austria             2614    15        NA
+#> 29 Slovakia            2406    20        NA
+#> 30 Cuba                2354    28        NA
+#> 31 Greece              2312    31        NA
+#> 32 Latvia              2236    17        NA
+#> 33 Kazakhstan          2084    35        NA
+#> 34 Belarus             2060    17        NA
+#> 35 Moldova             2052    29        NA
+#> 36 Ireland             2051    26        NA
+#> 37 Croatia             2022    27        NA
+#> 38 Korea, South        1937    13        NA
+#> 39 Mongolia            1920    15        NA
+#> 40 Iraq                1766    35        NA
 #> # … with 155 more rows
 ```
 
