@@ -41,6 +41,15 @@ library(viridis)
 
 **Note:** This vignette is not available on the CRAN version (due to size limitation). Therefore, as the packages above are not on the dependencies list of the **coronavirus** package, you may need to install them before.
 
+
+**Additional setting:** following changes in the default options of the **sf** package from version `1.0-1` by default option is to use s2 spherical geometry as default when coordinates are ellipsoidal. That cause some issues with the **tmap** package, therefore we will set this functionality as `FALSE`:
+
+``` {r set_s2}
+sf_use_s2(FALSE)
+```
+
+More details available on this [issue](https://github.com/RamiKrispin/coronavirus/issues/95) and follow-up [issue](https://github.com/r-spatial/sf/issues/1821).
+
 Let's get start by loading the data:
 
 ```{r data}
@@ -131,6 +140,7 @@ df1  %>%
 The **tmap** (thematic maps) package is another useful tool for creating choropleth maps. Similarly to the **mapview** package, the **tmap** package supports `sf` objects. This **tmap** follow the **ggplot2** package syntax style (e.g., using the `+` symbol to add to the plot additional plot). We will use the `tm_shape` function to define the input object with the `df1` object, and add the `tm_polygons` function to customize the plot:
 
 ```{r}
+
 tm_shape(df1) + 
   tm_polygons(col = "perc",  
               n = 8,
