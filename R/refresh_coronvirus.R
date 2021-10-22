@@ -63,7 +63,7 @@ refresh_coronavirus_jhu <- function(){
 
     #data type
     df$data_type <- ifelse(df$type == "confirmed", "cases_new",
-                           ifelse(df$type == "recovered", "recovered_new", "deaths_new"))
+                           ifelse(df$type == "recovery", "recovered_new", "deaths_new"))
     df$value <- df$cases
 
     #zeroing out old columns
