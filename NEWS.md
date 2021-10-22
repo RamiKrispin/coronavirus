@@ -1,3 +1,8 @@
+# coronavirus 0.3.32
+
+- Fixed issue with the `refresh_coronavirus_jhu` - misclassification of the recovery cases as death cases
+- Fixed issue with the **Geospatial Visualization** vignette - using s2 spherical geometry as default when coordinates are set as ellipsoidal
+
 # coronavirus 0.3.31
 
 - Added GIS and continent codes for the `coronavirus` dataset
