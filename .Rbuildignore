@@ -13,6 +13,9 @@
 ^vignettes/covid19_vaccine.Rmd$
 ^vignettes/geospatial_visualization.Rmd$
 ^vignettes/update_dataset_function.Rmd$
+^vignettes/using_julia_cache/*.*$
+^vignettes/using_julia.Rmd$
+^vignettes/covid19_env/*.*$
 ^docker$
 ^data_pipelines$
 ^_pkgdown.yml$
