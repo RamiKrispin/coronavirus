@@ -1,5 +1,5 @@
 ---
-title: "Loading Data with Julia"
+title: "Loading the Data with Julia"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{using_julia}
