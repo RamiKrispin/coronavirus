@@ -31,9 +31,9 @@ The Julia source code can be find [here](https://github.com/RamiKrispin/coronavi
 
 For loading the data from the `coronavirus` Github repository, summarized and plot it we will use the following libraries:
 
-* **HTTP** - to read the 
+* **HTTP** - to load the data from url
 * **CSV** - to read the CSV file
-* **DataFrames** - to store the data as data frame and manipulate it (filter, group by, etc.)
+* **DataFrames** - to store the data as dataframe and manipulate it (filter, group by, etc.)
 * **PlotlyJS** - to visualize the data
   
 ``` julia
@@ -63,7 +63,7 @@ juliaEval("Pkg.status()")
 
 ### Loading the data
 
-We will start by loading the CSV file from the repository. Since we are pulling the CSV file from a web, as opposed to loading locally, we will have to use the `download` function to download file and then read it as CSV file:
+We will start by loading the CSV file from the repository. Since we are pulling the CSV file from the web, as opposed to loading locally, we will have to use the `download` function to download the file and then read it as CSV file:
 ``` julia
 url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"
 
@@ -96,7 +96,7 @@ juliaEval('df = DataFrame(file)
           ')
 ```
 
-We will use the `describe` function to review the data frame attributes:
+We will use the `describe` function to review the dataframe attributes:
 
 ``` julia
 describe(df) 
@@ -115,11 +115,11 @@ The dataset has the following fields:
 * `country` - The country or region name
 * `Lat` - Latitude point
 * `Long` - Longitude point
-* `type` - the type of case (i.e., confirmed, death)
-* `cases` - the number of daily cases (corresponding to the case type)
+* `type` - The type of case (i.e., confirmed, death)
+* `cases` - The number of daily cases (corresponding to the case type)
 * `uid` - Country code
 * `iso2` - Officially assigned country code identifiers with two-letter
-* `iso3` - Officially assigned country code identifiers with there-letter
+* `iso3` - Officially assigned country code identifiers with three-letter
 * `code3` - UN country code
 * `combined_key` - Country and province (if applicable)
 * `population` - Country or province population
