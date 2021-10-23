@@ -8,7 +8,8 @@ articles:
   geospatial_visualization: geospatial_visualization.html
   intro_coronavirus_dataset: intro_coronavirus_dataset.html
   update_dataset_function: update_dataset_function.html
-last_built: 2021-10-19T00:33Z
+  using_julia: using_julia.html
+last_built: 2021-10-23T14:48Z
 urls:
   reference: https://ramikrispin.github.io/coronavirus//reference
   article: https://ramikrispin.github.io/coronavirus//articles
