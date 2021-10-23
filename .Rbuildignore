@@ -16,6 +16,8 @@
 ^vignettes/using_julia_cache/*.*$
 ^vignettes/using_julia.Rmd$
 ^vignettes/covid19_env/*.*$
+^vignettes/using_julia.jl$
+^vignettes/brazil.png$
 ^docker$
 ^data_pipelines$
 ^_pkgdown.yml$
