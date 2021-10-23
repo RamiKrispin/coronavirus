@@ -29,7 +29,7 @@ The Julia source code can be find [here](https://github.com/RamiKrispin/coronavi
 
 ### Required Julia libraries
 
-For loading the data from the coronavirus Github repository, summarized and plot it we will use the following libraries:
+For loading the data from the `coronavirus` Github repository, summarized and plot it we will use the following libraries:
 
 * **HTTP** - to read the 
 * **CSV** - to read the CSV file
