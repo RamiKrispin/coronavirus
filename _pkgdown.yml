@@ -27,7 +27,7 @@ navbar:
           href: articles/geospatial_visualization.html
         - text: "Coronavirus Dashboard"
           href: articles/dashboard.html
-        - text: "Loading data with Julia"
+        - text: "Loading the Data with Julia"
           href: articles/using_julia.html
     - text: "Data Pipelines"
       menu:
