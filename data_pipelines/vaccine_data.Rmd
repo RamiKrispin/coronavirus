@@ -184,7 +184,7 @@ log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE, dataset == "
   if(nrow(covid19_vaccine) > log_last$nrows ){
     cat("Updating the vaccine data...")
     usethis::use_data(covid19_vaccine, overwrite = TRUE, compress = "xz")
-    write.csv(covid19_vaccine, "csv/covid19_vaccine.csv", row.names = FALSE)
+    write.csv(covid19_vaccine, "../csv/covid19_vaccine.csv", row.names = FALSE)
       
     log <- rbind(log, data.frame(time = Sys.time(),
                     dataset = "covid19_vaccine",
