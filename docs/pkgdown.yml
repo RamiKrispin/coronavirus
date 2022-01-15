@@ -1,5 +1,5 @@
-pandoc: 2.11.1
-pkgdown: 1.6.1
+pandoc: 2.14.0.3
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   covid19R: covid19R.html
@@ -9,8 +9,8 @@ articles:
   intro_coronavirus_dataset: intro_coronavirus_dataset.html
   update_dataset_function: update_dataset_function.html
   using_julia: using_julia.html
-last_built: 2021-10-23T20:16Z
+last_built: 2021-12-31T21:25Z
 urls:
-  reference: https://ramikrispin.github.io/coronavirus//reference
-  article: https://ramikrispin.github.io/coronavirus//articles
+  reference: https://ramikrispin.github.io/coronavirus/reference
+  article: https://ramikrispin.github.io/coronavirus/articles
 

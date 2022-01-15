@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.32</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.32</span>
       </span>
     </div>
 
@@ -97,8 +99,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/RamiKrispin/coronavirus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/RamiKrispin/coronavirus/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,14 +114,13 @@
 
       
 
-      </header><script src="update_dataset_function_files/header-attrs-2.5/header-attrs.js"></script><link href="update_dataset_function_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="update_dataset_function_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Update the coronavirus Dataset</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/RamiKrispin/coronavirus/blob/master/vignettes/update_dataset_function.Rmd"><code>vignettes/update_dataset_function.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RamiKrispin/coronavirus/blob/HEAD/vignettes/update_dataset_function.Rmd" class="external-link"><code>vignettes/update_dataset_function.Rmd</code></a></small>
       <div class="hidden name"><code>update_dataset_function.Rmd</code></div>
 
     </div>
@@ -131,15 +132,14 @@
 <li>Use the <code>update_dataset</code> function</li>
 <li>Read directly from the package repo a csv format of the data</li>
 </ul>
-<div id="the-update_dataset-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-update_dataset-function" class="anchor"></a>The update_dataset function</h3>
-<p>The <code>update_dataset</code> function enables to keep the installed version updated with the data available on <a href="https://github.com/RamiKrispin/coronavirus">Github</a>. The function compared between the dataset on the installed version and the ones on the Dev version:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/RamiKrispin/coronavirus">coronavirus</a></span>)
+<div class="section level3">
+<h3 id="the-update_dataset-function">The update_dataset function<a class="anchor" aria-label="anchor" href="#the-update_dataset-function"></a>
+</h3>
+<p>The <code>update_dataset</code> function enables to keep the installed version updated with the data available on <a href="https://github.com/RamiKrispin/coronavirus" class="external-link">Github</a>. The function compared between the dataset on the installed version and the ones on the Dev version:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/coronavirus" class="external-link">coronavirus</a></span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/update_dataset.html">update_dataset</a></span>()
-</pre></div>
+<span class="fu"><a href="../reference/update_dataset.html">update_dataset</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If no new data is available on the Dev version, the function will return the following message:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>No updates are available</span></code></pre></div>
 <p>Once new data is available, the function will prompt the following question that enables the user to select whether to install the updates from the dev version:</p>
@@ -147,83 +147,66 @@
 <p>In order to make the new data available, you will have to restart your R session.</p>
 <p><strong>Note:</strong> As frequent changes may occur on the raw data structure (such as new fields, retroactive updates in the data, etc.), the Dev version dataset may change accordingly.</p>
 </div>
-<div id="reading-the-data-from-csv-version" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reading-the-data-from-csv-version" class="anchor"></a>Reading the data from CSV version</h3>
+<div class="section level3">
+<h3 id="reading-the-data-from-csv-version">Reading the data from CSV version<a class="anchor" aria-label="anchor" href="#reading-the-data-from-csv-version"></a>
+</h3>
 <p>Alternatively, you can read and load the data directly from the package repository, using the csv version:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://readr.tidyverse.org">readr</a></span>)
-<span class="kw">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>, 
-    col_types = <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span>(date = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date</a></span>(format = <span class="st">"%Y-%m-%d"</span>), 
-        cases = <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number</a></span>()))
-</pre></div>
-<pre><code>## Warning: 426240 parsing failures.
-##  row            col           expected actual                                                                                   file
-## 1281 continent_code 1/0/T/F/TRUE/FALSE     AS 'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'
-## 1282 continent_code 1/0/T/F/TRUE/FALSE     AS 'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'
-## 1283 continent_code 1/0/T/F/TRUE/FALSE     AS 'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'
-## 1284 continent_code 1/0/T/F/TRUE/FALSE     AS 'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'
-## 1285 continent_code 1/0/T/F/TRUE/FALSE     AS 'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'
-## .... .............. .................. ...... ......................................................................................
-## See problems(...) for more details.</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">coronavirus_df</span>)
-</pre></div>
-<pre><code>## # A tibble: 6 × 15
-##   date       province country   lat  long type     cases   uid iso2  iso3  code3
-##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
-## 1 2020-01-22 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## 2 2020-01-23 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## 3 2020-01-24 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## 4 2020-01-25 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## 5 2020-01-26 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## 6 2020-01-27 Alberta  Canada   53.9 -117. confirm…     0 12401 CA    CAN     124
-## # … with 4 more variables: combined_key &lt;chr&gt;, population &lt;dbl&gt;,
-## #   continent_name &lt;chr&gt;, continent_code &lt;lgl&gt;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span>
+<span class="va">coronavirus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span>, 
+    col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html" class="external-link">cols</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html" class="external-link">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>, 
+        cases <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html" class="external-link">col_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">coronavirus_df</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 6 × 15</span></span>
+<span class="co">##   date       province country   lat  long type     cases   uid iso2  iso3  code3</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> 2020-01-22 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> 2020-01-23 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> 2020-01-24 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> 2020-01-25 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> 2020-01-26 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> 2020-01-27 Alberta  Canada   53.9 -<span style="color: #BB0000;">117.</span> confirm…     0 <span style="text-decoration: underline;">12</span>401 CA    CAN     124</span>
+<span class="co">## <span style="color: #949494;"># … with 4 more variables: combined_key &lt;chr&gt;, population &lt;dbl&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   continent_name &lt;chr&gt;, continent_code &lt;chr&gt;</span></span></code></pre>
 <p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">coronavirus_df</span>)
-</pre></div>
-<pre><code>## spec_tbl_df [526,080 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ date          : Date[1:526080], format: "2020-01-22" "2020-01-23" ...
-##  $ province      : chr [1:526080] "Alberta" "Alberta" "Alberta" "Alberta" ...
-##  $ country       : chr [1:526080] "Canada" "Canada" "Canada" "Canada" ...
-##  $ lat           : num [1:526080] 53.9 53.9 53.9 53.9 53.9 ...
-##  $ long          : num [1:526080] -117 -117 -117 -117 -117 ...
-##  $ type          : chr [1:526080] "confirmed" "confirmed" "confirmed" "confirmed" ...
-##  $ cases         : num [1:526080] 0 0 0 0 0 0 0 0 0 0 ...
-##  $ uid           : num [1:526080] 12401 12401 12401 12401 12401 ...
-##  $ iso2          : chr [1:526080] "CA" "CA" "CA" "CA" ...
-##  $ iso3          : chr [1:526080] "CAN" "CAN" "CAN" "CAN" ...
-##  $ code3         : num [1:526080] 124 124 124 124 124 124 124 124 124 124 ...
-##  $ combined_key  : chr [1:526080] "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" ...
-##  $ population    : num [1:526080] 4413146 4413146 4413146 4413146 4413146 ...
-##  $ continent_name: chr [1:526080] "North America" "North America" "North America" "North America" ...
-##  $ continent_code: logi [1:526080] NA NA NA NA NA NA ...
-##  - attr(*, "problems")= tibble [426,240 × 5] (S3: tbl_df/tbl/data.frame)
-##   ..$ row     : int [1:426240] 1281 1282 1283 1284 1285 1286 1287 1288 1289 1290 ...
-##   ..$ col     : chr [1:426240] "continent_code" "continent_code" "continent_code" "continent_code" ...
-##   ..$ expected: chr [1:426240] "1/0/T/F/TRUE/FALSE" "1/0/T/F/TRUE/FALSE" "1/0/T/F/TRUE/FALSE" "1/0/T/F/TRUE/FALSE" ...
-##   ..$ actual  : chr [1:426240] "AS" "AS" "AS" "AS" ...
-##   ..$ file    : chr [1:426240] "'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'" "'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'" "'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'" "'https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv'" ...
-##  - attr(*, "spec")=
-##   .. cols(
-##   ..   date = col_date(format = "%Y-%m-%d"),
-##   ..   province = col_character(),
-##   ..   country = col_character(),
-##   ..   lat = col_double(),
-##   ..   long = col_double(),
-##   ..   type = col_character(),
-##   ..   cases = col_number(),
-##   ..   uid = col_double(),
-##   ..   iso2 = col_character(),
-##   ..   iso3 = col_character(),
-##   ..   code3 = col_double(),
-##   ..   combined_key = col_character(),
-##   ..   population = col_double(),
-##   ..   continent_name = col_character(),
-##   ..   continent_code = col_logical()
-##   .. )</code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">coronavirus_df</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## spec_tbl_df [584,925 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span>
+<span class="co">##  $ date          : Date[1:584925], format: "2020-01-22" "2020-01-23" ...</span>
+<span class="co">##  $ province      : chr [1:584925] "Alberta" "Alberta" "Alberta" "Alberta" ...</span>
+<span class="co">##  $ country       : chr [1:584925] "Canada" "Canada" "Canada" "Canada" ...</span>
+<span class="co">##  $ lat           : num [1:584925] 53.9 53.9 53.9 53.9 53.9 ...</span>
+<span class="co">##  $ long          : num [1:584925] -117 -117 -117 -117 -117 ...</span>
+<span class="co">##  $ type          : chr [1:584925] "confirmed" "confirmed" "confirmed" "confirmed" ...</span>
+<span class="co">##  $ cases         : num [1:584925] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">##  $ uid           : num [1:584925] 12401 12401 12401 12401 12401 ...</span>
+<span class="co">##  $ iso2          : chr [1:584925] "CA" "CA" "CA" "CA" ...</span>
+<span class="co">##  $ iso3          : chr [1:584925] "CAN" "CAN" "CAN" "CAN" ...</span>
+<span class="co">##  $ code3         : num [1:584925] 124 124 124 124 124 124 124 124 124 124 ...</span>
+<span class="co">##  $ combined_key  : chr [1:584925] "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" ...</span>
+<span class="co">##  $ population    : num [1:584925] 4413146 4413146 4413146 4413146 4413146 ...</span>
+<span class="co">##  $ continent_name: chr [1:584925] "North America" "North America" "North America" "North America" ...</span>
+<span class="co">##  $ continent_code: chr [1:584925] NA NA NA NA ...</span>
+<span class="co">##  - attr(*, "spec")=</span>
+<span class="co">##   .. cols(</span>
+<span class="co">##   ..   date = <span style="color: #0000BB;">col_date(format = "%Y-%m-%d")</span>,</span>
+<span class="co">##   ..   province = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   country = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   lat = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="co">##   ..   long = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="co">##   ..   type = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   cases = <span style="color: #00BB00;">col_number()</span>,</span>
+<span class="co">##   ..   uid = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="co">##   ..   iso2 = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   iso3 = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   code3 = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="co">##   ..   combined_key = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   population = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="co">##   ..   continent_name = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="co">##   ..   continent_code = <span style="color: #BB0000;">col_character()</span></span>
+<span class="co">##   .. )</span>
+<span class="co">##  - attr(*, "problems")=&lt;externalptr&gt;</span></code></pre>
 </div>
   </div>
 
@@ -236,11 +219,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Rami Krispin, Jarrett Byrnes.</p>
+  <p></p>
+<p>Developed by Rami Krispin, Jarrett Byrnes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -248,6 +233,8 @@
 
   
 
+
+  
 
   </body>
 </html>
