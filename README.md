@@ -311,9 +311,9 @@ coronavirus %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(date) %>%
-  mutate(active = confirmed - death - recovered) %>%
+  mutate(active = confirmed - death - recovery) %>%
   mutate(active_total = cumsum(active),
-                recovered_total = cumsum(recovered),
+                recovered_total = cumsum(recovery),
                 death_total = cumsum(death)) %>%
   plot_ly(x = ~ date,
                   y = ~ active_total,
