@@ -18,6 +18,7 @@
 ^vignettes/covid19_env/*.*$
 ^vignettes/using_julia.jl$
 ^vignettes/brazil.png$
+^man/figures/2019-nCov*.*$
 ^docker$
 ^data_pipelines$
 ^_pkgdown.yml$
