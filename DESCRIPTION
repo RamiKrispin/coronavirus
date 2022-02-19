@@ -30,5 +30,5 @@ Imports:
   devtools(>= 2.2.2)
 URL: https://github.com/RamiKrispin/coronavirus
 BugReports: https://github.com/RamiKrispin/coronavirus/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
