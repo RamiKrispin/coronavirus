@@ -40,13 +40,13 @@ For loading the data from the `coronavirus` Github repository, summarized and pl
 using Pkg, CSV, DataFrames, PlotlyJS
 ```
 
-```{r }
+```{r message=FALSE, warning=FALSE}
 juliaEval('using Pkg
           Pkg.activate("covid19_env")
-          # Pkg.add(PackageSpec(name = "PlotlyJS", version = "0.18.8"))
-          # Pkg.add(PackageSpec(name = "CSV", version = "0.9.6"))
-          # Pkg.add(PackageSpec(name = "Chain", version = "0.4.8"))
-          # Pkg.add(PackageSpec(name = "DataFrames", version = "1.2.2"))
+          Pkg.add(PackageSpec(name = "PlotlyJS", version = "0.18.8"))
+          Pkg.add(PackageSpec(name = "CSV", version = "0.9.6"))
+          Pkg.add(PackageSpec(name = "Chain", version = "0.4.8"))
+          Pkg.add(PackageSpec(name = "DataFrames", version = "1.2.2"))
           using  CSV, DataFrames, Chain, PlotlyJS')
 ```
 

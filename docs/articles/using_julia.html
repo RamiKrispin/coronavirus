@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.32</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.32</span>
       </span>
     </div>
 
@@ -97,8 +99,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/RamiKrispin/coronavirus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/RamiKrispin/coronavirus/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,56 +114,55 @@
 
       
 
-      </header><script src="using_julia_files/header-attrs-2.5/header-attrs.js"></script><link href="using_julia_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="using_julia_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Loading the Data with Julia</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/RamiKrispin/coronavirus/blob/master/vignettes/using_julia.Rmd"><code>vignettes/using_julia.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RamiKrispin/coronavirus/blob/HEAD/vignettes/using_julia.Rmd" class="external-link"><code>vignettes/using_julia.Rmd</code></a></small>
       <div class="hidden name"><code>using_julia.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <a href="https://github.com/RamiKrispin/coronavirus">coronavirus</a> R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The data is refreshed on a daily basis and stored as an R data object. In addition, the data is available in a CSV format to enable none R users to pull and use it seamlessly.</p>
+<p>The <a href="https://github.com/RamiKrispin/coronavirus" class="external-link">coronavirus</a> R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The data is refreshed on a daily basis and stored as an R data object. In addition, the data is available in a CSV format to enable none R users to pull and use it seamlessly.</p>
 <p>The goal of this vignette is to demonstrate how to load the data into Julia. In the following example, we will load the <code>coronavirus</code> dataset, a tidy format of the John Hopkins COVID19 dataset, providing a daily summary of the COVID19 cases by type (confirmed, recovered, death), and by country.</p>
-<p>The Julia source code can be find <a href="https://github.com/RamiKrispin/coronavirus/blob/master/vignettes/using_julia.jl">here</a>.</p>
-<div id="required-julia-libraries" class="section level3">
-<h3 class="hasAnchor">
-<a href="#required-julia-libraries" class="anchor"></a>Required Julia libraries</h3>
+<p>The Julia source code can be find <a href="https://github.com/RamiKrispin/coronavirus/blob/master/vignettes/using_julia.jl" class="external-link">here</a>.</p>
+<div class="section level3">
+<h3 id="required-julia-libraries">Required Julia libraries<a class="anchor" aria-label="anchor" href="#required-julia-libraries"></a>
+</h3>
 <p>For loading the data from the <code>coronavirus</code> Github repository, summarized and plot it we will use the following libraries:</p>
 <ul>
 <li>
-<strong>HTTP</strong> - to read the</li>
+<strong>HTTP</strong> - to load the data from url</li>
 <li>
 <strong>CSV</strong> - to read the CSV file</li>
 <li>
-<strong>DataFrames</strong> - to store the data as data frame and manipulate it (filter, group by, etc.)</li>
+<strong>DataFrames</strong> - to store the data as dataframe and manipulate it (filter, group by, etc.)</li>
 <li>
 <strong>PlotlyJS</strong> - to visualize the data</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Pkg<span class="op">,</span> CSV<span class="op">,</span> DataFrames<span class="op">,</span> PlotlyJS</span></code></pre></div>
 <p>We will use the following packages versions:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Pkg.status()</span></code></pre></div>
-<pre><code>      Status `~/R/covid19R/coronavirus/vignettes/covid19_env/Project.toml`
+<pre><code>      Status `~/Personal/packages/coronavirus/vignettes/covid19_env/Project.toml`
   [336ed68f] CSV v0.9.6
   [8be319e6] Chain v0.4.8
   [a93c6f00] DataFrames v1.2.2
   [f0f68f2c] PlotlyJS v0.18.8</code></pre>
 </div>
-<div id="loading-the-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#loading-the-data" class="anchor"></a>Loading the data</h3>
-<p>We will start by loading the CSV file from the repository. Since we are pulling the CSV file from a web, as opposed to loading locally, we will have to use the <code>download</code> function to download file and then read it as CSV file:</p>
+<div class="section level3">
+<h3 id="loading-the-data">Loading the data<a class="anchor" aria-label="anchor" href="#loading-the-data"></a>
+</h3>
+<p>We will start by loading the CSV file from the repository. Since we are pulling the CSV file from the web, as opposed to loading locally, we will have to use the <code>download</code> function to download the file and then read it as CSV file:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>file <span class="op">=</span> CSV.File(download(url)<span class="op">,</span> missingstring<span class="op">=</span> <span class="st">"NA"</span>)</span></code></pre></div>
 <pre><code>&lt;Julia object of type CSV.File&gt;
-526080-element CSV.File:
+726600-element CSV.File:
  CSV.Row: (date = Dates.Date("2020-01-22"), province = "Alberta", country = "Canada", lat = 53.9333, long = -116.5765, type = "confirmed", cases = 0, uid = 12401, iso2 = "CA", iso3 = "CAN", code3 = 124, combined_key = "Alberta, Canada", population = 4.413146e6, continent_name = "North America", continent_code = missing)
  CSV.Row: (date = Dates.Date("2020-01-23"), province = "Alberta", country = "Canada", lat = 53.9333, long = -116.5765, type = "confirmed", cases = 0, uid = 12401, iso2 = "CA", iso3 = "CAN", code3 = 124, combined_key = "Alberta, Canada", population = 4.413146e6, continent_name = "North America", continent_code = missing)
  CSV.Row: (date = Dates.Date("2020-01-24"), province = "Alberta", country = "Canada", lat = 53.9333, long = -116.5765, type = "confirmed", cases = 0, uid = 12401, iso2 = "CA", iso3 = "CAN", code3 = 124, combined_key = "Alberta, Canada", population = 4.413146e6, continent_name = "North America", continent_code = missing)
@@ -173,22 +174,22 @@
  CSV.Row: (date = Dates.Date("2020-01-30"), province = "Alberta", country = "Canada", lat = 53.9333, long = -116.5765, type = "confirmed", cases = 0, uid = 12401, iso2 = "CA", iso3 = "CAN", code3 = 124, combined_key = "Alberta, Canada", population = 4.413146e6, continent_name = "North America", continent_code = missing)
  CSV.Row: (date = Dates.Date("2020-01-31"), province = "Alberta", country = "Canada", lat = 53.9333, long = -116.5765, type = "confirmed", cases = 0, uid = 12401, iso2 = "CA", iso3 = "CAN", code3 = 124, combined_key = "Alberta, Canada", population = 4.413146e6, continent_name = "North America", continent_code = missing)
  ⋮
- CSV.Row: (date = Dates.Date("2021-10-14"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-15"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-16"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-17"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-18"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-19"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-20"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-21"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
- CSV.Row: (date = Dates.Date("2021-10-22"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")</code></pre>
+ CSV.Row: (date = Dates.Date("2022-05-27"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-05-28"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-05-29"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-05-30"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-05-31"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-06-01"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-06-02"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-06-03"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")
+ CSV.Row: (date = Dates.Date("2022-06-04"), province = missing, country = "Zimbabwe", lat = -19.015438, long = 29.154857, type = "recovery", cases = 0, uid = 716, iso2 = "ZW", iso3 = "ZWE", code3 = 716, combined_key = "Zimbabwe", population = 1.4862927e7, continent_name = "Africa", continent_code = "AF")</code></pre>
 <p><strong>Note:</strong> similarly, you can load the vaccine data by using the following end point: <code>https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/covid19_vaccine.csv</code></p>
 <p>Next, we will store the csv file as a <code>DataFrame</code> object:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> DataFrame(file)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>&lt;Julia object of type DataFrame&gt;
-526080×15 DataFrame
+726600×15 DataFrame
     Row │ date        province   country   lat       long       type       cases  uid     iso2      iso3      code3   combined_key     population  continent_name  continent_code
         │ Date…       String63?  String63  Float64?  Float64?   String15   Int64  Int64?  String3?  String3?  Int64?  String63?        Float64?    String15?       String3?
 ────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -201,36 +202,36 @@
       7 │ 2020-01-28  Alberta    Canada     53.9333  -116.576   confirmed      0   12401  CA        CAN          124  Alberta, Canada   4.41315e6  North America   missing
       8 │ 2020-01-29  Alberta    Canada     53.9333  -116.576   confirmed      0   12401  CA        CAN          124  Alberta, Canada   4.41315e6  North America   missing
    ⋮    │     ⋮           ⋮         ⋮         ⋮          ⋮          ⋮        ⋮      ⋮        ⋮         ⋮        ⋮            ⋮             ⋮             ⋮               ⋮
- 526074 │ 2021-10-16  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526075 │ 2021-10-17  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526076 │ 2021-10-18  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526077 │ 2021-10-19  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526078 │ 2021-10-20  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526079 │ 2021-10-21  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
- 526080 │ 2021-10-22  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
-                                                                                                                                                               526065 rows omitted</code></pre>
-<p>We will use the <code>describe</code> function to review the data frame attributes:</p>
+ 726594 │ 2022-05-29  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726595 │ 2022-05-30  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726596 │ 2022-05-31  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726597 │ 2022-06-01  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726598 │ 2022-06-02  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726599 │ 2022-06-03  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+ 726600 │ 2022-06-04  missing    Zimbabwe  -19.0154    29.1549  recovery       0     716  ZW        ZWE          716  Zimbabwe          1.48629e7  Africa          AF
+                                                                                                                                                               726585 rows omitted</code></pre>
+<p>We will use the <code>describe</code> function to review the dataframe attributes:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>describe(df) </span></code></pre></div>
 <pre><code>&lt;Julia object of type DataFrame&gt;
 15×7 DataFrame
- Row │ variable        mean       min          median   max            nmissing  eltype
-     │ Symbol          Union…     Any          Union…   Any            Int64     Type
-─────┼────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ date                       2020-01-22            2021-10-22            0  Date
-   2 │ province                   Alberta               Zhejiang         369280  Union{Missing, String63}
-   3 │ country                    Afghanistan           Zimbabwe              0  String63
-   4 │ lat             19.8473    -51.7963     21.0079  71.7069            3200  Union{Missing, Float64}
-   5 │ long            24.2244    -178.117     21.7453  178.065            3200  Union{Missing, Float64}
-   6 │ type                       confirmed             recovery              0  String15
-   7 │ cases           471.27     -30974748    0.0      1123456               0  Int64
-   8 │ uid             2840.84    4            531.0    15699              1280  Union{Missing, Int64}
-   9 │ iso2                       AD                    ZW                 8960  Union{Missing, String3}
-  10 │ iso3                       ABW                   ZWE                7040  Union{Missing, String3}
-  11 │ code3           375.042    4            336.0    894                7040  Union{Missing, Int64}
-  12 │ combined_key               Afghanistan           Zimbabwe           1280  Union{Missing, String63}
-  13 │ population      2.87888e7  809.0        6.88e6   1.38e9            11520  Union{Missing, Float64}
-  14 │ continent_name             Africa                South America      7040  Union{Missing, String15}
-  15 │ continent_code             AF                    SA                99840  Union{Missing, String3}</code></pre>
+ Row │ variable        mean       min          median      max            nmissing  eltype
+     │ Symbol          Union…     Any          Any         Any            Int64     Type
+─────┼───────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ date                       2020-01-22   2021-03-29  2022-06-04            0  Date
+   2 │ province                   Alberta                  Zhejiang         509485  Union{Missing, String63}
+   3 │ country                    Afghanistan              Zimbabwe              0  String63
+   4 │ lat             19.7277    -71.9499     21.5126     71.7069            4325  Union{Missing, Float64}
+   5 │ long            24.016     -178.117     21.7453     178.065            4325  Union{Missing, Float64}
+   6 │ type                       confirmed                recovery              0  String15
+   7 │ cases           740.44     -30974748    0.0         1383913               0  Int64
+   8 │ uid             2840.84    4            531.0       15699             17300  Union{Missing, Int64}
+   9 │ iso2                       AD                       ZW                27680  Union{Missing, String3}
+  10 │ iso3                       ABW                      ZWE               25085  Union{Missing, String3}
+  11 │ code3           375.042    4            336.0       894               25085  Union{Missing, Int64}
+  12 │ combined_key               Afghanistan              Zimbabwe          17300  Union{Missing, String63}
+  13 │ population      2.87888e7  809.0        6.88e6      1.38e9            31140  Union{Missing, Float64}
+  14 │ continent_name             Africa                   South America     25085  Union{Missing, String15}
+  15 │ continent_code             AF                       SA               150510  Union{Missing, String3}</code></pre>
 <p>The dataset has the following fields:</p>
 <ul>
 <li>
@@ -244,15 +245,15 @@
 <li>
 <code>Long</code> - Longitude point</li>
 <li>
-<code>type</code> - the type of case (i.e., confirmed, death)</li>
+<code>type</code> - The type of case (i.e., confirmed, death)</li>
 <li>
-<code>cases</code> - the number of daily cases (corresponding to the case type)</li>
+<code>cases</code> - The number of daily cases (corresponding to the case type)</li>
 <li>
 <code>uid</code> - Country code</li>
 <li>
 <code>iso2</code> - Officially assigned country code identifiers with two-letter</li>
 <li>
-<code>iso3</code> - Officially assigned country code identifiers with there-letter</li>
+<code>iso3</code> - Officially assigned country code identifiers with three-letter</li>
 <li>
 <code>code3</code> - UN country code</li>
 <li>
@@ -265,9 +266,9 @@
 <code>continent_code</code> - Continent code</li>
 </ul>
 </div>
-<div id="data-summary" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-summary" class="anchor"></a>Data summary</h3>
+<div class="section level3">
+<h3 id="data-summary">Data summary<a class="anchor" aria-label="anchor" href="#data-summary"></a>
+</h3>
 <p>Once we load the data, it would be interesting to explore the data using summary tables. In the following examples, we will create a summary of cases (confirmed and death) by country. We will use the <code>chain</code> function to filter the case type, group by country, aggregated by cases, and sort by the number of cases. We will start with a confirmed cases summary:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@chain</span> df <span class="kw">begin</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    filter(<span class="op">:</span><span class="kw">type</span> <span class="op">=&gt;</span> <span class="op">==</span>(<span class="st">"confirmed"</span>)<span class="op">,</span>_)</span>
@@ -280,22 +281,22 @@
  Row │ combined_key                       type       cases_sum
      │ String63?                          String15   Int64
 ─────┼─────────────────────────────────────────────────────────
-   1 │ US                                 confirmed   45400466
-   2 │ India                              confirmed   34159562
-   3 │ Brazil                             confirmed   21711843
-   4 │ United Kingdom                     confirmed    8689949
-   5 │ Russia                             confirmed    8041581
-   6 │ Turkey                             confirmed    7800766
-   7 │ France                             confirmed    6937872
-   8 │ Iran                               confirmed    5844589
+   1 │ US                                 confirmed   84748884
+   2 │ India                              confirmed   43176817
+   3 │ Brazil                             confirmed   31137479
+   4 │ France                             confirmed   28794888
+   5 │ Germany                            confirmed   26493235
+   6 │ United Kingdom                     confirmed   22305893
+   7 │ Korea, South                       confirmed   18163686
+   8 │ Russia                             confirmed   18080277
   ⋮  │                 ⋮                      ⋮          ⋮
- 273 │ Samoa                              confirmed          3
- 274 │ Kiribati                           confirmed          2
- 275 │ Cook Islands, New Zealand          confirmed          1
- 276 │ Tibet, China                       confirmed          1
- 277 │ Micronesia                         confirmed          1
- 278 │ Diamond Princess, Canada           confirmed          0
- 279 │ Unknown, China                     confirmed          0
+ 273 │ Marshall Islands                   confirmed         18
+ 274 │ Grand Princess, Canada             confirmed         13
+ 275 │ MS Zaandam                         confirmed          9
+ 276 │ Saint Helena, Ascension and Tris…  confirmed          4
+ 277 │ Tibet, China                       confirmed          1
+ 278 │ Channel Islands, United Kingdom    confirmed          0
+ 279 │ Diamond Princess, Canada           confirmed          0
                                                264 rows omitted</code></pre>
 <p>Similarly, we can summarize the total number of death cases by country:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@chain</span> df <span class="kw">begin</span></span>
@@ -306,35 +307,35 @@
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <pre><code>&lt;Julia object of type DataFrame&gt;
 279×3 DataFrame
- Row │ combined_key          type      cases_sum
-     │ String63?             String15  Int64
-─────┼───────────────────────────────────────────
-   1 │ US                    death        735373
-   2 │ Brazil                death        605139
-   3 │ India                 death        453708
-   4 │ Mexico                death        285953
-   5 │ Russia                death        224369
-   6 │ Peru                  death        200003
-   7 │ Indonesia             death        143153
-   8 │ United Kingdom        death        139326
-  ⋮  │          ⋮               ⋮          ⋮
- 273 │ Kiribati              death             0
- 274 │ Marshall Islands      death             0
- 275 │ Micronesia            death             0
- 276 │ Palau                 death             0
- 277 │ Samoa                 death             0
- 278 │ Solomon Islands       death             0
- 279 │ Summer Olympics 2020  death             0
-                                 264 rows omitted</code></pre>
+ Row │ combined_key                       type      cases_sum
+     │ String63?                          String15  Int64
+─────┼────────────────────────────────────────────────────────
+   1 │ US                                 death       1008567
+   2 │ Brazil                             death        666971
+   3 │ India                              death        524692
+   4 │ Russia                             death        371781
+   5 │ Mexico                             death        325000
+   6 │ Peru                               death        213248
+   7 │ United Kingdom                     death        178749
+   8 │ Italy                              death        166922
+  ⋮  │                 ⋮                     ⋮          ⋮
+ 273 │ Shanxi, China                      death             0
+ 274 │ Tibet, China                       death             0
+ 275 │ Unknown, China                     death             0
+ 276 │ Holy See                           death             0
+ 277 │ Marshall Islands                   death             0
+ 278 │ Micronesia                         death             0
+ 279 │ Summer Olympics 2020               death             0
+                                              264 rows omitted</code></pre>
 </div>
-<div id="visualize-the-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#visualize-the-data" class="anchor"></a>Visualize the data</h3>
-<p>Last but not least, we will plot the data using <a href="https://plotly.com/julia/">PlotlyJS</a>, Plotly version for Julia. In the following example, we will generate a side-by-side plot of Brazil’s total daily confirmed and death cases. We will start by filtering the cases in Brazil by case type - <code>confirmed</code> and <code>death</code>:</p>
+<div class="section level3">
+<h3 id="visualize-the-data">Visualize the data<a class="anchor" aria-label="anchor" href="#visualize-the-data"></a>
+</h3>
+<p>Last but not least, we will plot the data using <a href="https://plotly.com/julia/" class="external-link">PlotlyJS</a>, Plotly version for Julia. In the following example, we will generate a side-by-side plot of Brazil’s total daily confirmed and death cases. We will start by filtering the cases in Brazil by case type - <code>confirmed</code> and <code>death</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_brazil_confirmed <span class="op">=</span> filter(row <span class="op">-&gt;</span> row.country <span class="op">==</span> <span class="st">"Brazil"</span> <span class="op">&amp;&amp;</span> row.<span class="kw">type</span> <span class="op">==</span> <span class="st">"confirmed"</span><span class="op">,</span> df)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_brazil_death <span class="op">=</span> filter(row <span class="op">-&gt;</span> row.country <span class="op">==</span> <span class="st">"Brazil"</span> <span class="op">&amp;&amp;</span> row.<span class="kw">type</span> <span class="op">==</span> <span class="st">"death"</span><span class="op">,</span> df)</span></code></pre></div>
 <pre><code>&lt;Julia object of type DataFrame&gt;
-640×15 DataFrame
+865×15 DataFrame
  Row │ date        province   country   lat       long      type      cases  uid     iso2      iso3      code3   combined_key  population  continent_name  continent_code
      │ Date…       String63?  String63  Float64?  Float64?  String15  Int64  Int64?  String3?  String3?  Int64?  String63?     Float64?    String15?       String3?
 ─────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -347,14 +348,14 @@
    7 │ 2020-01-28  missing    Brazil     -14.235  -51.9253  death         0      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
    8 │ 2020-01-29  missing    Brazil     -14.235  -51.9253  death         0      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
   ⋮  │     ⋮           ⋮         ⋮         ⋮         ⋮         ⋮        ⋮      ⋮        ⋮         ⋮        ⋮          ⋮            ⋮             ⋮               ⋮
- 634 │ 2021-10-16  missing    Brazil     -14.235  -51.9253  death       483      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 635 │ 2021-10-17  missing    Brazil     -14.235  -51.9253  death       130      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 636 │ 2021-10-18  missing    Brazil     -14.235  -51.9253  death       183      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 637 │ 2021-10-19  missing    Brazil     -14.235  -51.9253  death       390      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 638 │ 2021-10-20  missing    Brazil     -14.235  -51.9253  death       373      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 639 │ 2021-10-21  missing    Brazil     -14.235  -51.9253  death       451      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
- 640 │ 2021-10-22  missing    Brazil     -14.235  -51.9253  death       460      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
-                                                                                                                                                          625 rows omitted</code></pre>
+ 859 │ 2022-05-29  missing    Brazil     -14.235  -51.9253  death        62      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 860 │ 2022-05-30  missing    Brazil     -14.235  -51.9253  death        63      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 861 │ 2022-05-31  missing    Brazil     -14.235  -51.9253  death       160      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 862 │ 2022-06-01  missing    Brazil     -14.235  -51.9253  death       125      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 863 │ 2022-06-02  missing    Brazil     -14.235  -51.9253  death       129      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 864 │ 2022-06-03  missing    Brazil     -14.235  -51.9253  death        41      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+ 865 │ 2022-06-04  missing    Brazil     -14.235  -51.9253  death         0      76  BR        BRA           76  Brazil         2.12559e8  South America   SA
+                                                                                                                                                          850 rows omitted</code></pre>
 <p>To plot the <code>confirmed</code> and <code>death</code> cases side by side, we will use the <code>make_subplots</code> function to set the grid and add the plots with the <code>add_trach</code> function:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> make_subplots(rows<span class="op">=</span><span class="fl">2</span><span class="op">,</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                  cols<span class="op">=</span><span class="fl">1</span><span class="op">,</span> </span>
@@ -381,11 +382,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Rami Krispin, Jarrett Byrnes.</p>
+  <p></p>
+<p>Developed by Rami Krispin, Jarrett Byrnes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -393,6 +396,8 @@
 
   
 
+
+  
 
   </body>
 </html>
