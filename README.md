@@ -8,7 +8,7 @@
 [![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
 [![Data
 Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -119,7 +119,7 @@ The package provides the following two datasets:
     -   `continent_name` - Continent name
     -   `continent_code` - Continent code
 
--   **covid19\_vaccine** - a tidy (long) format of the the Johns Hopkins
+-   **covid19_vaccine** - a tidy (long) format of the the Johns Hopkins
     [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
     vaccination
     [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data)
@@ -179,13 +179,20 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type  data_type value      lat      long
-#> 1 2021-10-04 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
-#> 2 2021-10-03 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
-#> 3 2020-11-09 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
-#> 4 2021-10-10 Afghanistan       country            AF         iso_3166_2 deaths_new     4 33.93911 67.709953
-#> 5 2021-10-06 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
-#> 6 2020-11-10 Afghanistan       country            AF         iso_3166_2 deaths_new    12 33.93911 67.709953
+#>         date    location location_type location_code location_code_type
+#> 1 2020-06-27 Afghanistan       country            AF         iso_3166_2
+#> 2 2020-06-28 Afghanistan       country            AF         iso_3166_2
+#> 3 2020-06-29 Afghanistan       country            AF         iso_3166_2
+#> 4 2020-05-18 Afghanistan       country            AF         iso_3166_2
+#> 5 2020-05-15 Afghanistan       country            AF         iso_3166_2
+#> 6 2020-05-17 Afghanistan       country            AF         iso_3166_2
+#>   data_type value      lat     long
+#> 1 cases_new   356 33.93911 67.70995
+#> 2 cases_new   351 33.93911 67.70995
+#> 3 cases_new   271 33.93911 67.70995
+#> 4 cases_new   437 33.93911 67.70995
+#> 5 cases_new   714 33.93911 67.70995
+#> 6 cases_new   233 33.93911 67.70995
 ```
 
 ## Usage
@@ -194,13 +201,20 @@ head(covid19_df)
 data("coronavirus")
 
 head(coronavirus)
-#>         date province country     lat      long      type cases
-#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0
-#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0
+#>         date province country     lat      long      type cases   uid iso2 iso3
+#> 1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#> 2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#> 3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#> 4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#> 5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#> 6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401   CA  CAN
+#>   code3    combined_key population continent_name continent_code
+#> 1   124 Alberta, Canada    4413146  North America             NA
+#> 2   124 Alberta, Canada    4413146  North America             NA
+#> 3   124 Alberta, Canada    4413146  North America             NA
+#> 4   124 Alberta, Canada    4413146  North America             NA
+#> 5   124 Alberta, Canada    4413146  North America             NA
+#> 6   124 Alberta, Canada    4413146  North America             NA
 ```
 
 Summary of the total confrimed cases by country (top 20):
@@ -218,30 +232,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                44683014
-#>  2 India             34020730
-#>  3 Brazil            21597949
-#>  4 United Kingdom     8311851
-#>  5 Russia             7742899
-#>  6 Turkey             7540193
-#>  7 France             7164924
-#>  8 Iran               5742083
-#>  9 Argentina          5268653
-#> 10 Spain              4980206
-#> 11 Colombia           4975656
-#> 12 Italy              4707087
-#> 13 Germany            4343591
-#> 14 Indonesia          4231046
-#> 15 Mexico             3732429
-#> 16 Poland             2928065
-#> 17 South Africa       2913880
-#> 18 Ukraine            2697176
-#> 19 Philippines        2690455
-#> 20 Malaysia           2361529
+#>  1 US                82726107
+#>  2 India             43127199
+#>  3 Brazil            30701900
+#>  4 France            29424812
+#>  5 Germany           25890456
+#>  6 United Kingdom    22393799
+#>  7 Russia            18002493
+#>  8 Korea, South      17861744
+#>  9 Italy             17116550
+#> 10 Turkey            15057184
+#> 11 Spain             12179234
+#> 12 Vietnam           10699965
+#> 13 Argentina          9135308
+#> 14 Japan              8428219
+#> 15 Netherlands        8254473
+#> 16 Iran               7228786
+#> 17 Australia          6759756
+#> 18 Colombia           6095316
+#> 19 Indonesia          6051205
+#> 20 Poland             6004041
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2021-10-13):
+2022-05-17):
 
 ``` r
 library(tidyr)
@@ -254,51 +268,21 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 195 × 4
-#> # Groups:   country [195]
-#>    country        confirmed death recovered
-#>    <chr>              <int> <int>     <int>
-#>  1 US                120321  3054        NA
-#>  2 United Kingdom     41669   136        NA
-#>  3 Turkey             31248   236        NA
-#>  4 Russia             27926   962        NA
-#>  5 India              18987   246        NA
-#>  6 Ukraine            17100   493        NA
-#>  7 Romania            15733   390        NA
-#>  8 Germany            12317    14        NA
-#>  9 Iran               12298   194        NA
-#> 10 Thailand           10064    82        NA
-#> 11 Malaysia            7950    68        NA
-#> 12 Brazil              7852   176        NA
-#> 13 Philippines         7083   173        NA
-#> 14 Serbia              6699    51        NA
-#> 15 Georgia             4837    26        NA
-#> 16 Netherlands         3772    13        NA
-#> 17 Belgium             3667    13        NA
-#> 18 Vietnam             3461   106        NA
-#> 19 Bulgaria            3327    98        NA
-#> 20 Singapore           3190     9        NA
-#> 21 Cameroon            3003    33        NA
-#> 22 Italy               2769    37        NA
-#> 23 Spain               2758    42        NA
-#> 24 Australia           2744    18        NA
-#> 25 Lithuania           2740    26        NA
-#> 26 Canada              2706    79        NA
-#> 27 Poland              2640    40        NA
-#> 28 Austria             2614    15        NA
-#> 29 Slovakia            2406    20        NA
-#> 30 Cuba                2354    28        NA
-#> 31 Greece              2312    31        NA
-#> 32 Latvia              2236    17        NA
-#> 33 Kazakhstan          2084    35        NA
-#> 34 Belarus             2060    17        NA
-#> 35 Moldova             2052    29        NA
-#> 36 Ireland             2051    26        NA
-#> 37 Croatia             2022    27        NA
-#> 38 Korea, South        1937    13        NA
-#> 39 Mongolia            1920    15        NA
-#> 40 Iraq                1766    35        NA
-#> # … with 155 more rows
+#> # A tibble: 199 × 4
+#> # Groups:   country [199]
+#>    country      confirmed death recovery
+#>    <chr>            <int> <int>    <int>
+#>  1 US              112487   347        0
+#>  2 Germany          72051   174        0
+#>  3 Taiwan*          65802    38        0
+#>  4 Australia        56461    54        0
+#>  5 Spain            52112   198        0
+#>  6 Portugal         47642    82        0
+#>  7 Italy            44901   148        0
+#>  8 France           43727    90        0
+#>  9 Japan            36795    39        0
+#> 10 Korea, South     31315    31        0
+#> # … with 189 more rows
 ```
 
 Plotting daily confirmed and death cases in Brazil:
@@ -363,20 +347,27 @@ conf_df <- coronavirus %>%
 data(covid19_vaccine)
 
 head(covid19_vaccine)
-#>   country_region       date doses_admin people_partially_vaccinated people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3 fips      lat      long combined_key population
-#> 1    Afghanistan 2021-02-22           0                           0                       0         2021-02-22   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#> 2    Afghanistan 2021-02-23           0                           0                       0         2021-02-23   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#> 3    Afghanistan 2021-02-24           0                           0                       0         2021-02-24   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#> 4    Afghanistan 2021-02-25           0                           0                       0         2021-02-25   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#> 5    Afghanistan 2021-02-26           0                           0                       0         2021-02-26   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#> 6    Afghanistan 2021-02-27           0                           0                       0         2021-02-27   4           <NA>   AF  AFG     4 <NA> 33.93911 67.709953  Afghanistan   38928341
-#>   continent_name continent_code
-#> 1           Asia             AS
-#> 2           Asia             AS
-#> 3           Asia             AS
-#> 4           Asia             AS
-#> 5           Asia             AS
-#> 6           Asia             AS
+#>   country_region       date doses_admin people_partially_vaccinated
+#> 1         Canada 2020-12-14           5                           0
+#> 2          World 2020-12-14           5                           0
+#> 3         Canada 2020-12-15         723                           0
+#> 4          China 2020-12-15     1500000                           0
+#> 5         Russia 2020-12-15       28500                       28500
+#> 6          World 2020-12-15     1529223                       28500
+#>   people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3
+#> 1                       0         2020-12-14 124           <NA>   CA  CAN   124
+#> 2                       0         2020-12-14  NA           <NA> <NA> <NA>    NA
+#> 3                       0         2020-12-15 124           <NA>   CA  CAN   124
+#> 4                       0         2020-12-15 156           <NA>   CN  CHN   156
+#> 5                       0         2020-12-15 643           <NA>   RU  RUS   643
+#> 6                       0         2020-12-15  NA           <NA> <NA> <NA>    NA
+#>   fips      lat     long combined_key population continent_name continent_code
+#> 1 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
+#> 2 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
+#> 3 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
+#> 4 <NA> 35.86170 104.1954        China 1404676330           Asia             AS
+#> 5 <NA> 61.52401 105.3188       Russia  145934460         Europe             EU
+#> 6 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
 ```
 
 Plot the top 20 vaccinated countries:
@@ -429,7 +420,7 @@ resources:
     <https://bnonews.com/index.php/2020/04/the-latest-coronavirus-cases/>
     <br>
 -   National Health Commission of the People’s Republic of China (NHC):
-    <br> http:://www.nhc.gov.cn/xcs/yqtb/list\_gzbd.shtml <br>
+    <br> http:://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml <br>
 -   China CDC (CCDC):
     http:://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm <br>
 -   Hong Kong Department of Health:
