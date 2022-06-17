@@ -1,8 +1,5 @@
-<<<<<<< HEAD:docker/packages/Dockerfile
-FROM rkrispin/baser:v.4.0.0
-=======
 FROM docker.io/rkrispin/baser:v4.1.0
->>>>>>> staging:docker/dev/Dockerfile
+
 
 LABEL maintainer="Rami Krispin <rami.krispin@gmail.com>"
 
@@ -14,7 +11,3 @@ RUN apt-get update && \
 RUN mkdir packages
 COPY install_packages.R packages/
 RUN Rscript packages/install_packages.R
-<<<<<<< HEAD:docker/packages/Dockerfile
-=======
-
->>>>>>> staging:docker/dev/Dockerfile
