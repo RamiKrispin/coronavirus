@@ -266,19 +266,19 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <code class="sourceCode R"><span class="va">covid19_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">covid19_df</span><span class="op">)</span>
 <span class="co">#&gt;         date    location location_type location_code location_code_type</span>
-<span class="co">#&gt; 1 2020-06-27 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 2 2020-06-28 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 3 2020-06-29 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 4 2020-05-18 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 5 2020-05-15 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 6 2020-05-17 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt;   data_type value      lat     long</span>
-<span class="co">#&gt; 1 cases_new   356 33.93911 67.70995</span>
-<span class="co">#&gt; 2 cases_new   351 33.93911 67.70995</span>
-<span class="co">#&gt; 3 cases_new   271 33.93911 67.70995</span>
-<span class="co">#&gt; 4 cases_new   437 33.93911 67.70995</span>
-<span class="co">#&gt; 5 cases_new   714 33.93911 67.70995</span>
-<span class="co">#&gt; 6 cases_new   233 33.93911 67.70995</span></code></pre></div>
+<span class="co">#&gt; 1 2022-04-21 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 2 2022-04-20 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 3 2021-12-26 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 4 2022-04-17 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 5 2022-04-23 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 6 2022-04-24 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt;    data_type value      lat     long</span>
+<span class="co">#&gt; 1 deaths_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 2 deaths_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 3 deaths_new     5 33.93911 67.70995</span>
+<span class="co">#&gt; 4 deaths_new     2 33.93911 67.70995</span>
+<span class="co">#&gt; 5 deaths_new     1 33.93911 67.70995</span>
+<span class="co">#&gt; 6 deaths_new     1 33.93911 67.70995</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -315,27 +315,27 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # A tibble: 20 × 2</span>
 <span class="co">#&gt;    country        total_cases</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt;</span>
-<span class="co">#&gt;  1 US                82726107</span>
-<span class="co">#&gt;  2 India             43127199</span>
-<span class="co">#&gt;  3 Brazil            30701900</span>
-<span class="co">#&gt;  4 France            29424812</span>
-<span class="co">#&gt;  5 Germany           25890456</span>
-<span class="co">#&gt;  6 United Kingdom    22393799</span>
-<span class="co">#&gt;  7 Russia            18002493</span>
-<span class="co">#&gt;  8 Korea, South      17861744</span>
-<span class="co">#&gt;  9 Italy             17116550</span>
-<span class="co">#&gt; 10 Turkey            15057184</span>
-<span class="co">#&gt; 11 Spain             12179234</span>
-<span class="co">#&gt; 12 Vietnam           10699965</span>
-<span class="co">#&gt; 13 Argentina          9135308</span>
-<span class="co">#&gt; 14 Japan              8428219</span>
-<span class="co">#&gt; 15 Netherlands        8254473</span>
-<span class="co">#&gt; 16 Iran               7228786</span>
-<span class="co">#&gt; 17 Australia          6759756</span>
-<span class="co">#&gt; 18 Colombia           6095316</span>
-<span class="co">#&gt; 19 Indonesia          6051205</span>
-<span class="co">#&gt; 20 Poland             6004041</span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2022-05-17):</p>
+<span class="co">#&gt;  1 US                86636306</span>
+<span class="co">#&gt;  2 India             43344958</span>
+<span class="co">#&gt;  3 Brazil            31890733</span>
+<span class="co">#&gt;  4 France            30555038</span>
+<span class="co">#&gt;  5 Germany           27573585</span>
+<span class="co">#&gt;  6 United Kingdom    22751393</span>
+<span class="co">#&gt;  7 Korea, South      18305783</span>
+<span class="co">#&gt;  8 Russia            18137759</span>
+<span class="co">#&gt;  9 Italy             18014202</span>
+<span class="co">#&gt; 10 Turkey            15085742</span>
+<span class="co">#&gt; 11 Spain             12613634</span>
+<span class="co">#&gt; 12 Vietnam           10739855</span>
+<span class="co">#&gt; 13 Argentina          9341492</span>
+<span class="co">#&gt; 14 Japan              9178003</span>
+<span class="co">#&gt; 15 Netherlands        8247488</span>
+<span class="co">#&gt; 16 Australia          7919844</span>
+<span class="co">#&gt; 17 Iran               7235440</span>
+<span class="co">#&gt; 18 Colombia           6131657</span>
+<span class="co">#&gt; 19 Indonesia          6072918</span>
+<span class="co">#&gt; 20 Poland             6011984</span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2022-06-22):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
 
@@ -349,18 +349,18 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">confirmed</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 199 × 4</span>
 <span class="co">#&gt; # Groups:   country [199]</span>
-<span class="co">#&gt;    country      confirmed death recovery</span>
-<span class="co">#&gt;    &lt;chr&gt;            &lt;int&gt; &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 US              112487   347        0</span>
-<span class="co">#&gt;  2 Germany          72051   174        0</span>
-<span class="co">#&gt;  3 Taiwan*          65802    38        0</span>
-<span class="co">#&gt;  4 Australia        56461    54        0</span>
-<span class="co">#&gt;  5 Spain            52112   198        0</span>
-<span class="co">#&gt;  6 Portugal         47642    82        0</span>
-<span class="co">#&gt;  7 Italy            44901   148        0</span>
-<span class="co">#&gt;  8 France           43727    90        0</span>
-<span class="co">#&gt;  9 Japan            36795    39        0</span>
-<span class="co">#&gt; 10 Korea, South     31315    31        0</span>
+<span class="co">#&gt;    country        confirmed death recovery</span>
+<span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt;  1 US                184074   860        0</span>
+<span class="co">#&gt;  2 Germany           119360    98        0</span>
+<span class="co">#&gt;  3 France             78123    66        0</span>
+<span class="co">#&gt;  4 Brazil             71906   140        0</span>
+<span class="co">#&gt;  5 Italy              54873    50        0</span>
+<span class="co">#&gt;  6 Taiwan*            52218   171        0</span>
+<span class="co">#&gt;  7 United Kingdom     33406    77        0</span>
+<span class="co">#&gt;  8 Australia          32034    52        0</span>
+<span class="co">#&gt;  9 Japan              17263    15        0</span>
+<span class="co">#&gt; 10 Portugal           15372    21        0</span>
 <span class="co">#&gt; # … with 189 more rows</span></code></pre></div>
 <p>Plotting daily confirmed and death cases in Brazil:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -491,7 +491,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>Government of Canada: <a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html" class="external-link uri">https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html</a> <br>
 </li>
-<li>Australia Government Department of Health:<a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert" class="external-link uri">https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert</a> <br>
+<li>Australia Government Department of Health:<a href="https://www.health.gov.au/health-alerts/covid-19" class="external-link uri">https://www.health.gov.au/health-alerts/covid-19</a> <br>
 </li>
 <li>European Centre for Disease Prevention and Control (ECDC): <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases" class="external-link uri">https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases</a>
 </li>
@@ -508,7 +508,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>COVID Live (Australia): <a href="https://covidlive.com.au/" class="external-link uri">https://covidlive.com.au/</a>
 </li>
-<li>Washington State Department of Health:<a href="https://www.doh.wa.gov/Emergencies/COVID19" class="external-link uri">https://www.doh.wa.gov/Emergencies/COVID19</a>
+<li>Washington State Department of Health:<a href="https://doh.wa.gov/emergencies/covid-19" class="external-link uri">https://doh.wa.gov/emergencies/covid-19</a>
 </li>
 <li>Maryland Department of Health: <a href="https://coronavirus.maryland.gov/" class="external-link uri">https://coronavirus.maryland.gov/</a>
 </li>
