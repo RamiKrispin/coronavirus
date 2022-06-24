@@ -23,3 +23,4 @@
 ^data_pipelines$
 ^_pkgdown.yml$
 ^covid19_env$
+^CRAN-SUBMISSION$
