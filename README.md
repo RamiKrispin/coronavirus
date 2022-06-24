@@ -180,19 +180,19 @@ with the `refresh_coronavirus_jhu` function:
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2020-02-16 Afghanistan       country            AF         iso_3166_2
-#> 2 2022-02-16 Afghanistan       country            AF         iso_3166_2
-#> 3 2020-02-15 Afghanistan       country            AF         iso_3166_2
-#> 4 2022-01-24 Afghanistan       country            AF         iso_3166_2
-#> 5 2022-01-26 Afghanistan       country            AF         iso_3166_2
-#> 6 2022-01-28 Afghanistan       country            AF         iso_3166_2
-#>       data_type value      lat     long
-#> 1     cases_new     0 33.93911 67.70995
-#> 2 recovered_new     0 33.93911 67.70995
-#> 3     cases_new     0 33.93911 67.70995
-#> 4 recovered_new     0 33.93911 67.70995
-#> 5 recovered_new     0 33.93911 67.70995
-#> 6 recovered_new     0 33.93911 67.70995
+#> 1 2022-04-21 Afghanistan       country            AF         iso_3166_2
+#> 2 2022-04-20 Afghanistan       country            AF         iso_3166_2
+#> 3 2021-12-26 Afghanistan       country            AF         iso_3166_2
+#> 4 2022-04-17 Afghanistan       country            AF         iso_3166_2
+#> 5 2022-04-23 Afghanistan       country            AF         iso_3166_2
+#> 6 2022-04-24 Afghanistan       country            AF         iso_3166_2
+#>    data_type value      lat     long
+#> 1 deaths_new     0 33.93911 67.70995
+#> 2 deaths_new     0 33.93911 67.70995
+#> 3 deaths_new     5 33.93911 67.70995
+#> 4 deaths_new     2 33.93911 67.70995
+#> 5 deaths_new     1 33.93911 67.70995
+#> 6 deaths_new     1 33.93911 67.70995
 ```
 
 ## Usage
@@ -434,8 +434,7 @@ resources:
     <https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/symptoms.html>
     <br>
 -   Australia Government Department of
-    Health:<https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert>
-    <br>
+    Health:<https://www.health.gov.au/health-alerts/covid-19> <br>
 -   European Centre for Disease Prevention and Control (ECDC):
     <https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases>
 -   Ministry of Health Singapore (MOH):
@@ -451,7 +450,7 @@ resources:
 -   French Government: <https://dashboard.covid19.data.gouv.fr/>
 -   COVID Live (Australia): <https://covidlive.com.au/>
 -   Washington State Department of
-    Health:<https://www.doh.wa.gov/Emergencies/COVID19>
+    Health:<https://doh.wa.gov/emergencies/covid-19>
 -   Maryland Department of Health: <https://coronavirus.maryland.gov/>
 -   New York State Department of Health:
     <https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data>
