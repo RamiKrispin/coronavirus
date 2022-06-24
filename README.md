@@ -180,19 +180,19 @@ with the `refresh_coronavirus_jhu` function:
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2020-06-27 Afghanistan       country            AF         iso_3166_2
-#> 2 2020-06-28 Afghanistan       country            AF         iso_3166_2
-#> 3 2020-06-29 Afghanistan       country            AF         iso_3166_2
-#> 4 2020-05-18 Afghanistan       country            AF         iso_3166_2
-#> 5 2020-05-15 Afghanistan       country            AF         iso_3166_2
-#> 6 2020-05-17 Afghanistan       country            AF         iso_3166_2
-#>   data_type value      lat     long
-#> 1 cases_new   356 33.93911 67.70995
-#> 2 cases_new   351 33.93911 67.70995
-#> 3 cases_new   271 33.93911 67.70995
-#> 4 cases_new   437 33.93911 67.70995
-#> 5 cases_new   714 33.93911 67.70995
-#> 6 cases_new   233 33.93911 67.70995
+#> 1 2020-02-16 Afghanistan       country            AF         iso_3166_2
+#> 2 2022-02-16 Afghanistan       country            AF         iso_3166_2
+#> 3 2020-02-15 Afghanistan       country            AF         iso_3166_2
+#> 4 2022-01-24 Afghanistan       country            AF         iso_3166_2
+#> 5 2022-01-26 Afghanistan       country            AF         iso_3166_2
+#> 6 2022-01-28 Afghanistan       country            AF         iso_3166_2
+#>       data_type value      lat     long
+#> 1     cases_new     0 33.93911 67.70995
+#> 2 recovered_new     0 33.93911 67.70995
+#> 3     cases_new     0 33.93911 67.70995
+#> 4 recovered_new     0 33.93911 67.70995
+#> 5 recovered_new     0 33.93911 67.70995
+#> 6 recovered_new     0 33.93911 67.70995
 ```
 
 ## Usage
@@ -232,30 +232,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                82726107
-#>  2 India             43127199
-#>  3 Brazil            30701900
-#>  4 France            29424812
-#>  5 Germany           25890456
-#>  6 United Kingdom    22393799
-#>  7 Russia            18002493
-#>  8 Korea, South      17861744
-#>  9 Italy             17116550
-#> 10 Turkey            15057184
-#> 11 Spain             12179234
-#> 12 Vietnam           10699965
-#> 13 Argentina          9135308
-#> 14 Japan              8428219
-#> 15 Netherlands        8254473
-#> 16 Iran               7228786
-#> 17 Australia          6759756
-#> 18 Colombia           6095316
-#> 19 Indonesia          6051205
-#> 20 Poland             6004041
+#>  1 US                86636306
+#>  2 India             43344958
+#>  3 Brazil            31890733
+#>  4 France            30555038
+#>  5 Germany           27573585
+#>  6 United Kingdom    22751393
+#>  7 Korea, South      18305783
+#>  8 Russia            18137759
+#>  9 Italy             18014202
+#> 10 Turkey            15085742
+#> 11 Spain             12613634
+#> 12 Vietnam           10739855
+#> 13 Argentina          9341492
+#> 14 Japan              9178003
+#> 15 Netherlands        8247488
+#> 16 Australia          7919844
+#> 17 Iran               7235440
+#> 18 Colombia           6131657
+#> 19 Indonesia          6072918
+#> 20 Poland             6011984
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2022-05-17):
+2022-06-22):
 
 ``` r
 library(tidyr)
@@ -270,18 +270,18 @@ coronavirus %>%
   arrange(-confirmed)
 #> # A tibble: 199 × 4
 #> # Groups:   country [199]
-#>    country      confirmed death recovery
-#>    <chr>            <int> <int>    <int>
-#>  1 US              112487   347        0
-#>  2 Germany          72051   174        0
-#>  3 Taiwan*          65802    38        0
-#>  4 Australia        56461    54        0
-#>  5 Spain            52112   198        0
-#>  6 Portugal         47642    82        0
-#>  7 Italy            44901   148        0
-#>  8 France           43727    90        0
-#>  9 Japan            36795    39        0
-#> 10 Korea, South     31315    31        0
+#>    country        confirmed death recovery
+#>    <chr>              <int> <int>    <int>
+#>  1 US                184074   860        0
+#>  2 Germany           119360    98        0
+#>  3 France             78123    66        0
+#>  4 Brazil             71906   140        0
+#>  5 Italy              54873    50        0
+#>  6 Taiwan*            52218   171        0
+#>  7 United Kingdom     33406    77        0
+#>  8 Australia          32034    52        0
+#>  9 Japan              17263    15        0
+#> 10 Portugal           15372    21        0
 #> # … with 189 more rows
 ```
 
