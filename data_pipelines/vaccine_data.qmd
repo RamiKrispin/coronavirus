@@ -1,19 +1,18 @@
 ---
 title: "Vaccine Dataset Data Pipeline"
-author: 'Rami Krispin'
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+author: "Rami Krispin"
+format:
+  html:
+    theme: default
+    toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+This is the [coronavirus](https://github.com/RamiKrispin/coronavirus) R package data pipeline.
 
-### Functions   
+## Functions   
 
 ```{r}
-`%>%` <- magrittr::`%>%`
-
 # Get the table information
 tbl_info <- function(input){
   
@@ -24,19 +23,19 @@ tbl_info <- function(input){
   dup <- sum(duplicated(input))
   
   df <- data.frame(cols_name = names(input),
-                   cols_class = lapply(input, class) %>% unlist,
-                   cols_NAs = lapply(names(input), function(i){sum(is.na(input[, i]))}) %>% unlist,
+                   cols_class = lapply(input, class) |> unlist(),
+                   cols_NAs = lapply(names(input), function(i){sum(is.na(input[, i]))}) |> unlist(),
                    cols_min = lapply(names(input), function(i){if(is.numeric(input[, i])){
                      min(input[, i], na.rm = TRUE)
                    } else {
                      NA
-                   }}) %>% unlist,
+                   }}) |> unlist(),
                    cols_max = lapply(names(input), function(i){if(is.numeric(input[, i])){
                      max(input[, i], na.rm = TRUE)
                    } else {
                      NA
-                   }}) %>% unlist,
-                   cols_unique = lapply(names(input), function(i){length(unique(input[, i]))}) %>% unlist,
+                   }}) |> unlist(),
+                   cols_unique = lapply(names(input), function(i){length(unique(input[, i]))}) |> unlist(),
                    stringsAsFactors = FALSE)
   
   rownames(df) <- NULL
@@ -82,7 +81,7 @@ covid19_vaccine <- covid19_vaccine_temp <-  NULL
   Country_Region = readr::col_character(),
   Doses_admin = readr::col_double(),
   People_at_least_one_dose = readr::col_double()
-)) %>%
+)) |>
       as.data.frame(),
     error = function(c) base::message(c)
   )
@@ -149,11 +148,11 @@ covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwa
                                    158,
                                    covid19_vaccine_temp$uid)
 
-covid19_vaccine <- covid19_vaccine_temp %>% dplyr::left_join(gis_code_mapping %>% dplyr::select(- country_region, - province_state),
-                                                             by = c("uid")) %>%
-  dplyr::select(-admin2) %>%
-  dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) %>%
-  dplyr::left_join(continent_mapping %>% dplyr::select(-country_name),
+covid19_vaccine <- covid19_vaccine_temp |> dplyr::left_join(gis_code_mapping |> dplyr::select(- country_region, - province_state),
+                                                             by = c("uid")) |>
+  dplyr::select(-admin2) |>
+  dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) |>
+  dplyr::left_join(continent_mapping |> dplyr::select(-country_name),
                    by = c("uid", "iso2", "iso3"))
 
 tbl_info(covid19_vaccine)
@@ -164,10 +163,10 @@ tbl_info(covid19_vaccine)
 
 ```{r}
 # Check if there are duplication in the US data
-  x <- covid19_vaccine %>% dplyr::filter(iso2 == "US")
+  x <- covid19_vaccine |> dplyr::filter(iso2 == "US")
   if(any(table(duplicated(x[, c( "date")]))) &&
      all(c("US", "US (Aggregate)") %in% unique(x$country_region))){
-    covid19_vaccine <- covid19_vaccine %>%
+    covid19_vaccine <- covid19_vaccine |>
       dplyr::filter(country_region != "US (Aggregate)")
   }
 
@@ -177,7 +176,7 @@ tbl_info(covid19_vaccine)
 load(sprintf("../data_pipelines/log_%s.RData", branch))
 tail(log)
 
-log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE, dataset == "covid19_vaccine") %>%
+log_last <- log |> dplyr::filter(update == TRUE & success == TRUE, dataset == "covid19_vaccine") |>
   dplyr::filter(time == max(time))
   
   if(nrow(covid19_vaccine) > log_last$nrows ){
