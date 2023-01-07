@@ -1,0 +1,258 @@
+---
+title: "Geospatial Visualization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{geospatial_visualization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+   fig.height=5, fig.width=8,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Both the `coronavirus` and `covid19_vaccine` datasets provide country-level information on the covid19 cases and vaccination progress, respectively. One common approach for communicating country-level data is with the use of choropleth maps. The focus of this vignette is to demonstrate how to merge the dataset with the geometric metadata and plot it. We will use the following packages:
+
+-   [**rnaturalearth**](https://docs.ropensci.org/rnaturalearth/) **- P**rovides geo-spatial metadata from the [Natural Earth dataset](https://www.naturalearthdata.com). More details available here
+
+-   [**sf**](https://r-spatial.github.io/sf/) **-** A package that provides [simple features access](https://en.wikipedia.org/wiki/Simple_Features) for R
+
+-   [**mapview**](https://r-spatial.github.io/mapview/) **-** A wrapper for the leaflet library
+
+-   [**tmap**](https://r-tmap.github.io/tmap/) **-** A package for creating a thematic maps
+
+-   [**ggplot2**](https://ggplot2.tidyverse.org/) **-** Is a system for declaratively creating graphics
+
+-   [**viridis**](https://sjmgarnier.github.io/viridis/) **-** A package that provide a series of color maps
+
+```{r libraries}
+library(rnaturalearth)
+library(sf)
+library(mapview)
+library(tmap)
+library(ggplot2)
+library(viridis)
+```
+
+**Note:** This vignette is not available on the CRAN version (due to size limitation). Therefore, as the packages above are not on the dependencies list of the **coronavirus** package, you may need to install them before.
+
+
+**Additional setting:** following changes in the default options of the **sf** package from version `1.0-1` by default option is to use s2 spherical geometry as default when coordinates are ellipsoidal. That cause some issues with the **tmap** package, therefore we will set this functionality as `FALSE`:
+
+``` {r set_s2}
+sf_use_s2(FALSE)
+```
+
+More details available on this [issue](https://github.com/RamiKrispin/coronavirus/issues/95) and follow-up [issue](https://github.com/r-spatial/sf/issues/1821).
+
+Let's get start by loading the data:
+
+```{r data}
+library(coronavirus)
+
+data("covid19_vaccine")
+
+head(covid19_vaccine)
+```
+
+We will use the `ne_countries` function from the **rnaturalearth** package to pull the country geometric data:
+
+```{r}
+library(dplyr)
+
+map <- ne_countries(returnclass = "sf") %>%
+  dplyr::select(name, iso2 = iso_a2, iso3 = iso_a3, geometry)
+
+head(map)
+
+
+```
+
+```{r}
+
+df <- map %>% left_join(
+   covid19_vaccine %>%
+    filter(date == max(date),
+           is.na(province_state)) %>%
+    mutate(perc = round(100 * people_fully_vaccinated / population, 2)) %>%
+    select(country_region, iso2, iso3, people_fully_vaccinated, perc, continent_name),
+    by = c("iso2", "iso3")
+)
+
+class(df)
+```
+
+After we merged the country data with the corresponding geometry data it is straightforward to plot the data as `sf` object.
+
+### Choropleth maps with the mapview package
+
+The **mapview** package, a wrapper for the leaflet library, enables to plot `sf` objects seamlessly. Let's start by plotting the percentage of the population that fully vaccinated by country using the `perc` variable:
+
+```{r}
+df  %>%
+  mapview::mapview(zcol = "perc")
+```
+
+By default, the function is using continues color scale for the objects (in this case countries) color. We can modify it and set color buckets by using the `at` argument. Also, we can define the legend title with the use of the `layer.name` argument:
+
+```{r}
+df  %>%
+  mapview::mapview(zcol = "perc", 
+                   at = seq(0, max(df$perc, na.rm = TRUE), 10), 
+                   legend = TRUE,
+                   layer.name = "Fully Vaccinated %")
+```
+
+Some of the missing values in the plot are un-populated areas such as Antarctica or a territory that is count under different state such as Greenland. We can remove those and re-plot the map:
+
+```{r}
+df1 <- df %>% 
+  filter(!name %in% c("Greenland", "Antarctica"))
+
+df1  %>%
+  mapview::mapview(zcol = "perc", 
+                   at = seq(0, max(df1$perc, na.rm = TRUE), 10), 
+                   legend = TRUE,
+                   layer.name = "Fully Vaccinated %")
+```
+
+Last but not least, you can customize the color palette with the use of the `col.regions` argument. In the following example, we will use the `plasma` function from the **viridis** package:
+
+```{r}
+
+df1  %>%
+  mapview::mapview(zcol = "perc", 
+                   at = seq(0, max(df1$perc, na.rm = TRUE), 10), 
+                   legend = TRUE,
+                   col.regions = plasma(n = 8),
+                   layer.name = "Fully Vaccinated %")
+
+```
+
+
+### Choropleth maps with the tmap package
+
+The **tmap** (thematic maps) package is another useful tool for creating choropleth maps. Similarly to the **mapview** package, the **tmap** package supports `sf` objects. This **tmap** follow the **ggplot2** package syntax style (e.g., using the `+` symbol to add to the plot additional plot). We will use the `tm_shape` function to define the input object with the `df1` object, and add the `tm_polygons` function to customize the plot:
+
+```{r}
+
+tm_shape(df1) + 
+  tm_polygons(col = "perc",  
+              n = 8,
+              title = "Fully Vaccinated %",
+              palette = "Blues")
+```
+
+The `projection` argument enables to set the map projections method using `PROJ.4` code:
+
+```{r}
+
+tm_shape(df1) + 
+  tm_polygons(col = "perc",  
+              n = 8,
+              projection = 3857,
+              title = "Fully Vaccinated %",
+              palette = "Blues") 
+```
+
+We can use the `continent_name` column to filter and plot the data by specific continent. For example, let's plot the countries in South America:
+
+```{r}
+df2 <- df1 %>%
+  filter(continent_name == "South America")
+
+
+tm_shape(df2) + 
+  tm_polygons(col = "perc",  
+              n = 5,
+              title = "Perc. Group",
+              palette = "Blues") 
+
+```
+
+Let's customize the plot and use the `tm_stype` function to set background and the `tm_layout` function to add title:
+
+```{r}
+tm_shape(df2) + 
+  tm_polygons(col = "perc",  
+              n = 5,
+              title = "Perc. Group",
+              palette = "Blues") + 
+  tm_style("cobalt") + 
+  tm_text("iso3", size = 0.7) +
+  tm_layout(
+            title= "% of Population Fully Vaccinated", 
+            title.position = c('right', 'top') ,
+            inner.margins = c(0.02, .02, .1, .25))
+```
+
+You can map the output interactive by setting the `tmap_mode` function to a `view` mode:
+
+```{r}
+tmap_mode("view")
+
+tm_shape(df2) + 
+  tm_polygons(col = "perc",  
+              n = 5,
+              title = "Perc. Group",
+              palette = "Blues") 
+```
+
+Last but not least, we can add facets with the use of the `tm_facets` and `tmap_options` functions:
+
+```{r}
+
+tmap_mode("plot")
+
+
+tm_shape(df2) + 
+  tm_polygons(col = "perc",  
+              n = 5,
+              title = "Perc. Group",
+              palette = "Greens") + 
+  tmap_options(limits = c(facets.view = 13)) + 
+  tm_facets(by = "name") 
+  
+```
+
+### Choropleth maps with the ggplot2 package
+
+The `geom_sf` function enables to read and plot `sf` objects with **ggplot2**, for example:
+
+```{r}
+
+ggplot(data = df2, aes(fill = `perc`)) + 
+  geom_sf() + 
+  scale_fill_viridis_b()
+
+```
+
+The `scale_fill_viridis_b` define the color setting. By default, the y and x axises are representing the earth coordinates. We can remove those coordinates with the `theme_void` function customize the color palette with the `scale_fill_viridis` function:
+
+```{r}
+ggplot(data = df2, aes(fill = `perc`)) + 
+  geom_sf(size = 0.1) + 
+    scale_fill_viridis(alpha = 0.9,
+                       begin = 0.01,
+                       discrete = FALSE,
+                       end = 0.9) + 
+  geom_sf_label(aes(label = name)) + 
+  labs(fill = "Percentage",
+       title = "'% of Population Fully Vaccinated",
+       caption = "Source: Johns Hopkins University Center for Systems Science and Engineering") + 
+   theme_void()
+
+```
+
+#### Sources:
+
+* **mapview** package documentation - https://r-spatial.github.io/mapview/
+* **tmap** package documentation - https://r-tmap.github.io/tmap/
+* **ggplot2** package documentation - https://ggplot2.tidyverse.org/
+* `geom_sf` function - https://ggplot2.tidyverse.org/reference/ggsf.html
+

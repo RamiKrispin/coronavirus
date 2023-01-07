@@ -1,0 +1,16 @@
+pandoc: 2.14.0.3
+pkgdown: 2.0.1
+pkgdown_sha: ~
+articles:
+  covid19R: covid19R.html
+  covid19_vaccine: covid19_vaccine.html
+  dashboard: dashboard.html
+  geospatial_visualization: geospatial_visualization.html
+  intro_coronavirus_dataset: intro_coronavirus_dataset.html
+  update_dataset_function: update_dataset_function.html
+  using_julia: using_julia.html
+last_built: 2022-06-24T12:27Z
+urls:
+  reference: https://ramikrispin.github.io/coronavirus/reference
+  article: https://ramikrispin.github.io/coronavirus/articles
+

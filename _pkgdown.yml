@@ -1,0 +1,41 @@
+url: https://ramikrispin.github.io/coronavirus/
+
+destination: "./docs"
+
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  title: "coronavirus"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Vignettes"
+      menu:
+        - text: "Introduction to the coronavirues Dataset"
+          href: articles/intro_coronavirus_dataset.html
+        - text: "Introduction to the covid19_vaccine Dataset"
+          href: articles/covid19_vaccine.html
+        - text: "Update the coronavirus Dataset"
+          href: articles/update_dataset_function.html
+        - text: "Covid19R Project Data Format"
+          href: articles/covid19R.html
+        - text: "Geospatial Visualization"
+          href: articles/geospatial_visualization.html
+        - text: "Coronavirus Dashboard"
+          href: articles/dashboard.html
+        - text: "Loading the Data with Julia"
+          href: articles/using_julia.html
+    - text: "Data Pipelines"
+      menu:
+        - text: "Coronavirus Data Pipeline"
+          href: data_pipelines/covid19_cases.html
+        - text: "Vaccine Data Pipeline"
+          href: data_pipelines/vaccine_data.html
+    - text: "Changelog"
+      href: news/index.html
+
+

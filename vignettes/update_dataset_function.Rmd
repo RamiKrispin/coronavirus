@@ -1,0 +1,61 @@
+---
+title: "Update the coronavirus Dataset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Update the coronavirus Dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+While the CRAN version of the package is updated once every month or two, the Github (Dev) version is updating on a daily bases. The following options allow you to keep the data updated with the ones available on the Dev version:
+
+* Use the `update_dataset` function
+* Read directly from the package repo a csv format of the data
+
+### The update_dataset function
+
+The `update_dataset` function enables to keep the installed version updated with the data available on [Github](https://github.com/RamiKrispin/coronavirus). The function compared between the dataset on the installed version and the ones on the Dev version:
+
+``` r 
+library(coronavirus)
+
+update_dataset()
+```
+
+If no new data is available on the Dev version, the function will return the following message:
+
+``` r
+No updates are available
+```
+
+Once new data is available, the function will prompt the following question that enables the user to select whether to install the updates from the dev version:
+
+``` r
+Updates are available on the coronavirus Dev version, do you want to update? n/Y
+```
+
+In order to make the new data available, you will have to restart your R session.
+
+**Note:** As frequent changes may occur on the raw data structure (such as new fields, retroactive updates in the data, etc.), the Dev version dataset may change accordingly. 
+
+
+### Reading the data from CSV version
+
+Alternatively, you can read and load the data directly from the package repository, using the csv version:
+
+```{r}
+library(readr)
+coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", 
+    col_types = cols(date = col_date(format = "%Y-%m-%d"), 
+        cases = col_number()))
+
+head(coronavirus_df)
+```
+
+The main difference between the first method (the `update_dataset` function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a `Date` object. A quick reformating can fix it:
+
+```{r}
+str(coronavirus_df)
+```
+
+

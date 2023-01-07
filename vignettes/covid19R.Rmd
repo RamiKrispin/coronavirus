@@ -1,0 +1,60 @@
+---
+title: "Covid19R Project Data Format"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Covid19R Project Format}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The `refresh_coronavirus_jhu` function enables to pull the `coronavirus` dataset using the [Covid19R](https://covid19r.github.io/documentation/) project [data format standard](https://covid19r.github.io/documentation/data-format-standard.html). This data format includes the following fields:
+
+* `date` - The date of the observation, using `Date` class
+* `location` - The name of the location as provided by John Hopkins raw data
+* `location_type` - The type of the location field, either `country` or `state`
+* `location_code` - The location code, using the `ios_3166_2` format
+* `location_code_type` - The location code type (`ios_3166_2`)
+* `data_type` - The case type, `c("recovered_new", "cases_new", "deaths_new" )`
+* `value` - The number of cases
+* `lat` - The latitude code
+* `long` - The longitude code
+
+
+``` r 
+library(coronavirus)
+
+covid19_df <- refresh_coronavirus_jhu()
+#> Parsed with column specification:
+#> cols(
+#>   date = col_date(format = ""),
+#>   province = col_character(),
+#>   country = col_character(),
+#>   lat = col_double(),
+#>   long = col_double(),
+#>   type = col_character(),
+#>   cases = col_double()
+#> )
+#> Parsed with column specification:
+#> cols(
+#>   location = col_character(),
+#>   location_code = col_character(),
+#>   location_code_type = col_character()
+#> )
+
+head(covid19_df)
+#>         date        location location_type location_code location_code_type  data_type value     lat      long
+#> 1 2020-10-10 Alberta, Canada         state         CA-AB         iso_3166_2 deaths_new     0 53.9333 -116.5765
+#> 2 2020-08-09 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new     0 53.9333 -116.5765
+#> 3 2020-10-21 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new   406 53.9333 -116.5765
+#> 4 2020-06-15 Alberta, Canada         state         CA-AB         iso_3166_2 deaths_new     1 53.9333 -116.5765
+#> 5 2020-06-13 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new    37 53.9333 -116.5765
+#> 6 2020-06-21 Alberta, Canada         state         CA-AB         iso_3166_2  cases_new    31 53.9333 -116.5765
+```

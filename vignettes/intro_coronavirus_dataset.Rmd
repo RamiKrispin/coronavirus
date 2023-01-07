@@ -1,0 +1,238 @@
+---
+title: "Introduction to the Coronavirus Dataset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the Coronavirus Dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message=FALSE, 
+                      warning=FALSE, 
+                      fig.height=5, 
+                      fig.width=8,
+                      collapse = TRUE,
+                      comment = "#>")
+```
+
+### The coronavirus dataset
+
+The `coronavirus` dataset provides a daily summary of the COVID19 cases by geographic location (i.e., country/province). It includes total daily confirmed, death, and recovery^1^ cases. Let’s load the dataset from the **coronavirus** package:
+
+
+```{r }
+library(coronavirus)
+
+data(coronavirus)
+```
+
+
+
+The dataset has the following fields:
+
+* `date` - The date of the summary
+* `province` - The province or state, when applicable
+* `country` - The country or region name
+* `Lat` - Latitude point
+* `Long` - Longitude point
+* `type` - the type of case (i.e., confirmed, death)
+* `cases` - the number of daily cases (corresponding to the case type)
+* `uid` - Country code
+* `iso2` - Officially assigned country code identifiers with two-letter
+* `iso3` - Officially assigned country code identifiers with there-letter
+* `code3` - UN country code
+* `combined_key` - Country and province (if applicable)
+* `population` - Country or province population
+* `continent_name` - Continent name
+* `continent_code` - Continent code
+
+
+We can use the `head` and `str` functions to see the structure of the dataset:
+
+```{r }
+head(coronavirus)
+
+str(coronavirus)
+```
+
+
+^1^ Recovery data is discontinued from Aug 5th, please see the following [issue](https://github.com/RamiKrispin/coronavirus/issues/71) for more details.
+
+
+### Querying and analyzing the coronavirus dataset
+
+We will use the **dplyr** and **tidyr** packages to query, transform, reshape, and keep the data tidy, the **plotly** package to plot the data and the **DT** package to view it:
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(plotly)
+library(DT)
+```
+
+#### Cases summary
+
+Let's start with summarizing the total number of cases by type as of `r max(coronavirus$date)` and then plot it: 
+
+```{r}
+total_cases <- coronavirus %>%
+  filter(type != "recovery") %>%
+  group_by(type) %>%
+  summarise(cases = sum(cases)) %>%
+  mutate(type = factor(type, levels = c("confirmed", "death"))) 
+
+total_cases
+```
+
+
+Likewise, we can summarise the data by continent using the `continent_name` field:
+
+```{r}
+coronavirus %>%
+  filter(type != "recovery") %>%
+  group_by(type, continent_name) %>%
+  summarise(cases = sum(cases), .groups = "drop") %>%
+  mutate(type = factor(type, levels = c("confirmed", "death"))) %>%
+  pivot_wider(names_from = type, values_from = cases) %>%
+  mutate(death_rate = death / confirmed) %>%
+  filter(!is.na(continent_name)) %>%
+  arrange(-death_rate) %>%
+  datatable(rownames = FALSE,
+            colnames = c("Continent", "Confrimed Cases", "Death Cases","Death Rate %")) %>%
+  formatPercentage("death_rate", 2)
+```
+
+ 
+You can use those numbers to derive the current worldwide death rate (percentage):
+
+```{r}
+round(100 * total_cases$cases[2] / total_cases$cases[1], 2)
+```
+
+```{r}
+df <- coronavirus %>%
+  filter(type != "recovery") %>%
+  group_by(date,type) %>%
+  summarise(total = sum(cases), .groups = "drop")
+
+p_1 <- plot_ly(data = df %>% filter(type == "confirmed"),
+        x = ~ date,
+        y = ~ total,
+        name = "Confirmed",
+        type = "scatter",
+        mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
+         xaxis = list(title = ""))
+
+p_2 <- plot_ly(data = df %>% filter(type == "death"),
+              x = ~ date,
+              y = ~ total,
+              name = "Death",
+              line = list(color = "red"),
+              type = "scatter",
+              mode = "line") %>%
+  layout(yaxis = list(title = "Cases"),
+         xaxis = list(title = "Source: Johns Hopkins University Center for Systems Science and Engineering"))
+
+subplot(p_1, p_2, nrows = 2, 
+              titleX = TRUE,
+              titleY = TRUE) %>%
+  layout(title = "Worldwide - Daily Confirmed and Death Cases",
+         margin = list(t = 60, b = 60, l = 40, r = 40),
+         legend = list(x = 0.05, y = 1)
+         )
+```
+
+
+
+#### Top effected countries
+
+The next table provides an overview of the ten countries with the highest confirmed cases. We will use the `datatable` function from the **DT** package to view the table:
+
+
+```{r}
+confirmed_country <- coronavirus %>% 
+  filter(type == "confirmed") %>%
+  group_by(country) %>%
+  summarise(total_cases = sum(cases)) %>%
+  mutate(perc = total_cases / sum(total_cases)) %>%
+  arrange(-total_cases)
+
+confirmed_country %>%
+  head(10) %>%
+  datatable(rownames = FALSE,
+            colnames = c("Country", "Cases", "Perc of Total")) %>%
+  formatPercentage("perc", 2)
+```
+
+
+The next plot summarize the distribution of confrimed cases by country:
+
+```{r}
+conf_df <- coronavirus %>% 
+  filter(type == "confirmed") %>%
+  group_by(country) %>%
+  summarise(total_cases = sum(cases)) %>%
+  arrange(-total_cases) %>%
+  mutate(parents = "Confirmed") %>%
+  ungroup() 
+  
+  plot_ly(data = conf_df,
+          type= "treemap",
+          values = ~total_cases,
+          labels= ~ country,
+          parents=  ~parents,
+          domain = list(column=0),
+          name = "Confirmed",
+          textinfo="label+value+percent parent")
+```
+
+#### Death rates
+
+Similarly, we can use the `pivot_wider` function from the **tidyr** package (in addition to the **dplyr** functions we used above) to get an overview of the three types of cases (confirmed, recovered, and death). We then will use it to derive the recovery and death rate by country. As for most of the countries, there is not enough information about the results of the confirmed cases, we will filter the data for countries with at least 25 confirmed cases and above:
+
+```{r}
+coronavirus %>% 
+  filter(country != "Others") %>%
+  group_by(country, type) %>%
+  summarise(total_cases = sum(cases)) %>%
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(- confirmed) %>%
+  filter(confirmed >= 25) %>%
+  mutate(death_rate = death / confirmed)  %>%
+  datatable(rownames = FALSE,
+            colnames = c("Country", "Confirmed","Death", "Death Rate")) %>%
+   formatPercentage("death_rate", 2) 
+```
+
+Note that it will be misleading to make any conclusion about the recovery and death rate. As there is no detail information about:
+
+* There is no measurement between the time a case was confirmed and recovery or death. This is not an apple to apple comparison, as the outbreak did not start at the same time in all the affected countries.
+* As age plays a critical role in the probability of survival from the virus, we cannot make a comparison between different cases without having more demographic information.
+
+#### Diving into China
+
+The following plot describes the overall distribution of the total confirmed cases in China by province:
+
+```{r}
+coronavirus %>% 
+  filter(country == "China",
+         type == "confirmed") %>%
+  group_by(province, type) %>%
+  summarise(total_cases = sum(cases)) %>%  
+  pivot_wider(names_from = type, values_from = total_cases) %>%
+  arrange(- confirmed) %>%
+  plot_ly(labels = ~ province, 
+                  values = ~confirmed, 
+                  type = 'pie',
+                  textposition = 'inside',
+                  textinfo = 'label+percent',
+                  insidetextfont = list(color = '#FFFFFF'),
+                  hoverinfo = 'text',
+                  text = ~ paste(province, "<br />",
+                                 "Number of confirmed cases: ", confirmed, sep = "")) %>%
+  layout(title = "Total China Confirmed Cases Dist. by Province")
+```

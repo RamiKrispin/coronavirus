@@ -1,0 +1,14 @@
+on: [push, pull_request]
+
+name: R CMD
+jobs:
+  R-CMD-check:
+    name: R CMD check
+    runs-on: ubuntu-18.04
+    container:
+        image: docker.io/rkrispin/coronavirus:prod.0.3.31
+    steps:
+       - name: checkout_repo
+         uses: actions/checkout@v2
+       - name: Check
+         run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"

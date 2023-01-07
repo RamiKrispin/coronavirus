@@ -1,0 +1,314 @@
+---
+title: "Coronavirus Dataset Data Pipeline"
+author: 'Rami Krispin'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Functions
+
+```{r}
+`%>%` <- magrittr::`%>%`
+
+# function for pursing the JH covid19 cases csv file
+parse_url <- function(url, type){
+  raw <- readr::read_csv(file = url) %>%
+    as.data.frame()
+  
+  # Transforming the data from wide to long
+  # Creating new data frame
+  df <- raw[, 1:4]
+  
+  names(df) <- gsub(pattern= "/", replacement = ".", x = names(df))
+  # Take diff
+  for(i in 5:ncol(raw)){
+    
+    raw[,i] <- as.integer(raw[,i])
+    
+    if(i == 5){
+      df[[names(raw)[i]]] <- raw[, i]
+    } else {
+      df[[names(raw)[i]]] <- raw[, i] - raw[, i - 1]
+    }
+  }
+  
+  df1 <-  df %>% tidyr::pivot_longer(cols = dplyr::starts_with(c("1", "2", "3", "4", "5", "6", "7", "8", "9")),
+                                     names_to = "date_temp",
+                                     values_to = "cases_temp") %>%
+    dplyr::mutate(date = lubridate::mdy(date_temp)) %>%
+    dplyr::group_by(Province.State, Country.Region, Lat, Long, date) %>%
+    dplyr::summarise(cases = sum(cases_temp),
+                     .groups = "drop") %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(type = type,
+                  Country.Region = trimws(Country.Region),
+                  Province.State = trimws(Province.State))
+  
+  if(type == "recovered"){
+    df1$cases <- ifelse(df1$date > as.Date("2021-08-04") & df1$cases == 0 |
+                          df1$date > as.Date("2021-08-04") & df1$cases < 0, NA, df1$cases)
+  }
+  
+  
+  return(df1)
+}
+
+
+# Get the table information
+tbl_info <- function(input){
+  
+  obj.name <- base::deparse(base::substitute(input))
+  
+  input <- as.data.frame(input)
+  
+  dup <- sum(duplicated(input))
+  
+  df <- data.frame(cols_name = names(input),
+                   cols_class = lapply(input, class) %>% unlist,
+                   cols_NAs = lapply(names(input), function(i){sum(is.na(input[, i]))}) %>% unlist,
+                   cols_min = lapply(names(input), function(i){if(is.numeric(input[, i])){
+                     min(input[, i], na.rm = TRUE)
+                   } else {
+                     NA
+                   }}) %>% unlist,
+                   cols_max = lapply(names(input), function(i){if(is.numeric(input[, i])){
+                     max(input[, i], na.rm = TRUE)
+                   } else {
+                     NA
+                   }}) %>% unlist,
+                   cols_unique = lapply(names(input), function(i){length(unique(input[, i]))}) %>% unlist,
+                   stringsAsFactors = FALSE)
+  
+  rownames(df) <- NULL
+  
+  t <- htmltools::div(class = "tbl-info",
+                      htmltools::div(class = "tbl-info",
+                                     htmltools::h4(class = "tbl-info", 
+                                                   paste("Table Info - ", obj.name)),
+                                     paste("Number of  columns:", ncol(input)),
+                                     htmltools::br(),
+                                     paste("Number of  rows:", nrow(input)),
+                                     htmltools::br(),
+                                     paste("Duplicated rows:", dup)
+                      ),
+                      reactable::reactable(df, defaultPageSize = nrow(df)))
+  
+  return(t)
+}
+```
+
+### Parameters
+
+```{r}
+# Set success flag
+s <- TRUE
+msg <- NULL
+# Confirmed cases
+conf_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+conf_df <- NULL 
+# Death cases
+death_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+death_df <- NULL
+# Recovery cases
+rec_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+rec_df <- NULL
+```
+
+
+### Confirmed Cases
+
+```{r confirmed_cases}
+conf_df <- parse_url(url = conf_url, type = "confirmed")
+
+if(is.null(conf_df) || !is.data.frame(conf_df) || nrow(conf_df) == 0){
+  s <- FALSE
+} else{
+  tbl_info(conf_df)
+}
+```
+
+### Death Cases
+
+```{r death_cases}
+death_df <- parse_url(url = death_url, type = "death")
+
+if(is.null(death_df) || !is.data.frame(death_df) || nrow(death_df) == 0){
+  s <- FALSE
+} else{
+  tbl_info(death_df)
+}
+```
+
+### Recovery Cases
+
+```{r rec_cases}
+rec_df <- parse_url(url = rec_url, type = "recovery")
+
+if(is.null(rec_df) || !is.data.frame(rec_df) || nrow(rec_df) == 0){
+  s <- FALSE
+} else{
+  tbl_info(rec_df)
+}
+```
+
+
+### Append the data
+
+```{r append_data}
+coronavirus_temp <- dplyr::bind_rows(conf_df, death_df, rec_df) %>%
+  dplyr::select(date, province = Province.State, country = Country.Region, lat = Lat, long = Long, type, cases) %>%
+  as.data.frame()
+
+tbl_info(coronavirus_temp)
+```
+
+
+
+### Add GIS codes
+
+```{r gis_codes}
+load("../data_raw/gis_mapping.RData")
+
+gis_codes_coronavirues$iso2[which(gis_codes_coronavirues$country_region == "Namibia")] <- "NA"
+
+# Removing duplicated iso codes for countries that located in two continents
+# Azerbaijan -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "AZ" & 
+                                                 continent_mapping$iso3 == "AZE" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+# Armenia -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "AM" & 
+                                                 continent_mapping$iso3 == "ARM" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+# Cyprus -> Europe
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "CY" & 
+                                                 continent_mapping$iso3 == "CYP" &
+                                                 continent_mapping$continent_name == "Asia"),] 
+# Georgia -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "GE" & 
+                                                 continent_mapping$iso3 == "GEO" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
+# Kazakhstan -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "KZ" & 
+                                                 continent_mapping$iso3 == "KAZ" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
+#United States Minor Outlying Islands -> Oceania
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "UM" & 
+                                                 continent_mapping$iso3 == "UMI" &
+                                                 continent_mapping$continent_name == "North America"),] 
+
+# Russian Federation -> Europe
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "RU" & 
+                                                 continent_mapping$iso3 == "RUS" &
+                                                 continent_mapping$continent_name == "Asia"),] 
+
+# Turkey -> Asia
+continent_mapping <- continent_mapping[- which(continent_mapping$iso2 == "TR" & 
+                                                 continent_mapping$iso3 == "TUR" &
+                                                 continent_mapping$continent_name == "Europe"),] 
+
+
+
+
+coronavirus <- coronavirus_temp %>%
+  dplyr::left_join(gis_codes_coronavirues %>%
+                     dplyr::select(-lat, - long) %>%
+                     dplyr::select(province = province_state, country = country_region,
+                                   dplyr::everything()),
+                   by = c("province", "country")) %>%
+  dplyr::left_join(continent_mapping %>%
+                     dplyr::select(iso2, iso3, continent_name, continent_code),
+                   by = c("iso2", "iso3")) %>%
+  dplyr::mutate(continent_name = ifelse(country == "Kosovo", "Europe", continent_name),
+                continent_code = ifelse(country == "Kosovo", "EU", continent_code)) %>%
+  dplyr::select(-admin2, -fips)
+
+tbl_info(coronavirus)
+```
+
+
+### Data validation
+
+```{r}
+# Checking merge
+if(nrow(coronavirus) != nrow(coronavirus_temp)){
+  s <- FALSE
+  msg <- c(msg, "Merge fail - the number of rows of the coronavirus_temp is different from the coronavirus")
+}
+
+# Checking the table dimensions
+if(nrow(coronavirus) < 500000){
+  s <- FALSE
+  msg <- c(msg, "The number of rows of the coronavirus table is too small") 
+}
+
+if(ncol(coronavirus) != 15){
+  s <- FALSE
+  msg <- c(msg, "The number of columns of the coronavirus table is invalid") 
+}
+
+if(min(coronavirus$date) != as.Date("2020-01-22")){
+  s <- FALSE
+  msg <- c(msg, "The starting date is invalid") 
+}
+
+
+```
+
+
+### Saving the data
+
+```{r}
+
+branch <- system(command = "git rev-parse --abbrev-ref HEAD", intern = TRUE)
+load(sprintf("../data_pipelines/log_%s.RData", branch))
+tail(log)
+log_last <- log %>% dplyr::filter(update == TRUE & success == TRUE, dataset == "coronavirus") %>%
+  dplyr::filter(time == max(time))
+if(s && nrow(coronavirus) > log_last$nrows){
+  log <- rbind(log, data.frame(time = Sys.time(),
+                    dataset = "coronavirus",
+                    nrows = nrow(coronavirus),
+                    last_date = max(coronavirus$date),
+                    update = TRUE,
+                    success = TRUE,
+                    branch = branch,
+                    stringsAsFactors = FALSE))
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
+
+  usethis::use_data(coronavirus, overwrite = TRUE, compress = "xz")
+  write.csv(coronavirus, "../csv/coronavirus.csv", row.names = FALSE)
+
+} else if(s && nrow(coronavirus) == log_last$nrows){
+  cat("No updates available \n")
+  log <- rbind(log, data.frame(time = Sys.time(),
+                    dataset = "coronavirus",
+                    nrows = nrow(coronavirus),
+                    last_date = max(coronavirus$date),
+                    update = FALSE,
+                    success = TRUE,
+                    branch = branch,
+                    stringsAsFactors = FALSE))
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
+} else if(s && nrow(coronavirus) < log_last$nrows) {
+    cat("Something went wrong, the number of rows of the new object are less than the previous object \n")
+  log <- rbind(log, data.frame(time = Sys.time(),
+                    dataset = "coronavirus",
+                    nrows = nrow(coronavirus),
+                    last_date = max(coronavirus$date),
+                    update = FALSE,
+                    success = FALSE,
+                    branch = branch,
+                    stringsAsFactors = FALSE))
+  save(log, file = sprintf("../data_pipelines/log_%s.RData", branch))
+} else if(!s){
+  cat(msg, sep = "\n")
+}
+```
+
