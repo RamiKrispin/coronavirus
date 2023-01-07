@@ -24,9 +24,37 @@ update_dataset <- function(silence = FALSE){
   coronavirus_current <- coronavirus::coronavirus
 
 
-  coronavirus_git <- readr::read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
+  year_start <- 2020
+  year_end <- as.numeric(format(Sys.Date(), "%Y"))
 
+  coronavirus_git <- lapply(year_start:year_end, function(i){
+    cat(paste0("\033[4;", 32, "m","Loading ", i, " data","\033[0m","\n"))
+    url <- paste("https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_",
+                 i,
+                 ".csv",
+                 sep = "")
+    df <- readr::read_csv(url,
+                          col_types = readr::cols(
+                            date = readr::col_date(format = ""),
+                            province = readr::col_character(),
+                            country = readr::col_character(),
+                            lat = readr::col_double(),
+                            long = readr::col_double(),
+                            type = readr::col_character(),
+                            cases = readr::col_double(),
+                            uid = readr::col_double(),
+                            iso2 = readr::col_character(),
+                            iso3 = readr::col_character(),
+                            code3 = readr::col_double(),
+                            combined_key = readr::col_character(),
+                            population = readr::col_double(),
+                            continent_name = readr::col_character(),
+                            continent_code = readr::col_character()
+                          ))
 
+    return(df)
+  }) |>
+    dplyr::bind_rows()
 
   coronavirus_git$date <- base::as.Date(coronavirus_git$date)
 
