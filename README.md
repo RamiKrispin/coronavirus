@@ -178,21 +178,25 @@ with the `refresh_coronavirus_jhu` function:
 
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
+#> [4;32mLoading 2020 data[0m
+#> [4;32mLoading 2021 data[0m
+#> [4;32mLoading 2022 data[0m
+#> [4;32mLoading 2023 data[0m
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2022-04-21 Afghanistan       country            AF         iso_3166_2
-#> 2 2022-04-20 Afghanistan       country            AF         iso_3166_2
-#> 3 2021-12-26 Afghanistan       country            AF         iso_3166_2
-#> 4 2022-04-17 Afghanistan       country            AF         iso_3166_2
-#> 5 2022-04-23 Afghanistan       country            AF         iso_3166_2
-#> 6 2022-04-24 Afghanistan       country            AF         iso_3166_2
-#>    data_type value      lat     long
-#> 1 deaths_new     0 33.93911 67.70995
-#> 2 deaths_new     0 33.93911 67.70995
-#> 3 deaths_new     5 33.93911 67.70995
-#> 4 deaths_new     2 33.93911 67.70995
-#> 5 deaths_new     1 33.93911 67.70995
-#> 6 deaths_new     1 33.93911 67.70995
+#> 1 2021-04-03 Afghanistan       country            AF         iso_3166_2
+#> 2 2021-04-04 Afghanistan       country            AF         iso_3166_2
+#> 3 2020-03-12 Afghanistan       country            AF         iso_3166_2
+#> 4 2022-01-20 Afghanistan       country            AF         iso_3166_2
+#> 5 2021-04-02 Afghanistan       country            AF         iso_3166_2
+#> 6 2022-03-31 Afghanistan       country            AF         iso_3166_2
+#>       data_type value      lat     long
+#> 1    deaths_new     1 33.93911 67.70995
+#> 2    deaths_new     1 33.93911 67.70995
+#> 3 recovered_new     0 33.93911 67.70995
+#> 4    deaths_new     0 33.93911 67.70995
+#> 5    deaths_new     6 33.93911 67.70995
+#> 6 recovered_new     0 33.93911 67.70995
 ```
 
 ## Usage
@@ -232,30 +236,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                86636306
-#>  2 India             43344958
-#>  3 Brazil            31890733
-#>  4 France            30555038
-#>  5 Germany           27573585
-#>  6 United Kingdom    22751393
-#>  7 Korea, South      18305783
-#>  8 Russia            18137759
-#>  9 Italy             18014202
-#> 10 Turkey            15085742
-#> 11 Spain             12613634
-#> 12 Vietnam           10739855
-#> 13 Argentina          9341492
-#> 14 Japan              9178003
-#> 15 Netherlands        8247488
-#> 16 Australia          7919844
-#> 17 Iran               7235440
-#> 18 Colombia           6131657
-#> 19 Indonesia          6072918
-#> 20 Poland             6011984
+#>  1 US               101235080
+#>  2 India             44680985
+#>  3 France            39596671
+#>  4 Germany           37509539
+#>  5 Brazil            36477214
+#>  6 Japan             30066519
+#>  7 Korea, South      29473834
+#>  8 Italy             25279682
+#>  9 United Kingdom    24442197
+#> 10 Russia            21512371
+#> 11 Turkey            17042722
+#> 12 Spain             13693478
+#> 13 Vietnam           11525646
+#> 14 Australia         11205520
+#> 15 Argentina          9963697
+#> 16 Taiwan*            9007371
+#> 17 Netherlands        8687106
+#> 18 Iran               7561701
+#> 19 Mexico             7271010
+#> 20 Indonesia          6722746
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2022-06-22):
+2023-01-06):
 
 ``` r
 library(tidyr)
@@ -268,21 +272,21 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 199 × 4
-#> # Groups:   country [199]
-#>    country        confirmed death recovery
-#>    <chr>              <int> <int>    <int>
-#>  1 US                184074   860        0
-#>  2 Germany           119360    98        0
-#>  3 France             78123    66        0
-#>  4 Brazil             71906   140        0
-#>  5 Italy              54873    50        0
-#>  6 Taiwan*            52218   171        0
-#>  7 United Kingdom     33406    77        0
-#>  8 Australia          32034    52        0
-#>  9 Japan              17263    15        0
-#> 10 Portugal           15372    21        0
-#> # … with 189 more rows
+#> # A tibble: 201 × 4
+#> # Groups:   country [201]
+#>    country      confirmed death recovery
+#>    <chr>            <int> <int>    <int>
+#>  1 Japan           245542   456        0
+#>  2 Italy           135977   775        0
+#>  3 US               62137   344        0
+#>  4 Brazil           54076   368        0
+#>  5 Korea, South     53608    60        0
+#>  6 Taiwan*          27672    62        0
+#>  7 China            19722    55        0
+#>  8 Australia        14949    19        0
+#>  9 Germany          13169   170        0
+#> 10 Mexico           13094    57        0
+#> # … with 191 more rows
 ```
 
 Plotting daily confirmed and death cases in Brazil:
