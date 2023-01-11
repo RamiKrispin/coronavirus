@@ -7,24 +7,21 @@
 \format{
 A data frame with 8 variables.
 \describe{
-  \item{country_region}{Country or region name}
   \item{date}{Data collection date in YYYY-MM-DD format}
+  \item{country_region}{Country or region name}
+  \item{continent_name}{Continent name}
+  \item{continent_code}{Continent code}
+  \item{combined_key}{Country and province (if applicable)}
   \item{doses_admin}{Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently}
-  \item{people_partially_vaccinated}{Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice}
-  \item{people_fully_vaccinated}{Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated}
-  \item{report_date_string}{Data report date in YYYY-MM-DD format}
+  \item{people_at_least_one_dose}{Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice}
+  \item{population}{Country or province population}
   \item{uid}{Country code}
-  \item{province_state}{Province or state if applicable}
   \item{iso2}{Officially assigned country code identifiers with two-letter}
   \item{iso3}{Officially assigned country code identifiers with three-letter}
   \item{code3}{UN country code}
   \item{fips}{Federal Information Processing Standards code that uniquely identifies counties within the USA}
   \item{lat}{Latitude}
   \item{long}{Longitude}
-  \item{combined_key}{Country and province (if applicable)}
-  \item{population}{Country or province population}
-  \item{continent_name}{Continent name}
-  \item{continent_code}{Continent code}
 
   }
 }
