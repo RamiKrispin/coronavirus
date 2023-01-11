@@ -40,7 +40,6 @@ jobs:
           ref: 'master'
       - name: Refresh the data
         run: bash ./data_raw/data_refresh.sh "master"
-    jobs:
   data_refresh_main:
     name: coronavirus dataset refresh main
     runs-on: ubuntu-18.04
