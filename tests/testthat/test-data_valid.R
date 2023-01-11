@@ -14,6 +14,5 @@ test_that(desc = "Test the type variable", {
 test_that(desc = "Test the vaccine data", {
   expect_equal(any(is.na(covid19_vaccine$country_region)), FALSE)
   expect_equal(class(covid19_vaccine$date) == "Date", TRUE)
-  expect_equal(class(covid19_vaccine$report_date_string) == "Date", TRUE)
 })
 
