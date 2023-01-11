@@ -1,0 +1,29 @@
+{
+    "name": "coronavirus",
+    "image": "rkrispin/coronavirus:dev.0.3.34",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "quarto.quarto",
+                "ms-azuretools.vscode-docker",
+                "ms-toolsai.jupyter",
+                "bierner.markdown-mermaid",
+                "ms-python.python",
+                "rdebugger.r-debugger",
+                "ms-vscode-remote.remote-containers",
+                "yzhang.markdown-all-in-one",
+                "reditorsupport.r",
+                "redhat.vscode-yaml",
+                "REditorSupport.r",
+                "REditorSupport.r-lsp", 
+                "RDebugger.r-debugger",
+                "purocean.drawio-preview",
+                "aykutsarac.jsoncrack-vscode",
+                "ritwickdey.liveserver"
+            ]
+        }
+    },
+    "remoteEnv": {
+        "DISABLE_AUTH": "true"
+    }
+}
