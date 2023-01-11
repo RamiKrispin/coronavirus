@@ -40,3 +40,16 @@ jobs:
           ref: 'master'
       - name: Refresh the data
         run: bash ./data_raw/data_refresh.sh "master"
+    jobs:
+  data_refresh_main:
+    name: coronavirus dataset refresh main
+    runs-on: ubuntu-18.04
+    container:
+     image: rkrispin/coronavirus:dev.0.3.34
+    steps:
+      - name: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'main'
+      - name: Refresh the data
+        run: bash ./data_raw/data_refresh.sh "main"
