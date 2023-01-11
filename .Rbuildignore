@@ -24,3 +24,4 @@
 ^_pkgdown.yml$
 ^covid19_env$
 ^CRAN-SUBMISSION$
+^.devcontainer$
