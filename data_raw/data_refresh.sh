@@ -2,10 +2,13 @@
 
 echo "Updating the total dataset"
 
- Rscript -e "source('./data_raw/data_refresh.R');
-             rmarkdown::render(input = './data_pipelines/covid19_cases.Rmd', knit_root_dir = '.', output_dir = './docs/data_pipelines');
-             rmarkdown::render(input = './data_pipelines/vaccine_data.Rmd', knit_root_dir = '.', output_dir = './docs/data_pipelines');"
-
+quarto render ./data_pipelines/covid19_cases.qmd --to html  
+mv ./data_pipelines/covid19_cases.html ./docs/data_pipelines/covid19_cases.html
+mv ./data_pipelines/covid19_cases_files/*.* ./docs/data_pipelines/covid19_cases_files/
+quarto render ./data_pipelines/vaccine_data.qmd --to html 
+mv ./data_pipelines/vaccine_data.html ./docs/data_pipelines/vaccine_data.html
+mv ./data_pipelines/vaccine_data_files/*.* ./docs/data_pipelines/vaccine_data_files/
+ 
 if [[ "$(git status --porcelain)" != "" ]]; then
     git config --global user.name 'RamiKrispin'
     git config --global user.email 'ramkrisp@umich.edu'

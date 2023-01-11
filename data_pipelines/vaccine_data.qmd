@@ -76,11 +76,11 @@ covid19_vaccine <- covid19_vaccine_temp <-  NULL
     covid19_vaccine_temp <- readr::read_csv(file = url,
                                        col_types = readr::cols(
   Date = readr::col_date(format = ""),
-  UID = readr::col_double(),
-  Province_State = readr::col_logical(),
+  UID = readr::col_number(),
+  Province_State = readr::col_character(),
   Country_Region = readr::col_character(),
-  Doses_admin = readr::col_double(),
-  People_at_least_one_dose = readr::col_double()
+  Doses_admin = readr::col_integer(),
+  People_at_least_one_dose = readr::col_number()
 )) |>
       as.data.frame(),
     error = function(c) base::message(c)
@@ -153,7 +153,11 @@ covid19_vaccine <- covid19_vaccine_temp |> dplyr::left_join(gis_code_mapping |> 
   dplyr::select(-admin2) |>
   dplyr::mutate(iso2 = ifelse(country_region == "Namibia", "NA", iso2)) |>
   dplyr::left_join(continent_mapping |> dplyr::select(-country_name),
-                   by = c("uid", "iso2", "iso3"))
+                   by = c("uid", "iso2", "iso3")) |>
+  dplyr::select(date, country_region, continent_name,
+                continent_code, combined_key, doses_admin,
+                people_at_least_one_dose, population, uid, 
+                iso2, iso3, code3, fips, lat, long)
 
 tbl_info(covid19_vaccine)
 ```

@@ -152,6 +152,9 @@ if(is.null(death_df) || !is.data.frame(death_df) || nrow(death_df) == 0){
 ```{r rec_cases}
 rec_df <- parse_url(url = rec_url, type = "recovery")
 
+# Setting the first day with no recovery cases reported as zero
+rec_df$cases <- ifelse(rec_df$date == as.Date("2021-08-05"), 0, rec_df$cases)
+
 if(is.null(rec_df) || !is.data.frame(rec_df) || nrow(rec_df) == 0){
   s <- FALSE
 } else{
