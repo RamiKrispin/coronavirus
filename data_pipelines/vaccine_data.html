@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Rami Krispin">
+<meta name="dcterms.date" content="2023-01-12">
+
+<title>Vaccine Dataset Data Pipeline</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="vaccine_data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="vaccine_data_files/libs/quarto-html/quarto.js"></script>
+<script src="vaccine_data_files/libs/quarto-html/popper.min.js"></script>
+<script src="vaccine_data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="vaccine_data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="vaccine_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="vaccine_data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="vaccine_data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="vaccine_data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="vaccine_data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="vaccine_data_files/libs/core-js-2.5.3/shim.min.js"></script>
+<script src="vaccine_data_files/libs/react-17.0.0/react.min.js"></script>
+<script src="vaccine_data_files/libs/react-17.0.0/react-dom.min.js"></script>
+<script src="vaccine_data_files/libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="vaccine_data_files/libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<link href="vaccine_data_files/libs/reactable-0.4.3/reactable.css" rel="stylesheet">
+<script src="vaccine_data_files/libs/reactable-binding-0.4.3/reactable.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#functions" id="toc-functions" class="nav-link active" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#pulling-raw-data" id="toc-pulling-raw-data" class="nav-link" data-scroll-target="#pulling-raw-data">Pulling raw data</a></li>
+  <li><a href="#merge-with-gis-codes" id="toc-merge-with-gis-codes" class="nav-link" data-scroll-target="#merge-with-gis-codes">Merge with GIS codes</a></li>
+  <li><a href="#data-validation" id="toc-data-validation" class="nav-link" data-scroll-target="#data-validation">Data validation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Vaccine Dataset Data Pipeline</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Rami Krispin </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 12, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This is the <a href="https://github.com/RamiKrispin/coronavirus">coronavirus</a> R package data pipeline.</p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the table information</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tbl_info <span class="ot">&lt;-</span> <span class="cf">function</span>(input){</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  obj.name <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">deparse</span>(base<span class="sc">::</span><span class="fu">substitute</span>(input))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  input <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(input)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  dup <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">duplicated</span>(input))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cols_name =</span> <span class="fu">names</span>(input),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cols_class =</span> <span class="fu">lapply</span>(input, class) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cols_NAs =</span> <span class="fu">lapply</span>(<span class="fu">names</span>(input), <span class="cf">function</span>(i){<span class="fu">sum</span>(<span class="fu">is.na</span>(input[, i]))}) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cols_min =</span> <span class="fu">lapply</span>(<span class="fu">names</span>(input), <span class="cf">function</span>(i){<span class="cf">if</span>(<span class="fu">is.numeric</span>(input[, i])){</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">min</span>(input[, i], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                   } <span class="cf">else</span> {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                     <span class="cn">NA</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                   }}) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cols_max =</span> <span class="fu">lapply</span>(<span class="fu">names</span>(input), <span class="cf">function</span>(i){<span class="cf">if</span>(<span class="fu">is.numeric</span>(input[, i])){</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">max</span>(input[, i], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                   } <span class="cf">else</span> {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                     <span class="cn">NA</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                   }}) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cols_unique =</span> <span class="fu">lapply</span>(<span class="fu">names</span>(input), <span class="cf">function</span>(i){<span class="fu">length</span>(<span class="fu">unique</span>(input[, i]))}) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(df) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> htmltools<span class="sc">::</span><span class="fu">div</span>(<span class="at">class =</span> <span class="st">"tbl-info"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                      htmltools<span class="sc">::</span><span class="fu">div</span>(<span class="at">class =</span> <span class="st">"tbl-info"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                                     htmltools<span class="sc">::</span><span class="fu">h4</span>(<span class="at">class =</span> <span class="st">"tbl-info"</span>, </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                                                   <span class="fu">paste</span>(<span class="st">"Table Info - "</span>, obj.name)),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">paste</span>(<span class="st">"Number of  columns:"</span>, <span class="fu">ncol</span>(input)),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                                     htmltools<span class="sc">::</span><span class="fu">br</span>(),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">paste</span>(<span class="st">"Number of  rows:"</span>, <span class="fu">nrow</span>(input)),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                                     htmltools<span class="sc">::</span><span class="fu">br</span>(),</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">paste</span>(<span class="st">"Duplicated rows:"</span>, dup)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                      reactable<span class="sc">::</span><span class="fu">reactable</span>(df, <span class="at">defaultPageSize =</span> <span class="fu">nrow</span>(df)))</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(t)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="parameters" class="level3">
+<h3 class="anchored" data-anchor-id="parameters">Parameters</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_global.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>branch <span class="ot">&lt;-</span> <span class="fu">system</span>(<span class="at">command =</span> <span class="st">"git rev-parse --abbrev-ref HEAD"</span>, <span class="at">intern =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pulling-raw-data" class="level3">
+<h3 class="anchored" data-anchor-id="pulling-raw-data">Pulling raw data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covid19_vaccine <span class="ot">&lt;-</span> covid19_vaccine_temp <span class="ot">&lt;-</span>  <span class="cn">NULL</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    covid19_vaccine_temp <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="at">file =</span> url,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">col_types =</span> readr<span class="sc">::</span><span class="fu">cols</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Date =</span> readr<span class="sc">::</span><span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">""</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">UID =</span> readr<span class="sc">::</span><span class="fu">col_number</span>(),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Province_State =</span> readr<span class="sc">::</span><span class="fu">col_character</span>(),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Country_Region =</span> readr<span class="sc">::</span><span class="fu">col_character</span>(),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Doses_admin =</span> readr<span class="sc">::</span><span class="fu">col_integer</span>(),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">People_at_least_one_dose =</span> readr<span class="sc">::</span><span class="fu">col_number</span>()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>(),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> <span class="cf">function</span>(c) base<span class="sc">::</span><span class="fu">message</span>(c)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(covid19_vaccine_temp)){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Could not pull the covid19_vaccine_temp dataset, check the error"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">nrow</span>(covid19_vaccine_temp) <span class="sc">&lt;</span> <span class="dv">132000</span> <span class="sc">||</span> <span class="fu">ncol</span>(covid19_vaccine_temp) <span class="sc">!=</span> <span class="dv">6</span>){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"The dimensions of the covid19_vaccine_temp dataset are invalid"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">class</span>(covid19_vaccine_temp<span class="sc">$</span>Date) <span class="sc">!=</span> <span class="st">"Date"</span>){</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"The class of the Date column is invalid"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">names</span>(covid19_vaccine_temp) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(covid19_vaccine_temp))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">tbl_info</span>(covid19_vaccine_temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tbl-info">
+<div class="tbl-info">
+<h4 class="tbl-info anchored">Table Info -  covid19_vaccine_temp</h4>
+Number of  columns: 6
+<br>
+Number of  rows: 132952
+<br>
+Duplicated rows: 0
+</div>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7ef2b6b857ce6231ca62" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7ef2b6b857ce6231ca62">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","uid","province_state","country_region","doses_admin","people_at_least_one_dose"],"cols_class":["Date","numeric","character","character","integer","numeric"],"cols_NAs":[0,743,132952,0,1232,0],"cols_min":["NA",4,"NA","NA",0,0],"cols_max":["NA",894,"NA","NA",2145936972,5504340812],"cols_unique":[743,195,1,195,53798,51784]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":6,"dataKey":"6c3cd0f211e5938568c72c1c3d50ba1d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</section>
+<section id="merge-with-gis-codes" class="level3">
+<h3 class="anchored" data-anchor-id="merge-with-gis-codes">Merge with GIS codes</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data_raw/gis_mapping.RData"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing duplicated iso codes for countries that located in two continents</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Azerbaijan -&gt; Asia</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"AZ"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"AZE"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Europe"</span>),] </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Armenia -&gt; Asia</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"AM"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"ARM"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Europe"</span>),] </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Cyprus -&gt; Europe</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"CY"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"CYP"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Asia"</span>),] </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Georgia -&gt; Asia</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"GE"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"GEO"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Europe"</span>),] </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Kazakhstan -&gt; Asia</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"KZ"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"KAZ"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Europe"</span>),] </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#United States Minor Outlying Islands -&gt; Oceania</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"UM"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"UMI"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"North America"</span>),] </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Russian Federation -&gt; Europe</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"RU"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"RUS"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Asia"</span>),] </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Turkey -&gt; Asia</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>continent_mapping <span class="ot">&lt;-</span> continent_mapping[<span class="sc">-</span> <span class="fu">which</span>(continent_mapping<span class="sc">$</span>iso2 <span class="sc">==</span> <span class="st">"TR"</span> <span class="sc">&amp;</span> </span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>iso3 <span class="sc">==</span> <span class="st">"TUR"</span> <span class="sc">&amp;</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>                                                 continent_mapping<span class="sc">$</span>continent_name <span class="sc">==</span> <span class="st">"Europe"</span>),] </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>covid19_vaccine_temp<span class="sc">$</span>uid <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(covid19_vaccine_temp<span class="sc">$</span>country_region <span class="sc">==</span> <span class="st">"Taiwan*"</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(covid19_vaccine_temp<span class="sc">$</span>uid),</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>                                   <span class="dv">158</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>                                   covid19_vaccine_temp<span class="sc">$</span>uid)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>covid19_vaccine <span class="ot">&lt;-</span> covid19_vaccine_temp <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(gis_code_mapping <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span> country_region, <span class="sc">-</span> province_state),</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>                                                             <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"uid"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>admin2) <span class="sc">|&gt;</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">iso2 =</span> <span class="fu">ifelse</span>(country_region <span class="sc">==</span> <span class="st">"Namibia"</span>, <span class="st">"NA"</span>, iso2)) <span class="sc">|&gt;</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(continent_mapping <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>country_name),</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"uid"</span>, <span class="st">"iso2"</span>, <span class="st">"iso3"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(date, country_region, continent_name,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>                continent_code, combined_key, doses_admin,</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>                people_at_least_one_dose, population, uid, </span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>                iso2, iso3, code3, fips, lat, long)</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_info</span>(covid19_vaccine)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tbl-info">
+<div class="tbl-info">
+<h4 class="tbl-info anchored">Table Info -  covid19_vaccine</h4>
+Number of  columns: 15
+<br>
+Number of  rows: 132952
+<br>
+Duplicated rows: 0
+</div>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-61b1fb8b7c42f69a5cde" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-61b1fb8b7c42f69a5cde">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","country_region","continent_name","continent_code","combined_key","doses_admin","people_at_least_one_dose","population","uid","iso2","iso3","code3","fips","lat","long"],"cols_class":["Date","character","character","character","character","integer","numeric","numeric","numeric","character","character","numeric","character","numeric","numeric"],"cols_NAs":[0,0,3962,3962,2638,1232,0,2638,743,2638,2638,2638,132952,2638,2638],"cols_min":["NA","NA","NA","NA","NA",0,0,18008,4,"NA","NA",4,"NA",-40.9006,-172.1046],"cols_max":["NA","NA","NA","NA","NA",2145936972,5504340812,1404676330,894,"NA","NA",894,"NA",64.9631,178.065],"cols_unique":[743,195,7,7,192,53798,51784,192,195,192,192,191,1,192,192]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":15,"dataKey":"8128fd18098446fbe85d9df057516bef"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</section>
+<section id="data-validation" class="level3">
+<h3 class="anchored" data-anchor-id="data-validation">Data validation</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if there are duplication in the US data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> covid19_vaccine <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(iso2 <span class="sc">==</span> <span class="st">"US"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">table</span>(<span class="fu">duplicated</span>(x[, <span class="fu">c</span>( <span class="st">"date"</span>)]))) <span class="sc">&amp;&amp;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">all</span>(<span class="fu">c</span>(<span class="st">"US"</span>, <span class="st">"US (Aggregate)"</span>) <span class="sc">%in%</span> <span class="fu">unique</span>(x<span class="sc">$</span>country_region))){</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    covid19_vaccine <span class="ot">&lt;-</span> covid19_vaccine <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(country_region <span class="sc">!=</span> <span class="st">"US (Aggregate)"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">sprintf</span>(<span class="st">"../data_pipelines/log_%s.RData"</span>, branch))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  time     dataset  nrows  last_date update success backfile
+12 2023-01-11 02:39:46 coronavirus 923568 2023-01-09  FALSE    TRUE    FALSE
+13 2023-01-11 02:45:52 coronavirus 923568 2023-01-09  FALSE    TRUE    FALSE
+14 2023-01-11 02:58:03 coronavirus 923568 2023-01-09  FALSE    TRUE    FALSE
+15 2023-01-12 10:03:47 coronavirus 925272 2023-01-11   TRUE    TRUE    FALSE
+16 2023-01-12 10:09:09 coronavirus 925272 2023-01-11  FALSE    TRUE    FALSE
+17 2023-01-12 10:15:47 coronavirus 925272 2023-01-11  FALSE    TRUE    FALSE
+   branch
+12   main
+13   main
+14   main
+15   main
+16   main
+17   main</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>log_last <span class="ot">&lt;-</span> log <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(update <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> success <span class="sc">==</span> <span class="cn">TRUE</span>, dataset <span class="sc">==</span> <span class="st">"covid19_vaccine"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(time <span class="sc">==</span> <span class="fu">max</span>(time))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">nrow</span>(covid19_vaccine) <span class="sc">&gt;</span> log_last<span class="sc">$</span>nrows ){</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Updating the vaccine data..."</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    usethis<span class="sc">::</span><span class="fu">use_data</span>(covid19_vaccine, <span class="at">overwrite =</span> <span class="cn">TRUE</span>, <span class="at">compress =</span> <span class="st">"xz"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(covid19_vaccine, <span class="st">"../csv/covid19_vaccine.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    log <span class="ot">&lt;-</span> <span class="fu">rbind</span>(log, <span class="fu">data.frame</span>(<span class="at">time =</span> <span class="fu">Sys.time</span>(),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dataset =</span> <span class="st">"covid19_vaccine"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nrows =</span> <span class="fu">nrow</span>(covid19_vaccine),</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">last_date =</span> <span class="fu">max</span>(covid19_vaccine<span class="sc">$</span>date),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">update =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                    <span class="at">success =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">backfile =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">branch =</span> branch,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(log, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">"../data_pipelines/log_%s.RData"</span>, branch))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        log <span class="ot">&lt;-</span> <span class="fu">rbind</span>(log, <span class="fu">data.frame</span>(<span class="at">time =</span> <span class="fu">Sys.time</span>(),</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dataset =</span> <span class="st">"covid19_vaccine"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nrows =</span> <span class="fu">nrow</span>(covid19_vaccine),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">last_date =</span> <span class="fu">max</span>(covid19_vaccine<span class="sc">$</span>date),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                    <span class="at">update =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">success =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                    <span class="at">backfile =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                    <span class="at">branch =</span> branch,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(log, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">"../data_pipelines/log_%s.RData"</span>, branch))</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"No updates available..."</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Updating the vaccine data...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Setting active project to '/workspaces/coronavirus'
+✔ Saving 'covid19_vaccine' to 'data/covid19_vaccine.rda'
+• Document your data (see 'https://r-pkgs.org/data.html')</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
