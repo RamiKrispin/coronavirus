@@ -17,24 +17,23 @@ knitr::opts_chunk$set(
 
 The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
 
--   `country_region` - Country or region name
 -   `date` - Data collection date in YYYY-MM-DD format
+- `country_region` - Country or region name
+- `continent_name` - Continent name
+- `continent_code` - Continent code
+- `combined_key` - Country and province (if applicable)
+- 
+
 -   `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
--   `people_partially_vaccinated` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
--   `people_fully_vaccinated` - Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated
--   `report_date_string` - Data report date in YYYY-MM-DD format
+-   `people_at_least_one_dose` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
+-   `population` - Country or province population
 -   `uid` - Country code
--   `province_state` - Province or state if applicable
 -   `iso2` - Officially assigned country code identifiers with two-letter
 -   `iso3` - Officially assigned country code identifiers with three-letter
 -   `code3` - UN country code
 -   `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
 -   `lat` - Latitude
 -   `long` - Longitude
--   `combined_key` - Country and province (if applicable)
--   `population` - Country or province population
--   `continent_name` - Continent name
--   `continent_code` - Continent code
 
 Data sources:
 
@@ -64,12 +63,12 @@ df <- covid19_vaccine %>%
          !is.na(population)) 
 ```
 
-Next, we will calculate the ratio of the fully vaccinated people out of the total population:
+Next, we will calculate the ratio of people with at least one dose out of the total population:
 
 ```{r}
 df <- df %>% 
-  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
-  arrange(- fully_vaccinated_ratio)
+  mutate(vaccinated_ratio = people_at_least_one_dose / population) %>%
+  arrange(- vaccinated_ratio)
 
 head(df, 10)
 ```
@@ -81,17 +80,17 @@ library(plotly)
 
 top_20 <- df %>% 
   slice_head(n = 20) %>%
-  arrange(fully_vaccinated_ratio) %>%
+  arrange(people_at_least_one_dose) %>%
   mutate(country = factor(country_region, levels = country_region))
   
 plot_ly(data = top_20,
         y = ~ country,
-        x = ~ round(100 * fully_vaccinated_ratio, 2),
-        text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
+        x = ~ round(100 * people_at_least_one_dose, 2),
+        text = ~ paste(round(100 * people_at_least_one_dose, 1), "%"),
         textposition = 'auto',
         orientation = "h",
         type = "bar") %>%
-  layout(title = "Proportion of Fully Vaccineted Population - Top 20 Countries",
+  layout(title = "Proportion of Population with at Least On Dose- Top 20 Countries",
          yaxis = list(title = ""),
          xaxis = list(title = "Percentage", ticksuffix = "%"))
 
