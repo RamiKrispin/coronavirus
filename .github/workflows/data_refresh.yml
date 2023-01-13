@@ -13,6 +13,6 @@ jobs:
       - name: checkout_repo
         uses: actions/checkout@v2
         with:
-          ref: 'staging'
+          ref: 'main'
       - name: Refresh the data
         run: bash ./data_raw/data_refresh.sh "main"
