@@ -15,15 +15,48 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+This vignette provides an overview to the `covid19_vaccine` dataset. 
+
+**Note:** Before getting started, please note for the following:
+
+- It may be challenging to make a comparison between countries as the count method of number of doses may vary from country to country. 
+- In addition, the doses summary includes multiple types of vaccines, and there is no information if the doses is a single or multiple doses series. 
+- Last but not least, the author of this vignette does not have any domain knowledge in pharma, this is purely exploratory analysis of data
+
+Data sources:
+
+-   Vaccine data - <https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data>
+-   Country/province codes and population - <https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv>
+-   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/country-and-continent-codes-list>
+
+
+## Load the data
+
+Let's start by loading the packages we will use in this vignette:
+
+```{r}
+library(coronavirus)
+library(dplyr)
+library(plotly)
+```
+
+We load the dataset from the **coronavirus** package, and use the **dplyr** and **plotly** packages to manipulate and plot the data. Let's load the data:
+
+```{r}
+data("covid19_vaccine")
+
+head(covid19_vaccine)
+```
+
+
 The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
 
--   `date` - Data collection date in YYYY-MM-DD format
+- `date` - Data collection date in YYYY-MM-DD format
 - `country_region` - Country or region name
 - `continent_name` - Continent name
 - `continent_code` - Continent code
 - `combined_key` - Country and province (if applicable)
-- 
-
 -   `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
 -   `people_at_least_one_dose` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
 -   `population` - Country or province population
@@ -35,21 +68,273 @@ The `covid19_vaccine` dataset provides time-series data on the vaccination progr
 -   `lat` - Latitude
 -   `long` - Longitude
 
-Data sources:
-
--   Vaccine data - <https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data>
--   Country/province codes and population - <https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv>
--   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/country-and-continent-codes-list>
 
 **Note:** The country / province code fields (e.g., `ios2`, `ios3`, etc.) and population were merged with the raw data
 
-```{r }
-library(coronavirus)
 
-data("covid19_vaccine")
+### Refresh the data
 
-head(covid19_vaccine)
+While the data in the package is up-to-date with the last date the package was updated on CRAN. That been said, the data is refershed on a daily bases and get update on the package [repository](https://github.com/RamiKrispin/coronavirus), typically there is a one day delay. There are couple of methods to pull the most recent data:
+
+- Use the `update_dataset` which will re-install the package from the package repository. Please see the  vignette for more details 
+- Pull the data directly from the [CSV](https://github.com/RamiKrispin/coronavirus/blob/main/csv/covid19_vaccine.csv) file on the repository:
+
+```{r}
+library(readr)
+
+vaccine_df <- read_csv(file = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/covid19_vaccine.csv",
+                       col_types = cols(
+                         date = col_date(format = ""),
+                         country_region = col_character(),
+                         continent_name = col_character(),
+                         continent_code = col_character(),
+                         combined_key = col_character(),
+                         doses_admin = col_number(),
+                         people_at_least_one_dose = col_number(),
+                         population = col_number(),
+                         uid = col_number(),
+                         iso2 = col_character(),
+                         iso3 = col_character(),
+                         code3 = col_number(),
+                         fips = col_logical(),
+                         lat = col_number(),
+                         long = col_number()
+                       )) 
+
+# Fixing the continent code field - changing NA to "NA" for North America
+vaccine_df$continent_code <- ifelse(is.na(vaccine_df$continent_code) & vaccine_df$continent_name == "North America", "NA", vaccine_df$continent_code)
+
+head(vaccine_df)
 ```
+
+
+The plan in the next version is to add similar function to the `refresh_coronavirus_jhu` function to pull the vaccine dataset.
+
+## Analysing the vaccine dataset
+
+The dataset includes two cumulative counts of the number of vaccine doses received - `doses_admin` and `people_at_least_one_dose`. The main difference between the two - the last, `people_at_least_one_dose`, count vaccine required multiple doses per person as one (if the person received the two, otherwise count as one). The first count, `doses_admin`, count each separately. So, for example, if you received the Pfizer or Moderna vaccine, here are it will be count:
+
+- If the person complete the two doses the `people_at_least_one_dose` will count it as one dose and the `doses_admin` will count it as two
+- Similarly, if the person received only the first out of two doses and skip the second it will be count in both variables as one
+
+We can make the assumption that the last case is rare and therefore, the `people_at_least_one_dose` could be a good proxy for people that are fully vaccinated. Let's see the differences between the two by using the US vaccine data:
+
+
+```{r}
+covid19_vaccine |> 
+  filter(country_region == "US") |>
+  select(date, doses_admin, total = people_at_least_one_dose) |>
+  arrange(date) |>
+  plot_ly() |>
+  add_lines(x = ~ date,
+            y = ~ doses_admin,
+            name = "All Doses") |>
+  add_lines(x = ~ date,
+            y = ~ total,
+            name = "Doses Sets") |>
+  layout(title = "US Cumulative Number of Doses by Type",
+         legend = list(x = 0.05, y = 0.95),
+         margin = list(l = 50, r = 50, b = 50, t = 90),
+         yaxis = list(title = "Number of Doses"),
+         xaxis = list(title = ""))
+
+```
+
+
+Here are some thoughts about to leverage this dataset:
+
+- While it is not fully accurate, as mentioned above, the `people_at_least_one_dose` could provides a good proxy for the total number of people that are fully vaccinate. - We can leverage the `doses_admin` column to calculate some stats about the total number of doses provided in a given period or overall. 
+- Combining the vaccine and cases datasets together could provide some insights about the vaccine adoption and effective.
+
+### Country level summary
+
+Before going back and diving into the US data, let's summarize the data by country. Since the data is cumulative, let's take a snapshot of the most recent date in the data and calculate the ratio between the total number doses and the size of population:
+
+```{r}
+max(covid19_cases$date)
+
+df_summary <- covid19_vaccine |>
+  filter(date == max(date)) |>
+  select(date, country_region, doses_admin, total = people_at_least_one_dose, population, continent_name) |>
+  mutate(doses_pop_ratio = doses_admin / population,
+         total_pop_ratio = total / population) |>
+  arrange(- total)
+
+head(df_summary, 10)
+
+```
+
+
+It would be interesting to see if the ratio between the number of overall doses received and the size of population. Let's filter missing values and plot the ratio:
+
+
+```{r}
+df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) |>
+  plot_ly(x = ~ population,
+          y = ~ total,
+          text = ~ paste("Country: ", country_region, "<br>",
+                         "Population: ", population, "<br>",
+                         "Total Doses: ", total, "<br>",
+                         "Ratio: ", round(total_pop_ratio, 2), 
+                         sep = ""),
+          type = "scatter",
+          mode = "markers") |>
+  layout(title = "Total Doses vs. Population",
+         margin = list(l = 50, r = 50, b = 60, t = 70),
+         yaxis = list(title = "Number of Doses"),
+         xaxis = list(title = "Population Size"))
+```
+
+As can see, China and India skewing the plot, we can re-scale the plot with log transformation of the number of doses and population size using the Plotly's built-in log transformation. Let's also color by continent and add diagonal lines to represents the 1 to 1 relationship the median and first  quartile:
+
+```{r}
+per_line_start <- 10000
+d <- df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) 
+plot_ly() |>
+  add_markers(x = d$population,
+              y = d$total,
+              text = ~ paste("Country: ", d$country_region, "<br>",
+                             "Population: ", d$population, "<br>",
+                             "Total Doses: ", d$total, "<br>",
+                             "Ratio: ", round(d$total_pop_ratio, 2), 
+                             sep = ""),
+              color = d$continent_name,
+              type = "scatter",
+              mode = "markers") |>
+  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
+            y = c(per_line_start, 1400 * 10 ^ 6),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
+            y = c(0.5 * per_line_start, 0.5 * 1400 * 10 ^ 6),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  
+  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
+            y = c(0.25 * per_line_start, 0.25 * 1400 * 10 ^ 6),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  layout(title = "Total Doses vs. Population (Log Scale)",
+         margin = list(l = 50, r = 50, b = 60, t = 70),
+         yaxis = list(title = "Number of Doses",
+                      type = "log"),
+         xaxis = list(title = "Population Size",
+                      type = "log"),
+         legend = list(x = 0.05, y = 0.95))
+```
+
+
+
+```{r}
+library(dplyr)
+library(plotly)
+
+
+df_summary <- covid19_vaccine |>
+  filter(date == max(date)) |>
+  select(date, country_region, doses_admin, total = people_at_least_one_dose, population) |>
+  mutate(doses_pop_ratio = doses_admin / population,
+         total_pop_ratio = total / population) |>
+  arrange(- total)
+
+head(df_summary, 21)
+
+
+
+top_20 <- total |> 
+  filter(country_region != "World") |>
+  arrange(- total) |>
+  head(20)
+
+
+total |> 
+  filter(country_region != "World", 
+         !is.na(population)) |>
+  plot_ly(x = ~ log(population),
+          y = ~ log(total))
+```
+
+
+
+
+
+```{r}
+us_vaccine <- covid19_vaccine |> 
+  filter(country_region == "US") |>
+  select(date, doses_admin, total = people_at_least_one_dose) |>
+  arrange(date) 
+
+plot_ly(us_vaccine) |>
+  add_lines(x = ~ date,
+            y = ~ doses_admin) |>
+  add_lines(x = ~ date,
+            y = ~ total) 
+```
+
+
+
+
+```{r}
+
+
+us_vaccine <- us_vaccine |>
+  mutate(total_lag1 = lag(total, 1),
+         daily = total - total_lag1)
+
+
+plot_ly(us_vaccine) |>
+  add_lines(x = ~ date,
+            y = ~ daily) 
+
+
+us_vaccine$daily <- ifelse(us_vaccine$daily < 0, 0, us_vaccine$daily)
+```
+
+
+
+
+
+
+```{r}
+
+covid19_cases <- refresh_coronavirus_jhu()
+
+head(covid19_cases)
+
+us_cases <- covid19_cases |>
+  filter(location == "US",
+         data_type == "cases_new") |>
+  select(date, cases = value)
+
+
+head(us_cases)
+```
+
+
+
+```{r}
+df <- us_cases |> 
+  left_join(us_vaccine, by = "date") |>
+  select(date, daily_vaccine = daily, daily_cases = cases) |>
+  arrange(date)
+head(df)
+
+
+plot_ly(df) |>
+  add_lines(x = ~ date,
+            y = ~ daily_cases) |>
+  add_lines(x = ~ date,
+            y = ~ daily_vaccine)
+```
+
+The `doses_admin` column provides the cu
+
 
 ### Proportion of vaccinated population
 
@@ -79,14 +364,15 @@ We can plot the top 20 vaccinated countries:
 library(plotly)
 
 top_20 <- df %>% 
+  filter(population > 10000000) |>
   slice_head(n = 20) %>%
-  arrange(people_at_least_one_dose) %>%
+  arrange(vaccinated_ratio) %>%
   mutate(country = factor(country_region, levels = country_region))
-  
+
 plot_ly(data = top_20,
         y = ~ country,
-        x = ~ round(100 * people_at_least_one_dose, 2),
-        text = ~ paste(round(100 * people_at_least_one_dose, 1), "%"),
+        x = ~ round(100 * vaccinated_ratio, 2),
+        text = ~ paste(round(100 * vaccinated_ratio, 1), "%"),
         textposition = 'auto',
         orientation = "h",
         type = "bar") %>%
@@ -119,12 +405,12 @@ for(i in unique(continent_df$continent_name)){
     mutate(country = factor(country_region, levels = country_region))
   
   p[[i]] <-  plot_ly(data = d,
-          y = ~ country,
-          x = ~ round(100 * fully_vaccinated_ratio, 2),
-          orientation = "h",
-          showlegend = FALSE,
-          name = i,
-          type = "bar") %>%
+                     y = ~ country,
+                     x = ~ round(100 * fully_vaccinated_ratio, 2),
+                     orientation = "h",
+                     showlegend = FALSE,
+                     name = i,
+                     type = "bar") %>%
     layout(title = "Percentage of Fully Vaccineted Population by Continent and Country",
            yaxis = list(title = ""),
            xaxis = list(title = "", ticksuffix = "%")) %>%
@@ -141,7 +427,7 @@ for(i in unique(continent_df$continent_name)){
 
 
 subplot(p, nrows = 3, shareX = TRUE, margin = 0.06)
-  
+
 ```
 
 ### Comparing between new cases and vaccination
@@ -168,8 +454,8 @@ us_cases <- coronavirus %>%
       select(date, people_fully_vaccinated),
     by = "date")
 
- tail(us_cases)
-    
+tail(us_cases)
+
 ```
 
 As you can see in the table above, the daily number of cases and the aggregate number of fully vaccinated people are not on the same scale. Therefore, we will normalize the two series between 0 and 1:
