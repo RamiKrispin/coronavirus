@@ -148,6 +148,8 @@ covid19_vaccine_temp$uid <- ifelse(covid19_vaccine_temp$country_region == "Taiwa
                                    158,
                                    covid19_vaccine_temp$uid)
 
+
+
 covid19_vaccine <- covid19_vaccine_temp |> dplyr::left_join(gis_code_mapping |> dplyr::select(- country_region, - province_state),
                                                              by = c("uid")) |>
   dplyr::select(-admin2) |>
@@ -158,6 +160,28 @@ covid19_vaccine <- covid19_vaccine_temp |> dplyr::left_join(gis_code_mapping |> 
                 continent_code, combined_key, doses_admin,
                 people_at_least_one_dose, population, uid, 
                 iso2, iso3, code3, fips, lat, long)
+
+
+table(is.na(covid19_vaccine$continent_name))
+
+x <- covid19_vaccine[which(is.na(covid19_vaccine$continent_name)), ]
+unique(x$country_region)
+# Fixing missing values - continent
+covid19_vaccine$continent_code <- ifelse(covid19_vaccine$country_region == "Nauru" | covid19_vaccine$country_region == "Tonga" | covid19_vaccine$country_region == "Tuvalu", "OC", covid19_vaccine$continent_code)
+
+covid19_vaccine$continent_name <- ifelse(covid19_vaccine$country_region == "Nauru" | covid19_vaccine$country_region == "Tonga" | covid19_vaccine$country_region == "Tuvalu", "Oceania", covid19_vaccine$continent_name)
+
+
+covid19_vaccine$continent_code <- ifelse(covid19_vaccine$country_region == "Sudan", "AF", covid19_vaccine$continent_code)
+
+covid19_vaccine$continent_name <- ifelse(covid19_vaccine$country_region == "Sudan", "Africa", covid19_vaccine$continent_name)
+
+
+covid19_vaccine$continent_code <- ifelse(covid19_vaccine$country_region == "Kosovo", "EU", covid19_vaccine$continent_code)
+
+covid19_vaccine$continent_name <- ifelse(covid19_vaccine$country_region == "Kosovo", "Europe", covid19_vaccine$continent_name)
+
+
 
 tbl_info(covid19_vaccine)
 ```
