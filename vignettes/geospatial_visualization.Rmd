@@ -77,8 +77,7 @@ head(map)
 
 df <- map %>% left_join(
    covid19_vaccine %>%
-    filter(date == max(date),
-           is.na(province_state)) %>%
+    filter(date == max(date)) %>%
     mutate(perc = round(100 * people_fully_vaccinated / population, 2)) %>%
     select(country_region, iso2, iso3, people_fully_vaccinated, perc, continent_name),
     by = c("iso2", "iso3")

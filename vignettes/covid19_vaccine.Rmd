@@ -320,8 +320,6 @@ One thing to notice from the plot above - since Nov 2022 the data is getting upd
 
 
 ```{r}
-
-
 us_vaccine$daily_doses <- ifelse(us_vaccine$daily_doses < 0, 0, us_vaccine$daily_doses)
 
 plot_ly(us_vaccine) |>
@@ -335,10 +333,7 @@ plot_ly(us_vaccine) |>
 
 ```
 
-
-
-
-
+We can now add the Covid19 cases by loading the dataset using the `refresh_coronavirus_jhu` function, filter it (to US) and merge it with the `us_vaccine` dataset we created above:
 
 ```{r}
 
@@ -358,9 +353,9 @@ head(us_cases)
 
 
 ```{r}
-df <- us_cases |> 
-  left_join(us_vaccine, by = "date") |>
-  select(date, daily_vaccine = daily, daily_cases = cases) |>
+df <- us_vaccine |> 
+  left_join(us_cases, by = "date") |>
+  select(date, daily_doses, daily_cases = cases) |>
   arrange(date)
 head(df)
 
@@ -369,163 +364,6 @@ plot_ly(df) |>
   add_lines(x = ~ date,
             y = ~ daily_cases) |>
   add_lines(x = ~ date,
-            y = ~ daily_vaccine)
+            y = ~ daily_doses)
 ```
 
-The `doses_admin` column provides the cu
-
-
-### Proportion of vaccinated population
-
-We can measure the proportion of the vaccinated group out of the total population using the `people_fully_vaccinated` and `population` fields. We will start by filtering the data by the latest date and removing observations without population data (province-level):
-
-```{r}
-library(dplyr)
-
-df <- covid19_vaccine %>% 
-  filter(date == max(date),
-         !is.na(population)) 
-```
-
-Next, we will calculate the ratio of people with at least one dose out of the total population:
-
-```{r}
-df <- df %>% 
-  mutate(vaccinated_ratio = people_at_least_one_dose / population) %>%
-  arrange(- vaccinated_ratio)
-
-head(df, 10)
-```
-
-We can plot the top 20 vaccinated countries:
-
-```{r fig.height=6, fig.width=6}
-library(plotly)
-
-top_20 <- df %>% 
-  filter(population > 10000000) |>
-  slice_head(n = 20) %>%
-  arrange(vaccinated_ratio) %>%
-  mutate(country = factor(country_region, levels = country_region))
-
-plot_ly(data = top_20,
-        y = ~ country,
-        x = ~ round(100 * vaccinated_ratio, 2),
-        text = ~ paste(round(100 * vaccinated_ratio, 1), "%"),
-        textposition = 'auto',
-        orientation = "h",
-        type = "bar") %>%
-  layout(title = "Proportion of Population with at Least On Dose- Top 20 Countries",
-         yaxis = list(title = ""),
-         xaxis = list(title = "Percentage", ticksuffix = "%"))
-
-```
-
-### Continent View
-
-Similarly, we can filter and plot the percentage of vaccinated people by continent, using the `continent_name` field:
-
-```{r fig.height=10, fig.width=11}
-
-continent_df <- df %>%
-  filter(!is.na(continent_name),
-         !is.na(fully_vaccinated_ratio))
-
-table(continent_df$continent_name)
-
-p <- list()
-
-for(i in unique(continent_df$continent_name)){
-  d <- NULL
-  
-  d <- continent_df %>% 
-    filter(continent_name == i) %>% 
-    arrange(fully_vaccinated_ratio) %>%
-    mutate(country = factor(country_region, levels = country_region))
-  
-  p[[i]] <-  plot_ly(data = d,
-                     y = ~ country,
-                     x = ~ round(100 * fully_vaccinated_ratio, 2),
-                     orientation = "h",
-                     showlegend = FALSE,
-                     name = i,
-                     type = "bar") %>%
-    layout(title = "Percentage of Fully Vaccineted Population by Continent and Country",
-           yaxis = list(title = ""),
-           xaxis = list(title = "", ticksuffix = "%")) %>%
-    add_annotations(text = i,
-                    xref = "paper",
-                    yref = "paper",
-                    x = 0.5,
-                    y = 0.1,
-                    align = "right",
-                    showarrow = FALSE)
-  
-  
-}
-
-
-subplot(p, nrows = 3, shareX = TRUE, margin = 0.06)
-
-```
-
-### Comparing between new cases and vaccination
-
-We can compare the changes in the daily new cases and the cumulative number of fully vaccinated on the country level by merging the `coronavirus` and `covid19_vaccine` datasets.
-
-**Note:** At this point, the `coronavirus` dataset does not have the `ios` country codes. Therefore, a merge between the two datasets may require some manual effort for adjusting the country codes.
-
-In the following example, we will plot the daily number of cases and the total number of fully vaccinated people in the US. We will filter the datasets by country and merge them by date:
-
-```{r}
-
-data("coronavirus")
-
-
-us_cases <- coronavirus %>% 
-  filter(country == "US", 
-         type == "confirmed") %>%
-  arrange(date) %>%
-  select(date, cases) %>%
-  left_join(
-    covid19_vaccine %>% 
-      filter(country_region == "US") %>%
-      select(date, people_fully_vaccinated),
-    by = "date")
-
-tail(us_cases)
-
-```
-
-As you can see in the table above, the daily number of cases and the aggregate number of fully vaccinated people are not on the same scale. Therefore, we will normalize the two series between 0 and 1:
-
-```{r}
-
-us_cases <- us_cases %>%
-  mutate(cases_normalized = (cases - min(cases)) / (max(cases) - min(cases)),
-         people_fully_vaccinated_normilized = (people_fully_vaccinated - min(people_fully_vaccinated, na.rm = TRUE)) / 
-           (max(people_fully_vaccinated, na.rm = TRUE) - 
-              min(people_fully_vaccinated, na.rm = TRUE)))
-
-tail(us_cases)
-
-```
-
-Let's plot the two normalized series together:
-
-```{r}
-plot_ly(data = us_cases,
-        x = ~ date,
-        y = ~ cases_normalized,
-        type = "scatter",
-        mode = "line",
-        name = "Daily Cases (Normalized)") %>%
-  add_lines(x = ~ date,
-            y = ~ people_fully_vaccinated_normilized,
-            name = "Fully Vaccinated - Aggregate (Normalized)") %>%
-  layout(title = "US - Daily New Cases vs. Total Vaccinated Population (Normalized)",
-         legend = list(orientation = 'h'),
-         yaxis = list(title = "Normalized Daily Cases/Total Vaccinated"),
-         xaxis = list(title = ""),
-         margin = list(b = 60))
-```

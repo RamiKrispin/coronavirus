@@ -12,14 +12,14 @@ using  CSV, DataFrames, Chain, PlotlyJS
 
 Pkg.status()
 
-# Loading the data 
-url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"
+# Loading the data
+url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_2023.csv"
 file = CSV.File(download(url), missingstring= "NA")
 
 df = DataFrame(file)
 df
 
-describe(df) 
+describe(df)
 
 @chain df begin
     filter(:type => ==("confirmed"),_)
@@ -40,9 +40,9 @@ df_brazil_confirmed = filter(row -> row.country == "Brazil" && row.type == "conf
 df_brazil_death = filter(row -> row.country == "Brazil" && row.type == "death", df)
 
 
-p = make_subplots(rows=2, 
-                  cols=1, 
-                  shared_xaxes=true, 
+p = make_subplots(rows=2,
+                  cols=1,
+                  shared_xaxes=true,
                   x_title = "Source: Johns Hopkins University Center for Systems Science and Engineering",
                   vertical_spacing=0.02)
 
