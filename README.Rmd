@@ -21,7 +21,7 @@ library(coronavirus)
 
 <!-- badges: start ---> 
 [![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
-[![Data Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
+[![Data Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=main)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -305,56 +305,179 @@ data(covid19_vaccine)
 head(covid19_vaccine)
 ```
 
-Plot the top 20 vaccinated countries:
+Taking a snapshot of the data from the most recent date available and calculate the ratio between total doses admin and the population size:
 
+```{r}
+df_summary <- covid19_vaccine |>
+  filter(date == max(date)) |>
+  select(date, country_region, doses_admin, total = people_at_least_one_dose, population, continent_name) |>
+  mutate(doses_pop_ratio = doses_admin / population,
+         total_pop_ratio = total / population) |>
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) |>
+  arrange(- total)
+
+head(df_summary, 10)
+```
+
+Plot of the total doses and population ratio by country:
 ```r
-covid19_vaccine %>% 
-  filter(date == max(date),
-         !is.na(population)) %>% 
-  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
-  arrange(- fully_vaccinated_ratio) %>%
-  slice_head(n = 20) %>%
-  arrange(fully_vaccinated_ratio) %>%
-  mutate(country = factor(country_region, levels = country_region)) %>%
-  plot_ly(y = ~ country,
-          x = ~ round(100 * fully_vaccinated_ratio, 2),
-          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
-          textposition = 'auto',
-          orientation = "h",
-          type = "bar") %>%
-  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
-         yaxis = list(title = ""),
-         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
-                      ticksuffix = "%"))
+# Setting the diagonal lines range
+line_start <- 10000
+line_end <- 1500 * 10 ^ 6
+
+# Filter the data
+d <- df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) 
+
+
+# Replot it
+p3 <- plot_ly() |>
+  add_markers(x = d$population,
+              y = d$total,
+              text = ~ paste("Country: ", d$country_region, "<br>",
+                             "Population: ", d$population, "<br>",
+                             "Total Doses: ", d$total, "<br>",
+                             "Ratio: ", round(d$total_pop_ratio, 2), 
+                             sep = ""),
+              color = d$continent_name,
+              type = "scatter",
+              mode = "markers") |>
+  add_lines(x = c(line_start, line_end),
+            y = c(line_start, line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_lines(x = c(line_start, line_end),
+            y = c(0.5 * line_start, 0.5 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  
+  add_lines(x = c(line_start, line_end),
+            y = c(0.25 * line_start, 0.25 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_annotations(text = "1:1",
+                  x = log10(line_end * 1.25),
+                  y = log10(line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:2",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.5 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:4",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.25 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "Source: Johns Hopkins University - Centers for Civic Impact",
+                  showarrow = FALSE,
+                  xref = "paper",
+                  yref = "paper",
+                  x = -0.05, y = - 0.33) |>
+  layout(title = "Covid19 Vaccine - Total Doses vs. Population Ratio (Log Scale)",
+         margin = list(l = 50, r = 50, b = 90, t = 70),
+         yaxis = list(title = "Number of Doses",
+                      type = "log"),
+         xaxis = list(title = "Population Size",
+                      type = "log"),
+         legend = list(x = 0.75, y = 0.05))
 
 
 ```
 
 ```{r include=FALSE}
-p3 <- covid19_vaccine %>% 
-  filter(date == max(date),
-         !is.na(population)) %>% 
-  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
-  arrange(- fully_vaccinated_ratio) %>%
-  slice_head(n = 20) %>%
-  arrange(fully_vaccinated_ratio) %>%
-  mutate(country = factor(country_region, levels = country_region)) %>%
-  plot_ly(y = ~ country,
-          x = ~ round(100 * fully_vaccinated_ratio, 2),
-          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
-          textposition = 'auto',
-          orientation = "h",
-          type = "bar") %>%
-  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
-         yaxis = list(title = ""),
-         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
-                      ticksuffix = "%"))
+# Setting the diagonal lines range
+line_start <- 10000
+line_end <- 1500 * 10 ^ 6
 
-orca(p3, "man/figures/top20_countries.svg")
+# Filter the data
+d <- df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) 
+
+
+# Replot it
+p3 <- plot_ly() |>
+  add_markers(x = d$population,
+              y = d$total,
+              text = ~ paste("Country: ", d$country_region, "<br>",
+                             "Population: ", d$population, "<br>",
+                             "Total Doses: ", d$total, "<br>",
+                             "Ratio: ", round(d$total_pop_ratio, 2), 
+                             sep = ""),
+              color = d$continent_name,
+              type = "scatter",
+              mode = "markers") |>
+  add_lines(x = c(line_start, line_end),
+            y = c(line_start, line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_lines(x = c(line_start, line_end),
+            y = c(0.5 * line_start, 0.5 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  
+  add_lines(x = c(line_start, line_end),
+            y = c(0.25 * line_start, 0.25 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_annotations(text = "1:1",
+                  x = log10(line_end * 1.25),
+                  y = log10(line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:2",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.5 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:4",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.25 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "Source: Johns Hopkins University - Centers for Civic Impact",
+                  showarrow = FALSE,
+                  xref = "paper",
+                  yref = "paper",
+                  x = -0.05, y = - 0.33) |>
+  layout(title = "Covid19 Vaccine - Total Doses vs. Population Ratio (Log Scale)",
+         margin = list(l = 50, r = 50, b = 90, t = 70),
+         yaxis = list(title = "Number of Doses",
+                      type = "log"),
+         xaxis = list(title = "Population Size",
+                      type = "log"),
+         legend = list(x = 0.75, y = 0.05))
+
+orca(p3, "man/figures/country_summary.svg")
 
 ```
 
-<img src="man/figures/top20_countries.svg" width="100%" />
+<img src="man/figures/country_summary.svg" width="100%" />
 
 
 ## Dashboard

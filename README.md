@@ -7,7 +7,7 @@
 
 [![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
 [![Data
-Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
+Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=main)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
@@ -184,19 +184,19 @@ covid19_df <- refresh_coronavirus_jhu()
 #> [4;32mLoading 2023 data[0m
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2021-04-03 Afghanistan       country            AF         iso_3166_2
-#> 2 2021-04-04 Afghanistan       country            AF         iso_3166_2
-#> 3 2020-03-12 Afghanistan       country            AF         iso_3166_2
-#> 4 2022-01-20 Afghanistan       country            AF         iso_3166_2
-#> 5 2021-04-02 Afghanistan       country            AF         iso_3166_2
-#> 6 2022-03-31 Afghanistan       country            AF         iso_3166_2
-#>       data_type value      lat     long
-#> 1    deaths_new     1 33.93911 67.70995
-#> 2    deaths_new     1 33.93911 67.70995
-#> 3 recovered_new     0 33.93911 67.70995
-#> 4    deaths_new     0 33.93911 67.70995
-#> 5    deaths_new     6 33.93911 67.70995
-#> 6 recovered_new     0 33.93911 67.70995
+#> 1 2021-08-05 Afghanistan       country            AF         iso_3166_2
+#> 2 2021-01-01 Afghanistan       country            AF         iso_3166_2
+#> 3 2022-06-22 Afghanistan       country            AF         iso_3166_2
+#> 4 2022-06-25 Afghanistan       country            AF         iso_3166_2
+#> 5 2021-01-05 Afghanistan       country            AF         iso_3166_2
+#> 6 2021-01-03 Afghanistan       country            AF         iso_3166_2
+#>    data_type value      lat     long
+#> 1 deaths_new    28 33.93911 67.70995
+#> 2  cases_new   183 33.93911 67.70995
+#> 3  cases_new   104 33.93911 67.70995
+#> 4  cases_new    39 33.93911 67.70995
+#> 5  cases_new   102 33.93911 67.70995
+#> 6  cases_new   123 33.93911 67.70995
 ```
 
 ## Usage
@@ -235,31 +235,31 @@ summary_df <- coronavirus %>%
 summary_df %>% head(20) 
 #> # A tibble: 20 × 2
 #>    country        total_cases
-#>    <chr>                <int>
-#>  1 US               101235080
-#>  2 India             44680985
-#>  3 France            39596671
-#>  4 Germany           37509539
-#>  5 Brazil            36477214
-#>  6 Japan             30066519
-#>  7 Korea, South      29473834
-#>  8 Italy             25279682
-#>  9 United Kingdom    24442197
-#> 10 Russia            21512371
+#>    <chr>                <dbl>
+#>  1 US               101648826
+#>  2 India             44682378
+#>  3 France            39646833
+#>  4 Germany           37605135
+#>  5 Brazil            36628099
+#>  6 Japan             31438775
+#>  7 Korea, South      29821035
+#>  8 Italy             25363742
+#>  9 United Kingdom    24475895
+#> 10 Russia            21548111
 #> 11 Turkey            17042722
-#> 12 Spain             13693478
-#> 13 Vietnam           11525646
-#> 14 Australia         11205520
-#> 15 Argentina          9963697
-#> 16 Taiwan*            9007371
-#> 17 Netherlands        8687106
-#> 18 Iran               7561701
-#> 19 Mexico             7271010
-#> 20 Indonesia          6722746
+#> 12 Spain             13711251
+#> 13 Vietnam           11526140
+#> 14 Australia         11247412
+#> 15 Argentina         10004679
+#> 16 Taiwan*            9209474
+#> 17 Netherlands        8690420
+#> 18 Iran               7562610
+#> 19 Mexico             7314891
+#> 20 Indonesia          6726086
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2023-01-06):
+2023-01-15):
 
 ``` r
 library(tidyr)
@@ -275,17 +275,17 @@ coronavirus %>%
 #> # A tibble: 201 × 4
 #> # Groups:   country [201]
 #>    country      confirmed death recovery
-#>    <chr>            <int> <int>    <int>
-#>  1 Japan           245542   456        0
-#>  2 Italy           135977   775        0
-#>  3 US               62137   344        0
-#>  4 Brazil           54076   368        0
-#>  5 Korea, South     53608    60        0
-#>  6 Taiwan*          27672    62        0
-#>  7 China            19722    55        0
-#>  8 Australia        14949    19        0
-#>  9 Germany          13169   170        0
-#> 10 Mexico           13094    57        0
+#>    <chr>            <dbl> <dbl>    <dbl>
+#>  1 Japan           108281   415        0
+#>  2 Taiwan*          21267    31        0
+#>  3 New Zealand      19181    44        0
+#>  4 Korea, South     14144    35        0
+#>  5 China             6261    66        0
+#>  6 Mexico            5737    85        0
+#>  7 Russia            4736    41        0
+#>  8 Brazil            3537     2        0
+#>  9 US                2718     0        0
+#> 10 Chile             2577    13        0
 #> # … with 191 more rows
 ```
 
@@ -351,54 +351,147 @@ conf_df <- coronavirus %>%
 data(covid19_vaccine)
 
 head(covid19_vaccine)
-#>   country_region       date doses_admin people_partially_vaccinated
-#> 1         Canada 2020-12-14           5                           0
-#> 2          World 2020-12-14           5                           0
-#> 3         Canada 2020-12-15         723                           0
-#> 4          China 2020-12-15     1500000                           0
-#> 5         Russia 2020-12-15       28500                       28500
-#> 6          World 2020-12-15     1529223                       28500
-#>   people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3
-#> 1                       0         2020-12-14 124           <NA>   CA  CAN   124
-#> 2                       0         2020-12-14  NA           <NA> <NA> <NA>    NA
-#> 3                       0         2020-12-15 124           <NA>   CA  CAN   124
-#> 4                       0         2020-12-15 156           <NA>   CN  CHN   156
-#> 5                       0         2020-12-15 643           <NA>   RU  RUS   643
-#> 6                       0         2020-12-15  NA           <NA> <NA> <NA>    NA
-#>   fips      lat     long combined_key population continent_name continent_code
-#> 1 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
-#> 2 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
-#> 3 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
-#> 4 <NA> 35.86170 104.1954        China 1404676330           Asia             AS
-#> 5 <NA> 61.52401 105.3188       Russia  145934460         Europe             EU
-#> 6 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
+#>         date country_region continent_name continent_code combined_key
+#> 1 2020-12-29        Austria         Europe             EU      Austria
+#> 2 2020-12-29        Bahrain           Asia             AS      Bahrain
+#> 3 2020-12-29        Belarus         Europe             EU      Belarus
+#> 4 2020-12-29        Belgium         Europe             EU      Belgium
+#> 5 2020-12-29         Canada  North America             NA       Canada
+#> 6 2020-12-29          Chile  South America             SA        Chile
+#>   doses_admin people_at_least_one_dose population uid iso2 iso3 code3 fips
+#> 1        2123                     2123    9006400  40   AT  AUT    40 <NA>
+#> 2       55014                    55014    1701583  48   BH  BHR    48 <NA>
+#> 3           0                        0    9449321 112   BY  BLR   112 <NA>
+#> 4         340                      340   11589616  56   BE  BEL    56 <NA>
+#> 5       59079                    59078   37855702 124   CA  CAN   124 <NA>
+#> 6           0                        0   19116209 152   CL  CHL   152 <NA>
+#>        lat       long
+#> 1  47.5162  14.550100
+#> 2  26.0275  50.550000
+#> 3  53.7098  27.953400
+#> 4  50.8333   4.469936
+#> 5  60.0000 -95.000000
+#> 6 -35.6751 -71.543000
 ```
 
-Plot the top 20 vaccinated countries:
+Taking a snapshot of the data from the most recent date available and
+calculate the ratio between total doses admin and the population size:
 
 ``` r
-covid19_vaccine %>% 
-  filter(date == max(date),
-         !is.na(population)) %>% 
-  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
-  arrange(- fully_vaccinated_ratio) %>%
-  slice_head(n = 20) %>%
-  arrange(fully_vaccinated_ratio) %>%
-  mutate(country = factor(country_region, levels = country_region)) %>%
-  plot_ly(y = ~ country,
-          x = ~ round(100 * fully_vaccinated_ratio, 2),
-          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
-          textposition = 'auto',
-          orientation = "h",
-          type = "bar") %>%
-  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
-         yaxis = list(title = ""),
-         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
-                      ticksuffix = "%"))
+df_summary <- covid19_vaccine |>
+  filter(date == max(date)) |>
+  select(date, country_region, doses_admin, total = people_at_least_one_dose, population, continent_name) |>
+  mutate(doses_pop_ratio = doses_admin / population,
+         total_pop_ratio = total / population) |>
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) |>
+  arrange(- total)
+
+head(df_summary, 10)
+#>          date country_region doses_admin      total population continent_name
+#> 1  2023-01-15          China          NA 1307511577 1404676330           Asia
+#> 2  2023-01-15          India          NA 1027248959 1380004385           Asia
+#> 3  2023-01-15             US   666511603  268556888  329466283  North America
+#> 4  2023-01-15      Indonesia   447461191  204045153  273523621           Asia
+#> 5  2023-01-15         Brazil   498527141  188821957  212559409  South America
+#> 6  2023-01-15       Pakistan   317696373  154665740  220892331           Asia
+#> 7  2023-01-15     Bangladesh   344352422  150472186  164689383           Asia
+#> 8  2023-01-15          Japan   374896390  104590913  126476458           Asia
+#> 9  2023-01-15         Mexico   225063079   99071001  127792286  North America
+#> 10 2023-01-15        Vietnam   265336568   90427458   97338583           Asia
+#>    doses_pop_ratio total_pop_ratio
+#> 1               NA       0.9308277
+#> 2               NA       0.7443809
+#> 3         2.023004       0.8151271
+#> 4         1.635914       0.7459873
+#> 5         2.345354       0.8883256
+#> 6         1.438241       0.7001861
+#> 7         2.090921       0.9136727
+#> 8         2.964159       0.8269595
+#> 9         1.761163       0.7752502
+#> 10        2.725914       0.9289991
+```
+
+Plot of the total doses and population ratio by country:
+
+``` r
+# Setting the diagonal lines range
+line_start <- 10000
+line_end <- 1500 * 10 ^ 6
+
+# Filter the data
+d <- df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) 
+
+
+# Replot it
+p3 <- plot_ly() |>
+  add_markers(x = d$population,
+              y = d$total,
+              text = ~ paste("Country: ", d$country_region, "<br>",
+                             "Population: ", d$population, "<br>",
+                             "Total Doses: ", d$total, "<br>",
+                             "Ratio: ", round(d$total_pop_ratio, 2), 
+                             sep = ""),
+              color = d$continent_name,
+              type = "scatter",
+              mode = "markers") |>
+  add_lines(x = c(line_start, line_end),
+            y = c(line_start, line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_lines(x = c(line_start, line_end),
+            y = c(0.5 * line_start, 0.5 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  
+  add_lines(x = c(line_start, line_end),
+            y = c(0.25 * line_start, 0.25 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_annotations(text = "1:1",
+                  x = log10(line_end * 1.25),
+                  y = log10(line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:2",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.5 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:4",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.25 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "Source: Johns Hopkins University - Centers for Civic Impact",
+                  showarrow = FALSE,
+                  xref = "paper",
+                  yref = "paper",
+                  x = -0.05, y = - 0.33) |>
+  layout(title = "Covid19 Vaccine - Total Doses vs. Population Ratio (Log Scale)",
+         margin = list(l = 50, r = 50, b = 90, t = 70),
+         yaxis = list(title = "Number of Doses",
+                      type = "log"),
+         xaxis = list(title = "Population Size",
+                      type = "log"),
+         legend = list(x = 0.75, y = 0.05))
 
 ```
 
-<img src="man/figures/top20_countries.svg" width="100%" />
+<img src="man/figures/country_summary.svg" width="100%" />
 
 ## Dashboard
 
