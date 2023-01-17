@@ -151,7 +151,7 @@ Here are some thoughts about to leverage this dataset:
 Before going back and diving into the US data, let's summarize the data by country. Since the data is cumulative, let's take a snapshot of the most recent date in the data and calculate the ratio between the total number doses and the size of population:
 
 ```{r}
-max(covid19_cases$date)
+max(covid19_vaccine$date)
 
 df_summary <- covid19_vaccine |>
   filter(date == max(date)) |>
@@ -191,11 +191,19 @@ df_summary |>
 As can see, China and India skewing the plot, we can re-scale the plot with log transformation of the number of doses and population size using the Plotly's built-in log transformation. Let's also color by continent and add diagonal lines to represents the 1 to 1 relationship the median and first  quartile:
 
 ```{r}
-per_line_start <- 10000
+
+# Setting the diagonal lines range
+line_start <- 10000
+line_end <- 1500 * 10 ^ 6
+
+# Filter the data
 d <- df_summary |> 
   filter(country_region != "World", 
          !is.na(population),
          !is.na(total)) 
+
+
+# Replot it
 plot_ly() |>
   add_markers(x = d$population,
               y = d$total,
@@ -207,93 +215,124 @@ plot_ly() |>
               color = d$continent_name,
               type = "scatter",
               mode = "markers") |>
-  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
-            y = c(per_line_start, 1400 * 10 ^ 6),
+  add_lines(x = c(line_start, line_end),
+            y = c(line_start, line_end),
             showlegend = FALSE,
             line = list(color = "gray", width = 0.5)) |>
-  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
-            y = c(0.5 * per_line_start, 0.5 * 1400 * 10 ^ 6),
+  add_lines(x = c(line_start, line_end),
+            y = c(0.5 * line_start, 0.5 * line_end),
             showlegend = FALSE,
             line = list(color = "gray", width = 0.5)) |>
   
-  add_lines(x = c(per_line_start, 1400 * 10 ^ 6),
-            y = c(0.25 * per_line_start, 0.25 * 1400 * 10 ^ 6),
+  add_lines(x = c(line_start, line_end),
+            y = c(0.25 * line_start, 0.25 * line_end),
             showlegend = FALSE,
             line = list(color = "gray", width = 0.5)) |>
-  layout(title = "Total Doses vs. Population (Log Scale)",
-         margin = list(l = 50, r = 50, b = 60, t = 70),
+  add_annotations(text = "1:1",
+                  x = log10(line_end * 1.25),
+                  y = log10(line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:2",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.5 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:4",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.25 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "Source: Johns Hopkins University - Centers for Civic Impact",
+                  showarrow = FALSE,
+                  xref = "paper",
+                  yref = "paper",
+                  x = -0.05, y = - 0.33) |>
+  layout(title = "Covid19 Vaccine - Total Doses vs. Population Ratio (Log Scale)",
+         margin = list(l = 50, r = 50, b = 90, t = 70),
          yaxis = list(title = "Number of Doses",
                       type = "log"),
          xaxis = list(title = "Population Size",
                       type = "log"),
-         legend = list(x = 0.05, y = 0.95))
+         legend = list(x = 0.75, y = 0.05))
 ```
 
+We can use box plot to plot the total doses and population ration distribution by continent:
 
 
 ```{r}
-library(dplyr)
-library(plotly)
-
-
-df_summary <- covid19_vaccine |>
-  filter(date == max(date)) |>
-  select(date, country_region, doses_admin, total = people_at_least_one_dose, population) |>
-  mutate(doses_pop_ratio = doses_admin / population,
-         total_pop_ratio = total / population) |>
-  arrange(- total)
-
-head(df_summary, 21)
-
-
-
-top_20 <- total |> 
-  filter(country_region != "World") |>
-  arrange(- total) |>
-  head(20)
-
-
-total |> 
-  filter(country_region != "World", 
-         !is.na(population)) |>
-  plot_ly(x = ~ log(population),
-          y = ~ log(total))
+plot_ly(d,
+        y = ~ total_pop_ratio,
+        color = ~ continent_name,
+        type = "box", boxpoints = "all", jitter = 0.3,
+        pointpos = -1.8
+        ) |>
+  layout(title = "Distribution of Total Doses Admited vs Population Size Ratio",
+         margin = list(l = 50, r = 50, b = 60, t = 60),
+         yaxis = list(title = "Total Doses/Population Ratio"),
+         xaxis = list(title = "Continent")
+    
+  )
 ```
 
+### Plotting cases with vaccine data
 
-
+Let's now return to the number of doses in the US and plot the daily number of new cases with daily number of vaccine doses received. We will use the `people_at_least_one_dose` column as a proxy for number of people that fully vaccinated. First, let's reformat the data from cumulative to daily by subtracting from the cumulative count its first lag:
 
 
 ```{r}
 us_vaccine <- covid19_vaccine |> 
   filter(country_region == "US") |>
-  select(date, doses_admin, total = people_at_least_one_dose) |>
+  select(date, total_doses = people_at_least_one_dose) |>
+  mutate(total_doses_lag1 = lag(total_doses, 1),
+         daily_doses = total_doses - total_doses_lag1)|>
+  select(date, daily_doses) |>
   arrange(date) 
 
+
+head(us_vaccine)
+
+```
+
+Let's now plot the daily doses:
+
+```{r}
 plot_ly(us_vaccine) |>
   add_lines(x = ~ date,
-            y = ~ doses_admin) |>
-  add_lines(x = ~ date,
-            y = ~ total) 
+            y = ~ daily_doses)  |>
+  layout(title = "US Daily Vaccine Doses Received",
+         margin = list(l = 50, r = 50, b = 60, t = 60),
+         yaxis = list(title = "Total Doses"),
+         xaxis = list(title = ""))
 ```
 
 
+One thing to notice from the plot above - since Nov 2022 the data is getting update once in a week. Therefore, you can notice that the daily count is equal to zero and spiked up every 7 days as results of subtracting the data with its first lag. In addition, there is a negative spike on December 1st, most likely due to some data integrity issue on that day. You can empute the value of this day using some estimation method (average of previous and next week). As it is not in the scope of this vignette, let's for now set it as zero: 
 
 
 ```{r}
 
 
-us_vaccine <- us_vaccine |>
-  mutate(total_lag1 = lag(total, 1),
-         daily = total - total_lag1)
-
+us_vaccine$daily_doses <- ifelse(us_vaccine$daily_doses < 0, 0, us_vaccine$daily_doses)
 
 plot_ly(us_vaccine) |>
   add_lines(x = ~ date,
-            y = ~ daily) 
+            y = ~ daily_doses)  |>
+  layout(title = "US Daily Vaccine Doses Received",
+         margin = list(l = 50, r = 50, b = 60, t = 60),
+         yaxis = list(title = "Total Doses"),
+         xaxis = list(title = ""))
 
 
-us_vaccine$daily <- ifelse(us_vaccine$daily < 0, 0, us_vaccine$daily)
 ```
 
 
