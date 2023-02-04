@@ -276,11 +276,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>conf_df <span class="ot">&lt;-</span> <span class="fu">parse_url</span>(<span class="at">url =</span> conf_url, <span class="at">type =</span> <span class="st">"confirmed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 289 Columns: 1112
+<pre><code>Rows: 289 Columns: 1113
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr    (2): Province/State, Country/Region
-dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
+dbl (1111): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -297,12 +297,12 @@ dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 <h4 class="tbl-info anchored">Table Info -  conf_df</h4>
 Number of  columns: 7
 <br>
-Number of  rows: 320212
+Number of  rows: 320501
 <br>
 Duplicated rows: 0
 </div>
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8fadefe38aed3e93d0da" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8fadefe38aed3e93d0da">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[219384,0,2216,2216,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-349116,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",1354502,"NA"],"cols_unique":[92,201,284,285,1108,19360,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"50af72e168b7b3bf66624675e5cb5596"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-801bd357a415a060b962" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-801bd357a415a060b962">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[219582,0,2218,2218,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-349116,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",1354502,"NA"],"cols_unique":[92,201,284,285,1109,19368,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"556737b704e654a5716317bb0a7d09de"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -312,11 +312,11 @@ Duplicated rows: 0
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>death_df <span class="ot">&lt;-</span> <span class="fu">parse_url</span>(<span class="at">url =</span> death_url, <span class="at">type =</span> <span class="st">"death"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 289 Columns: 1112
+<pre><code>Rows: 289 Columns: 1113
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr    (2): Province/State, Country/Region
-dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
+dbl (1111): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -333,12 +333,12 @@ dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 <h4 class="tbl-info anchored">Table Info -  death_df</h4>
 Number of  columns: 7
 <br>
-Number of  rows: 320212
+Number of  rows: 320501
 <br>
 Duplicated rows: 0
 </div>
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cf662886731d00a3c56b" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cf662886731d00a3c56b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[219384,0,2216,2216,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-1918,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",59895,"NA"],"cols_unique":[92,201,284,285,1108,1766,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"7f1ffa4199e340388c94144b964df6e8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cde8aa370229ddab7dc9" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cde8aa370229ddab7dc9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","integer","character"],"cols_NAs":[219582,0,2218,2218,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-1918,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",59895,"NA"],"cols_unique":[92,201,284,285,1109,1766,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"6827c96bdde1cb648d42b0b645ab1ca4"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -348,11 +348,11 @@ Duplicated rows: 0
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rec_df <span class="ot">&lt;-</span> <span class="fu">parse_url</span>(<span class="at">url =</span> rec_url, <span class="at">type =</span> <span class="st">"recovery"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 274 Columns: 1112
+<pre><code>Rows: 274 Columns: 1113
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr    (2): Province/State, Country/Region
-dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
+dbl (1111): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -372,12 +372,12 @@ dbl (1110): Lat, Long, 1/22/20, 1/23/20, 1/24/20, 1/25/20, 1/26/20, 1/27/20,...
 <h4 class="tbl-info anchored">Table Info -  rec_df</h4>
 Number of  columns: 7
 <br>
-Number of  rows: 303592
+Number of  rows: 303866
 <br>
 Duplicated rows: 0
 </div>
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d73d38c95e84193a9234" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d73d38c95e84193a9234">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","numeric","character"],"cols_NAs":[220492,0,1108,1108,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-6298082,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",1123456,"NA"],"cols_unique":[76,201,273,273,1108,8954,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"24c986049fa2eacb709369e93a86496a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-043760af6b089682bdf6" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-043760af6b089682bdf6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["Province.State","Country.Region","Lat","Long","date","cases","type"],"cols_class":["character","character","numeric","numeric","Date","numeric","character"],"cols_NAs":[220691,0,1109,1109,0,0,0],"cols_min":["NA","NA",-71.9499,-178.1165,"NA",-6298082,"NA"],"cols_max":["NA","NA",71.7069,178.065,"NA",1123456,"NA"],"cols_unique":[76,201,273,273,1109,8954,1]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"d8d7c264eae21ce77cc8ff35efe4b590"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -397,12 +397,12 @@ Duplicated rows: 0
 <h4 class="tbl-info anchored">Table Info -  coronavirus_temp</h4>
 Number of  columns: 7
 <br>
-Number of  rows: 944016
+Number of  rows: 944868
 <br>
 Duplicated rows: 0
 </div>
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2955e051f04e581b6f6c" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2955e051f04e581b6f6c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases"],"cols_class":["Date","character","character","numeric","numeric","character","numeric"],"cols_NAs":[0,659260,0,5540,5540,0,0],"cols_min":["NA","NA","NA",-71.9499,-178.1165,"NA",-6298082],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1354502],"cols_unique":[1108,92,201,289,290,3,21846]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"5bf52bc57e5b17eb48b82f2f3b853543"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7842dbd4aadee8826b99" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7842dbd4aadee8826b99">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases"],"cols_class":["Date","character","character","numeric","numeric","character","numeric"],"cols_NAs":[0,659855,0,5545,5545,0,0],"cols_min":["NA","NA","NA",-71.9499,-178.1165,"NA",-6298082],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1354502],"cols_unique":[1109,92,201,289,290,3,21852]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":7,"dataKey":"96bb2245dd65f18de8857843e4508005"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -476,12 +476,12 @@ Duplicated rows: 0
 <h4 class="tbl-info anchored">Table Info -  coronavirus</h4>
 Number of  columns: 15
 <br>
-Number of  rows: 944016
+Number of  rows: 944868
 <br>
 Duplicated rows: 0
 </div>
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7dafe0bf0e0a14874c10" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7dafe0bf0e0a14874c10">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases","uid","iso2","iso3","code3","combined_key","population","continent_name","continent_code"],"cols_class":["Date","character","character","numeric","numeric","character","numeric","numeric","character","character","numeric","character","numeric","character","character"],"cols_NAs":[0,659260,0,5540,5540,0,0,35456,45428,45428,45428,35456,53184,45428,45428],"cols_min":["NA","NA","NA",-71.9499,-178.1165,"NA",-6298082,4,"NA","NA",4,"NA",809,"NA","NA"],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1354502,15699,"NA","NA",894,"NA",1380004385,"NA","NA"],"cols_unique":[1108,92,201,289,290,3,21846,280,223,223,222,280,274,7,7]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":15,"dataKey":"f0c93190ae6efab45da945987fc0b9e2"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-99e80a6aad11a85bb66e" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-99e80a6aad11a85bb66e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"cols_name":["date","province","country","lat","long","type","cases","uid","iso2","iso3","code3","combined_key","population","continent_name","continent_code"],"cols_class":["Date","character","character","numeric","numeric","character","numeric","numeric","character","character","numeric","character","numeric","character","character"],"cols_NAs":[0,659855,0,5545,5545,0,0,35488,45469,45469,45469,35488,53232,45469,45469],"cols_min":["NA","NA","NA",-71.9499,-178.1165,"NA",-6298082,4,"NA","NA",4,"NA",809,"NA","NA"],"cols_max":["NA","NA","NA",71.7069,178.065,"NA",1354502,15699,"NA","NA",894,"NA",1380004385,"NA","NA"],"cols_unique":[1109,92,201,289,290,3,21852,280,223,223,222,280,274,7,7]},"columns":[{"id":"cols_name","name":"cols_name","type":"character"},{"id":"cols_class","name":"cols_class","type":"character"},{"id":"cols_NAs","name":"cols_NAs","type":"numeric"},{"id":"cols_min","name":"cols_min","type":"numeric"},{"id":"cols_max","name":"cols_max","type":"numeric"},{"id":"cols_unique","name":"cols_unique","type":"numeric"}],"defaultPageSize":15,"dataKey":"a5a113498bd51af1a4de810455b1841a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ Duplicated rows: 0
 <div class="cell-output cell-output-stdout">
 <pre><code>
   2020   2021   2022   2023 
-293940 310980 310980  28116 </code></pre>
+293940 310980 310980  28968 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coronavirus_2020 <span class="ot">&lt;-</span> coronavirus <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
@@ -571,19 +571,19 @@ Duplicated rows: 0
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   time         dataset  nrows  last_date update success
-148 2023-02-03 01:07:47     coronavirus 943164 2023-02-01  FALSE    TRUE
-149 2023-02-03 01:07:59 covid19_vaccine 135611 2023-02-01  FALSE    TRUE
 150 2023-02-03 08:17:23     coronavirus 944016 2023-02-02   TRUE    TRUE
 151 2023-02-03 08:17:41 covid19_vaccine 135611 2023-02-01  FALSE    TRUE
 152 2023-02-03 16:18:23     coronavirus 944016 2023-02-02  FALSE    TRUE
 153 2023-02-03 16:18:35 covid19_vaccine 135806 2023-02-02  FALSE    TRUE
+154 2023-02-04 01:02:14     coronavirus 944016 2023-02-02  FALSE    TRUE
+155 2023-02-04 01:02:23 covid19_vaccine 135806 2023-02-02  FALSE    TRUE
     backfile branch
-148    FALSE   main
-149    FALSE   main
 150    FALSE   main
 151    FALSE   main
 152    FALSE   main
-153    FALSE   main</code></pre>
+153    FALSE   main
+154    FALSE   main
+155    FALSE   main</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>log_last <span class="ot">&lt;-</span> log <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(update <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> success <span class="sc">==</span> <span class="cn">TRUE</span>, dataset <span class="sc">==</span> <span class="st">"coronavirus"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(time <span class="sc">==</span> <span class="fu">max</span>(time))</span>
@@ -633,8 +633,10 @@ Duplicated rows: 0
 <span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span>s){</span>
 <span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(msg, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>No updates available </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Setting active project to '/__w/coronavirus/coronavirus'
+✔ Saving 'coronavirus' to 'data/coronavirus.rda'
+• Document your data (see 'https://r-pkgs.org/data.html')</code></pre>
 </div>
 </div>
 </section>
