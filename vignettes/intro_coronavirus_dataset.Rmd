@@ -18,9 +18,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       comment = "#>")
 ```
 
-### The coronavirus dataset
+## The coronavirus dataset
 
-The `coronavirus` dataset provides a daily summary of the COVID19 cases by geographic location (i.e., country/province). It includes total daily confirmed, death, and recovery^1^ cases. Let’s load the dataset from the **coronavirus** package:
+The `coronavirus` dataset provides a daily summary of COVID-19 cases by geographic location (i.e., country/province). It includes total daily confirmed, death, and recovery^1^ cases. Let’s load the dataset from the **coronavirus** package:
 
 
 ```{r }
@@ -62,9 +62,9 @@ str(coronavirus)
 ^1^ Recovery data is discontinued from Aug 5th, please see the following [issue](https://github.com/RamiKrispin/coronavirus/issues/71) for more details.
 
 
-### Querying and analyzing the coronavirus dataset
+## Querying and analyzing the coronavirus dataset
 
-We will use the **dplyr** and **tidyr** packages to query, transform, reshape, and keep the data tidy, the **plotly** package to plot the data and the **DT** package to view it:
+In the example below, we will use the **dplyr** and **tidyr** packages to query, transform, reshape, and keep the data tidy, the **plotly** package to plot the data, and the **DT** package to view it:
 
 ```{r}
 library(dplyr)
@@ -73,7 +73,7 @@ library(plotly)
 library(DT)
 ```
 
-#### Cases summary
+### Cases summary
 
 Let's start with summarizing the total number of cases by type as of `r max(coronavirus$date)` and then plot it: 
 
@@ -112,6 +112,10 @@ You can use those numbers to derive the current worldwide death rate (percentage
 round(100 * total_cases$cases[2] / total_cases$cases[1], 2)
 ```
 
+### Worldwide aggregation 
+
+Let's group the data by the `date` and case `type` fields and aggregate the total cases (confirmed and death cases) to the worldwide level and plot the two side by side:
+
 ```{r}
 df <- coronavirus %>%
   filter(type != "recovery") %>%
@@ -148,7 +152,7 @@ subplot(p_1, p_2, nrows = 2,
 
 
 
-#### Top effected countries
+### Top effected countries
 
 The next table provides an overview of the ten countries with the highest confirmed cases. We will use the `datatable` function from the **DT** package to view the table:
 
@@ -169,7 +173,7 @@ confirmed_country %>%
 ```
 
 
-The next plot summarize the distribution of confrimed cases by country:
+The next plot summarize the distribution of confirmed cases by country:
 
 ```{r}
 conf_df <- coronavirus %>% 
@@ -190,9 +194,9 @@ conf_df <- coronavirus %>%
           textinfo="label+value+percent parent")
 ```
 
-#### Death rates
+### Death rates
 
-Similarly, we can use the `pivot_wider` function from the **tidyr** package (in addition to the **dplyr** functions we used above) to get an overview of the three types of cases (confirmed, recovered, and death). We then will use it to derive the recovery and death rate by country. As for most of the countries, there is not enough information about the results of the confirmed cases, we will filter the data for countries with at least 25 confirmed cases and above:
+Similarly, we can use the `pivot_wider` function from the **tidyr** package (in addition to the **dplyr** functions we used above) to get an overview of the confirmed and death cases and calculate the death rates:
 
 ```{r}
 coronavirus %>% 
@@ -201,38 +205,8 @@ coronavirus %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(- confirmed) %>%
-  filter(confirmed >= 25) %>%
   mutate(death_rate = death / confirmed)  %>%
   datatable(rownames = FALSE,
             colnames = c("Country", "Confirmed","Death", "Death Rate")) %>%
    formatPercentage("death_rate", 2) 
-```
-
-Note that it will be misleading to make any conclusion about the recovery and death rate. As there is no detail information about:
-
-* There is no measurement between the time a case was confirmed and recovery or death. This is not an apple to apple comparison, as the outbreak did not start at the same time in all the affected countries.
-* As age plays a critical role in the probability of survival from the virus, we cannot make a comparison between different cases without having more demographic information.
-
-#### Diving into China
-
-The following plot describes the overall distribution of the total confirmed cases in China by province:
-
-```{r}
-coronavirus %>% 
-  filter(country == "China",
-         type == "confirmed") %>%
-  group_by(province, type) %>%
-  summarise(total_cases = sum(cases)) %>%  
-  pivot_wider(names_from = type, values_from = total_cases) %>%
-  arrange(- confirmed) %>%
-  plot_ly(labels = ~ province, 
-                  values = ~confirmed, 
-                  type = 'pie',
-                  textposition = 'inside',
-                  textinfo = 'label+percent',
-                  insidetextfont = list(color = '#FFFFFF'),
-                  hoverinfo = 'text',
-                  text = ~ paste(province, "<br />",
-                                 "Number of confirmed cases: ", confirmed, sep = "")) %>%
-  layout(title = "Total China Confirmed Cases Dist. by Province")
 ```

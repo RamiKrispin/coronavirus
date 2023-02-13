@@ -18,20 +18,21 @@ knitr::opts_chunk$set(
 
 This vignette provides an overview to the `covid19_vaccine` dataset. 
 
-**Note:** Before getting started, please note for the following:
+## Data
 
-- It may be challenging to make a comparison between countries as the count method of number of doses may vary from country to country. 
-- In addition, the doses summary includes multiple types of vaccines, and there is no information if the doses is a single or multiple doses series. 
-- Last but not least, the author of this vignette does not have any domain knowledge in pharma, this is purely exploratory analysis of data
+Before getting started, please note the following:
 
-Data sources:
+* It may be challenging to compare countries as each may use different count methods for the given doses.
+* In addition, the dose summary includes multiple types of vaccines, and there is no information if the doses are a single or multiple doses series.
+
+**Data sources:**
 
 -   Vaccine data - <https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data>
 -   Country/province codes and population - <https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv>
 -   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/country-and-continent-codes-list>
 
 
-## Load the data
+### Load the data
 
 Let's start by loading the packages we will use in this vignette:
 
@@ -50,23 +51,23 @@ head(covid19_vaccine)
 ```
 
 
-The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
+The `covid19_vaccine` dataset provides time-series data on the vaccination progress by country or province (if applicable). Likewise, the `coronavirus` dataset, the COVID19 vaccine raw data is collected by Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE). The `covid19_vaccine` data includes the following fields:
 
 - `date` - Data collection date in YYYY-MM-DD format
 - `country_region` - Country or region name
 - `continent_name` - Continent name
 - `continent_code` - Continent code
 - `combined_key` - Country and province (if applicable)
--   `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
--   `people_at_least_one_dose` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
--   `population` - Country or province population
--   `uid` - Country code
--   `iso2` - Officially assigned country code identifiers with two-letter
--   `iso3` - Officially assigned country code identifiers with three-letter
--   `code3` - UN country code
--   `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
--   `lat` - Latitude
--   `long` - Longitude
+- `doses_admin` - Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently
+- `people_at_least_one_dose` - Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice
+- `population` - Country or province population
+- `uid` - Country code
+- `iso2` - Officially assigned country code identifiers with two-letter
+- `iso3` - Officially assigned country code identifiers with three-letter
+- `code3` - UN country code
+- `fips` - Federal Information Processing Standards code that uniquely identifies counties within the USA
+- `lat` - Latitude
+- `long` - Longitude
 
 
 **Note:** The country / province code fields (e.g., `ios2`, `ios3`, etc.) and population were merged with the raw data
@@ -74,9 +75,9 @@ The `covid19_vaccine` dataset provides time-series data on the vaccination progr
 
 ### Refresh the data
 
-While the data in the package is up-to-date with the last date the package was updated on CRAN. That been said, the data is refershed on a daily bases and get update on the package [repository](https://github.com/RamiKrispin/coronavirus), typically there is a one day delay. There are couple of methods to pull the most recent data:
+The data in the package is up-to-date with the last date the package was updated on CRAN. To get the most recent data available on the source (data get updated daily), you can use one of the following methods:
 
-- Use the `update_dataset` which will re-install the package from the package repository. Please see the  vignette for more details 
+- Use the `update_dataset` which will re-install the package from the package [repository](https://github.com/RamiKrispin/coronavirus). Please see the  vignette for more details 
 - Pull the data directly from the [CSV](https://github.com/RamiKrispin/coronavirus/blob/main/csv/covid19_vaccine.csv) file on the repository:
 
 ```{r}
@@ -108,16 +109,21 @@ head(vaccine_df)
 ```
 
 
-The plan in the next version is to add similar function to the `refresh_coronavirus_jhu` function to pull the vaccine dataset.
+The plan, in the next version, is to add a similar function to the `refresh_coronavirus_jhu` function to pull the vaccine dataset.
 
 ## Analysing the vaccine dataset
 
-The dataset includes two cumulative counts of the number of vaccine doses received - `doses_admin` and `people_at_least_one_dose`. The main difference between the two - the last, `people_at_least_one_dose`, count vaccine required multiple doses per person as one (if the person received the two, otherwise count as one). The first count, `doses_admin`, count each separately. So, for example, if you received the Pfizer or Moderna vaccine, here are it will be count:
+The dataset includes two cumulative counts of vaccine doses received: 
 
-- If the person complete the two doses the `people_at_least_one_dose` will count it as one dose and the `doses_admin` will count it as two
-- Similarly, if the person received only the first out of two doses and skip the second it will be count in both variables as one
+- `people_at_least_one_dose` - counts both single and multiple doses of vaccine as one dose
+- `doses_admin` - counts each dose received separately
 
-We can make the assumption that the last case is rare and therefore, the `people_at_least_one_dose` could be a good proxy for people that are fully vaccinated. Let's see the differences between the two by using the US vaccine data:
+So, for example, if a person received a multi doses vaccine such as the Pfizer or Moderna vaccine, here is the count by each method:
+
+- If the person completed the two doses, the `people_at_least_one_dose` will count it as **one** dose, and the `doses_admin` will count it as **two**
+- Similarly, if the person received only the first out of two doses and skipped the second, it will be counted in both variables as **one**
+
+We can assume that the last case is rare; therefore, the `people_at_least_one_dose` could be a good proxy for fully vaccinated people. Let’s see the differences between the two by using the US vaccine data:
 
 
 ```{r}
@@ -128,10 +134,10 @@ covid19_vaccine |>
   plot_ly() |>
   add_lines(x = ~ date,
             y = ~ doses_admin,
-            name = "All Doses") |>
+            name = "Total Doses") |>
   add_lines(x = ~ date,
             y = ~ total,
-            name = "Doses Sets") |>
+            name = "Recevied Vaccine with One/Two Doses") |>
   layout(title = "US Cumulative Number of Doses by Type",
          legend = list(x = 0.05, y = 0.95),
          margin = list(l = 50, r = 50, b = 50, t = 90),
@@ -141,14 +147,15 @@ covid19_vaccine |>
 ```
 
 
-Here are some thoughts about to leverage this dataset:
+Here are some thoughts about how to leverage this dataset:
 
-- While it is not fully accurate, as mentioned above, the `people_at_least_one_dose` could provides a good proxy for the total number of people that are fully vaccinate. - We can leverage the `doses_admin` column to calculate some stats about the total number of doses provided in a given period or overall. 
-- Combining the vaccine and cases datasets together could provide some insights about the vaccine adoption and effective.
+- While it is not entirely accurate, as mentioned above, the `people_at_least_one_dose` could provide a good proxy for the total number of fully vaccinated people 
+- We can leverage the `doses_admin` column to calculate some stats about the total number of doses provided in a given period or overall. 
+- Combining the vaccine and new cases datasets could provide insights into vaccine adoption and effectiveness.
 
 ### Country level summary
 
-Before going back and diving into the US data, let's summarize the data by country. Since the data is cumulative, let's take a snapshot of the most recent date in the data and calculate the ratio between the total number doses and the size of population:
+Before going back and diving into the US data, let's summarize the data by country. Since the data is cumulative, let's take a snapshot of the most recent date in the data and calculate the ratio between the total number of doses and the size of the population:
 
 ```{r}
 max(covid19_vaccine$date)
@@ -165,7 +172,7 @@ head(df_summary, 10)
 ```
 
 
-It would be interesting to see if the ratio between the number of overall doses received and the size of population. Let's filter missing values and plot the ratio:
+It would be interesting to plot the ratio between the number of overall doses received and the size of the population. Let’s filter missing values and plot the ratio:
 
 
 ```{r}
@@ -188,7 +195,7 @@ df_summary |>
          xaxis = list(title = "Population Size"))
 ```
 
-As can see, China and India skewing the plot, we can re-scale the plot with log transformation of the number of doses and population size using the Plotly's built-in log transformation. Let's also color by continent and add diagonal lines to represents the 1 to 1 relationship the median and first  quartile:
+As can see, China and India are skewing the plot. We can re-scale the plot with log transformation of the number of doses and population size using Plotly’s built-in log transformation. Let’s also color by continent and add diagonal lines to represent the 1 to 1 relationship between the median and first quartile:
 
 ```{r}
 
@@ -266,7 +273,7 @@ plot_ly() |>
          legend = list(x = 0.75, y = 0.05))
 ```
 
-We can use box plot to plot the total doses and population ration distribution by continent:
+Another way to represent the data is by using a box plot to plot the total doses and population ration distribution by continent:
 
 
 ```{r}
@@ -284,9 +291,9 @@ plot_ly(d,
   )
 ```
 
-### Plotting cases with vaccine data
+### Plot US cases
 
-Let's now return to the number of doses in the US and plot the daily number of new cases with daily number of vaccine doses received. We will use the `people_at_least_one_dose` column as a proxy for number of people that fully vaccinated. First, let's reformat the data from cumulative to daily by subtracting from the cumulative count its first lag:
+Let's now return to the number of doses in the US and plot the daily number of new cases with the daily number of vaccine doses received. We will use the `people_at_least_one_dose` column as a proxy for the number of people vaccinated. First, let's reformat the data from cumulative to daily by subtracting from the cumulative count its first lag:
 
 
 ```{r}
@@ -316,24 +323,7 @@ plot_ly(us_vaccine) |>
 ```
 
 
-One thing to notice from the plot above - since Nov 2022 the data is getting update once in a week. Therefore, you can notice that the daily count is equal to zero and spiked up every 7 days as results of subtracting the data with its first lag. In addition, there is a negative spike on December 1st, most likely due to some data integrity issue on that day. You can empute the value of this day using some estimation method (average of previous and next week). As it is not in the scope of this vignette, let's for now set it as zero: 
-
-
-```{r}
-us_vaccine$daily_doses <- ifelse(us_vaccine$daily_doses < 0, 0, us_vaccine$daily_doses)
-
-plot_ly(us_vaccine) |>
-  add_lines(x = ~ date,
-            y = ~ daily_doses)  |>
-  layout(title = "US Daily Vaccine Doses Received",
-         margin = list(l = 50, r = 50, b = 60, t = 60),
-         yaxis = list(title = "Total Doses"),
-         xaxis = list(title = ""))
-
-
-```
-
-We can now add the Covid19 cases by loading the dataset using the `refresh_coronavirus_jhu` function, filter it (to US) and merge it with the `us_vaccine` dataset we created above:
+We can now add the Covid19 cases by loading the dataset using the `refresh_coronavirus_jhu` function, filter it (to US), and merge it with the `us_vaccine` dataset we created above:
 
 ```{r}
 
@@ -351,19 +341,28 @@ head(us_cases)
 ```
 
 
+Let's now merge the two datasets and plot them:
 
 ```{r}
 df <- us_vaccine |> 
   left_join(us_cases, by = "date") |>
   select(date, daily_doses, daily_cases = cases) |>
   arrange(date)
+
 head(df)
 
 
 plot_ly(df) |>
   add_lines(x = ~ date,
-            y = ~ daily_cases) |>
+            y = ~ daily_cases,
+            name = "Daily Cases") |>
   add_lines(x = ~ date,
-            y = ~ daily_doses)
+            y = ~ daily_doses,
+            name = "Daily Doses") |>
+  layout(title = "US Daily New Cases vs. Doses of Vaccine",
+         yaxis = list(title = "New Cases/Doses"),
+         xaxis = list(title = ""),
+         legend = list(x = 0.75, y = 0.95),
+         margin = list(l = 50, r = 50, b = 50, t = 90))
 ```
 
