@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.32</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -105,29 +105,32 @@
 
     <div id="format">
     <h2>Format</h2>
-    <p>A data frame with 8 variables.</p><dl><dt>country_region</dt>
+    <p>A data frame with 8 variables.</p><dl><dt>date</dt>
+<dd><p>Data collection date in YYYY-MM-DD format</p></dd>
+
+  <dt>country_region</dt>
 <dd><p>Country or region name</p></dd>
 
-  <dt>date</dt>
-<dd><p>Data collection date in YYYY-MM-DD format</p></dd>
+  <dt>continent_name</dt>
+<dd><p>Continent name</p></dd>
+
+  <dt>continent_code</dt>
+<dd><p>Continent code</p></dd>
+
+  <dt>combined_key</dt>
+<dd><p>Country and province (if applicable)</p></dd>
 
   <dt>doses_admin</dt>
 <dd><p>Cumulative number of doses administered. When a vaccine requires multiple doses, each one is counted independently</p></dd>
 
-  <dt>people_partially_vaccinated</dt>
+  <dt>people_at_least_one_dose</dt>
 <dd><p>Cumulative number of people who received at least one vaccine dose. When the person receives a prescribed second dose, it is not counted twice</p></dd>
 
-  <dt>people_fully_vaccinated</dt>
-<dd><p>Cumulative number of people who received all prescribed doses necessary to be considered fully vaccinated</p></dd>
-
-  <dt>report_date_string</dt>
-<dd><p>Data report date in YYYY-MM-DD format</p></dd>
+  <dt>population</dt>
+<dd><p>Country or province population</p></dd>
 
   <dt>uid</dt>
 <dd><p>Country code</p></dd>
-
-  <dt>province_state</dt>
-<dd><p>Province or state if applicable</p></dd>
 
   <dt>iso2</dt>
 <dd><p>Officially assigned country code identifiers with two-letter</p></dd>
@@ -146,18 +149,6 @@
 
   <dt>long</dt>
 <dd><p>Longitude</p></dd>
-
-  <dt>combined_key</dt>
-<dd><p>Country and province (if applicable)</p></dd>
-
-  <dt>population</dt>
-<dd><p>Country or province population</p></dd>
-
-  <dt>continent_name</dt>
-<dd><p>Continent name</p></dd>
-
-  <dt>continent_code</dt>
-<dd><p>Continent code</p></dd>
 
 
   
@@ -181,27 +172,27 @@ for full data resources.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid19_vaccine</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">covid19_vaccine</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   country_region       date doses_admin people_partially_vaccinated</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Canada 2020-12-14           5                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          World 2020-12-14           5                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         Canada 2020-12-15         723                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          China 2020-12-15     1500000                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         Russia 2020-12-15       28500                       28500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          World 2020-12-15     1529223                       28500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       0         2020-12-14 124           &lt;NA&gt;   CA  CAN   124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       0         2020-12-14  NA           &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       0         2020-12-15 124           &lt;NA&gt;   CA  CAN   124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       0         2020-12-15 156           &lt;NA&gt;   CN  CHN   156</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                       0         2020-12-15 643           &lt;NA&gt;   RU  RUS   643</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       0         2020-12-15  NA           &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fips      lat     long combined_key population continent_name continent_code</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;NA&gt; 60.00000 -95.0000       Canada   37855702  North America             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;NA&gt;       NA       NA         &lt;NA&gt;         NA           &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 &lt;NA&gt; 60.00000 -95.0000       Canada   37855702  North America             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 &lt;NA&gt; 35.86170 104.1954        China 1404676330           Asia             AS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 &lt;NA&gt; 61.52401 105.3188       Russia  145934460         Europe             EU</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 &lt;NA&gt;       NA       NA         &lt;NA&gt;         NA           &lt;NA&gt;           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         date country_region continent_name continent_code combined_key</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2020-12-29        Austria         Europe             EU      Austria</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2020-12-29        Bahrain           Asia             AS      Bahrain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2020-12-29        Belarus         Europe             EU      Belarus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2020-12-29        Belgium         Europe             EU      Belgium</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2020-12-29         Canada  North America             NA       Canada</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2020-12-29          Chile  South America             SA        Chile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   doses_admin people_at_least_one_dose population uid iso2 iso3 code3 fips</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        2123                     2123    9006400  40   AT  AUT    40 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       55014                    55014    1701583  48   BH  BHR    48 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           0                        0    9449321 112   BY  BLR   112 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         340                      340   11589616  56   BE  BEL    56 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       59079                    59078   37855702 124   CA  CAN   124 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          NA                       NA   19116209 152   CL  CHL   152 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        lat       long</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  47.5162  14.550100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  26.0275  50.550000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  53.7098  27.953400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  50.8333   4.469936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  60.0000 -95.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -35.6751 -71.543000</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

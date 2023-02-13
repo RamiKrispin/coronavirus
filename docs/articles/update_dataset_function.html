@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.32</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -172,22 +172,22 @@
 <p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">coronavirus_df</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## spec_tbl_df [742,560 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span>
-<span class="co">##  $ date          : Date[1:742560], format: "2020-01-22" "2020-01-23" ...</span>
-<span class="co">##  $ province      : chr [1:742560] "Alberta" "Alberta" "Alberta" "Alberta" ...</span>
-<span class="co">##  $ country       : chr [1:742560] "Canada" "Canada" "Canada" "Canada" ...</span>
-<span class="co">##  $ lat           : num [1:742560] 53.9 53.9 53.9 53.9 53.9 ...</span>
-<span class="co">##  $ long          : num [1:742560] -117 -117 -117 -117 -117 ...</span>
-<span class="co">##  $ type          : chr [1:742560] "confirmed" "confirmed" "confirmed" "confirmed" ...</span>
-<span class="co">##  $ cases         : num [1:742560] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">##  $ uid           : num [1:742560] 12401 12401 12401 12401 12401 ...</span>
-<span class="co">##  $ iso2          : chr [1:742560] "CA" "CA" "CA" "CA" ...</span>
-<span class="co">##  $ iso3          : chr [1:742560] "CAN" "CAN" "CAN" "CAN" ...</span>
-<span class="co">##  $ code3         : num [1:742560] 124 124 124 124 124 124 124 124 124 124 ...</span>
-<span class="co">##  $ combined_key  : chr [1:742560] "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" ...</span>
-<span class="co">##  $ population    : num [1:742560] 4413146 4413146 4413146 4413146 4413146 ...</span>
-<span class="co">##  $ continent_name: chr [1:742560] "North America" "North America" "North America" "North America" ...</span>
-<span class="co">##  $ continent_code: chr [1:742560] NA NA NA NA ...</span>
+<pre><code><span class="co">## spec_tbl_df [919,308 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span>
+<span class="co">##  $ date          : Date[1:919308], format: "2020-01-22" "2020-01-23" ...</span>
+<span class="co">##  $ province      : chr [1:919308] "Alberta" "Alberta" "Alberta" "Alberta" ...</span>
+<span class="co">##  $ country       : chr [1:919308] "Canada" "Canada" "Canada" "Canada" ...</span>
+<span class="co">##  $ lat           : num [1:919308] 53.9 53.9 53.9 53.9 53.9 ...</span>
+<span class="co">##  $ long          : num [1:919308] -117 -117 -117 -117 -117 ...</span>
+<span class="co">##  $ type          : chr [1:919308] "confirmed" "confirmed" "confirmed" "confirmed" ...</span>
+<span class="co">##  $ cases         : num [1:919308] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">##  $ uid           : num [1:919308] 12401 12401 12401 12401 12401 ...</span>
+<span class="co">##  $ iso2          : chr [1:919308] "CA" "CA" "CA" "CA" ...</span>
+<span class="co">##  $ iso3          : chr [1:919308] "CAN" "CAN" "CAN" "CAN" ...</span>
+<span class="co">##  $ code3         : num [1:919308] 124 124 124 124 124 124 124 124 124 124 ...</span>
+<span class="co">##  $ combined_key  : chr [1:919308] "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" "Alberta, Canada" ...</span>
+<span class="co">##  $ population    : num [1:919308] 4413146 4413146 4413146 4413146 4413146 ...</span>
+<span class="co">##  $ continent_name: chr [1:919308] "North America" "North America" "North America" "North America" ...</span>
+<span class="co">##  $ continent_code: chr [1:919308] NA NA NA NA ...</span>
 <span class="co">##  - attr(*, "spec")=</span>
 <span class="co">##   .. cols(</span>
 <span class="co">##   ..   date = <span style="color: #0000BB;">col_date(format = "%Y-%m-%d")</span>,</span>
