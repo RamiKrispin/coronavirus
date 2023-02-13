@@ -184,19 +184,19 @@ covid19_df <- refresh_coronavirus_jhu()
 #> [4;32mLoading 2023 data[0m
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2021-08-05 Afghanistan       country            AF         iso_3166_2
-#> 2 2021-01-01 Afghanistan       country            AF         iso_3166_2
-#> 3 2022-06-22 Afghanistan       country            AF         iso_3166_2
-#> 4 2022-06-25 Afghanistan       country            AF         iso_3166_2
-#> 5 2021-01-05 Afghanistan       country            AF         iso_3166_2
-#> 6 2021-01-03 Afghanistan       country            AF         iso_3166_2
-#>    data_type value      lat     long
-#> 1 deaths_new    28 33.93911 67.70995
-#> 2  cases_new   183 33.93911 67.70995
-#> 3  cases_new   104 33.93911 67.70995
-#> 4  cases_new    39 33.93911 67.70995
-#> 5  cases_new   102 33.93911 67.70995
-#> 6  cases_new   123 33.93911 67.70995
+#> 1 2022-08-01 Afghanistan       country            AF         iso_3166_2
+#> 2 2020-03-15 Afghanistan       country            AF         iso_3166_2
+#> 3 2022-08-02 Afghanistan       country            AF         iso_3166_2
+#> 4 2021-07-12 Afghanistan       country            AF         iso_3166_2
+#> 5 2020-03-16 Afghanistan       country            AF         iso_3166_2
+#> 6 2021-07-11 Afghanistan       country            AF         iso_3166_2
+#>       data_type value      lat     long
+#> 1 recovered_new     0 33.93911 67.70995
+#> 2 recovered_new     0 33.93911 67.70995
+#> 3 recovered_new     0 33.93911 67.70995
+#> 4     cases_new  1075 33.93911 67.70995
+#> 5 recovered_new     1 33.93911 67.70995
+#> 6     cases_new   801 33.93911 67.70995
 ```
 
 ## Usage
@@ -236,30 +236,30 @@ summary_df %>% head(20)
 #> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <dbl>
-#>  1 US               101648826
-#>  2 India             44682378
-#>  3 France            39646833
-#>  4 Germany           37605135
-#>  5 Brazil            36628099
-#>  6 Japan             31438775
-#>  7 Korea, South      29821035
-#>  8 Italy             25363742
-#>  9 United Kingdom    24475895
-#> 10 Russia            21548111
+#>  1 US               102830381
+#>  2 India             44685087
+#>  3 France            39760676
+#>  4 Germany           37893892
+#>  5 Brazil            36905201
+#>  6 Japan             32901767
+#>  7 Korea, South      30325483
+#>  8 Italy             25488166
+#>  9 United Kingdom    24549097
+#> 10 Russia            21725309
 #> 11 Turkey            17042722
-#> 12 Spain             13711251
-#> 13 Vietnam           11526140
-#> 14 Australia         11247412
-#> 15 Argentina         10004679
-#> 16 Taiwan*            9209474
-#> 17 Netherlands        8690420
-#> 18 Iran               7562610
-#> 19 Mexico             7314891
-#> 20 Indonesia          6726086
+#> 12 Spain             13740531
+#> 13 Vietnam           11526627
+#> 14 Australia         11327900
+#> 15 Argentina         10040329
+#> 16 Taiwan*            9754006
+#> 17 Netherlands        8697711
+#> 18 Iran               7565253
+#> 19 Mexico             7400848
+#> 20 Indonesia          6732179
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2023-01-15):
+2023-02-09):
 
 ``` r
 library(tidyr)
@@ -274,18 +274,18 @@ coronavirus %>%
   arrange(-confirmed)
 #> # A tibble: 201 × 4
 #> # Groups:   country [201]
-#>    country      confirmed death recovery
-#>    <chr>            <dbl> <dbl>    <dbl>
-#>  1 Japan           108281   415        0
-#>  2 Taiwan*          21267    31        0
-#>  3 New Zealand      19181    44        0
-#>  4 Korea, South     14144    35        0
-#>  5 China             6261    66        0
-#>  6 Mexico            5737    85        0
-#>  7 Russia            4736    41        0
-#>  8 Brazil            3537     2        0
-#>  9 US                2718     0        0
-#> 10 Chile             2577    13        0
+#>    country        confirmed death recovery
+#>    <chr>              <dbl> <dbl>    <dbl>
+#>  1 US                 79947   942        0
+#>  2 Japan              32969   223        0
+#>  3 United Kingdom     22231  -334        0
+#>  4 Taiwan*            20912    45        0
+#>  5 Australia          14996   235        0
+#>  6 Germany            14178   134        0
+#>  7 Korea, South       13504    17        0
+#>  8 Russia             12208    40        0
+#>  9 Mexico              9946    97        0
+#> 10 Brazil              7518    37        0
 #> # … with 191 more rows
 ```
 
@@ -364,7 +364,7 @@ head(covid19_vaccine)
 #> 3           0                        0    9449321 112   BY  BLR   112 <NA>
 #> 4         340                      340   11589616  56   BE  BEL    56 <NA>
 #> 5       59079                    59078   37855702 124   CA  CAN   124 <NA>
-#> 6           0                        0   19116209 152   CL  CHL   152 <NA>
+#> 6          NA                       NA   19116209 152   CL  CHL   152 <NA>
 #>        lat       long
 #> 1  47.5162  14.550100
 #> 2  26.0275  50.550000
@@ -390,27 +390,27 @@ df_summary <- covid19_vaccine |>
 
 head(df_summary, 10)
 #>          date country_region doses_admin      total population continent_name
-#> 1  2023-01-15          China          NA 1307511577 1404676330           Asia
-#> 2  2023-01-15          India          NA 1027248959 1380004385           Asia
-#> 3  2023-01-15             US   666511603  268556888  329466283  North America
-#> 4  2023-01-15      Indonesia   447461191  204045153  273523621           Asia
-#> 5  2023-01-15         Brazil   498527141  188821957  212559409  South America
-#> 6  2023-01-15       Pakistan   317696373  154665740  220892331           Asia
-#> 7  2023-01-15     Bangladesh   344352422  150472186  164689383           Asia
-#> 8  2023-01-15          Japan   374896390  104590913  126476458           Asia
-#> 9  2023-01-15         Mexico   225063079   99071001  127792286  North America
-#> 10 2023-01-15        Vietnam   265336568   90427458   97338583           Asia
+#> 1  2023-02-10          China          NA 1310267000 1404676330           Asia
+#> 2  2023-02-10          India          NA 1027356828 1380004385           Asia
+#> 3  2023-02-10             US   670306507  269208743  329466283  North America
+#> 4  2023-02-10      Indonesia   444303130  203657535  273523621           Asia
+#> 5  2023-02-10         Brazil   500646783  189097459  212559409  South America
+#> 6  2023-02-10       Pakistan   333085477  162206190  220892331           Asia
+#> 7  2023-02-10     Bangladesh   353318909  151054434  164689383           Asia
+#> 8  2023-02-10          Japan   380451598  104642871  126476458           Asia
+#> 9  2023-02-10         Mexico   225063079   99071001  127792286  North America
+#> 10 2023-02-10        Vietnam   265668329   90454197   97338583           Asia
 #>    doses_pop_ratio total_pop_ratio
-#> 1               NA       0.9308277
-#> 2               NA       0.7443809
-#> 3         2.023004       0.8151271
-#> 4         1.635914       0.7459873
-#> 5         2.345354       0.8883256
-#> 6         1.438241       0.7001861
-#> 7         2.090921       0.9136727
-#> 8         2.964159       0.8269595
+#> 1               NA       0.9327893
+#> 2               NA       0.7444591
+#> 3         2.034522       0.8171056
+#> 4         1.624368       0.7445702
+#> 5         2.355326       0.8896217
+#> 6         1.507909       0.7343224
+#> 7         2.145365       0.9172081
+#> 8         3.008082       0.8273703
 #> 9         1.761163       0.7752502
-#> 10        2.725914       0.9289991
+#> 10        2.729322       0.9292738
 ```
 
 Plot of the total doses and population ratio by country:
