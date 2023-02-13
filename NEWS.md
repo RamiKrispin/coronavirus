@@ -10,6 +10,7 @@ Minor changes:
   - Updated the `refresh_coronavirus_jhu` function with the changes in the CSV files
 - Updated the branch naming
 - Updated the docker - add quarto settings
+- Update the package vignettes 
 
 # coronavirus 0.3.32
 
