@@ -13,10 +13,11 @@ using  CSV, DataFrames, Chain, PlotlyJS
 Pkg.status()
 
 # Loading the data
-url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_2023.csv"
-file = CSV.File(download(url), missingstring= "NA")
+url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_"
 
-df = DataFrame(file)
+
+df = reduce(vcat, [DataFrame(CSV.File(download(join([url, i, ".csv"])), missingstring= "NA")) for i in [2020:1:2023;]])
+
 df
 
 describe(df)

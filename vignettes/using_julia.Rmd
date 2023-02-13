@@ -63,37 +63,33 @@ juliaEval("Pkg.status()")
 
 ### Loading the data
 
-We will start by loading the CSV file from the repository. Since we are pulling the CSV file from the web, as opposed to loading locally, we will have to use the `download` function to download the file and then read it as CSV file:
+The `.\csv\` folder on the package [repository](https://github.com/RamiKrispin/coronavirus/tree/main/csv) contains the package data in a CSV format. Due to size limitations, each year of data is stored on a separate file under the name `coronavirus_` + year. To load all the files, we will use the below `for` loop to pull the corresponding files from 2020 to 2023. Since the files are being loaded from a URL we will use the `download` function and load the files with the `CSV.File` and transform it to a `DataFrame` with the `DataFrame` function:
 ``` julia
-url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"
+url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_"
 
-# loading the data
-file = CSV.File(download(url), missingstring= "NA")
+df = reduce(vcat, [DataFrame(CSV.File(download(join([url, i, ".csv"])), missingstring= "NA")) for i in [2020:1:2023;]])
 ```
 
 
 ```{r}
-juliaEval('url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv"
-          file = CSV.File(download(url), missingstring= "NA")')
+juliaEval('url = "https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/coronavirus_"
+
+df = reduce(vcat, [DataFrame(CSV.File(download(join([url, i, ".csv"])), missingstring= "NA")) for i in [2020:1:2023;]])')
 ```
 
 **Note:** similarly, you can load the vaccine data by using the following end point:
 `https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/covid19_vaccine.csv`
 
-
-Next, we will store the csv file as a `DataFrame` object:   
+Let's review the appended file:
+  
 
 ``` julia
-df = DataFrame(file)
-
 df
 ```
           
 
 ```{r}
-juliaEval('df = DataFrame(file)
-          df
-          ')
+juliaEval('df')
 ```
 
 We will use the `describe` function to review the dataframe attributes:
