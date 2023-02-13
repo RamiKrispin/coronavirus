@@ -33,7 +33,7 @@ A data frame with 8 variables.
 see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}{section 4}
 for full data resources.
 
-- Continent code mapping is sourced from \href{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}{DATA HUB}
+- Continent code mapping is sourced from \href{https://datahub.io/JohnSnowLabs}{DATA HUB}
 }
 \usage{
 covid19_vaccine

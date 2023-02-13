@@ -183,7 +183,20 @@ covid19_df <- refresh_coronavirus_jhu()
 #> [4;32mLoading 2022 data[0m
 #> [4;32mLoading 2023 data[0m
 head(covid19_df)
-#> NULL
+#>         date    location location_type location_code location_code_type
+#> 1 2022-08-01 Afghanistan       country            AF         iso_3166_2
+#> 2 2020-03-15 Afghanistan       country            AF         iso_3166_2
+#> 3 2022-08-02 Afghanistan       country            AF         iso_3166_2
+#> 4 2021-07-12 Afghanistan       country            AF         iso_3166_2
+#> 5 2020-03-16 Afghanistan       country            AF         iso_3166_2
+#> 6 2021-07-11 Afghanistan       country            AF         iso_3166_2
+#>       data_type value      lat     long
+#> 1 recovered_new     0 33.93911 67.70995
+#> 2 recovered_new     0 33.93911 67.70995
+#> 3 recovered_new     0 33.93911 67.70995
+#> 4     cases_new  1075 33.93911 67.70995
+#> 5 recovered_new     1 33.93911 67.70995
+#> 6     cases_new   801 33.93911 67.70995
 ```
 
 ## Usage
@@ -548,4 +561,4 @@ resources:
 -   Palestine (West Bank and Gaza): <https://corona.ps/details>
 -   Israel:
     <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
--   Colorado: <https://covid19.colorado.gov/data/>
+-   Colorado: <https://covid19.colorado.gov/data>

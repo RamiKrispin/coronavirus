@@ -85,7 +85,7 @@
 #' see \href{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#uid-lookup-table-logic}{section 4}
 #' for full data resources.
 #'
-#' - Continent code mapping is sourced from \href{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}{DATA HUB}
+#' - Continent code mapping is sourced from \href{https://datahub.io/JohnSnowLabs}{DATA HUB}
 #'
 #' @keywords datasets coronavirus COVID19 vaccine
 #' @details The dataset provides the daily cumulative number of people who received vaccine (or at least one vaccine dose) by country and province (when applicable)
