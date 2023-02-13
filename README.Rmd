@@ -521,4 +521,4 @@ The raw data pulled and arranged by the Johns Hopkins University Center for Syst
 and https://fdoh.maps.arcgis.com/apps/dashboards/index.html#/8d0de33f260d444c852a615dc7837c86
 * Palestine (West Bank and Gaza): https://corona.ps/details
 * Israel: https://govextra.gov.il/ministry-of-health/corona/corona-virus/
-* Colorado: https://covid19.colorado.gov/data
+* Colorado: https://covid19.colorado.gov/

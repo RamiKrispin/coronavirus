@@ -561,4 +561,4 @@ resources:
 -   Palestine (West Bank and Gaza): <https://corona.ps/details>
 -   Israel:
     <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
--   Colorado: <https://covid19.colorado.gov/data>
+-   Colorado: <https://covid19.colorado.gov/>
