@@ -1,4 +1,4 @@
-# coronavirus 0.3.4
+# coronavirus 0.4.0
 
 Major changes:
 - Updating the `covid19_vaccine` dataset with the changes in the raw data
