@@ -29,7 +29,7 @@ Before getting started, please note the following:
 
 -   Vaccine data - <https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/global_data>
 -   Country/province codes and population - <https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv>
--   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/country-and-continent-codes-list>
+-   Continent names and code - DATA HUB, <https://datahub.io/JohnSnowLabs/>
 
 
 ### Load the data

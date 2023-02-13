@@ -120,7 +120,7 @@ The package provides the following two datasets:
     -   `continent_code` - Continent code
 
 -   **covid19_vaccine** - a tidy (long) format of the the Johns Hopkins
-    [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
+    [Centers for Civic Impact](https://govex.jhu.edu/) global
     vaccination
     [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data)
     by country. This dataset includes the following columns:
@@ -183,20 +183,7 @@ covid19_df <- refresh_coronavirus_jhu()
 #> [4;32mLoading 2022 data[0m
 #> [4;32mLoading 2023 data[0m
 head(covid19_df)
-#>         date    location location_type location_code location_code_type
-#> 1 2022-08-01 Afghanistan       country            AF         iso_3166_2
-#> 2 2020-03-15 Afghanistan       country            AF         iso_3166_2
-#> 3 2022-08-02 Afghanistan       country            AF         iso_3166_2
-#> 4 2021-07-12 Afghanistan       country            AF         iso_3166_2
-#> 5 2020-03-16 Afghanistan       country            AF         iso_3166_2
-#> 6 2021-07-11 Afghanistan       country            AF         iso_3166_2
-#>       data_type value      lat     long
-#> 1 recovered_new     0 33.93911 67.70995
-#> 2 recovered_new     0 33.93911 67.70995
-#> 3 recovered_new     0 33.93911 67.70995
-#> 4     cases_new  1075 33.93911 67.70995
-#> 5 recovered_new     1 33.93911 67.70995
-#> 6     cases_new   801 33.93911 67.70995
+#> NULL
 ```
 
 ## Usage
@@ -533,14 +520,14 @@ resources:
 -   Australia Government Department of
     Health:<https://www.health.gov.au/health-alerts/covid-19> <br>
 -   European Centre for Disease Prevention and Control (ECDC):
-    <https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases>
+    <https://www.ecdc.europa.eu/en/covid-19/country-overviews>
 -   Ministry of Health Singapore (MOH):
     <https://www.moh.gov.sg/covid-19>
 -   Italy Ministry of Health:
     <https://www.salute.gov.it/nuovocoronavirus>
 -   1Point3Arces: <https://coronavirus.1point3acres.com/en>
 -   WorldoMeters: <https://www.worldometers.info/coronavirus/>
--   COVID Tracking Project: <https://covidtracking.com/data>. (US
+-   COVID Tracking Project: <https://covidtracking.com/data/>. (US
     Testing and Hospitalization Data. We use the maximum reported value
     from “Currently” and “Cumulative” Hospitalized for our
     hospitalization number reported for each state.)
@@ -552,13 +539,13 @@ resources:
 -   New York State Department of Health:
     <https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data>
 -   NYC Department of Health and Mental Hygiene:
-    <https://www1.nyc.gov/site/doh/covid/covid-19-data.page> and
+    <https://www.nyc.gov/site/doh/covid/covid-19-data.page> and
     <https://github.com/nychealth/coronavirus-data>
 -   Florida Department of Health Dashboard:
     <https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0>
     and
-    <https://fdoh.maps.arcgis.com/apps/opsdashboard/index.html#/8d0de33f260d444c852a615dc7837c86>
+    <https://fdoh.maps.arcgis.com/apps/dashboards/index.html#/8d0de33f260d444c852a615dc7837c86>
 -   Palestine (West Bank and Gaza): <https://corona.ps/details>
 -   Israel:
     <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
--   Colorado: <https://covid19.colorado.gov/data>)
+-   Colorado: <https://covid19.colorado.gov/data/>
