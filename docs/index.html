@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -211,7 +211,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </ul>
 </li>
 <li>
-<p><strong>covid19_vaccine</strong> - a tidy (long) format of the the Johns Hopkins <a href="https://civicimpact.jhu.edu/" class="external-link">Centers for Civic Impact</a> global vaccination <a href="https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data" class="external-link">dataset</a> by country. This dataset includes the following columns:</p>
+<p><strong>covid19_vaccine</strong> - a tidy (long) format of the the Johns Hopkins <a href="https://govex.jhu.edu/" class="external-link">Centers for Civic Impact</a> global vaccination <a href="https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data" class="external-link">dataset</a> by country. This dataset includes the following columns:</p>
 <ul>
 <li>
 <code>country_region</code> - Country or region name</li>
@@ -270,19 +270,19 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; [4;32mLoading 2023 data[0m</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">covid19_df</span><span class="op">)</span>
 <span class="co">#&gt;         date    location location_type location_code location_code_type</span>
-<span class="co">#&gt; 1 2021-08-05 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 2 2021-01-01 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 3 2022-06-22 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 4 2022-06-25 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 5 2021-01-05 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 6 2021-01-03 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt;    data_type value      lat     long</span>
-<span class="co">#&gt; 1 deaths_new    28 33.93911 67.70995</span>
-<span class="co">#&gt; 2  cases_new   183 33.93911 67.70995</span>
-<span class="co">#&gt; 3  cases_new   104 33.93911 67.70995</span>
-<span class="co">#&gt; 4  cases_new    39 33.93911 67.70995</span>
-<span class="co">#&gt; 5  cases_new   102 33.93911 67.70995</span>
-<span class="co">#&gt; 6  cases_new   123 33.93911 67.70995</span></code></pre></div>
+<span class="co">#&gt; 1 2022-08-01 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 2 2020-03-15 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 3 2022-08-02 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 4 2021-07-12 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 5 2020-03-16 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 6 2021-07-11 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt;       data_type value      lat     long</span>
+<span class="co">#&gt; 1 recovered_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 2 recovered_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 3 recovered_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 4     cases_new  1075 33.93911 67.70995</span>
+<span class="co">#&gt; 5 recovered_new     1 33.93911 67.70995</span>
+<span class="co">#&gt; 6     cases_new   801 33.93911 67.70995</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -319,27 +319,27 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # A tibble: 20 × 2</span>
 <span class="co">#&gt;    country        total_cases</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 US               101648826</span>
-<span class="co">#&gt;  2 India             44682378</span>
-<span class="co">#&gt;  3 France            39646833</span>
-<span class="co">#&gt;  4 Germany           37605135</span>
-<span class="co">#&gt;  5 Brazil            36628099</span>
-<span class="co">#&gt;  6 Japan             31438775</span>
-<span class="co">#&gt;  7 Korea, South      29821035</span>
-<span class="co">#&gt;  8 Italy             25363742</span>
-<span class="co">#&gt;  9 United Kingdom    24475895</span>
-<span class="co">#&gt; 10 Russia            21548111</span>
+<span class="co">#&gt;  1 US               102830381</span>
+<span class="co">#&gt;  2 India             44685087</span>
+<span class="co">#&gt;  3 France            39760676</span>
+<span class="co">#&gt;  4 Germany           37893892</span>
+<span class="co">#&gt;  5 Brazil            36905201</span>
+<span class="co">#&gt;  6 Japan             32901767</span>
+<span class="co">#&gt;  7 Korea, South      30325483</span>
+<span class="co">#&gt;  8 Italy             25488166</span>
+<span class="co">#&gt;  9 United Kingdom    24549097</span>
+<span class="co">#&gt; 10 Russia            21725309</span>
 <span class="co">#&gt; 11 Turkey            17042722</span>
-<span class="co">#&gt; 12 Spain             13711251</span>
-<span class="co">#&gt; 13 Vietnam           11526140</span>
-<span class="co">#&gt; 14 Australia         11247412</span>
-<span class="co">#&gt; 15 Argentina         10004679</span>
-<span class="co">#&gt; 16 Taiwan*            9209474</span>
-<span class="co">#&gt; 17 Netherlands        8690420</span>
-<span class="co">#&gt; 18 Iran               7562610</span>
-<span class="co">#&gt; 19 Mexico             7314891</span>
-<span class="co">#&gt; 20 Indonesia          6726086</span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2023-01-15):</p>
+<span class="co">#&gt; 12 Spain             13740531</span>
+<span class="co">#&gt; 13 Vietnam           11526627</span>
+<span class="co">#&gt; 14 Australia         11327900</span>
+<span class="co">#&gt; 15 Argentina         10040329</span>
+<span class="co">#&gt; 16 Taiwan*            9754006</span>
+<span class="co">#&gt; 17 Netherlands        8697711</span>
+<span class="co">#&gt; 18 Iran               7565253</span>
+<span class="co">#&gt; 19 Mexico             7400848</span>
+<span class="co">#&gt; 20 Indonesia          6732179</span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2023-02-09):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
 
@@ -353,18 +353,18 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">confirmed</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 201 × 4</span>
 <span class="co">#&gt; # Groups:   country [201]</span>
-<span class="co">#&gt;    country      confirmed death recovery</span>
-<span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Japan           108281   415        0</span>
-<span class="co">#&gt;  2 Taiwan*          21267    31        0</span>
-<span class="co">#&gt;  3 New Zealand      19181    44        0</span>
-<span class="co">#&gt;  4 Korea, South     14144    35        0</span>
-<span class="co">#&gt;  5 China             6261    66        0</span>
-<span class="co">#&gt;  6 Mexico            5737    85        0</span>
-<span class="co">#&gt;  7 Russia            4736    41        0</span>
-<span class="co">#&gt;  8 Brazil            3537     2        0</span>
-<span class="co">#&gt;  9 US                2718     0        0</span>
-<span class="co">#&gt; 10 Chile             2577    13        0</span>
+<span class="co">#&gt;    country        confirmed death recovery</span>
+<span class="co">#&gt;    &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 US                 79947   942        0</span>
+<span class="co">#&gt;  2 Japan              32969   223        0</span>
+<span class="co">#&gt;  3 United Kingdom     22231  -334        0</span>
+<span class="co">#&gt;  4 Taiwan*            20912    45        0</span>
+<span class="co">#&gt;  5 Australia          14996   235        0</span>
+<span class="co">#&gt;  6 Germany            14178   134        0</span>
+<span class="co">#&gt;  7 Korea, South       13504    17        0</span>
+<span class="co">#&gt;  8 Russia             12208    40        0</span>
+<span class="co">#&gt;  9 Mexico              9946    97        0</span>
+<span class="co">#&gt; 10 Brazil              7518    37        0</span>
 <span class="co">#&gt; # … with 191 more rows</span></code></pre></div>
 <p>Plotting daily confirmed and death cases in Brazil:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -433,7 +433,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; 3           0                        0    9449321 112   BY  BLR   112 &lt;NA&gt;</span>
 <span class="co">#&gt; 4         340                      340   11589616  56   BE  BEL    56 &lt;NA&gt;</span>
 <span class="co">#&gt; 5       59079                    59078   37855702 124   CA  CAN   124 &lt;NA&gt;</span>
-<span class="co">#&gt; 6           0                        0   19116209 152   CL  CHL   152 &lt;NA&gt;</span>
+<span class="co">#&gt; 6          NA                       NA   19116209 152   CL  CHL   152 &lt;NA&gt;</span>
 <span class="co">#&gt;        lat       long</span>
 <span class="co">#&gt; 1  47.5162  14.550100</span>
 <span class="co">#&gt; 2  26.0275  50.550000</span>
@@ -455,27 +455,27 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_summary</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt;          date country_region doses_admin      total population continent_name</span>
-<span class="co">#&gt; 1  2023-01-15          China          NA 1307511577 1404676330           Asia</span>
-<span class="co">#&gt; 2  2023-01-15          India          NA 1027248959 1380004385           Asia</span>
-<span class="co">#&gt; 3  2023-01-15             US   666511603  268556888  329466283  North America</span>
-<span class="co">#&gt; 4  2023-01-15      Indonesia   447461191  204045153  273523621           Asia</span>
-<span class="co">#&gt; 5  2023-01-15         Brazil   498527141  188821957  212559409  South America</span>
-<span class="co">#&gt; 6  2023-01-15       Pakistan   317696373  154665740  220892331           Asia</span>
-<span class="co">#&gt; 7  2023-01-15     Bangladesh   344352422  150472186  164689383           Asia</span>
-<span class="co">#&gt; 8  2023-01-15          Japan   374896390  104590913  126476458           Asia</span>
-<span class="co">#&gt; 9  2023-01-15         Mexico   225063079   99071001  127792286  North America</span>
-<span class="co">#&gt; 10 2023-01-15        Vietnam   265336568   90427458   97338583           Asia</span>
+<span class="co">#&gt; 1  2023-02-10          China          NA 1310267000 1404676330           Asia</span>
+<span class="co">#&gt; 2  2023-02-10          India          NA 1027356828 1380004385           Asia</span>
+<span class="co">#&gt; 3  2023-02-10             US   670306507  269208743  329466283  North America</span>
+<span class="co">#&gt; 4  2023-02-10      Indonesia   444303130  203657535  273523621           Asia</span>
+<span class="co">#&gt; 5  2023-02-10         Brazil   500646783  189097459  212559409  South America</span>
+<span class="co">#&gt; 6  2023-02-10       Pakistan   333085477  162206190  220892331           Asia</span>
+<span class="co">#&gt; 7  2023-02-10     Bangladesh   353318909  151054434  164689383           Asia</span>
+<span class="co">#&gt; 8  2023-02-10          Japan   380451598  104642871  126476458           Asia</span>
+<span class="co">#&gt; 9  2023-02-10         Mexico   225063079   99071001  127792286  North America</span>
+<span class="co">#&gt; 10 2023-02-10        Vietnam   265668329   90454197   97338583           Asia</span>
 <span class="co">#&gt;    doses_pop_ratio total_pop_ratio</span>
-<span class="co">#&gt; 1               NA       0.9308277</span>
-<span class="co">#&gt; 2               NA       0.7443809</span>
-<span class="co">#&gt; 3         2.023004       0.8151271</span>
-<span class="co">#&gt; 4         1.635914       0.7459873</span>
-<span class="co">#&gt; 5         2.345354       0.8883256</span>
-<span class="co">#&gt; 6         1.438241       0.7001861</span>
-<span class="co">#&gt; 7         2.090921       0.9136727</span>
-<span class="co">#&gt; 8         2.964159       0.8269595</span>
+<span class="co">#&gt; 1               NA       0.9327893</span>
+<span class="co">#&gt; 2               NA       0.7444591</span>
+<span class="co">#&gt; 3         2.034522       0.8171056</span>
+<span class="co">#&gt; 4         1.624368       0.7445702</span>
+<span class="co">#&gt; 5         2.355326       0.8896217</span>
+<span class="co">#&gt; 6         1.507909       0.7343224</span>
+<span class="co">#&gt; 7         2.145365       0.9172081</span>
+<span class="co">#&gt; 8         3.008082       0.8273703</span>
 <span class="co">#&gt; 9         1.761163       0.7752502</span>
-<span class="co">#&gt; 10        2.725914       0.9289991</span></code></pre></div>
+<span class="co">#&gt; 10        2.729322       0.9292738</span></code></pre></div>
 <p>Plot of the total doses and population ratio by country:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Setting the diagonal lines range</span>
@@ -586,7 +586,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>Australia Government Department of Health:<a href="https://www.health.gov.au/health-alerts/covid-19" class="external-link uri">https://www.health.gov.au/health-alerts/covid-19</a> <br>
 </li>
-<li>European Centre for Disease Prevention and Control (ECDC): <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases" class="external-link uri">https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases</a>
+<li>European Centre for Disease Prevention and Control (ECDC): <a href="https://www.ecdc.europa.eu/en/covid-19/country-overviews" class="external-link uri">https://www.ecdc.europa.eu/en/covid-19/country-overviews</a>
 </li>
 <li>Ministry of Health Singapore (MOH): <a href="https://www.moh.gov.sg/covid-19" class="external-link uri">https://www.moh.gov.sg/covid-19</a>
 </li>
@@ -596,7 +596,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>WorldoMeters: <a href="https://www.worldometers.info/coronavirus/" class="external-link uri">https://www.worldometers.info/coronavirus/</a>
 </li>
-<li>COVID Tracking Project: <a href="https://covidtracking.com/data" class="external-link uri">https://covidtracking.com/data</a>. (US Testing and Hospitalization Data. We use the maximum reported value from “Currently” and “Cumulative” Hospitalized for our hospitalization number reported for each state.)</li>
+<li>COVID Tracking Project: <a href="https://covidtracking.com/data/" class="external-link uri">https://covidtracking.com/data/</a>. (US Testing and Hospitalization Data. We use the maximum reported value from “Currently” and “Cumulative” Hospitalized for our hospitalization number reported for each state.)</li>
 <li>French Government: <a href="https://dashboard.covid19.data.gouv.fr/" class="external-link uri">https://dashboard.covid19.data.gouv.fr/</a>
 </li>
 <li>COVID Live (Australia): <a href="https://covidlive.com.au/" class="external-link uri">https://covidlive.com.au/</a>
@@ -607,15 +607,16 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </li>
 <li>New York State Department of Health: <a href="https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data" class="external-link uri">https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data</a>
 </li>
-<li>NYC Department of Health and Mental Hygiene: <a href="https://www1.nyc.gov/site/doh/covid/covid-19-data.page" class="external-link uri">https://www1.nyc.gov/site/doh/covid/covid-19-data.page</a> and <a href="https://github.com/nychealth/coronavirus-data" class="external-link uri">https://github.com/nychealth/coronavirus-data</a>
+<li>NYC Department of Health and Mental Hygiene: <a href="https://www.nyc.gov/site/doh/covid/covid-19-data.page" class="external-link uri">https://www.nyc.gov/site/doh/covid/covid-19-data.page</a> and <a href="https://github.com/nychealth/coronavirus-data" class="external-link uri">https://github.com/nychealth/coronavirus-data</a>
 </li>
-<li>Florida Department of Health Dashboard: <a href="https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0" class="external-link uri">https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0</a> and <a href="https://fdoh.maps.arcgis.com/apps/opsdashboard/index.html#/8d0de33f260d444c852a615dc7837c86" class="external-link uri">https://fdoh.maps.arcgis.com/apps/opsdashboard/index.html#/8d0de33f260d444c852a615dc7837c86</a>
+<li>Florida Department of Health Dashboard: <a href="https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0" class="external-link uri">https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0</a> and <a href="https://fdoh.maps.arcgis.com/apps/dashboards/index.html#/8d0de33f260d444c852a615dc7837c86" class="external-link uri">https://fdoh.maps.arcgis.com/apps/dashboards/index.html#/8d0de33f260d444c852a615dc7837c86</a>
 </li>
 <li>Palestine (West Bank and Gaza): <a href="https://corona.ps/details" class="external-link uri">https://corona.ps/details</a>
 </li>
 <li>Israel: <a href="https://govextra.gov.il/ministry-of-health/corona/corona-virus/" class="external-link uri">https://govextra.gov.il/ministry-of-health/corona/corona-virus/</a>
 </li>
-<li>Colorado: <a href="https://covid19.colorado.gov/data" class="external-link uri">https://covid19.colorado.gov/data</a>)</li>
+<li>Colorado: <a href="https://covid19.colorado.gov/" class="external-link uri">https://covid19.colorado.gov/</a>
+</li>
 </ul>
 </div>
 </div>
