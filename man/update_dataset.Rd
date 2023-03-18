@@ -22,14 +22,3 @@ Update the package datasets on the global environment with the most recent data 
 As the CRAN version is being updated every one-two months, the dev version of the package is being updated on a daily bases.
 This function enables to refresh the package dataset to the most up-to-date data. Changes will be available on the global environment
 }
-\examples{
-\dontrun{
-
-# update with a question prompt
-update_dataset(silence = FALSE)
-
-
-# update without a question prompt
-update_dataset(silence = TRUE)
-}
-}
