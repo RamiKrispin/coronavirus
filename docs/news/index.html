@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -95,10 +95,27 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.1" id="coronavirus-041">coronavirus 0.4.1<a class="anchor" aria-label="anchor" href="#coronavirus-041"></a></h2>
+<p>Major changes:</p>
+<ul><li>As of March 10, 2023, the source data no longer get updated, therefore:
+<ul><li>The package’s datasets are up-to-date with the source and not going to get update beyond that date</li>
+<li>Retiring the <code>update_dataset</code> function and the package data pipelines</li>
+</ul></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="coronavirus-040">coronavirus 0.4.0<small>2023-02-13</small><a class="anchor" aria-label="anchor" href="#coronavirus-040"></a></h2>
-<p>Major changes: - Updating the <code>covid19_vaccine</code> dataset with the changes in the raw data</p>
-<p>Minor changes: - Updating the data pipeline: - Split the CSV file by year to reduce the files size - Convert the cases and vaccine data pipelines to quarto docs - Updated the <code>refresh_coronavirus_jhu</code> function with the changes in the CSV files - Updated the branch naming - Updated the docker - add quarto settings - Update the package vignettes</p>
-</div>
+<p>Major changes:</p>
+<ul><li>Updating the <code>covid19_vaccine</code> dataset with the changes in the raw data</li>
+</ul><p>Minor changes:</p>
+<ul><li>Updating the data pipeline:
+<ul><li>Split the CSV file by year to reduce the files size</li>
+<li>Convert the cases and vaccine data pipelines to quarto docs</li>
+<li>Updated the <code>refresh_coronavirus_jhu</code> function with the changes in the CSV files</li>
+</ul></li>
+<li>Updated the branch naming</li>
+<li>Updated the docker - add quarto settings</li>
+<li>Update the package vignettes</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.32" id="coronavirus-0332">coronavirus 0.3.32<small>2022-06-24</small><a class="anchor" aria-label="anchor" href="#coronavirus-0332"></a></h2>
 <ul><li>Fixed issue with the <code>refresh_coronavirus_jhu</code> - misclassification of the recovery cases as death cases</li>

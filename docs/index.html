@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">coronavirus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -123,8 +123,9 @@
 <!-- badges: start --->
 
 <!-- badges: end -->
-<p>The coronavirus package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The raw data is being pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus <a href="https://github.com/CSSEGISandData/COVID-19" class="external-link">repository</a>.</p>
+<p>The coronavirus package provides a tidy format for the COVID-19 dataset collected by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University. The dataset includes daily new and death cases between January 2020 and March 2023 and recovery cases until August 2022.</p>
 <p>More details available <a href="https://RamiKrispin.github.io/coronavirus/" class="external-link">here</a>, and a <code>csv</code> format of the package dataset available <a href="https://github.com/RamiKrispin/coronavirus/tree/master/csv" class="external-link">here</a></p>
+<p>Data source: <a href="https://github.com/CSSEGISandData/COVID-19" class="external-link uri">https://github.com/CSSEGISandData/COVID-19</a></p>
 <p><img src="reference/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"></p>
 <figcaption>
 Source: Centers for Disease Control and Prevention’s Public Health Image Library
@@ -132,8 +133,8 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <h2 id="important-notes">Important Notes<a class="anchor" aria-label="anchor" href="#important-notes"></a>
 </h2>
 <ul>
-<li>As this an ongoing situation, frequent changes in the data format may occur, please visit the package <a href="https://ramikrispin.github.io/coronavirus/news/index.html">changelog</a> (e.g., News) and/or see pinned <a href="https://github.com/RamiKrispin/coronavirus/issues" class="external-link">issues</a> to get updates about those changes</li>
-<li>As of Auguest 4th JHU CCSE stopped track recovery cases, please see this <a href="https://github.com/RamiKrispin/coronavirus/issues/71" class="external-link">issue</a> for more details</li>
+<li>As of March 10th, 2023, JHU CCSE stopped collecting and tracking new cases</li>
+<li>As of August 4th, 2022 JHU CCSE stopped track recovery cases, please see this <a href="https://github.com/RamiKrispin/coronavirus/issues/71" class="external-link">issue</a> for more details</li>
 <li>Negative values and/or anomalies may occurred in the data for the following reasons:
 <ul>
 <li>The calculation of the daily cases from the raw data which is in cumulative format is done by taking the daily difference. In some cases, some retro updates not tie to the day that they actually occurred such as removing false positive cases</li>
@@ -146,11 +147,10 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <div class="section level2">
 <h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
-<p>Additional documentation available on the followng vignettes:</p>
+<p>Additional documentation available on the following vignettes:</p>
 <ul>
 <li><a href="https://ramikrispin.github.io/coronavirus/articles/intro_coronavirus_dataset.html">Introduction to the Coronavirus Dataset</a></li>
 <li><a href="https://ramikrispin.github.io/coronavirus/articles/covid19R.html">Covid19R Project Data Format</a></li>
-<li><a href="https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html">Update the coronavirus Dataset</a></li>
 <li><a href="https://ramikrispin.github.io/coronavirus/articles/covid19_vaccine.html">Covid19 Vaccine Data</a></li>
 <li><a href="https://ramikrispin.github.io/coronavirus/articles/geospatial_visualization.html">Geospatial Visualization</a></li>
 </ul>
@@ -252,42 +252,34 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 </ul>
 </li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="data-refresh">Data refresh<a class="anchor" aria-label="anchor" href="#data-refresh"></a>
-</h2>
-<p>While the <strong>coronavirus</strong> <a href="https://cran.r-project.org/package=coronavirus" class="external-link">CRAN version</a> is updated every month or two, the <a href="https://github.com/RamiKrispin/coronavirus" class="external-link">Github (Dev) version</a> is updated on a daily bases. The <code>update_dataset</code> function enables to overcome this gap and keep the installed version with the most recent data available on the Github version:</p>
+<p>The <code>refresh_coronavirus_jhu</code> function enables to load of the data directly from the package repository using the <a href="https://covid19r.github.io/documentation/" class="external-link">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html" class="external-link">data standard format</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/coronavirus" class="external-link">coronavirus</a></span><span class="op">)</span>
-<span class="fu"><a href="reference/update_dataset.html">update_dataset</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><strong>Note:</strong> must restart the R session to have the updates available</p>
-<p>Alternatively, you can pull the data using the <a href="https://covid19r.github.io/documentation/" class="external-link">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html" class="external-link">data standard format</a> with the <code>refresh_coronavirus_jhu</code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">covid19_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/refresh_coronavirus_jhu.html">refresh_coronavirus_jhu</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [4;32mLoading 2020 data[0m</span>
 <span class="co">#&gt; [4;32mLoading 2021 data[0m</span>
 <span class="co">#&gt; [4;32mLoading 2022 data[0m</span>
 <span class="co">#&gt; [4;32mLoading 2023 data[0m</span>
+
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">covid19_df</span><span class="op">)</span>
 <span class="co">#&gt;         date    location location_type location_code location_code_type</span>
-<span class="co">#&gt; 1 2022-08-01 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 2 2020-03-15 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 3 2022-08-02 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 4 2021-07-12 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 5 2020-03-16 Afghanistan       country            AF         iso_3166_2</span>
-<span class="co">#&gt; 6 2021-07-11 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 1 2021-12-31 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 2 2020-03-24 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 3 2022-11-02 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 4 2020-03-23 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 5 2021-08-09 Afghanistan       country            AF         iso_3166_2</span>
+<span class="co">#&gt; 6 2023-03-02 Afghanistan       country            AF         iso_3166_2</span>
 <span class="co">#&gt;       data_type value      lat     long</span>
-<span class="co">#&gt; 1 recovered_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 1     cases_new    28 33.93911 67.70995</span>
 <span class="co">#&gt; 2 recovered_new     0 33.93911 67.70995</span>
-<span class="co">#&gt; 3 recovered_new     0 33.93911 67.70995</span>
-<span class="co">#&gt; 4     cases_new  1075 33.93911 67.70995</span>
-<span class="co">#&gt; 5 recovered_new     1 33.93911 67.70995</span>
-<span class="co">#&gt; 6     cases_new   801 33.93911 67.70995</span></code></pre></div>
+<span class="co">#&gt; 3     cases_new    98 33.93911 67.70995</span>
+<span class="co">#&gt; 4 recovered_new     0 33.93911 67.70995</span>
+<span class="co">#&gt; 5    deaths_new    28 33.93911 67.70995</span>
+<span class="co">#&gt; 6     cases_new    18 33.93911 67.70995</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"coronavirus"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">coronavirus</span><span class="op">)</span>
@@ -306,7 +298,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; 5   124 Alberta, Canada    4413146  North America             NA</span>
 <span class="co">#&gt; 6   124 Alberta, Canada    4413146  North America             NA</span></code></pre></div>
 <p>Summary of the total confrimed cases by country (top 20):</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 
 <span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">coronavirus</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -319,28 +311,28 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # A tibble: 20 × 2</span>
 <span class="co">#&gt;    country        total_cases</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 US               102830381</span>
-<span class="co">#&gt;  2 India             44685087</span>
-<span class="co">#&gt;  3 France            39760676</span>
-<span class="co">#&gt;  4 Germany           37893892</span>
-<span class="co">#&gt;  5 Brazil            36905201</span>
-<span class="co">#&gt;  6 Japan             32901767</span>
-<span class="co">#&gt;  7 Korea, South      30325483</span>
-<span class="co">#&gt;  8 Italy             25488166</span>
-<span class="co">#&gt;  9 United Kingdom    24549097</span>
-<span class="co">#&gt; 10 Russia            21725309</span>
+<span class="co">#&gt;  1 US               103802702</span>
+<span class="co">#&gt;  2 India             44690738</span>
+<span class="co">#&gt;  3 France            39866718</span>
+<span class="co">#&gt;  4 Germany           38249060</span>
+<span class="co">#&gt;  5 Brazil            37076053</span>
+<span class="co">#&gt;  6 Japan             33320438</span>
+<span class="co">#&gt;  7 Korea, South      30615522</span>
+<span class="co">#&gt;  8 Italy             25603510</span>
+<span class="co">#&gt;  9 United Kingdom    24658705</span>
+<span class="co">#&gt; 10 Russia            22075858</span>
 <span class="co">#&gt; 11 Turkey            17042722</span>
-<span class="co">#&gt; 12 Spain             13740531</span>
-<span class="co">#&gt; 13 Vietnam           11526627</span>
-<span class="co">#&gt; 14 Australia         11327900</span>
-<span class="co">#&gt; 15 Argentina         10040329</span>
-<span class="co">#&gt; 16 Taiwan*            9754006</span>
-<span class="co">#&gt; 17 Netherlands        8697711</span>
-<span class="co">#&gt; 18 Iran               7565253</span>
-<span class="co">#&gt; 19 Mexico             7400848</span>
-<span class="co">#&gt; 20 Indonesia          6732179</span></code></pre></div>
-<p>Summary of new cases during the past 24 hours by country and type (as of 2023-02-09):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span class="co">#&gt; 12 Spain             13770429</span>
+<span class="co">#&gt; 13 Vietnam           11526994</span>
+<span class="co">#&gt; 14 Australia         11399460</span>
+<span class="co">#&gt; 15 Argentina         10044957</span>
+<span class="co">#&gt; 16 Taiwan*            9970937</span>
+<span class="co">#&gt; 17 Netherlands        8712835</span>
+<span class="co">#&gt; 18 Iran               7572311</span>
+<span class="co">#&gt; 19 Mexico             7483444</span>
+<span class="co">#&gt; 20 Indonesia          6738225</span></code></pre></div>
+<p>Summary of new cases during the past 24 hours by country and type (as of 2023-03-09):</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
 
 <span class="va">coronavirus</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -355,19 +347,19 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; # Groups:   country [201]</span>
 <span class="co">#&gt;    country        confirmed death recovery</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 US                 79947   942        0</span>
-<span class="co">#&gt;  2 Japan              32969   223        0</span>
-<span class="co">#&gt;  3 United Kingdom     22231  -334        0</span>
-<span class="co">#&gt;  4 Taiwan*            20912    45        0</span>
-<span class="co">#&gt;  5 Australia          14996   235        0</span>
-<span class="co">#&gt;  6 Germany            14178   134        0</span>
-<span class="co">#&gt;  7 Korea, South       13504    17        0</span>
-<span class="co">#&gt;  8 Russia             12208    40        0</span>
-<span class="co">#&gt;  9 Mexico              9946    97        0</span>
-<span class="co">#&gt; 10 Brazil              7518    37        0</span>
+<span class="co">#&gt;  1 US                 46931   590        0</span>
+<span class="co">#&gt;  2 United Kingdom     28783     0        0</span>
+<span class="co">#&gt;  3 Australia          13926   115        0</span>
+<span class="co">#&gt;  4 Russia             12385    38        0</span>
+<span class="co">#&gt;  5 Belgium            11570    39        0</span>
+<span class="co">#&gt;  6 Korea, South       10335    12        0</span>
+<span class="co">#&gt;  7 Japan               9834    80        0</span>
+<span class="co">#&gt;  8 Germany             7829   127        0</span>
+<span class="co">#&gt;  9 France              6308    11        0</span>
+<span class="co">#&gt; 10 Austria             5283    21        0</span>
 <span class="co">#&gt; # … with 191 more rows</span></code></pre></div>
 <p>Plotting daily confirmed and death cases in Brazil:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com" class="external-link">plotly</a></span><span class="op">)</span>
 
 <span class="va">coronavirus</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -398,7 +390,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
          xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Source: Johns Hopkins University Center for Systems Science and Engineering"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/brazil_cases.svg" width="100%"></p>
 <p>Plot the confirmed cases distribution by counrty with treemap plot:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conf_df</span> <span class="op">&lt;-</span> <span class="va">coronavirus</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"confirmed"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -416,7 +408,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
           name <span class="op">=</span> <span class="st">"Confirmed"</span>,
           textinfo<span class="op">=</span><span class="st">"label+value+percent parent"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/treemap_conf.svg" width="100%"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid19_vaccine</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">covid19_vaccine</span><span class="op">)</span>
@@ -442,7 +434,7 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <span class="co">#&gt; 5  60.0000 -95.000000</span>
 <span class="co">#&gt; 6 -35.6751 -71.543000</span></code></pre></div>
 <p>Taking a snapshot of the data from the most recent date available and calculate the ratio between total doses admin and the population size:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_summary</span> <span class="op">&lt;-</span> <span class="va">covid19_vaccine</span> |&gt;
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> |&gt;
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">country_region</span>, <span class="va">doses_admin</span>, total <span class="op">=</span> <span class="va">people_at_least_one_dose</span>, <span class="va">population</span>, <span class="va">continent_name</span><span class="op">)</span> |&gt;
@@ -455,29 +447,29 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_summary</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt;          date country_region doses_admin      total population continent_name</span>
-<span class="co">#&gt; 1  2023-02-10          China          NA 1310267000 1404676330           Asia</span>
-<span class="co">#&gt; 2  2023-02-10          India          NA 1027356828 1380004385           Asia</span>
-<span class="co">#&gt; 3  2023-02-10             US   670306507  269208743  329466283  North America</span>
-<span class="co">#&gt; 4  2023-02-10      Indonesia   444303130  203657535  273523621           Asia</span>
-<span class="co">#&gt; 5  2023-02-10         Brazil   500646783  189097459  212559409  South America</span>
-<span class="co">#&gt; 6  2023-02-10       Pakistan   333085477  162206190  220892331           Asia</span>
-<span class="co">#&gt; 7  2023-02-10     Bangladesh   353318909  151054434  164689383           Asia</span>
-<span class="co">#&gt; 8  2023-02-10          Japan   380451598  104642871  126476458           Asia</span>
-<span class="co">#&gt; 9  2023-02-10         Mexico   225063079   99071001  127792286  North America</span>
-<span class="co">#&gt; 10 2023-02-10        Vietnam   265668329   90454197   97338583           Asia</span>
+<span class="co">#&gt; 1  2023-03-09          China          NA 1310292000 1404676330           Asia</span>
+<span class="co">#&gt; 2  2023-03-09          India          NA 1027379945 1380004385           Asia</span>
+<span class="co">#&gt; 3  2023-03-09             US   672076105  269554116  329466283  North America</span>
+<span class="co">#&gt; 4  2023-03-09      Indonesia   444303130  203657535  273523621           Asia</span>
+<span class="co">#&gt; 5  2023-03-09         Brazil   502262440  189395212  212559409  South America</span>
+<span class="co">#&gt; 6  2023-03-09       Pakistan   333759565  162219717  220892331           Asia</span>
+<span class="co">#&gt; 7  2023-03-09     Bangladesh   355143411  151190373  164689383           Asia</span>
+<span class="co">#&gt; 8  2023-03-09          Japan   382415648  104675948  126476458           Asia</span>
+<span class="co">#&gt; 9  2023-03-09         Mexico   225063079   99071001  127792286  North America</span>
+<span class="co">#&gt; 10 2023-03-09        Vietnam   266252632   90466947   97338583           Asia</span>
 <span class="co">#&gt;    doses_pop_ratio total_pop_ratio</span>
-<span class="co">#&gt; 1               NA       0.9327893</span>
-<span class="co">#&gt; 2               NA       0.7444591</span>
-<span class="co">#&gt; 3         2.034522       0.8171056</span>
+<span class="co">#&gt; 1               NA       0.9328071</span>
+<span class="co">#&gt; 2               NA       0.7444759</span>
+<span class="co">#&gt; 3         2.039893       0.8181539</span>
 <span class="co">#&gt; 4         1.624368       0.7445702</span>
-<span class="co">#&gt; 5         2.355326       0.8896217</span>
-<span class="co">#&gt; 6         1.507909       0.7343224</span>
-<span class="co">#&gt; 7         2.145365       0.9172081</span>
-<span class="co">#&gt; 8         3.008082       0.8273703</span>
+<span class="co">#&gt; 5         2.362927       0.8910225</span>
+<span class="co">#&gt; 6         1.510960       0.7343837</span>
+<span class="co">#&gt; 7         2.156444       0.9180335</span>
+<span class="co">#&gt; 8         3.023611       0.8276319</span>
 <span class="co">#&gt; 9         1.761163       0.7752502</span>
-<span class="co">#&gt; 10        2.729322       0.9292738</span></code></pre></div>
+<span class="co">#&gt; 10        2.735325       0.9294048</span></code></pre></div>
 <p>Plot of the total doses and population ratio by country:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Setting the diagonal lines range</span>
 <span class="va">line_start</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
 <span class="va">line_end</span> <span class="op">&lt;-</span> <span class="fl">1500</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">^</span> <span class="fl">6</span>
@@ -662,8 +654,8 @@ Source: Centers for Disease Control and Prevention’s Public Health Image Libra
 <li><a href="https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml" class="external-link"><img src="https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master" alt="R-CMD"></a></li>
 <li><a href="https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml" class="external-link"><img src="https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=main" alt="Data Pipeline"></a></li>
 <li><a href="https://cran.r-project.org/package=coronavirus" class="external-link"><img src="https://www.r-pkg.org/badges/version/coronavirus" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
-<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="lifecycle"></a></li>
+<li><a href="https://opensource.org/license/mit/" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
 <li><a href="https://github.com/RamiKrispin/coronavirus/commit/master" class="external-link"><img src="https://img.shields.io/github/last-commit/RamiKrispin/coronavirus" alt="GitHub commit"></a></li>
 <li><a href="https://cran.r-project.org/package=coronavirus" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/coronavirus" alt="Downloads"></a></li>
 </ul>
