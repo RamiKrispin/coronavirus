@@ -8,6 +8,8 @@ format:
     toc: true
 ---
 
+**Note:** As of March 10, 2023, the source data no longer get updated. Therefore, this data pipeline is disabled.
+
 This is the [coronavirus](https://github.com/RamiKrispin/coronavirus) R package data pipeline.
 
 
