@@ -1,6 +1,6 @@
 Package: coronavirus
 Title: The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: c(person(given = "Rami", 
                     family ="Krispin", 
                     email = "rami.krispin@gmail.com",

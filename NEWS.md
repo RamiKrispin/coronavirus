@@ -1,9 +1,20 @@
+# coronavirus 0.4.1
+
+Major changes:
+
+- As of March 10, 2023, the source data no longer get updated, therefore:
+  - The package's datasets are up-to-date with the source and not going to get update beyond that date
+  - Retiring the `update_dataset` function and the package data pipelines
+
+
 # coronavirus 0.4.0
 
 Major changes:
+
 - Updating the `covid19_vaccine` dataset with the changes in the raw data
 
 Minor changes:
+
 - Updating the data pipeline:
   - Split the CSV file by year to reduce the files size
   - Convert the cases and vaccine data pipelines to quarto docs
