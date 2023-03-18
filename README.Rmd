@@ -23,17 +23,20 @@ library(coronavirus)
 [![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
 [![Data Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=main)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 [![GitHub commit](https://img.shields.io/github/last-commit/RamiKrispin/coronavirus)](https://github.com/RamiKrispin/coronavirus/commit/master)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/coronavirus)](https://cran.r-project.org/package=coronavirus)
 
 
 <!-- badges: end -->
 
-The coronavirus package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The raw data is being pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus [repository](https://github.com/CSSEGISandData/COVID-19). 
+The coronavirus package provides a tidy format for the COVID-19 dataset collected by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University. The dataset includes daily new and death cases between January 2020 and March 2023 and recovery cases until August 2022.
 
+ 
 More details available [here](https://RamiKrispin.github.io/coronavirus/), and a `csv` format of the package dataset available [here](https://github.com/RamiKrispin/coronavirus/tree/master/csv)
+
+Data source: https://github.com/CSSEGISandData/COVID-19
 
 <img src="man/figures/2019-nCoV-CDC-23312_without_background.png" width="65%" align="center"/></a>
 
@@ -41,8 +44,8 @@ More details available [here](https://RamiKrispin.github.io/coronavirus/), and a
 
 ## Important Notes
 
-* As this an ongoing situation, frequent changes in the data format may occur, please visit the package [changelog](https://ramikrispin.github.io/coronavirus/news/index.html) (e.g., News) and/or see pinned [issues](https://github.com/RamiKrispin/coronavirus/issues) to get updates about those changes
-* As of Auguest 4th JHU CCSE stopped track recovery cases, please see this [issue](https://github.com/RamiKrispin/coronavirus/issues/71) for more details
+* As of March 10th, 2023, JHU CCSE stopped collecting and tracking new cases
+* As of August 4th, 2022 JHU CCSE stopped track recovery cases, please see this [issue](https://github.com/RamiKrispin/coronavirus/issues/71) for more details
 * Negative values and/or anomalies may occurred in the data for the following reasons:
     * The calculation of the daily cases from the raw data which is in cumulative format is done by taking the daily difference. In some cases, some retro updates not tie to the day that they actually occurred such as removing false positive cases
     * Anomalies or error in the raw data
@@ -52,11 +55,10 @@ More details available [here](https://RamiKrispin.github.io/coronavirus/), and a
 
 ## Vignettes
 
-Additional documentation available on the followng vignettes:
+Additional documentation available on the following vignettes:
 
 * [Introduction to the Coronavirus Dataset](https://ramikrispin.github.io/coronavirus/articles/intro_coronavirus_dataset.html)
 * [Covid19R Project Data Format](https://ramikrispin.github.io/coronavirus/articles/covid19R.html)
-* [Update the coronavirus Dataset](https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html)
 * [Covid19 Vaccine Data](https://ramikrispin.github.io/coronavirus/articles/covid19_vaccine.html)
 * [Geospatial Visualization](https://ramikrispin.github.io/coronavirus/articles/geospatial_visualization.html)
 
@@ -117,24 +119,15 @@ The package provides the following two datasets:
     *   `continent_name` - Continent name
     *   `continent_code` - Continent code
 
-## Data refresh
+The `refresh_coronavirus_jhu` function enables to load of the data directly from the package repository using the [Covid19R](https://covid19r.github.io/documentation/) project [data standard format](https://covid19r.github.io/documentation/data-format-standard.html):
 
-While the **coronavirus** [CRAN version](https://cran.r-project.org/package=coronavirus) is updated every month or two, the [Github (Dev) version](https://github.com/RamiKrispin/coronavirus) is updated on a daily bases. The `update_dataset` function enables to overcome this gap and keep the installed version with the most recent data available on the Github version:
 
-``` r
-library(coronavirus)
-update_dataset()
-```
-
-**Note:** must restart the R session to have the updates available
-
-Alternatively, you can pull the data using the [Covid19R](https://covid19r.github.io/documentation/) project [data standard format](https://covid19r.github.io/documentation/data-format-standard.html) with the `refresh_coronavirus_jhu` function:
 
 ```{r}
 covid19_df <- refresh_coronavirus_jhu()
+
 head(covid19_df)
 ```
-
 
 
 ## Usage
