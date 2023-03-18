@@ -7,6 +7,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+**As of March 10th, 2023, the Johns Hopkins Coronavirus Resource Center ceased its collecting and reporting of global COVID-19 data. Therefore, the package's datasets are no longer get update beyond that date. Therefore, the `update_dataset` function is retired**
+
+
 While the CRAN version of the package is updated once every month or two, the Github (Dev) version is updating on a daily bases. The following options allow you to keep the data updated with the ones available on the Dev version:
 
 * Use the `update_dataset` function

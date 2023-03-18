@@ -21,7 +21,7 @@ library(JuliaConnectoR)
 ```
 
 
-The [coronavirus](https://github.com/RamiKrispin/coronavirus) R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. The data is refreshed on a daily basis and stored as an R data object. In addition, the data is available in a CSV format to enable none R users to pull and use it seamlessly.
+The [coronavirus](https://github.com/RamiKrispin/coronavirus) R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic and the vaccination efforts by country. In addition, the data is available in a CSV format to enable none R users to pull and use it seamlessly.
 
 The goal of this vignette is to demonstrate how to load the data into Julia. In the following example, we will load the `coronavirus` dataset, a tidy format of the John Hopkins COVID19 dataset, providing a daily summary of the COVID19 cases by type (confirmed, recovered, death), and by country.
 
